@@ -1,0 +1,45 @@
+/* http://soapdesigned.com
+*/
+
+* { margin:0; padding:0;}
+.floatleft { float:left; }
+.floatright { float:right; }
+img.alignleft,
+img.floatleft { float:left; margin:0 15px 15px 0; }
+img.alignright,
+img.floatright { float:right; margin:0 0 15px 15px; }
+.clear { clear:both; }
+
+body { font-family:Helvetica, Arial, sans-serif; color:; font-size:75%; background:#1F2F67 url(img/bg.jpg) repeat-x; }
+
+#wrap { width:980px; min-height:545px; height:auto !important; height:545px; padding:225px 0 0; margin:0 auto; background:url(img/wrap.jpg) no-repeat; position:relative; }
+#bevologo { width:353px; height:136px; text-indent:-9999px; background:url(img/bevologo.png) no-repeat; position:absolute; top:95px; left:50%; margin-left:-177px; }
+#loginform { width:522px; height:304px; margin:0 auto; background:url(img/loginform.png) no-repeat; position:relative; }
+
+#loginform form { width:522px; height:304px; padding:88px 0 0; position:absolute; top:0px; left:0px; background:url(img/loginformele.png) no-repeat; }
+#loginform form .formtitle { float:left; position:absolute; top:40px; left:45px; }
+#loginform form .msg { width:247px; height:29px; padding:13px 20px 5px 22px; background:url(img/msg.png) no-repeat; overflow:hidden; position:absolute; top:31px; left:125px; cursor:default; }
+#loginform form .msg p { color:#000; font-size:.9em; line-height:.9em; font-family:Arial, sans-serif; }
+
+#loginform form .row { width:440px; margin:0 0 10px 45px; clear:both; overflow:hidden; }
+#loginform form .row label { width:10px; height:10px; margin:0 0 5px; display:block; clear:both; text-indent:-9999px; outline:none; }
+#loginform form .row input.formtxt { width:415px; padding:9px; margin:0 0 13px; font-size:1.4em; font-family:Helvetica, Arial, sans-serif; color:#29abe2; border:none; background:url(img/empty.gif) no-repeat /*soap <3's IE*/; }
+#loginform form .row input.formtxt:focus { color:#1F2F67; }
+#loginform form .row input.formtxt#pwd { margin-bottom:7px; }
+#loginform form .row input.formsubmit { width:93px; height:29px; float:right; text-indent:-9999px; outline:none; cursor:pointer; border:none; font-size:0px; line-height:0px; background:url(img/button_login.png) no-repeat; }
+
+#loginform #badge_selfhosted { width:108px; height:111px; text-indent:-9999px; position:absolute; top:-10px; right:25px; background:url(img/badge_selfhosted.png) no-repeat;}
+
+.formtitle { height:32px; text-indent:-9999px; }
+.formtitle.login { width:74px; background:url(img/formtitle_login.png) no-repeat; }
+.formtitle.error { width:77px; background:url(img/formtitle_error.png) no-repeat; }
+
+.iconcross { width:34px; height:33px; background:url(img/icon_cross.png) no-repeat; position:absolute; left:50px; }
+.iconcross#iconcross_username { top:107px; }
+.iconcross#iconcross_pwd { top:186px; }
+
+
+
+
+
+

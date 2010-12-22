@@ -1,0 +1,52 @@
+#tabs #tabbar {
+/*	font-size: 90%; */
+	margin: 20px 0;
+	margin-bottom: 0px;
+	}
+#tabs #tabbar {
+	float: left;
+	padding-top: 4px;
+	}
+#tabs #tabbar li {
+	margin-left: 8px;
+	list-style: none;
+	}
+* html #tabs #tabbar li {
+	display: inline; /* ie6 double float margin bug */
+	}
+#tabs #tabbar li,
+#tabs #tabbar li a {
+	float: left;
+	}
+#tabs #tabbar li a {
+	text-decoration: none;
+	padding: 8px;
+	color: #0073BF;
+	font-weight: bold;
+	}
+#tabs #tabbar li:hover {
+	background-color: #EAF2FA;
+}
+#tabs #tabbar li.active {
+	background: #FFFFFF;
+	border: 1px solid #808080;
+	}
+#tabs #tabbar li.active a {
+	background: url(img/nav-left.gif) no-repeat left top;
+	color: #333333;
+	}
+#tabs div {
+	clear: both;
+	padding: 20px;
+/*	min-height: 400px; */
+	background: #FFFFFF;
+/*	border: 1px solid #808080; */
+	width: 95%;
+	}
+#tabs div h3 {
+	margin-bottom: 10px;
+	letter-spacing: 1px;
+	}
+#tabs div p {
+	line-height: 150%;
+	}

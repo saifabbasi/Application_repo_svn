@@ -1,0 +1,126 @@
+body, p, td, li {
+	font-family: Verdana, Sans-Serif;
+	font-size: 10pt;
+	color: #000000;
+}
+
+a {
+	color: #004080;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #000000;
+	text-decoration: underline;
+}
+
+input, select, textarea {
+	font-family: Verdana, Sans-Serif;
+	font-size: 10pt;
+}
+
+.TopMenu a {
+	font-size: 10pt;
+	font-weight: bold;
+}
+
+.Title {
+	font-size: 13pt;
+	font-weight: bold;
+	color: #000000;
+}
+
+.SubTitle {
+	font-size: 12pt;
+	font-weight: bold;
+	color: #000000;
+}
+
+.Tree {
+	font-size: 8pt;
+	text-transform: lowercase;
+}
+
+.ListingTable {
+	width: 100%;
+	border-spacing: 0px;
+}
+
+.ListingTable {
+	border: 1px solid #8FB0C0;
+}
+
+.ListingTable td {
+	padding: 2px;
+	height: 15px;	
+}
+
+.HeaderRow td {
+	background-color: #8FB0C0;
+	font-weight: bold
+}
+
+.AltRow td {
+	background-color: #F0F0F0;
+}
+
+.AltRow, .AltRow li {
+	background-color: #F0F0F0;	
+}
+
+.SelectedRow td {
+	background-color: #D0DADF;
+}
+
+.GreyedRow td, .GreyedRow a {
+	color: #808080;
+}
+
+.NewPost {
+	font-weight: bold;	
+}
+
+.FormTable {
+	border-collapse: collapse;
+}
+
+.FormTable td {
+	border: 1px solid #C0C0C0;
+}
+
+.FormLabel {
+	background-color: #F5F5F5;
+	font-weight: bold;
+}
+
+.GreyBox {
+
+	background-color: #F7F7F7;
+	border: 1px;
+	border-color: #808080;
+	border-style: solid;
+	padding: 5px;
+}
+
+.Help {
+	cursor: help;
+}
+
+.Error {
+	font-weight: bold;
+	color: #FF0000;
+
+}
+
+.Label {
+	font-weight: bold;
+}
+
+.Date {
+	color: #808080;
+	text-transform: lowercase;
+}
+
+label {
+	font-weight: bold;
+}
