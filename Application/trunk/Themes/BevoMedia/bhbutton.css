@@ -1,0 +1,27 @@
+/* http://soapdesigned.com
+*/
+
+#bhbutton { width:264px; height:98px; overflow:hidden; padding:0; margin:0; /*apply margin + float here to position this element in the header*/}
+#bhbutton ul#bhbutton_left { width:66px; height:78px; float:left; display:inline; padding:20px 0 0; margin:0; list-style:none; background:url(img/bhbutton_left.png) no-repeat right top; }
+#bhbutton #bhbutton_right { width:183px; height:64px; float:left; display:inline; padding:27px 5px 7px 10px; margin:0; background:url(img/bhbutton_right.png) no-repeat; overflow:hidden; }
+
+#bhbutton ul#bhbutton_left li { margin:0 0 1px; padding:0; }
+#bhbutton ul#bhbutton_left li a { width:66px; height:14px; display:block; text-indent:-9999px; outline:none; background-position:left top; }
+#bhbutton ul#bhbutton_left li a:hover { background-position:left bottom !important; }
+#bhbutton ul#bhbutton_left li.bhbutton_l_home a { background:url(img/bhbutton_l_home.png) no-repeat; }
+#bhbutton ul#bhbutton_left li.bhbutton_l_contact a { background:url(img/bhbutton_l_contact.png) no-repeat; }
+#bhbutton ul#bhbutton_left li.bhbutton_l_logout a { background:url(img/bhbutton_l_logout.png) no-repeat; }
+#bhbutton ul#bhbutton_left li.bhbutton_l_hosted a { height:27px; margin-top:4px; background:url(img/bhbutton_l_hosted.png) no-repeat; }
+
+#bhbutton #bhbutton_right .bhbutton_r_img { width:180px; height:47px; margin:0 0 5px; overflow:hidden; display:table; }
+#bhbutton #bhbutton_right .bhbutton_r_img a img { max-width:180px; width:auto !important; border:none; display:block; margin: 10px auto; }
+#bhbutton #bhbutton_right a.bhbutton_r_name { float:left; display:inline; font:11px normal Helvetica, Arial, sans-serif; color:#fff; text-decoration:none; }
+#bhbutton #bhbutton_right a.bhbutton_r_name:hover { color:#0ff; }
+#bhbutton #bhbutton_right a.bhbutton_r_visit { width:40px; height:14px; float:right; display:block; text-indent:-9999px; outline:none; background:url(img/bhbutton_r_visit.png) no-repeat; }
+
+
+
+
+
+
+

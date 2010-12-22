@@ -1,0 +1,50 @@
+.ParentUserIndexPage, .ParentUserIndexPage2 { width: 280px; height: 215px}
+.ParentUserIndexPage2 { float: right}
+.JQueryChartDisplay { margin-left:20px; width:600px; text-align:left; font-size: 100%; font-family: Verdana, sans-serif; margin:20px; padding-top: 10px; padding-left:25px;}
+.JQueryChartDisplay.UserIndexPage { text-align:left; font-size: 100%; font-family: Verdana, sans-serif; margin:20px; padding-top: 10px; padding-left:20px; }
+.JQueryChartDisplay.UserIndexPage2 { width:auto;float:right; text-align:left; font-size: 100%; font-family: Verdana, sans-serif; margin:20px; padding-top: 10px; padding-left:20px;}
+
+/*demo styles*/
+.JQueryChartData {width: 545px; height: 200px; border-collapse: collapse; margin-left: 30px; font-size: 1em;}
+.JQueryChartData.UserIndexPage {width: 250px; height: 170px; border-collapse: collapse; font-size: 1em;}
+.JQueryChartData.UserIndexPage2 {width: 250px; height: 170px; border-collapse: collapse; font-size: 1em;}
+
+.JQueryChartData .accessHide { position: absolute; left: -999999px; }
+.JQueryChartData td, .JQueryChartData th {
+   text-align: center;
+   border: 1px solid #ddd;
+   padding:2px 5px;
+    font-size: 1.2em; padding: 2px; width: 13%;
+   }
+.JQueryChartData th { background-color:#f4f4f4; }
+.JQueryChartData td.hover { color: orange; }
+.JQueryChartData td.input { padding: 0; }
+.JQueryChartData td input, .JQueryChartData td input:focus { border: 1px solid orange; outline: none; padding: 2px; margin: 1px; width: 20px; }
+.JQueryChartData caption {margin: 0 0 .5em; font-size: 1.5em; font-weight: bold; }
+.JQueryChartData .visualize { margin: 60px 0 0 30px; }
+
+.JQueryChartData .editableNote { background: #FEFBE2; border: 1px solid #8CC264; padding: 10px; margin: 1.5em 0; font-size: 1.2em; }
+
+/*sample alternate styling for info block on Pie Chart */
+.JQueryChartData .visualize-pie .visualize-info { top: 10px; border: 0; right: auto; left: 10px; padding: 0; background: none; }
+.JQueryChartData .visualize-pie ul.visualize-title { font-weight: bold; border: 0; }
+.JQueryChartData .visualize-pie ul.visualize-key li { float: none; }
+
+
+
+/*option configurator thingy*/
+.JQueryChartData .chartConfiguratorThingy { border: 1px solid #ddd; padding: 10px; overflow: auto; display: none; }
+.JQueryChartData .chartConfiguratorThingy h2 { font-size: 1.4em; color: #666; }
+.JQueryChartData fieldset { margin: 5px 5px 5px 0; width: 45%; float: left; }
+.JQueryChartData legend { font-size: 1.2em; }
+.JQueryChartData .dependencies { padding: 15px; }
+.JQueryChartData label { width: 90px; display: inline-block; }
+
+.JQueryChartDisplay.UserIndexPage .visualize .visualize-info,
+.JQueryChartDisplay.UserIndexPage2 .visualize .visualize-info {
+        font-size: 10px;
+        top: 200px !important;
+        left: auto!important;
+        bottom: auto !important;
+        right: auto !important;
+        }
