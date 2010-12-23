@@ -736,5 +736,16 @@ h2.imagetitle.interested { width:147px; height:22px; background:url(img/imagetit
 				#appstore .item .add2cart .cartaction h3 { color:#fff; padding:7px 0 0; margin:0 0 -12px; }
 				#appstore .item .add2cart .cartaction p { color:#DBDBDB; margin:13px 0 0; }
 				
+/*nameyourpayout*/
+.nyp h3 { color:#808080; }
+.nyp p { margin:10px 0 !important; color:#999; font-size:1em; line-height:1.2em; }
+.nyp .box3 p { height:80px; margin:0 !important; }
+.nyp label span { width:85px !important; padding-top:7px; }
+.nyp input.formtxt { width:190px; }
+.nyp input.formtxt.wide_number { margin-left:5px; }
+.nyp input.formsubmit { }
+.nyp select.formselect { width:202px; }
+
+.nyp .working { display:none; }
 
 
