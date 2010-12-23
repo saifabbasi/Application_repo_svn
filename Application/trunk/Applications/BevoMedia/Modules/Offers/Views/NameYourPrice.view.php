@@ -10,7 +10,7 @@
 
 <div class="pagecontent nyp">
 	<form class="appform" method="post" id="nypform">
-	
+		<input type="hidden" name="SubmitAjax" value="1" />
 		<div class="box box3">
 			<h3>1. Offer</h3>
 			<p>Select the niche for which you'd like Bevo to find the best payout. <em>Optional: If you have your eyes on a specific offer, you can enter that too. You can also specify the desired traffic source for more accurate results.</em></p>
@@ -96,7 +96,7 @@
 	</div>
 </div><!--close pagecontent-->
 
-<script type="text/javascript">/*
+<script type="text/javascript">
 $(document).ready(function() {
 	var payoutfound = false;
 	
@@ -118,13 +118,8 @@ $(document).ready(function() {
 			else {
 				$(this).slideUp(200);
 				$('.nyp .working').slideDown(200, function() {
-					data = $(this).serialize();
-					$.ajax({
-						type: 'POST',
-						data: data,
-						url: 'NameYourPriceGetResult.html',
-						success: soap_nypDisplayResults
-					});
+					data = $('#nypform').serialize();
+					$.post('/BevoMedia/Offers/NameYourPriceResult.html', data, soap_nypDisplayResults);
 				});
 			}
 			return false;
@@ -132,8 +127,10 @@ $(document).ready(function() {
 	});
 	
 	function soap_nypDisplayResults(r) {
-		payoutfound = true;
-		$('#nypform').submit();
+		r = eval('('+r+')');
+		
+		window.location = '/BevoMedia/Offers/NameYourPriceResult.html?ID='+r.ID;
+		
 	}
-});*/
+});
 </script>
