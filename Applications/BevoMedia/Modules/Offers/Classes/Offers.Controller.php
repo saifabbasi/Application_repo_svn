@@ -40,7 +40,24 @@
 		
 		Public Function NameYourPrice()
 		{
-			if (isset($_POST['Submit'])) {
+			
+			
+			$Sql = "SELECT
+						bevomedia_name_your_price_niche.*
+					FROM
+						bevomedia_name_your_price_niche
+					ORDER BY
+						bevomedia_name_your_price_niche.Name			
+					";
+			$this->Niches = $this->db->fetchAll($Sql);
+			
+		}
+		
+		Public Function NameYourPriceResult()
+		{
+			if (isset($_POST['SubmitAjax'])) {
+				
+				sleep(4);
 				
 				$Sql = "SELECT
 							bevomedia_name_your_price.NetworkID,
@@ -132,26 +149,15 @@
 				
 				$Headers  = 'MIME-Version: 1.0' . "\r\n";
 				$Headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-				mail('payoutbid@bevomedia.com', 'Payout Bid', $Body, $Headers);
+//				mail('payoutbid@bevomedia.com', 'Payout Bid', $Body, $Headers);
 				
-				
-				header('Location: /BevoMedia/Offers/NameYourPriceResult.html?ID='.$NetworkID);				
+				$array = array('ID' => $NetworkID);
+				echo json_encode($array);
+//				header('Location: /BevoMedia/Offers/NameYourPriceResult.html?ID='.$NetworkID);				
 				die;
 			}
 			
-			$Sql = "SELECT
-						bevomedia_name_your_price_niche.*
-					FROM
-						bevomedia_name_your_price_niche
-					ORDER BY
-						bevomedia_name_your_price_niche.Name			
-					";
-			$this->Niches = $this->db->fetchAll($Sql);
 			
-		}
-		
-		Public Function NameYourPriceResult()
-		{
 			$Sql = "SELECT
 						NetworkName,
 						AffNetworkID
