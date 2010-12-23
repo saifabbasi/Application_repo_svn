@@ -123,13 +123,15 @@ abstract class ClickBankAbstract Extends NetworksAbstract {
 			'CURLOPT_REFERER' => '',
 			'CURLOPT_HTTPGET' => 1);
 		$CSV = $this->curlIt($this->csvUrl, $arrParams);
-			echo '<pre>'; print_r($CSV); die;	
-		@unlink(sys_get_temp_dir()+'/clickbankstats.csv');
-		$Handle = fopen(sys_get_temp_dir().'/clickbankstats.csv', 'w');
+			
+		$fileName = '/clickbankstats'.time().'.csv';
+		
+		@unlink(sys_get_temp_dir()+$fileName);
+		$Handle = fopen(sys_get_temp_dir().$fileName, 'w');
 		fwrite($Handle, $CSV);
 		fclose($Handle);
 		
-		$Handle = fopen(sys_get_temp_dir().'/clickbankstats.csv', 'r');
+		$Handle = fopen(sys_get_temp_dir().$fileName, 'r');
 		
 		$TotalClicks = 0;
 		$TotalPayout = 0;
@@ -147,14 +149,14 @@ abstract class ClickBankAbstract Extends NetworksAbstract {
 			
 			$SubID = $Arr[0];
 			$Clicks = $Arr[1];
-			$Payout = $Arr[11];
+			$Payout = $Arr[16];
 			$Conversions = $Arr[8];
 			
 			$TempStat = new Stat($Clicks, $Conversions, $Payout, $SubID);
 			$Output->addStatObject($TempStat);
 		}
 		fclose($Handle);
-		@unlink(sys_get_temp_dir()+'/clickbankstats.csv');
+		@unlink(sys_get_temp_dir()+$fileName);
 		return $Output;
 	}
 	
