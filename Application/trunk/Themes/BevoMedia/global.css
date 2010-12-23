@@ -76,6 +76,7 @@ ul.soapnumlist { list-style:none; margin:0 0 15px; padding:0; }
 
 	/*icons*/
 .icon.icon_paymentcc { width:74px; height:22px; background:url(img_new/icon_paymentcc.png) no-repeat; }
+.icon.icon_working_48 { width:48px; height:48px; background:url(img_new/icon_working_48.gif) no-repeat; }
 
 	/*text buttons*/
 a.tbtn, input.formsubmit.tbtn { padding:3px 5px; margin:0 5px 0 0; background:#f2f2f2; text-decoration:none; font-size:.9em; border:1px solid #ccc; border-right:1px solid #999; border-bottom:1px solid #999; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; box-shadow:#e6e6e6 1px 1px 2px; -moz-box-shadow:#e6e6e6 1px 1px 2px; -webkit-box-shadow:#e6e6e6 1px 1px 2px; }
@@ -254,6 +255,7 @@ input.formsubmit.off_search { width:131px; height:24px; background:url(img/btn_o
 input.formsubmit.off_stats { width:52px; height:24px; float:left; margin:0 -6px 5px 8px; background:url(img/btn_off_stats.png) no-repeat; }
 input.formsubmit.off_offers { width:65px; height:24px; float:left; margin:0; background:url(img/btn_off_offers.png) no-repeat; }
 input.formsubmit.off_codes { width:65px; height:24px; float:left; margin:0; background:url(img/btn_off_codes.png) no-repeat; }
+input.formsubmit.btn_off_submit { width:131px; height:24px; background:url(img_new/btn_off_submit.png) no-repeat; }
 
 	/*ppv*/
 input.formsubmit.ppv_go { width:78px; height:24px; background:url(img/btn_ppv_go.png) no-repeat; }
@@ -361,8 +363,8 @@ input.formsubmit { display:block; text-indent:-9999px; outline:none; border:none
 	input.formtxt.wide_number { width:100px; }
 	input.formtxt.wide_half { width:150px; }
 	
-	input.formtxt.wide_200 { width:200px !important; }
-	input.formtxt.wide_80 { width:80px !important; }
+	input.formtxt.wide_200 { width:200px !important; }	
+	input.formtxt.wide_80 { width:80px !important; }	
 	
 	textarea.hugetxtarea { width:700px; height:300px !important; margin-bottom:10px; }
 	
@@ -487,7 +489,8 @@ input.formsubmit { display:block; text-indent:-9999px; outline:none; border:none
                 
                 /*ppvresearchform*/
                 .ppvresearchform .box.checkoptions { width:200px; padding:0; margin:0 0 0 10px; border:none; }
-
+                
+               
 	/*box*/
 .box { padding:0 10px 15px; margin:0 15px 15px 0; float:left; border-right:1px solid #ccc; }
 .box.nomargin { margin:0; border:none; }
@@ -535,6 +538,8 @@ input.formsubmit { display:block; text-indent:-9999px; outline:none; border:none
 	
 	/*text+images*/
 .txtdred { color:#C1272D !important; }
+.aligncenter { text-align:center !important; }
+.aligncenter > * { margin:0 auto !important; }
 
 img.nwpic { width:230px; }
 img.nwpic.medium { width:190px; }
