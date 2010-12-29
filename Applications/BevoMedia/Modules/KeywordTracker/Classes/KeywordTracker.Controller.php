@@ -1075,13 +1075,94 @@
 		  }
 		  $sDate = strtotime(date('Y-m-d', strtotime(v('startDate', 'today'))) . ' 00:00:00');
 		  $eDate = strtotime(date('Y-m-d', strtotime(v('endDate', 'today'))) . ' 23:59:59');
+		  
+		  
+		  
 		  $where = "clickTime >= $sDate and clickTime < $eDate";
+		  $whereTABLE = "(bevomedia_tracker_clicks.clickTime >= $sDate) AND (bevomedia_tracker_clicks.clickTime < $eDate)";
 		  $search = v('search', false);
 		  $userId = $this->User->id;
 		  $order = v('o', 'clicktime');
 		  $orderDir = v('o_dir', 'desc');
 		  $lStart = v('start', 0);
 		  $lEnd = v('end', 250);
+		  
+		  $Sql = "SELECT
+		  				*
+		  			FROM
+		  				bevomedia_tracker_clicks
+	  				WHERE
+	  					(bevomedia_tracker_clicks.user__id = ?) AND
+	  					{$whereTABLE}
+  					GROUP BY 
+						bevomedia_tracker_clicks.subId				
+					ORDER BY $order $orderDir
+						  
+					LIMIT $lStart, $lEnd
+		  		";
+  		  $Clicks = $this->db->fetchAll($Sql, $userId);
+  		  
+  		  foreach ($Clicks as $Click) {
+  		  		
+  		  		$Click->at = date('Y-m-d H:i:s', $Click->clickTime);
+  		  	
+  		  		$Sql = "SELECT ipAddress FROM bevomedia_tracker_ips WHERE id = ?";
+  		  		$ip = $this->db->fetchRow($Sql, $Click->ipId);
+  		  		$Click->ipAddress = @$ip->ipAddress;
+  		  		
+  		  		$Sql = "SELECT landingPageUrl FROM bevomedia_tracker_landing_pages WHERE id = ?";
+  		  		$landingPage = $this->db->fetchRow($Sql, $Click->landingPageId);
+  		  		$Click->lp = @$landingPage->landingPageUrl;
+  		  	
+  		  		$Sql = "SELECT title, adGroupId FROM bevomedia_ppc_advariations WHERE apiAdId = ? ";
+  		  		$adVar = $this->db->fetchRow($Sql, $Click->creativeId);
+  		  		$Click->creativeTitle = @$adVar->title;
+  		  		
+  		  		
+  		  		$Sql = "SELECT name, campaignId FROM bevomedia_ppc_adgroups WHERE id = ? ";
+  		  		$adGroup = $this->db->fetchRow($Sql, $adVar->adGroupId);
+  		  		$Click->adgroupName = @$adGroup->name;
+  		  		
+  		  		
+  		  		$Sql = "SELECT name FROM bevomedia_ppc_campaigns WHERE id = ?";
+  		  		$adCampaign = $this->db->fetchRow($Sql, $adGroup->campaignId);
+  		  		$Click->campaignName = @$adCampaign->name;
+  		  		
+  		  		
+  		  		$Sql = "SELECT keyword FROM bevomedia_keyword_tracker_keywords WHERE id = ?";
+  		  		$bidKeyword = $this->db->fetchRow($Sql, $Click->bidKeywordId);
+  		  		$Click->bidKeyword = @$bidKeyword->keyword;
+  		  		
+  		  		
+  		  		$Sql = "SELECT keyword FROM bevomedia_keyword_tracker_keywords WHERE id = ?";
+  		  		$rawKeyword = $this->db->fetchRow($Sql, $Click->rawKeywordId);
+  		  		$Click->rawKeyword = @$rawKeyword->keyword;
+  		  		
+  		  		
+  		  		$Sql = "SELECT data FROM bevomedia_tracker_clicks_optional WHERE clickId = ? ";
+  		  		$optional = $this->db->fetchRow($Sql, $Click->subId);
+  		  		$Click->optional = @$optional->data;
+  		  		
+  		  		
+  		  		$Click->conv = $Click->clickThrough;
+  		  }
+  		  
+  		  
+  		  
+  		  $Sql = "SELECT
+		  				COUNT(*) as `Total`
+		  			FROM
+		  				bevomedia_tracker_clicks
+	  				WHERE
+	  					(bevomedia_tracker_clicks.user__id = ?) AND
+	  					{$whereTABLE}
+  					
+		  		";
+  		  $ClicksTotal = $this->db->fetchRow($Sql, $userId);
+  		  
+  		  
+  		  $arr = array('results' => $Clicks, 'passback' => @$_GET['passback'], 'count' => $ClicksTotal->Total );
+		  die(json_encode($arr));
 		  
 		  $q = "SELECT `click`.`user__id` AS `user__id`,
 				       `click`.`subId` AS `subId`,
