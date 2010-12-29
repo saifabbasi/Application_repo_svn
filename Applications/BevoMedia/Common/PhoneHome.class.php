@@ -43,8 +43,8 @@ class PhoneHome {
 	public function __construct()
 	{
 	    //Development setting
-	    if($_SERVER['HTTP_HOST'] == 'bsh')
-	        $this->_host = 'http://bevolocal/';
+	    if($_SERVER['HTTP_HOST'] == 'selfhosttrunk.bevomedia')
+	        $this->_host = 'http://bevomedia/';
 	    /* If selfhost_nophonehome is true, QUIT! Bevo selfhost will never phone home */
         try {
             if(Zend_Registry::get('Application/NoPhoneHome') == '1')
@@ -101,6 +101,7 @@ class PhoneHome {
 				$this->latestBeta = intval($vars->latestBeta);
 				$this->totalApiCalls = intval(@$vars->totalApiCalls);
 				$this->ppcSignedUp = intval(@$var->ppcSignedUp);
+				$this->ppvSignedUp = intval(@$var->ppvSignedUp);
 	    	} catch (Exception $e) {
 	    	    return false;
 	    	}

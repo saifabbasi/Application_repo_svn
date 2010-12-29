@@ -174,7 +174,7 @@ if(isset($_POST['init']))
   } 
   {
 	  $landingPageUrlArray = parse_url($landingPage);
-	  $landingPage = $landingPageUrlArray['scheme'].'://'.$landingPageUrlArray['host'];
+	  $landingPage = @$landingPageUrlArray['scheme'].'://'.@$landingPageUrlArray['host'];
 	  if (isset($landingPageUrlArray['path']))
 	  {
 			$landingPage .= $landingPageUrlArray['path']; 

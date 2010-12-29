@@ -28,7 +28,7 @@ p.descript {float: right; width: 60%;}
 			<input class="formtxt wide_200" type='text' name='link[]' autocomplete="off" />
 		</div>
 		<div class='colS'>
-			<input class="formtxt wide_80" type='text' value='1' onkeydown='javascript: updatePcts();' onkeyup='javascript: updatePcts();' name='ratio[]' autocomplete="off"/>
+			<input class="formtxt wide_80" type='text' value='1' onkeydown='javascript: updatePercents();' onkeyup='javascript: updatePercents();' name='ratio[]' autocomplete="off"/>
 		</div>
 		<div class='colN'>
 			<input class="formtxt wide_80 disabled" type='text' name='pct[]' disabled='disabled' value='100%'/>
@@ -69,18 +69,20 @@ p.descript {float: right; width: 60%;}
 			
 			<div id='offer-link-container'>
 				<?php foreach($this->OfferGroup->Offers as $Offer):?>
-					<div class="sepa"></div>
-					<div class='colN'>
-						<input class="formtxt wide_200" type='text' name='link[]' value='<?php print $Offer->link; ?>' autocomplete="off" />
-					</div>
-					<div class='colS'>
-						<input class="formtxt wide_80" type='text' value='<?php print $Offer->ratio; ?>' onkeydown='javascript: updatePcts();' onkeyup='javascript: updatePcts();' name='ratio[]' autocomplete="off" />
-					</div>
-					<div class='colN'>
-						<input class="formtxt wide_80 disabled" type='text' name='pct[]' disabled='disabled' value='100%'/>
-					</div>
-					<div>
-						<input class="formsubmit tbtn small" type="submit" onclick="removeLink(this); return false;" name='delete[]' value="Delete" />
+					<div id="Offer_<?php echo $Offer->id?>" class="offerRow">
+						<div class="sepa"></div>
+						<div class='colN'>
+							<input class="formtxt wide_200" type='text' offerId="<?php echo $Offer->id?>" name='link[]' value='<?php print $Offer->link; ?>' autocomplete="off" />
+						</div>
+						<div class='colS'>
+							<input class="formtxt wide_80 offerRadio" type='text' offerId="<?php echo $Offer->id?>" id="ratio_<?php echo $Offer->id?>" value='<?php print $Offer->ratio; ?>' onkeydown='javascript: updatePercents();' onkeyup='javascript: updatePercents();' name='ratio[]' autocomplete="off" />
+						</div>
+						<div class='colN'>
+							<input class="formtxt wide_80 disabled offerPercent" type='text' offerId="<?php echo $Offer->id?>" id="percent_<?php echo $Offer->id?>" name='pct[]' disabled='disabled' value='100%'/>
+						</div>
+						<div>
+							<input class="formsubmit tbtn small delete" type="submit" offerId="<?php echo $Offer->id?>" id="delete_<?php echo $Offer->id?>" name='delete[]' value="Delete" />
+						</div>
 					</div>
 				<?php endforeach?>
 			</div>
@@ -88,56 +90,84 @@ p.descript {float: right; width: 60%;}
 				
 		</div><!--close box-->
 		<div class="box boxfull bordertop">
-			<input class="formsubmit track_addlink floatleft" type="submit" onclick="addLink(); return false;" value="Add Link" />
+			<input class="formsubmit track_addlink floatleft" type="submit" onclick="addItem(); return false;" value="Add Link" />
 			<input class="formsubmit track_submit floatright" type='submit' name="edit" />
 			<div class="clear"></div>
 		</div>
 	</form>
 </div>
 
-<script language='javascript'>
-function removeLink(s)
-{
-	var r = s.parentNode.parentNode;
-	r.parentNode.removeChild(r);
-}
-function addLink()
-{
-	var s = document.getElementById('offer-link-clone');
-	var c = document.getElementById('offer-link-container');
-	var add = document.createElement('div');
-	add.innerHTML = s.innerHTML;
-	c.appendChild(add);
-	updatePcts();
-}
+<script type="text/javascript">
 
-function updatePcts()
-{
-	var s = document.forms[0];
-	var total = 0;
-	for(var i in s["ratio[]"])
-	{
-		var itm = s["ratio[]"][i];
-		if(itm.name !== "ratio[]")
-			continue;
+	function updatePercents() {
 
-		var val = itm.value;
-		if(val == '')
-			val = 0;	
+		var totalRadios = 0;
 		
-		total += parseInt(val);
+		$('.offerRadio').each(function(key, item) {
+			totalRadios += parseInt(item.value);
+		});
+
+		
+		$('.offerPercent').each(function(key, item) {
+			var item = $('#'+item.id);
+			var offerRatio = $('#ratio_'+item.attr('offerId'));
+
+			item.val(Math.round((offerRatio.val() / totalRadios)*100) + "%");
+		});
 	}
 
-	for(var i in s["ratio[]"])
-	{
-		var itm = s["ratio[]"][i];
-		if(itm.name !== "ratio[]")
-			continue;
+	function addItem() {
 
-		s["pct[]"][i].value = Math.round((itm.value / total)*100) + "%";
+		var totalRows = $('.offerRow').length;
+
+		var offerRowNum = (totalRows+1);
+		var offerRowId = 'Offer_'+(totalRows+1);
+		$('#offer-link-container').append('<div id="'+offerRowId+'" class="offerRow"></div>');
+
+		var offerRow = $('#'+offerRowId);
+		offerRow.append('<div class="sepa"></div>');
+
+		var linkDiv = $(document.createElement('div')).addClass('colN');
+		offerRow.append(linkDiv);
+		linkDiv.append("<input class='formtxt wide_200' type='text' offerId='"+offerRowNum+"' name='link[]' value='' autocomplete=\"off\" />");
+
+
+		var ratioDiv = $(document.createElement('div')).addClass('colS');
+		offerRow.append(ratioDiv);
+		ratioDiv.append("<input class=\"formtxt wide_80 offerRadio\" type='text' offerId=\""+offerRowNum+"\" id=\"ratio_"+offerRowNum+"\" value='1' onkeydown='javascript: updatePercents();' onkeyup='javascript: updatePercents();' name='ratio[]' autocomplete=\"off\" />");
+
+
+		var percentageDiv = $(document.createElement('div')).addClass('colN');
+		offerRow.append(percentageDiv);
+		percentageDiv.append("<input id=\"percent_"+offerRowNum+"\" class=\"formtxt wide_80 disabled offerPercent\" type='text' name='pct[]' disabled='disabled' value='100%' offerId='"+offerRowNum+"'/>");
+
+
+		var deleteDiv = $(document.createElement('div'));
+		offerRow.append(deleteDiv);
+		deleteDiv.append("<input class=\"formsubmit tbtn small delete\" type=\"submit\" offerId=\""+offerRowNum+"\" id=\"delete_"+offerRowNum+"\" name='delete[]' value=\"Delete\" />");
+		
+		updatePercents();
+
+		$('.delete').click(function() {
+			$('#Offer_'+$(this).attr('offerId')).remove();
+			updatePercents();
+			return false;
+		});
+		
+
+		return false;
 	}
-}
 
-updatePcts();
+	$(document).ready(function() {
 
+		$('.delete').click(function() {
+			$('#Offer_'+$(this).attr('offerId')).remove();
+			updatePercents();
+			return false;
+		});
+
+		updatePercents();
+
+	});
 </script>
+

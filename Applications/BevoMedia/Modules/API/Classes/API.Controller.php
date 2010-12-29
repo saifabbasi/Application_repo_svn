@@ -20,7 +20,7 @@ Class APIController extends ClassComponent
 		$login = $loginAttempt || $md5loginAttempt;
     	$latestFinal = intval($this->_db->fetchOne("select id from bevomedia_selfhost_version where public=1 order by id desc limit 1"));
     	$latestBeta = intval($this->_db->fetchOne("select id from bevomedia_selfhost_version order by id desc limit 1"));
-
+    	
 		$versions = array(
 						'latestVersion' => 236, /*
 							This is the old value that selfhost copies checked for a new version
@@ -63,6 +63,7 @@ Class APIController extends ClassComponent
     	                  'lastNetworkUpdate' => $User->lastNetworkUpdate,
 						  'lastPPCUpdate' => $User->lastPPCUpdate,
     	    			  'ppcSignedUp' => ($User->IsSubscribed(User::PRODUCT_FREE_PPC) || $User->IsSubscribed(User::PRODUCT_PPC_YEARLY_CHARGE)),
+    	    			  'ppvSignedUp' => $User->IsSubscribed(User::PRODUCT_PPVSPY_MONTHLY) || $User->IsSubscribed(User::PRODUCT_PPVSPY_YEARLY),
     	    			 );
     	    print json_encode(array_merge($arr, $versions));
     	    exit;
@@ -90,7 +91,7 @@ Class APIController extends ClassComponent
 	  $user = mysql_fetch_assoc($finduserId);
 	  $userId = @$user['id'];
 	  $lastVersion = (int)$_GET['since'];
-	  foreach(glob(ABSPATH.'../sql/selfhost/[0-9]*-*.sql') as $file)
+	  foreach(glob('/var/www/bevomedia/SQL/trunk/SelfHosted/[0-9]*-*.sql') as $file)
 	  {
 		$p = explode('-', $file);
 		$n = explode('/', $p[0]);
