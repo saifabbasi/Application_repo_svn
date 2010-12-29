@@ -83,7 +83,7 @@ $endDate = strtotime($enDate);
 while ($startDate<=$endDate) {
 	$date = date('Y-m-d', $startDate);
 	if (!isset($preData[$date])) {
-		$preData[$date] = array('date' => $date, cost => 0);
+		$preData[$date] = array('date' => $date, 'cost' => 0);
 	}
 	
 	$startDate = strtotime('+1 day', $startDate);

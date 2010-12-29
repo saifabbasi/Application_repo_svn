@@ -69,75 +69,153 @@ p.descript {float: right; width: 60%;}
 			
 			<div id='landing-page-link-container'>
 				<?php foreach($this->LandingPageGroup->LandingPages as $LandingPage):?>
+				<div id="LandingPage_<?php echo $LandingPage->id?>" class="landingPageRow">
 					<div class="sepa"></div>
 					<div class='colN'>
-						<input class="formtxt wide_200" type='text' name='link[]' value='<?php print $LandingPage->link; ?>' autocomplete="off" />
+						<input class="formtxt wide_200" type='text' landingPageId="<?php echo $LandingPage->id?>" name='link[]' value='<?php print $LandingPage->link; ?>' autocomplete="off" />
 					</div>
 					<div class='colS'>
-						<input class="formtxt wide_80" type='text' value='<?php print $LandingPage->ratio; ?>' onkeydown='javascript: updatePcts();' onkeyup='javascript: updatePcts();' name='ratio[]' autocomplete="off" />
+						<input class="formtxt wide_80 landingPageRadio" type='text' landingPageId="<?php echo $LandingPage->id?>" id="ratio_<?php echo $LandingPage->id?>" value='<?php print $LandingPage->ratio; ?>' onkeydown='javascript: updatePercents();' onkeyup='javascript: updatePercents();' name='ratio[]' autocomplete="off" />
 					</div>
 					<div class='colN'>
-						<input class="formtxt wide_80 disabled" type='text' name='pct[]' disabled='disabled' value='100%'/>
+						<input class="formtxt wide_80 disabled landingPagePercent" type='text' landingPageId="<?php echo $LandingPage->id?>" id="percent_<?php echo $LandingPage->id?>" name='pct[]' disabled='disabled' value='100%'/>
 					</div>
 					<div>
-						<input class="formsubmit tbtn small" type="submit" onclick="removeLink(this); return false;" name='delete[]' value="Delete" />
+						<input class="formsubmit tbtn small delete" type="submit" landingPageId="<?php echo $LandingPage->id?>" id="delete_<?php echo $LandingPage->id?>" name='delete[]' value="Delete" />
 					</div>
+				</div>
 				<?php endforeach?>
 			</div>
 			<div class="clear"></div>
 				
 		</div><!--close box-->
 		<div class="box boxfull bordertop">
-			<input class="formsubmit track_addlink floatleft" type="submit" onclick="addLink(); return false;" value="Add Link" />
+			<input class="formsubmit track_addlink floatleft" type="submit" onclick="addItem(); return false;" value="Add Link" />
 			<input class="formsubmit track_submit floatright" type='submit' name="edit" />
 			<div class="clear"></div>
 		</div>
 	</form>
 </div>
 
-<script language='javascript'>
-function removeLink(s)
-{
-	var r = s.parentNode.parentNode;
-	r.parentNode.removeChild(r);
-}
-function addLink()
-{
-	var s = document.getElementById('landing-page-link-clone');
-	var c = document.getElementById('landing-page-link-container');
-	var add = document.createElement('div');
-	add.innerHTML = s.innerHTML;
-	c.appendChild(add);
-	updatePcts();
-}
+<script type="text/javascript">
 
-function updatePcts()
-{
-	var s = document.forms[0];
-	var total = 0;
-	for(var i in s["ratio[]"])
-	{
-		var itm = s["ratio[]"][i];
-		if(itm.name !== "ratio[]")
-			continue;
+	function updatePercents() {
 
-		var val = itm.value;
-		if(val == '')
-			val = 0;	
+		var totalRadios = 0;
 		
-		total += parseInt(val);
+		$('.landingPageRadio').each(function(key, item) {
+			totalRadios += parseInt(item.value);
+		});
+
+		
+		$('.landingPagePercent').each(function(key, item) { 
+			var item = $('#'+item.id);
+			var landingPageRatio = $('#ratio_'+item.attr('landingPageId'));
+
+			item.val(Math.round((landingPageRatio.val() / totalRadios)*100) + "%");
+		});
 	}
 
-	for(var i in s["ratio[]"])
-	{
-		var itm = s["ratio[]"][i];
-		if(itm.name !== "ratio[]")
-			continue;
+	function addItem() {
 
-		s["pct[]"][i].value = Math.round((itm.value / total)*100) + "%";
+		var totalRows = $('.landingPageRow').length;
+
+		var landingPageRowNum = (totalRows+1);
+		var landingPageRowId = 'LandingPage_'+(totalRows+1);
+		$('#landing-page-link-container').append('<div id="'+landingPageRowId+'" class="landingPageRow"></div>');
+
+		var landingPageRow = $('#'+landingPageRowId);
+		landingPageRow.append('<div class="sepa"></div>');
+
+		var linkDiv = $(document.createElement('div')).addClass('colN');
+		landingPageRow.append(linkDiv);
+		linkDiv.append("<input class='formtxt wide_200' type='text' landingPageId='"+landingPageRowNum+"' name='link[]' value='' autocomplete=\"off\" />");
+
+
+		var ratioDiv = $(document.createElement('div')).addClass('colS');
+		landingPageRow.append(ratioDiv);
+		ratioDiv.append("<input class=\"formtxt wide_80 landingPageRadio\" type='text' landingPageId=\""+landingPageRowNum+"\" id=\"ratio_"+landingPageRowNum+"\" value='1' onkeydown='javascript: updatePercents();' onkeyup='javascript: updatePercents();' name='ratio[]' autocomplete=\"off\" />");
+
+
+		var percentageDiv = $(document.createElement('div')).addClass('colN');
+		landingPageRow.append(percentageDiv);
+		percentageDiv.append("<input id=\"percent_"+landingPageRowNum+"\" class=\"formtxt wide_80 disabled landingPagePercent\" type='text' name='pct[]' disabled='disabled' value='100%' landingPageId='"+landingPageRowNum+"'/>");
+
+
+		var deleteDiv = $(document.createElement('div'));
+		landingPageRow.append(deleteDiv);
+		deleteDiv.append("<input class=\"formsubmit tbtn small delete\" type=\"submit\" landingPageId=\""+landingPageRowNum+"\" id=\"delete_"+landingPageRowNum+"\" name='delete[]' value=\"Delete\" />");
+		
+		updatePercents();
+
+		$('.delete').click(function() {
+			$('#LandingPage_'+$(this).attr('landingPageId')).remove();
+			updatePercents();
+			return false;
+		});
+		
+
+		return false;
 	}
-}
 
-updatePcts();
+	$(document).ready(function() {
+
+		$('.delete').click(function() {
+			$('#LandingPage_'+$(this).attr('landingPageId')).remove();
+			updatePercents();
+			return false;
+		});
+
+		updatePercents();
+	});
+</script>
+
+
+
+
+<script language='javascript'>
+//function removeLink(s)
+//{
+//	var r = s.parentNode.parentNode;
+//	r.parentNode.removeChild(r);
+//}
+//function addLink()
+//{
+//	var s = document.getElementById('landing-page-link-clone');
+//	var c = document.getElementById('landing-page-link-container');
+//	var add = document.createElement('div');
+//	add.innerHTML = s.innerHTML;
+//	c.appendChild(add);
+//	updatePcts();
+//}
+//
+//function updatePcts()
+//{
+//	var s = document.forms[0];
+//	var total = 0;
+//	for(var i in s["ratio[]"])
+//	{
+//		var itm = s["ratio[]"][i];
+//		if(itm.name !== "ratio[]")
+//			continue;
+//
+//		var val = itm.value;
+//		if(val == '')
+//			val = 0;	
+//		
+//		total += parseInt(val);
+//	}
+//
+//	for(var i in s["ratio[]"])
+//	{
+//		var itm = s["ratio[]"][i];
+//		if(itm.name !== "ratio[]")
+//			continue;
+//
+//		s["pct[]"][i].value = Math.round((itm.value / total)*100) + "%";
+//	}
+//}
+//
+//updatePcts();
 
 </script>
