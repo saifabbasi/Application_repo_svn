@@ -27,7 +27,7 @@ $userId = $this->User->id;
 $(function() {
   zeroTime = "0000-00-00 00:00:00";
   opts = {
-	liveUpdateInterval: 12000,
+	liveUpdateInterval: 30000,
 	  defineCols: {
 		'hhl border': function(r) { return '&nbsp;'; },
 		'hhr tail': function(r) { return '&nbsp;'; },
