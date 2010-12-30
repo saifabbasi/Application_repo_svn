@@ -1,19 +1,21 @@
 <div id="pagemenu">
 	<ul>
-		<li><a href="/BevoMedia/Offers/Index.html">&laquo; Back to Offers<span></span></a></li>
+		<li><a href="/BevoMedia/Offers/Index.html">Offers<span></span></a></li>
 		<li><a class="active" href="/BevoMedia/Offers/NameYourPrice.html">Name Your Payout<span></span></a></li>
 	</ul>
 </div>
 
-<?php echo $this->PageDesc->ShowDesc($this->PageHelper, false); //2nd param to hide toggle btn, as there is nothing else on this page
+<?php echo $this->PageDesc->ShowDesc($this->PageHelper, false, false, false, 'nypdesc'); //disable toggle, custom css class
 ?>
-
+<div id="nypbg"></div>
 <div class="pagecontent nyp">
 	<form class="appform" method="post" id="nypform">
 		<input type="hidden" name="SubmitAjax" value="1" />
-		<div class="box box3">
-			<h3>1. Offer</h3>
-			<p>Select the niche for which you'd like Bevo to find the best payout. <em>Optional: If you have your eyes on a specific offer, you can enter that too. You can also specify the desired traffic source for more accurate results.</em></p>
+		<div class="box box3 n1">
+			<div class="boxtitle">
+				<h3>1. Offer</h3>
+				<p>Select the niche for which you'd like Bevo to find the best payout.</p>
+			</div>
 			
 			<label for="Niche">
 				<span class="label">Niche:*</span>
@@ -47,11 +49,15 @@
 					<option>Email</option>
 				</select>
 			</label>
+			
+			<p><em>Optional: If you have your eyes on a specific offer, you can enter that too. You can also specify the desired traffic source for more accurate results.</em></p>
 		</div><!--close box-->
 		
-		<div class="box box3">
-			<h3>2. Current Payout</h3>
-			<p><em>(Optional)</em> For a more efficient search, we recommend that you enter your current payout and EPC for the niche/offer you're looking to find a better payout for.</p>
+		<div class="box box3 n2">
+			<div class="boxtitle">
+				<h3>2. Current Payout</h3>
+				<p>Enter your current payout and EPC for this offer.</p>
+			</div>
 			
 			<label for="CurrentPayout">
 				<span class="label">Payout:</span>
@@ -61,13 +67,15 @@
 			<label for="CurrentEPC">
 				<span class="label">EPC:</span>
 				$<input type="text" name="CurrentEPC" value="" id="CurrentEPC" class="formtxt wide_number" autocomplete="off" />
-			</label>			
+			</label>
 			
+			<p><em>Optional step. For a more efficient search, we recommend that you enter your current payout and EPC for the niche/offer you're looking to find a better payout for.</em></p>			
 		</div><!--close box-->
 		
-		<div class="box box3 nomargin">
-			<h3>3. Desired Payout</h3>
-			<p>Enter your desired payout for this offer/niche. <em>Optional: You can also enter a desired EPC.</em></p>
+		<div class="box box3 nomargin n3">
+			<div class="boxtitle">
+				<h3>3. Desired Payout</h3>
+			</div>
 			
 			<label for="DesiredBidPayout">
 				<span class="label">Payout:*</span>
@@ -98,39 +106,35 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	var payoutfound = false;
-	
+	var payoutfound = false;	
+	$('#nypbg').delay(500).fadeIn(2000);	
 	$('#nypform').submit(function() {
 		if(payoutfound)
 			return true;
 		else {
 			var 	m = '',
-				data;
-				
+				data;				
 			$('.required', $(this)).each(function() {
 				if($(this).val() == '' || $(this).val() == 0) {
 					m += 'Please enter a '+$(this).attr('rel')+"!\n"; 
 				}
 			});
-			
 			if(m != '')
 				alert(m);
 			else {
-				$(this).slideUp(200);
-				$('.nyp .working').slideDown(200, function() {
+				$('#nypform, #nypbg').slideUp(400);
+				$('.nyp .working').slideDown(400, function() {
+					$('#pagedesc.nypdesc').animate({width:960},100);
 					data = $('#nypform').serialize();
 					$.post('/BevoMedia/Offers/NameYourPriceResult.html', data, soap_nypDisplayResults);
-				});
+				});	
 			}
 			return false;
 		}
-	});
-	
+	});	
 	function soap_nypDisplayResults(r) {
-		r = eval('('+r+')');
-		
-		window.location = '/BevoMedia/Offers/NameYourPriceResult.html?ID='+r.ID;
-		
+		r = eval('('+r+')');		
+		window.location = '/BevoMedia/Offers/NameYourPriceResult.html?ID='+r.ID;		
 	}
 });
 </script>

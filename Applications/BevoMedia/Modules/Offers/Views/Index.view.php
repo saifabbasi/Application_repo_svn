@@ -85,7 +85,12 @@ e.checked = false;
 	<?= @$info ?>
 	
 	<?php /* ##################################################### OUTPUT ############### */ ?>
-	<div id="pagemenu"></div>
+	<div id="pagemenu">
+		<ul>
+			<li><a class="active" href="/BevoMedia/Offers/Index.html">Offers<span></span></a></li>
+			<li><a href="/BevoMedia/Offers/NameYourPrice.html">Name Your Payout<span></span></a></li>
+		</ul>
+	</div>
 	<?php echo $this->PageDesc->ShowDesc($this->PageHelper); ?>
 	
 	<center>
