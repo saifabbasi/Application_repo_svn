@@ -1,7 +1,7 @@
 <div id="pagemenu">
 	<ul>
 		<li><a href="/BevoMedia/Offers/Index.html">Offers<span></span></a></li>
-		<li><a href="/BevoMedia/Offers/NameYourPrice.html">Name Your Payout<span></span></a></li>
+		<li><a href="/BevoMedia/Offers/NameYourPayout.html">Name Your Payout<span></span></a></li>
 	</ul>
 	<ul class="floatright">
 		<li><a class="active" href="#">Your Results<span></span></a></li>

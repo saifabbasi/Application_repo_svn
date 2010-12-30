@@ -38,7 +38,7 @@
 			exit;
 		}
 		
-		Public Function NameYourPrice()
+		Public Function NameYourPayout()
 		{
 			
 			
@@ -53,7 +53,7 @@
 			
 		}
 		
-		Public Function NameYourPriceResult()
+		Public Function NameYourPayoutResult()
 		{
 			if (isset($_POST['SubmitAjax'])) {
 				
@@ -153,7 +153,7 @@
 				
 				$array = array('ID' => $NetworkID);
 				echo json_encode($array);
-//				header('Location: /BevoMedia/Offers/NameYourPriceResult.html?ID='.$NetworkID);				
+//				header('Location: /BevoMedia/Offers/NameYourPayoutResult.html?ID='.$NetworkID);				
 				die;
 			}
 			

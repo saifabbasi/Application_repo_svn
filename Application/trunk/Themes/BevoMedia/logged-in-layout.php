@@ -349,8 +349,8 @@ if(userTimezoneOffset == false)
 							?>">PPV Spy</a>
 			
 			<div id="topmenu">
-				<a class="btn topmenu_nyp<?php echo($this->PageHelper->Function == 'NameYourPrice'
-									|| $this->PageHelper->Function == 'NameYourPriceResult')?' active':''?>" href="/BevoMedia/Offers/NameYourPrice.html">Name Your Payout</a>
+				<a class="btn topmenu_nyp<?php echo($this->PageHelper->Function == 'NameYourPayout'
+									|| $this->PageHelper->Function == 'NameYourPayoutResult')?' active':''?>" href="/BevoMedia/Offers/NameYourPayout.html">Name Your Payout</a>
 				<a class="btn topmenu_marketplace<?php echo($this->PageHelper->Area == 'Marketplace')?' active':''?>" href="/BevoMedia/Marketplace/">Marketplace</a>
 				<a class="btn topmenu_topdroptoggle topdroptoggle<?php if($soap_topdrop_status) echo ' '.$soap_topdrop_status; ?>" href="#">Toggle Bevo Topdrop</a>
 				<a class="btn topmenu_classroom<?php echo($this->PageHelper->Area == 'Classroom'

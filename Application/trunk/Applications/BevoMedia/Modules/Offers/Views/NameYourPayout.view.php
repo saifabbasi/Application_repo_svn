@@ -1,7 +1,7 @@
 <div id="pagemenu">
 	<ul>
 		<li><a href="/BevoMedia/Offers/Index.html">Offers<span></span></a></li>
-		<li><a class="active" href="/BevoMedia/Offers/NameYourPrice.html">Name Your Payout<span></span></a></li>
+		<li><a class="active" href="/BevoMedia/Offers/NameYourPayout.html">Name Your Payout<span></span></a></li>
 	</ul>
 </div>
 
@@ -125,8 +125,9 @@ $(document).ready(function() {
 				$('#nypform, #nypbg').slideUp(400);
 				$('.nyp .working').slideDown(400, function() {
 					$('#pagedesc.nypdesc').animate({width:960},100);
+					$('#pagedesc.nypdesc p.nypnote').html('Please note: the highest bidding network may not match your desired payout and/or EPC <em>exactly</em>, but it\'s the winner among all bidders.');
 					data = $('#nypform').serialize();
-					$.post('/BevoMedia/Offers/NameYourPriceResult.html', data, soap_nypDisplayResults);
+					$.post('/BevoMedia/Offers/NameYourPayoutResult.html', data, soap_nypDisplayResults);
 				});	
 			}
 			return false;
@@ -134,7 +135,7 @@ $(document).ready(function() {
 	});	
 	function soap_nypDisplayResults(r) {
 		r = eval('('+r+')');		
-		window.location = '/BevoMedia/Offers/NameYourPriceResult.html?ID='+r.ID;		
+		window.location = '/BevoMedia/Offers/NameYourPayoutResult.html?ID='+r.ID;		
 	}
 });
 </script>
