@@ -88,7 +88,7 @@ e.checked = false;
 	<div id="pagemenu">
 		<ul>
 			<li><a class="active" href="/BevoMedia/Offers/Index.html">Offers<span></span></a></li>
-			<li><a href="/BevoMedia/Offers/NameYourPrice.html">Name Your Payout<span></span></a></li>
+			<li><a href="/BevoMedia/Offers/NameYourPayout.html">Name Your Payout<span></span></a></li>
 		</ul>
 	</div>
 	<?php echo $this->PageDesc->ShowDesc($this->PageHelper); ?>
