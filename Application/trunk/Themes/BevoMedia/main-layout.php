@@ -53,19 +53,19 @@
 		<?php else:?>
 			<div class="row">
 				<label>Email</label>
-				<input type="text" class="formtxt" name="Email" alt="email" />
+				<input type="text" class="formtxt" name="Email" alt="email" tabindex="1" />
 			</div>
 			<div class="row">
-				<label>Password<span style="padding-top: 5px; padding-left: 50px; font-size:.8em; display: inline"><a href="<?=$this->{'System/BaseURL'};?><?=$this->{'Application/Theme'};?>/Index/ForgotPassword.html">Forgot it?</a></span></label>
-				<input type="password" class="formtxt" name="Password" alt="blank" />
+				<label>Password<span style="padding-top: 5px; padding-left: 50px; font-size:.8em; display: inline"><a href="<?php /*=$this->{'System/BaseURL'};?><?=$this->{'Application/Theme'};*/?>/BevoMedia/Index/ForgotPassword.html">Forgot it?</a></span></label>
+				<input type="password" class="formtxt" name="Password" alt="blank" tabindex="2" />
 			</div>
 			<div class="row" style="padding-top:5px;">
-				<input type="checkbox" name="Remember" alt="blank" />
-				<label>Remember me</label>
+				<input type="checkbox" name="Remember" alt="blank" id="RememberMeCheck" tabindex="4" checked="checked" />
+				<label for="RememberMeCheck">Remember me</label>
 
 			</div>
 			<div class="row">
-				<input type="submit" class="formsubmit" name="loginFormSubmit" value="Login" />
+				<input type="submit" class="formsubmit" name="loginFormSubmit" value="Login" tabindex="3" />
 			</div>
 		<?php endif?>
 		</form>

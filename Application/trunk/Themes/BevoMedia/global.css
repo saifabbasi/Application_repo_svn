@@ -104,19 +104,23 @@ a.btn_topdrop_installnetworks { width:97px; height:30px; background:url(img_new/
 a.btn_topdrop_downloadselfhosted { width:96px; height:30px; background:url(img_new/btn_topdrop_downloadselfhosted.png) no-repeat; }
 
 #topmenu a.btn { height:28px; position:absolute; top:0; background:url(img_new/btns_topmenu.png) no-repeat; z-index:25; }
-        #topmenu a.btn.topmenu_marketplace { width:106px; left:0; }
-	a.btn.topmenu_marketplace:hover, a.btn.topmenu_marketplace.active { background-position:0 -28px !important; }
 	
-	#topmenu a.btn.topmenu_topdroptoggle { width:37px; height:22px; left:135px; background-position:-118px -6px; }
+	#topmenu a.btn.topmenu_nyp { width:131px; height:34px; background:url(img_new/btns_topmenu_nyp_mp.png) no-repeat; }
+	#topmenu a.btn.topmenu_nyp:hover, #topmenu a.btn.topmenu_nyp.active { background-position:left bottom; }
+
+        #topmenu a.btn.topmenu_marketplace { width:100px; height:29px; left:131px; background:url(img_new/btns_topmenu_nyp_mp.png) no-repeat -131px 0; }
+	a.btn.topmenu_marketplace:hover, a.btn.topmenu_marketplace.active { background-position:-131px -34px !important; }
+	
+	#topmenu a.btn.topmenu_topdroptoggle { width:37px; height:22px; right:516px; background-position:-118px -6px; }
 	a.btn.topmenu_topdroptoggle:hover { background-position:-118px -34px !important; }
         a.btn.topmenu_topdroptoggle.active { background-position:-162px -6px !important; }
         a.btn.topmenu_topdroptoggle.active:hover { background-position:-162px -34px !important; }
         
-        #topmenu a.btn.topmenu_classroom { width:93px; height:28px; left:203px; background:url(img_new/btns_topmenu_white.png) no-repeat; }
+        #topmenu a.btn.topmenu_classroom { width:93px; height:28px; right:399px; background:url(img_new/btns_topmenu_white.png) no-repeat; }
 	a.btn.topmenu_classroom:hover, a.btn.topmenu_classroom.active { background-position:0 -28px !important; }	
-	#topmenu a.btn.topmenu_help { width:72px; left:296px; background:url(img_new/btns_topmenu_white.png) no-repeat -93px 0;}
+	#topmenu a.btn.topmenu_help { width:72px; right:327px; background:url(img_new/btns_topmenu_white.png) no-repeat -93px 0;}
 	a.btn.topmenu_help:hover, a.btn.topmenu_help.active { background-position:-93px -28px !important; }	
-	#topmenu a.btn.topmenu_tools { width:72px; left:368px; background:url(img_new/btns_topmenu_white.png) no-repeat -165px 0; }
+	#topmenu a.btn.topmenu_tools { width:72px; right:255px; background:url(img_new/btns_topmenu_white.png) no-repeat -165px 0; }
 	a.btn.topmenu_tools:hover, a.btn.topmenu_tools.active { background-position:-165px -28px !important; }
 	
 	ul.topmenusub { width:142px; padding:0 0 0 21px; position:absolute; left:562px; top:25px; list-style:none; background:url(img_new/topmenusub.png) no-repeat; z-index:20; display:none; font-size:.9em; }
@@ -135,9 +139,9 @@ a.btn_topdrop_downloadselfhosted { width:96px; height:30px; background:url(img_n
                 #topmenu_help li.last { bottom:-2px; z-index:12; }
 
 
-	#topmenu a.btn.topmenu_dashboard { width:91px; left:445px; background-position:-448px 0; }
+	#topmenu a.btn.topmenu_dashboard { width:91px; right:159px; background-position:-448px 0; }
 	a.btn.topmenu_dashboard:hover, a.btn.topmenu_dashboard.active { background-position:-448px -28px !important; }
-	#topmenu a.btn.topmenu_myaccount { width:94px; left:536px; background-position:-539px 0; }
+	#topmenu a.btn.topmenu_myaccount { width:94px; right:65px; background-position:-539px 0; }
 	a.btn.topmenu_myaccount:hover, a.btn.topmenu_myaccount.active { background-position:-539px -28px !important; }
 	#topmenu a.btn.topmenu_logout { width:65px; right:0; background-position:-633px 0; }
 	a.btn.topmenu_logout:hover { background-position:-633px -28px !important; }
@@ -655,6 +659,8 @@ table.nomargin { margin-right:0 !important; }/*this may already exist*/
 	display: inline !important;
 	}
 html>body #ieBar { display: none }	
+
+
 
 
 

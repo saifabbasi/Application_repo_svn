@@ -334,14 +334,23 @@ if(userTimezoneOffset == false)
 		<div id="header">
 			<h1><a href="/BevoMedia/User/Index.html">BevoMedia - Your Internet Marketing Homebase</a></h1>
 			
-			<a class="btn headfeatapp_ppvspy" href="<?php /*TODO*/
-								//ADD PPVSpy const to Common/User.class.php and check against that here
-								/*if($this->User->vaultID > 0 && !$this->User->IsSubscribed(User::CONSTANT_TO_BE_ADDED_FOR_PPVSPY))
+			<a class="btn headfeatapp_ppvspy" href="<?php //featured app of the month: if user is subscribed to it, link to it directly, else to appstore
+			
+								if(	
+								(	$this->User->vaultID != 0
+								&& 	(	$this->User->IsSubscribed(User::PRODUCT_PPVSPY_MONTHLY)
+									||	$this->User->IsSubscribed(User::PRODUCT_PPVSPY_YEARLY)
+									)
+								)
+								||	$freePPVSpy = $this->User->IsSubscribed(User::PRODUCT_FREE_PPVSPY)
+								)
 									echo '/BevoMedia/PPVSpy/Index.html';
-								else */
-									echo '/BevoMedia/User/AppStore.html'; ?>">PPV Spy</a>
+								else	echo '/BevoMedia/User/AppStore.html'; 
+							?>">PPV Spy</a>
 			
 			<div id="topmenu">
+				<a class="btn topmenu_nyp<?php echo($this->PageHelper->Function == 'NameYourPrice'
+									|| $this->PageHelper->Function == 'NameYourPriceResult')?' active':''?>" href="/BevoMedia/Offers/NameYourPrice.html">Name Your Payout</a>
 				<a class="btn topmenu_marketplace<?php echo($this->PageHelper->Area == 'Marketplace')?' active':''?>" href="/BevoMedia/Marketplace/">Marketplace</a>
 				<a class="btn topmenu_topdroptoggle topdroptoggle<?php if($soap_topdrop_status) echo ' '.$soap_topdrop_status; ?>" href="#">Toggle Bevo Topdrop</a>
 				<a class="btn topmenu_classroom<?php echo($this->PageHelper->Area == 'Classroom'
@@ -491,7 +500,9 @@ if(userTimezoneOffset == false)
 	||	$this->PageHelper->Function == 'RackspaceWizard'
 	||	$this->PageHelper->Function == 'ServerScript'
 	||	$this->PageHelper->Function == 'SelfHostedLoginDownload'
-		)
+	||	$this->PageHelper->Function == 'NameYourPrice'
+	||	$this->PageHelper->Function == 'NameYourPriceResult'
+	)
 		$soap_containerclass = 'cont_setup';
 
 ?>
@@ -593,8 +604,8 @@ if(userTimezoneOffset == false)
 				
 			} //endforeach sideads
 		} //endif sideads exist
-		?>		
-	
+		?>
+		
 </div><!--close container-->
 
 <div id="footer">
@@ -624,44 +635,6 @@ $(document).ready(function () {
 	{
 		$('#datepicker').daterangepicker();
 	}
-
-<?php /* ########################### ALL OF THE FOLLOWING: DEPRECIATED. 
-					new functionality: 
-					- Apps tab always goes to the new User/AppStore.htm page, and is always viewable by everyone.
-					- Featured App button in header sends all users that are not subscribed to that app to AppStore.html instead of to the app.
-					=> condition is now in the button itself, it just changes the URL. No lightboxes necessary anymore.
-					(Robert 101204)
-					
-					
-//	if (($this->User->vaultID==0) && (!$this->User->IsSubscribed(User::PRODUCT_RESEARCH)))
-	if ( 
-			 ($this->User->vaultID==0)
-   		)
-	{
-?>
-	$('#ResearchTab').click(function() {
-		var a = document.createElement('a');
-		a.href = '/BevoMedia/Publisher/VerifyResearch.html?ajax=true';
-		a.rel = 'shadowbox;width=640;height=480;player=iframe';
-		Shadowbox.open(a);
-
-	    return false;
-	});
-//	$('#ResearchTab').attr('rel', 'shadowbox;width=640;height=480;player=iframe');
-//	$('#ResearchTab').attr('href', '/Publisher/VerifyResearch.html');
-	
-<?php 
-	}
-?>
-	$('#PPVSpyTab').click(function() {
-		var a = document.createElement('a');
-		a.href = '/BevoMedia/Publisher/VerifyPPVSpy.html?ajax=true';
-		a.rel = 'shadowbox;width=640;height=480;player=iframe';
-		Shadowbox.open(a);
-
-	    return false;
-	});
-}); ################################## DEPRECIATED UNTIL HERE*/ ?>
 });
 </script>
 

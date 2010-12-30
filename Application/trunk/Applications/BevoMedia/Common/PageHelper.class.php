@@ -218,12 +218,12 @@ Class PageHelper {
 			$PagePresets['Offers/NameYourPrice/UniquePageName'] = 'offers_name_your_price';
 			$PagePresets['Offers/NameYourPrice/HeadingImage'] = 'pagedesc_offers.png';
 			$PagePresets['Offers/NameYourPrice/Heading'] = 'Name Your Price';
-			$PagePresets['Offers/NameYourPrice/SubHeading'] = 'Name Your Price';
+			$PagePresets['Offers/NameYourPrice/SubHeading'] = 'Get the payout you want! Enter your requested payout for a a specific offer or niche and have the Bevo networks bid for you to run with them.';
 			
 			$PagePresets['Offers/NameYourPriceResult/UniquePageName'] = 'offers_name_your_price';
 			$PagePresets['Offers/NameYourPriceResult/HeadingImage'] = 'pagedesc_offers.png';
 			$PagePresets['Offers/NameYourPriceResult/Heading'] = 'Name Your Price';
-			$PagePresets['Offers/NameYourPriceResult/SubHeading'] = 'Name Your Price';
+			$PagePresets['Offers/NameYourPriceResult/SubHeading'] = 'Get the payout you want! Enter your requested payout for a a specific offer or niche and have the Bevo networks bid for you to run with them.';
 			
 		
 			$PagePresets['Offers/Index/UniquePageName'] = 'offers_index';

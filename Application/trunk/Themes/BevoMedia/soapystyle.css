@@ -108,7 +108,7 @@ body { font-family:Helvetica, Arial, sans-serif; color:#333; font-size:75%; back
 /*header*/
 #header h1 { position:absolute; top:10px; left:0; }
 	#header h1 a { width:293px; height:120px; display:block; text-indent:-9999px; outline:none; background:url(img_new/bevomedia_logo.png) no-repeat; }
-#topmenu { width:695px; height:28px; position:absolute; top:0; right:0; list-style:none; }
+#topmenu { width:805px; height:28px; position:absolute; top:0; right:0; list-style:none; }
 #setupmenu { height:27px; padding:0 0 0 47px; position:absolute; bottom:-1px; left:1px; background:url(img_new/setupmenu.png) no-repeat 0 10px; overflow:hidden; }
         #setupmenu a.btn { float:left; }
 #coremenu { height:30px; position:absolute; bottom:-1px; right:2px; }
@@ -342,6 +342,7 @@ ul#footermenu li { display:inline; margin:0 5px; }
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 	#networkotm a { margin-top:8px; display:block; }
 }
+
 
 
 

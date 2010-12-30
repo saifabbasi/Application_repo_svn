@@ -737,15 +737,27 @@ h2.imagetitle.interested { width:147px; height:22px; background:url(img/imagetit
 				#appstore .item .add2cart .cartaction p { color:#DBDBDB; margin:13px 0 0; }
 				
 /*nameyourpayout*/
+#pagedesc.nypdesc { width:623px; height:120px; }
+#nypbg { width:368px; height:353px; position:absolute; top:20px; right:0; background:url(img_new/nypbg.jpg) no-repeat; z-index:1; display:none; }
+.pagecontent.nyp { position:relative; z-index:2000; }
+
 .nyp h3 { color:#808080; }
 .nyp p { margin:10px 0 !important; color:#999; font-size:1em; line-height:1.2em; }
-.nyp .box3 p { height:80px; margin:0 !important; }
+
+.nyp .box.box3 { height:240px; padding-top:15px; padding-bottom:15px; margin:-15px 0 0; }
+.nyp .box.n1,
+.nyp .box.n2 { width:290px; }
+.nyp .boxtitle { height:75px; }
+	.nyp .boxtitle p { margin:0 !important; }
 .nyp label span { width:85px !important; padding-top:7px; }
-.nyp input.formtxt { width:190px; }
+.nyp input.formtxt { width:170px; }
+.nyp select.formselect { width:182px; }
 .nyp input.formtxt.wide_number { margin-left:5px; }
-.nyp input.formsubmit { }
-.nyp select.formselect { width:202px; }
+.nyp .box.n3 input.formtxt.wide_number { width:75px !important; }
+.nyp input.formsubmit { margin:0 auto; }
 
 .nyp .working { display:none; }
+
+
 
 

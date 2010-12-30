@@ -1,6 +1,6 @@
 <div id="pagemenu">
 	<ul>
-		<li><a href="/BevoMedia/Offers/Index.html">&laquo; Back to Offers<span></span></a></li>
+		<li><a href="/BevoMedia/Offers/Index.html">Offers<span></span></a></li>
 		<li><a href="/BevoMedia/Offers/NameYourPrice.html">Name Your Payout<span></span></a></li>
 	</ul>
 	<ul class="floatright">
@@ -17,7 +17,7 @@
 	<br />
 	
 	<a href="/BevoMedia/Publisher/ApplyAdd.html?network=<?php echo $this->AffNetworkID?>" rel="shadowbox;width=640;height=480;player=iframe" >
-		<img class="nwpic small" src="/Themes/BevoMedia/img/networklogos/uni/<?php echo $this->AffNetworkID ?>.png" />
+		<img class="nwpic" src="/Themes/BevoMedia/img/networklogos/uni/<?php echo $this->AffNetworkID ?>.png" />
 	</a>
 	<a class="btn nw_applyadd" href="/BevoMedia/Publisher/ApplyAdd.html?network=<?php echo $this->AffNetworkID?>" rel="shadowbox;width=640;height=480;player=iframe" >Apply/add</a>
 	<a href="/BevoMedia/Publisher/ApplyAdd.html?network=<?php echo $this->AffNetworkID?>" rel="shadowbox;width=640;height=480;player=iframe" >Click to join this network now</a>

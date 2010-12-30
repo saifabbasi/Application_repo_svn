@@ -74,7 +74,7 @@ body { font-family:Helvetica, Arial, sans-serif; color:#1B1464; font-size:75%; b
 #container #toprite a.signup { width:138px; height:65px; display:block; text-indent:-9999px; outline:none; background:url(img/button_signup.jpg) no-repeat left top; position:absolute; top:25px; left:19px; }
 #container #toprite a.signup:hover { background-position:left bottom; }
 
-#container #toprite form { position:absolute; bottom:45px; left:13px; }
+#container #toprite form { position:absolute; bottom:58px; left:13px; }
 #container #toprite form a:hover { color:#29ABE2; text-decoration:underline; }
 #container #toprite form .row {  }
 #container #toprite form .row label { font-size:.9em; color:#29ABE2; }
@@ -341,6 +341,7 @@ ul.mp-myprojectlist li.complete .mpsub .mpsub-price { color:#ccc; }
 
 ul.mp-myprojectlist li .mp-myprojectlist-description { padding:15px; margin:5px 0 -4px; font-size:.9em; background:#f2f2f2; clear:both; position:relative; display:none; }
 ul.mp-myprojectlist li .mp-myprojectlist-description a.button.mp-close { position:absolute; top:28px; left:2px; outline:none; cursor:pointer; }/*batch done end*/
+
 
 
 
