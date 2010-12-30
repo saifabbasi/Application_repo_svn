@@ -12,7 +12,7 @@
 	require_once('../Applications/BevoMedia/Common/AbsoluteIncludeHelper.include.php');
 	
 	$apiKey = @mysql_real_escape_string($_GET['apiKey']);
-	$Sql = "SELECT id FROM bevomedia_user WHERE (apiKey = '{$apiKey}') AND (membershipType = 'premium')";
+	$Sql = "SELECT id FROM bevomedia_user WHERE (apiKey = '{$apiKey}') AND ( (membershipType = 'premium') OR (vaultID>0) )";
 	$Result = @mysql_query($Sql);
 	if (@mysql_num_rows($Result))
 	{
