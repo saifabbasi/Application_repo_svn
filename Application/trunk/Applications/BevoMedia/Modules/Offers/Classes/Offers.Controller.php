@@ -149,7 +149,7 @@
 				
 				$Headers  = 'MIME-Version: 1.0' . "\r\n";
 				$Headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-//				mail('payoutbid@bevomedia.com', 'Payout Bid', $Body, $Headers);
+				mail('payoutbid@bevomedia.com', 'Payout Bid', $Body, $Headers);
 				
 				$array = array('ID' => $NetworkID);
 				echo json_encode($array);
