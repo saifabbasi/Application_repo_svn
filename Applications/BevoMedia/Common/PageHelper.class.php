@@ -216,12 +216,12 @@ Class PageHelper {
 		$PagePresets['Offers/*/Area'] = 'Offers';
 		
 			$PagePresets['Offers/NameYourPayout/UniquePageName'] = 'offers_name_your_payout';
-			$PagePresets['Offers/NameYourPayout/HeadingImage'] = 'pagedesc_offers.png';
+			$PagePresets['Offers/NameYourPayout/HeadingImage'] = 'pagedesc_nyp.png';
 			$PagePresets['Offers/NameYourPayout/Heading'] = 'Name Your Payout';
 			$PagePresets['Offers/NameYourPayout/SubHeading'] = 'Get the payout you want! Enter your requested payout for a a specific offer or niche and have the Bevo networks bid for you to run with them. If a match is found, a Bevo representative will connect you with your winning network.</p><p class="nypnote">';
 			
 			$PagePresets['Offers/NameYourPayoutResult/UniquePageName'] = 'offers_name_your_payout';
-			$PagePresets['Offers/NameYourPayoutResult/HeadingImage'] = 'pagedesc_offers.png';
+			$PagePresets['Offers/NameYourPayoutResult/HeadingImage'] = 'pagedesc_nyp.png';
 			$PagePresets['Offers/NameYourPayoutResult/Heading'] = 'Name Your Payout';
 			$PagePresets['Offers/NameYourPayoutResult/SubHeading'] = 'Get the payout you want! Enter your requested payout for a a specific offer or niche and have the Bevo networks bid for you to run with them. If a match is found, a Bevo representative will connect you with your winning network.</p><p>Please note: the highest bidding network may not match your desired payout and/or EPC <em>exactly</em>, but it\'s the winner among all bidders.';			
 		
