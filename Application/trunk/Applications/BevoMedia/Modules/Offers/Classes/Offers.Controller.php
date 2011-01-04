@@ -146,7 +146,8 @@
 				}
 				
 				$Body = "First Name: {$this->User->firstName}<br />
-						  Last Name: {$this->User->lastName}<br /><br />	
+						  Last Name: {$this->User->lastName}<br />
+						  E-mail: {$this->User->email}<br /><br />	
 						  
 						  
 						  Best Match: {$NetworkName}<br /><br />
