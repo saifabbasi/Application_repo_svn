@@ -116,6 +116,17 @@
 //					print_r($BestMatch);
 //					print_r($_POST);
 //					die;
+
+					$Sql = "SELECT
+								Name
+							FROM
+								bevomedia_name_your_price_niche
+							WHERE
+								(ID = ?)					
+							";
+					$NicheName = $this->db->fetchRow($Sql, $BestMatch->ID);
+					$NicheName = $NicheName->Name;
+					
 					
 					$NetworkID = $BestMatch->NetworkID;
 					$NetworkName = $BestMatch->NetworkName;
@@ -137,8 +148,10 @@
 				$Body = "First Name: {$this->User->firstName}<br />
 						  Last Name: {$this->User->lastName}<br /><br />	
 						  
-						  Best Match: {$NetworkName}
 						  
+						  Best Match: {$NetworkName}<br /><br />
+						  
+						  Niche: {$NicheName} <br />
 						  Current Payout: {$_POST['CurrentPayout']}<br />
 						  Desired Bid Payout: {$_POST['DesiredBidPayout']}<br />
 						  Current EPC: {$_POST['CurrentEPC']}<br />
@@ -150,6 +163,7 @@
 				$Headers  = 'MIME-Version: 1.0' . "\r\n";
 				$Headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 				mail('payoutbid@bevomedia.com', 'Payout Bid', $Body, $Headers);
+
 				
 				$array = array('ID' => $NetworkID);
 				echo json_encode($array);
