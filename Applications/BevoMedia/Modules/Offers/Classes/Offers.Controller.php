@@ -151,8 +151,8 @@
 						  
 						  Best Match: {$NetworkName}<br /><br />
 						  
-						  Offer Name: {$SuggestedOffer}<br />
-						  Niche: {$NicheName} <br />
+						  Offer Name: {$_POST['SuggestedOffer']}<br />
+						  Niche: {$_POST['NicheName']} <br />
 						  Current Payout: {$_POST['CurrentPayout']}<br />
 						  Desired Bid Payout: {$_POST['DesiredBidPayout']}<br />
 						  Current EPC: {$_POST['CurrentEPC']}<br />
