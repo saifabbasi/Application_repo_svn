@@ -122,7 +122,47 @@
 					<p>Subject to Your compliance with the terms and conditions of this Agreement, PPV Spy grants You a non-exclusive, non-sublicensable, revocable, non-transferable license to use the Website and Services. The Website, or any portion of the Website, may not be reproduced, duplicated, copied, modified, sold, resold, distributed, visited, or otherwise exploited for any commercial purpose without the express written consent of PPV Spy. Except as expressly set forth herein, this Agreement grants You no rights in or to the intellectual property of PPV Spy or any other party. The license granted in this section is conditioned on Your compliance with the terms and conditions of this Agreement.  In the event that You breach any provision of this Agreement, Your rights under this section will immediately terminate.</p>
 					
 					<p>6. WEBSITE MEMBERSHIP; FEES</p>
-					<p>By registering with the Website, You expressly authorize PPV Spy to charge you the then-current, one-time, upfront membership fee (the &quot;Membership Fee&quot;) of $999, or the monthly recurring membership fee of $385 (at your election). Membership Fees may be refunded within thirty (30) days of payment, less and bank/merchant fees. If the refund is requested within seven (7) days of payment, a full refund will be granted.  If a refund is requested between eight (8) and thirty (30) days of payment, a partial refund will be granted pro rata by dividing the number of days since payment by 30.  A refund may be requested via email at refunds@bevomedia.com or via phone at 1-888-644-BEVO.   PPV SPY RESERVES THE RIGHT, IN PPV SPY&rsquo;S SOLE DISCRETION, TO CHANGE THE MEMBERSHIP FEES IN EFFECT, OR TO ADD NEW FEES AND/OR CHARGES, BY POSTING SUCH CHANGES ON THE WEBSITE OR OTHERWISE PROVIDING NOTICE TO YOU AS PROVIDED HEREIN.</p>
+					<p>
+						By registering with the Website, You expressly authorize PPV Spy to charge you the then-current, one-time,
+						upfront membership fee (the "Membership Fee") of $999, or the monthly recurring membership fee of $385 (at
+						your election). In addition to the Membership Fee, You must be a verified BeVo Media member as described on
+						the website, www.bevomedia.com.	
+					</p>
+					
+					<p><u>Refund Policy if $999 Membership Fee is elected:</u></p>
+					
+					<p>
+						Membership Fees may be refunded within thirty (30) days of initial purchase, less bank/merchant fees. If the
+						refund is requested within seven (7) days of initial purchase, a full refund will be granted. If a refund is requested
+						between eight (8) and thirty (30) days of initial purchase, a partial refund will be granted pro rata by dividing the
+						number of days since initial purchase by 30. No refund will be provided after 30 days if the up-front, $999 option
+						was chosen.
+					</p>
+					
+					<p><u>Refund Policy if $385 Monthly Recurring Membership Fee is elected:</u></p>
+					
+					<p>
+						Membership Fees may be refunded within thirty (30) days of initial purchase, less bank/merchant fees. If the
+						refund is requested within seven (7) days of initial purchase, a full refund will be granted. If a refund is requested
+						between eight (8) and thirty (30) days of initial purchase, a partial refund will be granted pro rata by dividing the
+						number of days since initial purchase by 30. No refund will be provided for any payment 30 days after it has
+						been made.
+					</p>
+					
+					<p>
+						If You request a refund after the first month, a partial refund will be granted ONLY FOR YOUR LATEST
+						MONTHLY PAYMENT, pro rata by dividing the number of days since the subsequent monthly payment by
+						30. For example, if You chose the recurring membership fee of $385, and request a refund on the 15th day of the
+						second month, Your total refund would be 50% of $385, or $192.50.
+					</p>
+					
+					<p>
+						A refund may be requested via email at refunds@bevomedia.com or via phone at 1-888-644-BEVO.
+
+						PPV SPY and BEVO MEDIA RESERVES THE RIGHT, IN THEIR SOLE DISCRETION, TO CHANGE THE
+						MEMBERSHIP FEES IN EFFECT, OR TO ADD NEW FEES AND/OR CHARGES, BY POSTING SUCH
+						CHANGES ON THE WEBSITE OR OTHERWISE PROVIDING NOTICE TO YOU AS PROVIDED HEREIN.
+					</p>
 					
 					<p>7. USER INFORMATION; PASSWORDS</p>
 					<p>You represent and warrant that all information You provide in connection with Your use of the Website and Services will be complete and accurate. You are entirely responsible for maintaining the confidentiality of Your password. You may not use the account, user name, or password of any other member at any time. You agree to notify PPV SPY immediately of any unauthorized use of Your account, user name, or password.</p>
