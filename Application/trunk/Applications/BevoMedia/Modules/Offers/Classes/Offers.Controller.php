@@ -151,6 +151,7 @@
 						  
 						  Best Match: {$NetworkName}<br /><br />
 						  
+						  Offer Name: {$SuggestedOffer}<br />
 						  Niche: {$NicheName} <br />
 						  Current Payout: {$_POST['CurrentPayout']}<br />
 						  Desired Bid Payout: {$_POST['DesiredBidPayout']}<br />
