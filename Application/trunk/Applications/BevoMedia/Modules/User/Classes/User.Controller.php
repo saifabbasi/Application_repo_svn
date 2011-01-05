@@ -1059,6 +1059,8 @@ Class UserController extends ClassComponent
 	
 	Public Function Invoice()
 	{
+		$this->defaultDateRange = date('m/d/Y', strtotime('-1 month')).' - '.date('m/d/Y');
+		
 		if (isset($_GET['Invoice'])) {
 			
 			$Sql = "SELECT
