@@ -1143,8 +1143,12 @@
   		  		$optional = $this->db->fetchRow($Sql, $Click->subId);
   		  		$Click->optional = @$optional->data;
   		  		
+  		  		$Sql = "SELECT conversions FROM bevomedia_user_aff_network_subid WHERE (bevomedia_user_aff_network_subid.subId = ?) AND (bevomedia_user_aff_network_subid.user__id = ?)";
+  		  		$converted = $this->db->fetchRow($Sql, array($Click->subId, $Click->user__id));
+  		  		$Click->conv = @$converted->conversions;
   		  		
-  		  		$Click->conv = $Click->clickThrough;
+  		  		
+//  		  		$Click->conv = $Click->clickThrough;
   		  }
   		  
   		  
