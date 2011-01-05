@@ -62,6 +62,11 @@ Abstract Class Accounts_Abstract {
 	Public $password;
 	
 	/**
+	 * @var String $api_key
+	 */
+	Public $api_key;
+	
+	/**
 	 * @var String $enabled
 	 */
 	Public $enabled;
@@ -294,11 +299,12 @@ Abstract Class Accounts_Abstract {
 		$Insert['User_ID'] = $Data['user__id'];
 		$Insert['Username'] = $Data['Username'];
 		$Insert['Password'] = $Data['Password'];
+		$Insert['APIKey'] = $Data['APIKey'];
 		
 		foreach($Insert as $Key=>$Value)
 			$Insert[$Key] = $this->_db->quote($Value);
 			
-		$Sql = "INSERT INTO $this->_table_name (user__id, Username, Password) VALUES ($Insert[User_ID], $Insert[Username], $Insert[Password])";
+		$Sql = "INSERT INTO $this->_table_name (user__id, Username, Password, api_key) VALUES ($Insert[User_ID], $Insert[Username], $Insert[Password], $Insert[APIKey])";
 
 		$this->_db->exec($Sql);
 		$this->id = $this->_db->lastInsertId();

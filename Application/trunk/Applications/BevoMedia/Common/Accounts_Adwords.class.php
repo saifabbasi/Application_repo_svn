@@ -60,7 +60,7 @@ Class Accounts_Adwords Extends Accounts_PPC_Abstract {
 		$this->getInfo();
 		
 		try{	
-			$this->API = new AdWordsUser(NULL, $this->username, $this->password);
+			$this->API = new AdWordsUser(NULL, $this->username, $this->password, ($this->api_key!='')?$this->api_key:null);
 			return $this->API;
 		}catch(Exception $e)
 		{

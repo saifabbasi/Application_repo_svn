@@ -28,7 +28,7 @@
       }
       
       // all login credentials are directly given
-      if ($email && $password && $developerToken && $applicationToken) {
+      if ($email && $password && $developerToken) {
         $this->email = $email;
         $this->password = $password;
         // developer token is different in the sandbox

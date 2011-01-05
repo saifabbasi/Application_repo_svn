@@ -259,6 +259,19 @@ a { font-size: 12px }
 		</td>
 	</tr>
 	
+	<? if(!empty($_GET['apiKey'])) { ?>
+	<tr>
+		<td class='textAlignLeft'>
+			API Key:
+		</td>
+		<td colspan='3' class='textAlignLeft width80Pct'>
+			<input type='text' name='APIKey' value='<?php print $this->api_keyFormValue; ?>'>
+		</td>
+	</tr>
+	<?php 
+	}
+	?>
+	
 	<tr>
 		<td colspan='5' class='textAlignLeft'>
 			<input type='submit' name='adwordsAddAccountSubmit' class='ppcAddNow'>
@@ -295,6 +308,19 @@ a { font-size: 12px }
 			<?php if($this->PasswordInvalid):?><span class='validation'>Please provide a valid password.</span><?php endif?>
 		</td>
 	</tr>
+	
+	<? if(!empty($_GET['apiKey'])) { ?>
+	<tr>
+		<td class='textAlignLeft'>
+			API Key:
+		</td>
+		<td colspan='3' class='textAlignLeft width80Pct'>
+			<input type='text' name='APIKey' value='<?php print $this->api_keyFormValue; ?>'>
+		</td>
+	</tr>
+	<?php 
+	}
+	?>
 	
 	<tr>
 		<td colspan='5' class='textAlignLeft'>
