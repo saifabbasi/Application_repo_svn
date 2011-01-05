@@ -57,7 +57,7 @@ body { font-family:Helvetica, Arial, sans-serif; color:#333; font-size:75%; back
 			.topdropbox_accstatus .topdropentry { width:200px; margin:30px 0 0 10px; font-size:1em; color:#FFB500; }
                                 .topdropbox_accstatus strong,
                                 .topdropbox_accstatus ul { color:#FFB500; position:relative; z-index:12; }
-				.topdropbox_accstatus a.btn { position:absolute; top:-18px; right:0px; z-index:11; }
+				.topdropbox_accstatus a.btn { position:absolute; top:-18px; right:1px; z-index:11; }
 				
 			.topdropbox_premiumsupport .topdropentry { width:135px; margin:0 0 14px 85px; font-size:1em; color:#ccc; }
 				.topdropbox_premiumsupport .topdropentry a { display:block; color:#ccc; text-decoration:underline; font-size:.9em; }
