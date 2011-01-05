@@ -95,7 +95,7 @@ class apility_assist
 		return $this->api->getAccountInfo();
 	}
 	
-	function connect($username, $password)
+	function connect($username, $password, $api_key = '')
 	{	
 		$sba = '';
 		//$sba = 'client_1+'; //client managers cannot have campaigns warning
@@ -117,7 +117,9 @@ class apility_assist
 		$Row = mysql_fetch_assoc($Row);		
 		$Google_Adwords_Application_Token = $Row['value'];
 		
-		$this->api = new APIlityUser($username, $password, $sba.$username, $Google_Adwords_Developer_Token, $Google_Adwords_Application_Token);
+		
+		
+		$this->api = new APIlityUser($username, $password, $sba.$username, ($api_key=='')?$Google_Adwords_Developer_Token:$api_key, $Google_Adwords_Application_Token);
 		
  		$r = $this->api->getManagersClientAccounts();
 	}
