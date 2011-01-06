@@ -85,14 +85,18 @@ class ConstructAjaxOutput {
 					</div>
 					
 					<div class="itemlinks">';
-						
+					
 						//stuff that doesnt exist on all pages
-						$html .= property_exists($pop, 'popped_url') 
-								? '<a class="btn btn_ppvc_openpop_gal" target="_blank" href="'.$pop->popped_url.'">Open this Pop</a>'
-								: '';
-						$html .= property_exists($pop, 'target_url') 
-								? '<a class="btn btn_ppvc_opentarget_gal" target="_blank" href="'.$pop->target_url.'">Open this Target</a>'
-								: '';
+						if(property_exists($pop, 'popped_url')) { //so they dropped the http:// part from all links... let's add it back 
+							$pop->links->pop = strpos($pop->popped_url, 'http://') !== 0 ? 'http://'.$pop->popped_url : $pop->popped_url;
+							$html .= '<a class="btn btn_ppvc_openpop_gal" target="_blank" href="'.$pop->links->pop.'">Open this Pop</a>';
+						}
+						
+						if(property_exists($pop, 'target_url')) {
+							$pop->links->target = strpos($pop->target_url, 'http://') !== 0 ? 'http://'.$pop->target_url : $pop->target_url;
+							$html .= '<a class="btn btn_ppvc_opentarget_gal" target="_blank" href="'.$pop->links->target.'">Open this Target</a>';
+						}
+								
 						$html .= '
 						<div class="clear"></div>
 						<div class="itemlinks_below">						
