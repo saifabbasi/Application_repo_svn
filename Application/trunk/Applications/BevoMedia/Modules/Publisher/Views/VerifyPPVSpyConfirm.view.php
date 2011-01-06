@@ -101,6 +101,7 @@
 				<ul>
 					<li>Your card on file will be billed for the above noted amount. You will receive immediate access to the feature.</li>
 					<li>We will only bill your card once for the above mentioned license duration.</li>
+					<li id="CancelMonthly" style="display: none;">You can cancel your subscription anytime by going to the My Products section in your Account Information Section</li>
 				</ul>
 				
 				<div class="lpop_tos">
@@ -231,9 +232,11 @@ $(document).ready(function() {
 		if ($(this).attr('rel')==385) {
 			$('#payoption_price').html('$385 /month');
 			$('.btn_lpop_paynow').attr('href', '/BevoMedia/User/PayPPVSpyMonthly.html');
+			$('#CancelMonthly').css('display', '');
 		} else {
 			$('#payoption_price').html('$999 one-time');
 			$('.btn_lpop_paynow').attr('href', '/BevoMedia/User/PayPPVSpyYearly.html');
+			$('#CancelMonthly').css('display', 'none');
 		}
 		
 		$('a.j_payoption').removeClass('active');
