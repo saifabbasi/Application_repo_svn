@@ -123,6 +123,16 @@
 					<p>Subject to Your compliance with the terms and conditions of this Agreement, PPV Spy grants You a non-exclusive, non-sublicensable, revocable, non-transferable license to use the Website and Services. The Website, or any portion of the Website, may not be reproduced, duplicated, copied, modified, sold, resold, distributed, visited, or otherwise exploited for any commercial purpose without the express written consent of PPV Spy. Except as expressly set forth herein, this Agreement grants You no rights in or to the intellectual property of PPV Spy or any other party. The license granted in this section is conditioned on Your compliance with the terms and conditions of this Agreement.  In the event that You breach any provision of this Agreement, Your rights under this section will immediately terminate.</p>
 					
 					<p>6. WEBSITE MEMBERSHIP; FEES</p>
+					
+					<p><u>Cancelation Procedure:</u></p>
+					
+					<p>
+						In the event that you would like to cancel your product or service, please go to the My Products page
+						within the Account information section or Click Here: http://beta.bevomedia.com/BevoMedia/User/MyProducts.html
+					</p>
+					
+					<p><u>Refund Policy:</u></p>
+					
 					<p>
 						By registering with the Website, You expressly authorize PPV Spy to charge you the then-current, one-time,
 						upfront membership fee (the "Membership Fee") of $999, or the monthly recurring membership fee of $385 (at

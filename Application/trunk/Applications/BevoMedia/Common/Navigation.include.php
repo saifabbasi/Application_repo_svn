@@ -194,6 +194,11 @@
 							array('How do I cancel my verified account',$path.'/VerifiedHelp.html#Cancel'),	
 							)
 						),
+					'ppvspy' => array('PPVSpy',$path.'/PPVSpyHelp.html',array(
+							array('How Do i cancel or upgrade my PPVSpy monthly subscription?', $path.'/PPVSpyHelp.html#Cancel'),
+							array('PPVSpy tutorial', $path.'/PPVSpyHelp.html#Tutorial')	
+							)
+						),
 					);
 			}
 			break;
