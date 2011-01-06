@@ -76,6 +76,17 @@ To receive an invoice for your item, please visit the
 Billing section to Request an Invoice. Invoice will be sent within 24
 hours via email.
 
+<?php 
+	if (isset($_GET['monthly'])) {
+?>
+
+<br /><br />
+
+You can cancel, or upgrade your subscription anytime by going to the My Products section in your Account Information Section
+<?php 
+	}
+?>
+
 </div>
 
 

@@ -964,7 +964,7 @@ Class UserController extends ClassComponent
 				
 				$this->db->insert('bevomedia_user_payments', $Array);
 
-				header('Location: /BevoMedia/User/VerifyPPVSpyFinish.html?ajax=true');
+				header('Location: /BevoMedia/User/VerifyPPVSpyFinish.html?ajax=true&monthly=1');
 				die;
 				break;
 			default:
