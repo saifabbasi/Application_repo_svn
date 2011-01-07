@@ -101,7 +101,6 @@
 				<ul>
 					<li>Your card on file will be billed for the above noted amount. You will receive immediate access to the feature.</li>
 					<li>We will only bill your card once for the above mentioned license duration.</li>
-					<li id="CancelMonthly" style="display: none;">You can cancel your subscription anytime by going to the My Products section in your Account Information Section</li>
 				</ul>
 				
 				<div class="lpop_tos">
@@ -222,6 +221,9 @@
 			</div>
 			<div class="lpop_cartbox last">
 				<p>You agree to the terms of service by clicking the PayNow button.</p>
+				<br />
+				<p id="CancelMonthly" style="display: none; color: #f00; font-weight: bold;">You can cancel your subscription anytime by going to the My Products section<br /> in your Account Information Section</p>
+				
 				<a class="btn btn_lpop_paynow" href="/BevoMedia/User/PayPPVSpyYearly.html">Pay Now</a>
 				<div class="clear"></div>
 			</div>
