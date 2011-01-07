@@ -1544,6 +1544,185 @@ END;
 				}			
 			}
 		}
+		
+		Public Function Import202()
+		{
+			global $userId;
+			$userId = $this->User->id;
+			
+			function resultToArray($result)
+		    {
+		        if (!$result)
+		        {
+		            return array();    
+		        }
+		        
+		        $array = array();
+		        while ($row = mysql_fetch_object($result))
+		        {
+		            $array[] = $row;   
+		        }   
+		        
+		        return $array;
+		    }
+		    
+		    function insertIpAddress($ipAddress)
+		    {
+		
+		        $ipAddress = mysql_real_escape_string($ipAddress);
+		        
+		        $sql = "SELECT
+		                    id
+		                FROM
+		                    bevomedia_tracker_ips
+		                WHERE
+		                    (bevomedia_tracker_ips.ipAddress = '{$ipAddress}')        
+		                "; 
+		        $result = mysql_query($sql);
+		        if (mysql_num_rows($result)>0)
+		        {
+		            $result = resultToArray($result);
+		            $result = $result[0];
+		            return $result->id;
+		        } else
+		        {
+		            $sql = "INSERT INTO bevomedia_tracker_ips (ipAddress) VALUES ('{$ipAddress}') ";
+		            $result = mysql_query($sql);
+		            return mysql_insert_id();
+		        }
+		    }
+		    
+		    function insertCampaign($name, $type = 4)
+		    {
+		        global $userId;
+		        		        
+		        $name = trim($name);
+		        
+		        $sql = "SELECT id FROM bevomedia_ppc_campaigns WHERE (user__id = {$userId}) AND (name = '{$name}')";
+		        $result = mysql_query($sql);
+		        if (mysql_num_rows($result)>0) {
+		            $id = mysql_fetch_object($result);
+		            return $id->id;      
+		        } else {        
+		            mysql_query('INSERT INTO bevomedia_ppc_campaigns (user__id,ProviderType,AccountID,Name) VALUES ('. $userId . ', '.$type. ', 0, "' . $name . '")') or die(mysql_error());
+		            return mysql_insert_id();
+		        }
+		    }
+		    
+		    function insertAdGroup($name, $cID)
+		    {
+		        global $userId;
+		        		        
+		        $name = trim($name);
+		        
+		        $sql = "SELECT id FROM bevomedia_ppc_adgroups WHERE (CampaignID = $cID) AND (name = '{$name}') ";
+		        $result = mysql_query($sql);
+		        if (mysql_num_rows($result)>0) {
+		            $id = mysql_fetch_object($result);
+		            return $id->id;      
+		        } else {         
+		            mysql_query('INSERT INTO bevomedia_ppc_adgroups (CampaignID, Name) VALUES ('. $cID . ', "' . $name . '")');
+		            return mysql_insert_id();
+		        }
+		    }
+		    
+		    function insertAdVar($name, $agID)
+		    {
+		        global $userId;
+		        		        
+		        $name = trim($name);
+		        
+		        $sql = "SELECT id FROM bevomedia_ppc_advariations WHERE (adGroupId = $agID) AND (title = '{$name}') ";
+		        $result = mysql_query($sql);
+		        if (mysql_num_rows($result)>0) {
+		            $id = mysql_fetch_object($result);
+		            return $id->id;      
+		        } else {
+		            mysql_query('INSERT INTO bevomedia_ppc_advariations (adGroupId, title, apiAdId) VALUES ('. $agID . ',  "' . $name . '", 1)');
+		            $id = mysql_insert_id();
+		            mysql_query("UPDATE bevomedia_ppc_advariations SET apiAdId = {$id} WHERE id = {$id}");
+		            return $id;
+		        }
+		    }
+		    
+		    function insertKeyword()
+		    {
+		        global $userId;
+		        
+		        $sql = "SELECT id FROM bevomedia_keyword_tracker_keywords WHERE (keyword = '') ";
+		        $result = mysql_query($sql);
+		        if (mysql_num_rows($result)>0) {
+		            $id = mysql_fetch_object($result);
+		            return $id->id;      
+		        } else {
+		            mysql_query("INSERT INTO bevomedia_keyword_tracker_keywords (keyword) VALUES ('')");
+		            return mysql_insert_id();
+		        }
+		    }
+		    
+		    function insertLandingPage()
+		    {
+		        global $userId;
+		        
+		        $sql = "SELECT id FROM bevomedia_tracker_landing_pages WHERE (user__id = {$userId}) AND (landingPageUrl = 'Unknown') ";
+		        $result = mysql_query($sql);
+		        if (mysql_num_rows($result)>0) {
+		            $id = mysql_fetch_object($result);
+		            return $id->id;      
+		        } else {
+		            mysql_query("INSERT INTO bevomedia_tracker_landing_pages (user__id, landingPageUrl) VALUES ({$userId}, 'Unknown')");
+		            return mysql_insert_id();
+		        }
+		    }
+			
+			
+			if (isset($_POST['Upload']))
+			{
+			    $count = 0;
+			    if (($handle = fopen($_FILES['File']['tmp_name'], "r")) !== FALSE) {
+			        
+			        while (($data = fgetcsv($handle, 9999, "\t")) !== FALSE) {
+			     
+			            if ($count++==0) {
+			            	
+			            	if (count($data)<16) {
+			            		$this->Error = 'Wrong file format. Please try again.';
+			            		break;
+			            	}
+			            	
+			            	continue;
+			            }
+			            
+			            $subId = 'P'.mysql_real_escape_string($data[0]);
+			            $time = strtotime($data[1]);
+			            $ipAddress = mysql_real_escape_string($data[7]);
+			            $offerName = mysql_real_escape_string($data[8]);
+			            $referrerUrl = mysql_real_escape_string($data[10]);
+			            
+			            $ipAddressId = insertIpAddress($ipAddress);
+			            $campaignId = insertCampaign($offerName);
+			            $adGroupId = insertAdGroup("ImportAdVar", $campaignId);
+			            $adVarId = insertAdVar("ImportAdVar", $adGroupId);
+			            $landingPageId = insertLandingPage();
+			            $keywordId = insertKeyword();
+			            
+			            $clickDate = date('Y-m-d', $time);
+			            
+			            
+			            $sql = "INSERT INTO bevomedia_tracker_clicks (subId, user__id, ipId, creativeId, referrerUrl, clickDate, clickTime, rawKeywordId, bidKeywordId, landingPageId) 
+			                    VALUES ('{$subId}', {$userId}, $ipAddressId, $adVarId, '{$referrerUrl}', '{$clickDate}', $time, $keywordId, $keywordId, $landingPageId) 
+			                    ";
+			                        
+			            mysql_query($sql);
+			        }
+			        
+			        $this->Success = 'Stats successfully uploaded.';
+			        
+			        fclose($handle);
+			    }
+			}
+			
+		}
 
 		
 		
