@@ -222,7 +222,7 @@
 			<div class="lpop_cartbox last">
 				<p>You agree to the terms of service by clicking the PayNow button.</p>
 				<br />
-				<p id="CancelMonthly" style="display: none; color: #f00; font-weight: bold;">You can cancel your subscription anytime by going to the My Products section<br /> in your Account Information Section</p>
+				<p id="CancelMonthly" style="display: none; color: #f00; font-weight: bold;">You can cancel or upgrade your subscription anytime by going<br /> to the My Products section in your Account Information Section</p>
 				
 				<a class="btn btn_lpop_paynow" href="/BevoMedia/User/PayPPVSpyYearly.html">Pay Now</a>
 				<div class="clear"></div>

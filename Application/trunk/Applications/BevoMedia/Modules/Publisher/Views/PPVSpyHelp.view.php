@@ -16,7 +16,7 @@ You can cancel your subscription anytime by going to the My Products section in 
 
 
 <div style="padding-left: 25px;">
-	<iframe src="http://player.vimeo.com/video/17655071?byline=0&portrait=0&color=ff9933&autoplay=1" style="width: 900px; height: 506px;"></iframe>
+	<iframe src="http://player.vimeo.com/video/17687204?byline=0&portrait=0&color=ff9933&autoplay=1" style="width: 900px; height: 506px;"></iframe>
 </div>
 
 
