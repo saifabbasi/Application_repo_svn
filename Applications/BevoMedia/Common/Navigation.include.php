@@ -95,7 +95,7 @@
 							'overview' => array('Cumulative','/BevoMedia/KeywordTracker/Overview.html'),
 							'lp' => array('Landing Page Stats','/BevoMedia/KeywordTracker/LandingPage.html'),
 							'spy' => array('Visitor Spy','/BevoMedia/KeywordTracker/VisitorSpy.html'),
-							'import202' => array('Import T202 Stats','/BevoMedia/KeywordTracker/Import202.html'),
+							'import202' => array('Prosper','/BevoMedia/KeywordTracker/Import202.html'),
 							)
 						),
 					'ppc' => array('PPC Tracker','/BevoMedia/KeywordTracker/Broad.html',array(
