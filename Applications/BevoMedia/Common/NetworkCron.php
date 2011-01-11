@@ -61,6 +61,7 @@ $networks[] = networkArray('PeerFly', 1060);
 $networks[] = networkArray('DiabloMedia', 1061);
 $networks[] = networkArray('WolfStorm', 1062);
 $networks[] = networkArray('NDemand', 1063, 'LinkTrust');
+$networks[] = networkArray('LazyProfits', 1064, 'HasOffers');
 
 foreach($networks as $network)
 {
