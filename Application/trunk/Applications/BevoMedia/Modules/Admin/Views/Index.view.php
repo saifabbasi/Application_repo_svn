@@ -66,6 +66,9 @@
 		<li>
 			<a href='NameYourPrice.html'>Name Your Price</a>
 		</li>
+		<li>
+			<a href='Revenue.html'>Sales Report</a>
+		</li>
 	</ul>
 </div>
 
