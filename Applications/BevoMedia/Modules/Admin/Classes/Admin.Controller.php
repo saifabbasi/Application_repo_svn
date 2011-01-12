@@ -2003,6 +2003,62 @@ END;
 			return reset($this->db->fetchCol($Sql, $ProductID));
 		}
 		
+		Private Function CalculateNetworkPaymentsToday($Count = false) 
+		{
+			$Add = '';
+			if (!$Count) {
+				$Add = "SUM(Amount) as `Total`";
+			} else {
+				$Add = "COUNT(Amount) as `Total`";
+			}
+			
+			$Sql = "SELECT
+						{$Add}
+					FROM
+						bevomedia_network_payments
+					WHERE
+						(DATE(Created) = DATE(NOW())) 
+					";
+			return reset($this->db->fetchCol($Sql));
+		}
+		
+		Private Function CalculateNetworkPaymentsMTD($Count = false) 
+		{
+			$Add = '';
+			if (!$Count) {
+				$Add = "SUM(Amount) as `Total`";
+			} else {
+				$Add = "COUNT(Amount) as `Total`";
+			}
+			
+			$FromDate = date('Y').'-'.date('m').'-01';
+			$Sql = "SELECT
+						{$Add}
+					FROM
+						bevomedia_network_payments
+					WHERE
+						(DATE(Created) BETWEEN DATE('{$FromDate}') AND NOW()) 				
+					";
+			return reset($this->db->fetchCol($Sql));
+		}
+		
+		Private Function CalculateNetworkPaymentsOverall($Count = false) 
+		{
+			$Add = '';
+			if (!$Count) {
+				$Add = "SUM(Amount) as `Total`";
+			} else {
+				$Add = "COUNT(Amount) as `Total`";
+			}
+			
+			$Sql = "SELECT
+						{$Add}
+					FROM
+						bevomedia_network_payments
+					";
+			return reset($this->db->fetchCol($Sql));
+		}
+		
 		Public Function Revenue()
 		{
 			//PPVSpy
@@ -2042,7 +2098,7 @@ END;
 			$this->ServerToday = $this->CalculateRevenueToday(2);
 			$this->ServerMTD = $this->CalculateRevenueMTD(2);
 			$this->ServerOverall = $this->CalculateRevenueOverall(2);
-			$this->ServerRefunds = $this->CalculateRevenueOverall(2);
+			$this->ServerRefunds = $this->CalculateRefundsOverall(2);
 			
 			$this->ServerTodayCount = $this->CalculateRevenueToday(2, true);
 			$this->ServerMTDCount = $this->CalculateRevenueMTD(2, true);
@@ -2053,7 +2109,7 @@ END;
 			$this->SelfHostedToday = $this->CalculateRevenueToday(3);
 			$this->SelfHostedMTD = $this->CalculateRevenueMTD(3);
 			$this->SelfHostedOverall = $this->CalculateRevenueOverall(3);
-			$this->SelfHostedRefunds = $this->CalculateRevenueOverall(3);
+			$this->SelfHostedRefunds = $this->CalculateRefundsOverall(3);
 			
 			$this->SelfHostedTodayCount = $this->CalculateRevenueToday(3, true);
 			$this->SelfHostedMTDCount = $this->CalculateRevenueMTD(3, true);
@@ -2071,16 +2127,15 @@ END;
 			$this->PPCOverallCount = $this->CalculateRevenueOverall(5, true);
 			//PPC
 			
-			//PPVSpyMonthly Subscriptions
-			$Sql = "SELECT
-				
-					FROM
-						bevomedia_user_payments
-					WHERE
-						(bevomedia_user_payments
+			//NetworkPayments
+			$this->NetworkPaymentOverall = $this->CalculateNetworkPaymentsOverall();
+			$this->NetworkPaymentToday = $this->CalculateNetworkPaymentsToday();
+			$this->NetworkPaymentMTD = $this->CalculateNetworkPaymentsMTD();
 			
-					";
-			//PPVSpyMonthly Subscriptions
+			$this->NetworkPaymentOverallCount = $this->CalculateNetworkPaymentsOverall(true);
+			$this->NetworkPaymentTodayCount = $this->CalculateNetworkPaymentsToday(true);
+			$this->NetworkPaymentMTDCount = $this->CalculateNetworkPaymentsMTD(true);
+			//NetworkPayments
 		}
 		
 	}
