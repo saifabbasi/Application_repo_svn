@@ -1912,6 +1912,177 @@ END;
 			return $this->db->fetchRow($Sql, array($NicheID, $NetworkID));
 		}
 		
+		Private Function CalculateRevenueToday($ProductID, $Count = false) 
+		{
+			$Add = '';
+			if (!$Count) {
+				$Add = "SUM(Price) as `Total`";
+			} else {
+				$Add = "COUNT(Price) as `Total`";
+			}
+			
+			$Sql = "SELECT
+						{$Add}
+					FROM
+						bevomedia_user_payments
+					WHERE
+						(bevomedia_user_payments.Deleted = 0) AND
+						(DATE(bevomedia_user_payments.PaidDate) = DATE(NOW())) AND
+						(bevomedia_user_payments.ProductID = ?) AND
+						(bevomedia_user_payments.Paid = 1) AND
+						(bevomedia_user_payments.PaidDate <> '0000-00-00 00:00:00')
+					";
+			return reset($this->db->fetchCol($Sql, $ProductID));
+		}
+		
+		Private Function CalculateRevenueMTD($ProductID, $Count = false) 
+		{
+			$Add = '';
+			if (!$Count) {
+				$Add = "SUM(Price) as `Total`";
+			} else {
+				$Add = "COUNT(Price) as `Total`";
+			}
+			
+			$FromDate = date('Y').'-'.date('m').'-01';
+			$Sql = "SELECT
+						{$Add}
+					FROM
+						bevomedia_user_payments
+					WHERE
+						(bevomedia_user_payments.Deleted = 0) AND
+						(DATE(bevomedia_user_payments.PaidDate) BETWEEN DATE('{$FromDate}') AND NOW()) AND
+						(bevomedia_user_payments.ProductID = ?) AND
+						(bevomedia_user_payments.Paid = 1) AND
+						(bevomedia_user_payments.PaidDate <> '0000-00-00 00:00:00')					
+					";
+			return reset($this->db->fetchCol($Sql, $ProductID));
+		}
+		
+		Private Function CalculateRevenueOverall($ProductID, $Count = false) 
+		{
+			$Add = '';
+			if (!$Count) {
+				$Add = "SUM(Price) as `Total`";
+			} else {
+				$Add = "COUNT(Price) as `Total`";
+			}
+			
+			$Sql = "SELECT
+						{$Add}
+					FROM
+						bevomedia_user_payments
+					WHERE
+						(bevomedia_user_payments.Deleted = 0) AND
+						(bevomedia_user_payments.ProductID = ?) AND
+						(bevomedia_user_payments.Paid = 1) AND
+						(bevomedia_user_payments.PaidDate <> '0000-00-00 00:00:00')
+					";
+			return reset($this->db->fetchCol($Sql, $ProductID));
+		}
+		
+		Private Function CalculateRefundsOverall($ProductID, $Count = false) 
+		{
+			$Add = '';
+			if (!$Count) {
+				$Add = "SUM(Price) as `Total`";
+			} else {
+				$Add = "COUNT(Price) as `Total`";
+			}
+			
+			$Sql = "SELECT
+						{$Add}
+					FROM
+						bevomedia_user_payments
+					WHERE
+						(bevomedia_user_payments.Deleted = 1) AND
+						(bevomedia_user_payments.ProductID = ?) AND
+						(bevomedia_user_payments.Paid = 1) AND
+						(bevomedia_user_payments.PaidDate <> '0000-00-00 00:00:00')
+					";
+			return reset($this->db->fetchCol($Sql, $ProductID));
+		}
+		
+		Public Function Revenue()
+		{
+			//PPVSpy
+			$this->PPVSpyToday = $this->CalculateRevenueToday(12)+$this->CalculateRevenueToday(13);
+			$this->PPVSpyMTD = $this->CalculateRevenueMTD(12)+$this->CalculateRevenueMTD(13);
+			$this->PPVSpyOverall = $this->CalculateRevenueOverall(12)+$this->CalculateRevenueOverall(13);
+			$this->PPVSpyRefunds = $this->CalculateRefundsOverall(12)+$this->CalculateRefundsOverall(13);
+			
+			$this->PPVSpyTodayCount = $this->CalculateRevenueToday(12, true)+$this->CalculateRevenueToday(13, true);
+			$this->PPVSpyMTDCount = $this->CalculateRevenueMTD(12, true)+$this->CalculateRevenueMTD(13, true);
+			$this->PPVSpyOverallCount = $this->CalculateRevenueOverall(12, true)+$this->CalculateRevenueOverall(13, true);
+			//PPVSpy
+			
+			//PPVSpyMonthly
+			$this->PPVSpyMonthlyToday = $this->CalculateRevenueToday(12);
+			$this->PPVSpyMonthlyMTD = $this->CalculateRevenueMTD(12);
+			$this->PPVSpyMonthlyOverall = $this->CalculateRevenueOverall(12);
+			$this->PPVSpyMonthlyRefunds = $this->CalculateRefundsOverall(12);
+			
+			$this->PPVSpyMonthlyTodayCount = $this->CalculateRevenueToday(12, true);
+			$this->PPVSpyMonthlyMTDCount = $this->CalculateRevenueMTD(12, true);
+			$this->PPVSpyMonthlyOverallCount = $this->CalculateRevenueOverall(12, true);
+			//PPVSpyMonthly
+			
+			//PPVSpyOneTime
+			$this->PPVSpyOneTimeToday = $this->CalculateRevenueToday(13);
+			$this->PPVSpyOneTimeMTD = $this->CalculateRevenueMTD(13);
+			$this->PPVSpyOneTimeOverall = $this->CalculateRevenueOverall(13);
+			$this->PPVSpyOneTimeRefunds = $this->CalculateRefundsOverall(13);
+			
+			$this->PPVSpyOneTimeTodayCount = $this->CalculateRevenueToday(13, true);
+			$this->PPVSpyOneTimeMTDCount = $this->CalculateRevenueMTD(13, true);
+			$this->PPVSpyOneTimeOverallCount = $this->CalculateRevenueOverall(13, true);
+			//PPVSpyOneTime
+			
+			//Server
+			$this->ServerToday = $this->CalculateRevenueToday(2);
+			$this->ServerMTD = $this->CalculateRevenueMTD(2);
+			$this->ServerOverall = $this->CalculateRevenueOverall(2);
+			$this->ServerRefunds = $this->CalculateRevenueOverall(2);
+			
+			$this->ServerTodayCount = $this->CalculateRevenueToday(2, true);
+			$this->ServerMTDCount = $this->CalculateRevenueMTD(2, true);
+			$this->ServerOverallCount = $this->CalculateRevenueOverall(2, true);
+			//Server
+			
+			//SelfHosted
+			$this->SelfHostedToday = $this->CalculateRevenueToday(3);
+			$this->SelfHostedMTD = $this->CalculateRevenueMTD(3);
+			$this->SelfHostedOverall = $this->CalculateRevenueOverall(3);
+			$this->SelfHostedRefunds = $this->CalculateRevenueOverall(3);
+			
+			$this->SelfHostedTodayCount = $this->CalculateRevenueToday(3, true);
+			$this->SelfHostedMTDCount = $this->CalculateRevenueMTD(3, true);
+			$this->SelfHostedOverallCount = $this->CalculateRevenueOverall(3, true);
+			//SelfHosted
+			
+			//PPC
+			$this->PPCToday = $this->CalculateRevenueToday(5);
+			$this->PPCMTD = $this->CalculateRevenueMTD(5);
+			$this->PPCOverall = $this->CalculateRevenueOverall(5);
+			$this->PPCRefunds = $this->CalculateRefundsOverall(5);
+			
+			$this->PPCTodayCount = $this->CalculateRevenueToday(5, true);
+			$this->PPCMTDCount = $this->CalculateRevenueMTD(5, true);
+			$this->PPCOverallCount = $this->CalculateRevenueOverall(5, true);
+			//PPC
+			
+			//PPVSpyMonthly Subscriptions
+			$Sql = "SELECT
+				
+					FROM
+						bevomedia_user_payments
+					WHERE
+						(bevomedia_user_payments
+			
+					";
+			//PPVSpyMonthly Subscriptions
+		}
+		
 	}
 
 ?>
