@@ -19,7 +19,7 @@ if($cmd && in_array($cmd, array('start', 'status', 'setup')))
 	ignore_user_abort(true);
 	if($cmd == 'start')
 	{
-		$cmd = "python /home/linked/bevo/tools/rackspace-start.py $user $key $size";
+		$cmd = "python /var/www/bevomedia/Tools/trunk/rackspace-start.py $user $key $size";
 		$out = exec($cmd);
 		$s = explode(" ", $out);
 		if($s[0] == 'OK!')
@@ -36,7 +36,7 @@ if($cmd && in_array($cmd, array('start', 'status', 'setup')))
 	} elseif($cmd == 'status') {
 		$ip = @$_GET['ip'];
 		$server_pass = @$_GET['server_pass'];
-		$cmd = "python /home/linked/bevo/tools/rackspace-check-node.py $user $key $ip";
+		$cmd = "python /var/www/bevomedia/Tools/trunk/rackspace-check-node.py $user $key $ip";
 		$out = exec($cmd);
 		if($out == '0')
 		{
@@ -58,7 +58,7 @@ if($cmd && in_array($cmd, array('start', 'status', 'setup')))
 		$dbuser = 'bevo_'.genRandomString(4);
 		$dbpass = 'bevo_'.genRandomString(4);
 		$dbname = 'bevo_db_'.genRandomString(2);
-		$cmd = "python /home/linked/bevo/tools/rackspace-setup.py $user $key $ip $server_pass $root_pass $dbuser $dbpass $dbname";
+		$cmd = "python /var/www/bevomedia/Tools/trunk/rackspace-setup.py $user $key $ip $server_pass $root_pass $dbuser $dbpass $dbname";
 		$out = exec($cmd);
 		echo <<<EOF
 $("#t").html("Complete!");
