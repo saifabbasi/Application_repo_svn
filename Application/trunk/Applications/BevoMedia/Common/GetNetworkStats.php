@@ -7,7 +7,7 @@ function queueUpdateOffers($NetDetails)
 
 	$job = <<<EOM
 <?php
-\$PATH = '/home/bevo/bevo/trunk/Applications/BevoMedia/Common/';
+\$PATH = '/var/www/bevomedia/Application/trunk/Applications/BevoMedia/Common/';
 require_once(\$PATH.'AbsoluteIncludeHelper.include.php');
 require_once(\$PATH.'OfferImport.class.php');
 require_once(\$PATH.'StatImport.class.php');
