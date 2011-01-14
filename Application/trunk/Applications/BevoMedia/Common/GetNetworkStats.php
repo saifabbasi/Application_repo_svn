@@ -64,7 +64,7 @@ function queueUpdateStatsForUser($NetDetails, $AffNetworkUser, $date = false)
 	$JobID =  $Queue->CreateJobID($NetDetails['name'] . ' Stats', $AffNetworkUser['user__id']);
 	$job = <<<EOM
 <?php
-\$PATH = '/home/bevo/bevo/trunk/Applications/BevoMedia/Common/';
+\$PATH = '/var/www/bevomedia/Application/trunk/Applications/BevoMedia/Common/';
 require_once(\$PATH.'AbsoluteIncludeHelper.include.php');
 require_once(\$PATH.'OfferImport.class.php');
 require_once(\$PATH.'StatImport.class.php');
