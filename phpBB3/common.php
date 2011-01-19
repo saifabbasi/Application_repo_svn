@@ -254,11 +254,12 @@ if (!defined('AVOID_AUTOLOGIN'))
 			
 			if (mysql_num_rows($checkPhpBbUser)==0)
 			{
-				die('No username');
+				header('Location: /BevoMedia/User/Forum.html');
+				die;
 			}
 			
 			$auth->login($email, "a", true, 1, 0);
-			header("Location: index.php");	
+			header("Location: ".$_SERVER['REQUEST_URI']);	
 		}
 		die;
 	} 
