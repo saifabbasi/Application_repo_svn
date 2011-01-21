@@ -13,7 +13,7 @@
 			</ul>
 		</li>
 		<li><a class="active" href="/BevoMedia/User/MyProducts.html">My Apps<span></span></a></li>
-		<li><a href="BevoMedia/Publisher/Index.html#PPC">My PPC Accounts<span></span></a></li>
+		<li><a href="/BevoMedia/Publisher/Index.html#PPC">My PPC Accounts<span></span></a></li>
 	</ul>
 	
 	<?php if($this->User->vaultID == 0) { //if UNverified, show verify link on right
