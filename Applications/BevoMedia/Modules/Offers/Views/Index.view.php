@@ -92,10 +92,8 @@ e.checked = false;
 		</ul>
 	</div>
 	<?php echo $this->PageDesc->ShowDesc($this->PageHelper); ?>
-	
-	<center>
 
-				<form method=get action="Search.html" name="frm" class="appform">
+				<form method=get action="Search.html" name="frm" class="appform" id="offmain_searchform">
 				<table class="btable wide2x3" cellspacing="0" cellpadding="5">
 					<tr class="table_header">
 						<td class="hhl"></td>
@@ -164,7 +162,7 @@ e.checked = false;
 					</tr>
 				</table>
 				</form>
-				<table class="btable" cellspacing="0" cellpadding="5" border="0" style="float: left; width: 270px;">
+				<table class="btable floatleft" cellspacing="0" cellpadding="5" border="0" style="float: left; width: 270px;">
 					<tr class="table_header_small">
 						<td class="hhls" style="border: none;"></td>
 						<td style="border: none;" colspan="2">&nbsp;</td>
@@ -234,5 +232,3 @@ e.checked = false;
 						<td class="hhr"></td>
 					</tr>
 				</table>
-
-	</center>
