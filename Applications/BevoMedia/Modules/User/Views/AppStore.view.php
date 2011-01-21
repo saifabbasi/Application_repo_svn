@@ -1,12 +1,15 @@
 <div id="pagemenu">
 	<ul>
 		<li><a class="active" href="<?= Zend_Registry::get('System/BaseURL') ?>BevoMedia/User/AppStore.html">App Store<span></span></a></li>
-		<?php // if user has purchased any apps, add them to the My Apps dropdown here! If user has no apps, don't show the My Apps tab at all.
-			/*<li><a href="#">My Apps<span></span></a>
-				<ul>
-					<li>PPV Spy</li>
-				</ul>
-			</li> */ ?>			
+		<?php	//if user is subscribed to any paid app, show link
+			if(	$this->User->IsSubscribed(User::PRODUCT_PPVSPY_MONTHLY)
+			||	$this->User->IsSubscribed(User::PRODUCT_PPVSPY_YEARLY)
+			||	$this->User->IsSubscribed(User::PRODUCT_FREE_PPVSPY)
+			||	$this->User->IsSubscribed(User::PRODUCT_FREE_SELF_HOSTED)
+			||	$this->User->IsSubscribed(User::PRODUCT_FREE_PPC)
+			)
+				echo '<li><a href="/BevoMedia/User/MyProducts.html">Manage My Subscriptions</a></li>';
+		?>
 	</ul>
 </div>
 <?php echo $this->PageDesc->ShowDesc($this->PageHelper, false); //no toggling
@@ -74,26 +77,9 @@
 									
 				<?php } else { //if user is verified
 					
-					
-					
-					
-					if ($ppvSpyAccess) { /*change this const to PPVSpy*///if user is subscribed to this app
-					
-						echo 'You have a valid license for this app';
+					if ($ppvSpyAccess) { //if user is subscribed to this app
 						
-						/*########TODO!*/						
-						//1) if this is a one-time fee, and user has already paid it:
-						//if(#### ONE-TIME FEE PAID ###)
-							//echo ' forever';
-							
-						//2) if user is on a MONTHLY recurring payment model for this app, and has already paid for it
-						//elseif(### MONTHLY RECURRING FEE PAID ###)
-							//#do nothing
-							
-						//2) if user is on a YEARLY recurring payment model for this app, and has paid for it
-						//elseif(### YEARLY RECURRING FEE PAID ###)
-							//echo ' until DAY-BEFORE-LICENSE-EXPIRES'; //e.g. April 12, 2011
-					?>!</p>
+						?>You have a valid license for this app! <a href="/BevoMedia/User/MyProducts.html">Manage Subscription</a></p>
 					
 			</div><!--close cartdesc-->
 			<div class="cartaction check">
@@ -273,7 +259,7 @@
 	/*
 	
 	
-	appbox ppv campaign editor
+	appbox ppc campaign editor
 	
 	
 	*/ 

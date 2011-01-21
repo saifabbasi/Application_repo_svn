@@ -1,29 +1,53 @@
-<?php /* ################################################################################# OUTPUT ############################ */ ?>
-	<div id="pagemenu">
-		<ul>
-			<?php /*<li><a class="active" href="/BevoMedia/User/AccountInformation.html">My Account<span></span></a></li> */ ?>
-			<li><a class="active" title='Change your Bevo Profile' href='/BevoMedia/User/ChangeProfile.html'>My Profile<span></span></a></li>
-			<?php if($this->User->vaultID > 0) { //if verified, show CC page here
-			?>
-				<li><a href="<?= Zend_Registry::get('System/BaseURL') ?>BevoMedia/User/CreditCard.html">My Payment Options<span></span></a></li>
-			<?php } ?>
-			<li><a title='My Products' href='<?= Zend_Registry::get('System/BaseURL') ?>BevoMedia/User/MyProducts.html'>My Products<span></span></a></li>
-			<li><a title='View PPC Accounts' href='<?= Zend_Registry::get('System/BaseURL') ?>BevoMedia/Publisher/Index.html#PPC'>My PPC Accounts<span></span></a></li>
-			<li><a rel="shadowbox;width=320;height=200;player=iframe" title='Change Bevo Password' href='ChangePassword.html'>My Password<span></span></a></li>
-			<li><a rel="shadowbox;width=480;height=250;player=iframe" title='Cancel Bevo Account' href='CancelAccount.html'>Cancel Account<span></span></a></li>
-			<li><a title='Billing' href='Invoice.html'>Billing<span></span></a></li>
-			<?php /*<li><a title='Referrals' href='Referrals.html'>Referrals<span></span></a></li>*/?>
-		</ul>
-		
-		<?php if($this->User->vaultID == 0) { //if UNverified, show verify link on right
-			?>
-			<ul class="floatright">
-				<li><a title='Verfiy My Account' href='<?= Zend_Registry::get('System/BaseURL') ?>BevoMedia/User/AddCreditCard.html'><strong>Verify Account Now</strong><span></span></a></li>
-			</ul>
+<? /*<div id="pagemenu">
+	<ul>
+		<li><a class="active" title='Change your Bevo Profile' href='/BevoMedia/User/ChangeProfile.html'>My Profile<span></span></a></li>
+		<?php if($this->User->vaultID > 0) { //if verified, show CC page here
+		?>
+			<li><a href="<?= Zend_Registry::get('System/BaseURL') ?>BevoMedia/User/CreditCard.html">My Payment Options<span></span></a></li>
 		<?php } ?>
-	</div>
-	<?php echo $this->PageDesc->ShowDesc($this->PageHelper, false); //2nd param to hide toggle btn, as there is nothing else on this page
-	?>
+		<li><a title='My Products' href='<?= Zend_Registry::get('System/BaseURL') ?>BevoMedia/User/MyProducts.html'>My Products<span></span></a></li>
+		<li><a title='View PPC Accounts' href='<?= Zend_Registry::get('System/BaseURL') ?>BevoMedia/Publisher/Index.html#PPC'>My PPC Accounts<span></span></a></li>
+		<li><a rel="shadowbox;width=320;height=200;player=iframe" title='Change Bevo Password' href='ChangePassword.html'>My Password<span></span></a></li>
+		<li><a rel="shadowbox;width=480;height=250;player=iframe" title='Cancel Bevo Account' href='CancelAccount.html'>Cancel Account<span></span></a></li>
+		<li><a title='Billing' href='Invoice.html'>Billing<span></span></a></li>
+	</ul>
+	
+	<?php if($this->User->vaultID == 0) { //if UNverified, show verify link on right
+		?>
+		<ul class="floatright">
+			<li><a title='Verfiy My Account' href='<?= Zend_Registry::get('System/BaseURL') ?>BevoMedia/User/AddCreditCard.html'><strong>Verify Account Now</strong><span></span></a></li>
+		</ul>
+	<?php } ?>
+</div>*/ ?>
+
+<div id="pagemenu">
+	<ul>
+		<li><a class="active" href='/BevoMedia/User/ChangeProfile.html'>My Account<span></span></a></li>
+		<li><a href="/BevoMedia/User/MyProducts.html">My Apps<span></span></a></li>
+		<li><a href="BevoMedia/Publisher/Index.html#PPC">My PPC Accounts<span></span></a></li>
+	</ul>
+	
+	<?php if($this->User->vaultID == 0) { //if UNverified, show verify link on right
+		?>
+		<ul class="floatright">
+			<li><a title='Verfiy My Account' href='<?= Zend_Registry::get('System/BaseURL') ?>BevoMedia/User/AddCreditCard.html'><strong>Verify Account Now</strong><span></span></a></li>
+		</ul>
+	<?php } ?>
+</div>
+<div id="pagesubmenu">
+	<ul>
+		<li><a class="active" href="/BevoMedia/User/ChangeProfile.html">My Profile</a></li>
+		<?php if($this->User->vaultID > 0) { ?>
+			<li><a href="/BevoMedia/User/CreditCard.html">My Payment Options</a></li>
+		<?php } ?>
+		<li><a href="/BevoMedia/User/Invoice.html">Billing</a></li>
+		<li><a href="/BevoMedia/User/ChangePassword.html" rel="shadowbox;width=320;height=200;player=iframe" title="Change Password">Change Password</a></li>
+		<li><a href="/BevoMedia/User/CancelAccount.html" rel="shadowbox;width=480;height=250;player=iframe" title="Cancel Bevo Account">Cancel Account</a></li>
+	</ul>
+</div>
+
+<?php echo $this->PageDesc->ShowDesc($this->PageHelper, false); //2nd param to hide toggle btn, as there is nothing else on this page
+?>
 
 <?php if($this->Message == 'ACCOUNT_UPDATED'):?><h3>Account Updated</h3><?php endif?>
 <br/>
