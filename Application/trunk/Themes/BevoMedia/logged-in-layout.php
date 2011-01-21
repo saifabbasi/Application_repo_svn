@@ -361,7 +361,10 @@ if(userTimezoneOffset == false)
 				<a class="btn topmenu_dashboard<?php echo($this->PageHelper->Area == 'Overview')?' active':''?>" href="/BevoMedia/User/Index.html">Dashboard</a>
 				<a class="btn topmenu_myaccount<?php echo($this->PageHelper->Function == 'ChangeProfile'
 									|| $this->PageHelper->Function == 'AccountInformation'
-									|| $this->PageHelper->Function == 'AddCreditCard')?' active':'';?>" href="/BevoMedia/User/ChangeProfile.html">My Account</a>
+									|| $this->PageHelper->Function == 'AddCreditCard'
+									|| $this->PageHelper->Function == 'CreditCard'
+									|| $this->PageHelper->Function == 'Invoice'
+									|| $this->PageHelper->Function == 'MyProducts')?' active':'';?>" href="/BevoMedia/User/ChangeProfile.html">My Account</a>
 				<a class="btn topmenu_logout" href="/BevoMedia/User/Logout.html">Logout</a>
 			</div>
 			<div id="setupmenu">
