@@ -419,16 +419,16 @@ if(userTimezoneOffset == false)
 			</div>
 			
 			<ul id="topmenu_help" class="topmenusub">
-				<li><a href="/BevoMedia/User/Forum.html">support forum</a></li>
-				<li><a href="/BevoMedia/Publisher/PPCTutorials.html">tutorials</a></li>
-				<li><a href="/BevoMedia/KeywordTracker/Import202.html">Prosper</a></li>
+				<li><a href="/BevoMedia/User/Forum.html">Support Forum</a></li>
+				<li><a href="/BevoMedia/Publisher/PPCTutorials.html">Tutorials</a></li>
+				<li><a href="/BevoMedia/KeywordTracker/Import202.html">Prosper202 Import</a></li>
 				<li class="last"></li>
 			</ul>
 			<ul id="topmenu_tools" class="topmenusub">
-				<li><a href="/BevoMedia/User/ApiCalls.html">api call history</a></li>
-				<li><a href="/BevoMedia/Publisher/PPCQueueProgress.html">campaign editor queue</a></li>
-				<li><a href="/BevoMedia/User/ManageStats.html">delete stats</a></li>
-				<li><a href="http://ryanbuke.com/" target="_blank">official blog</a></li>
+				<li><a href="/BevoMedia/User/ApiCalls.html">API Call History</a></li>
+				<li><a href="/BevoMedia/Publisher/PPCQueueProgress.html">Campaign Editor Queue</a></li>
+				<li><a href="/BevoMedia/User/ManageStats.html">Delete Stats</a></li>
+				<li><a href="http://ryanbuke.com/" target="_blank">Official Blog</a></li>
 				<li class="last"></li>
 			</ul>
 		
