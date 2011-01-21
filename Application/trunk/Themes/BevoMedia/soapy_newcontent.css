@@ -759,5 +759,8 @@ h2.imagetitle.interested { width:147px; height:22px; background:url(img/imagetit
 .nyp .working { display:none; }
 
 
-
-
+/*offers 110120*/
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	#offmain_searchform { float:left; }
+	table.floatleft { display:inline !important; }
+}
