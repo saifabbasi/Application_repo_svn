@@ -392,6 +392,7 @@ if(userTimezoneOffset == false)
 				<a class="btn coremenu_analytics<?php echo($this->PageHelper->Area == 'Analytics')?' active':''?>" href="/BevoMedia/Analytics/AnalyticsDetail.html">Analytics</a>
 				<a class="btn coremenu_apps<?php echo($this->PageHelper->Controller == 'PPVTools' //this button is active for all tools
 								|| $this->PageHelper->Controller == 'PPVSpy'
+								|| $this->PageHelper->Controller == 'Geotargeting'
 								|| $this->PageHelper->Function == 'AppStore') ?' active':''?>" href="/BevoMedia/User/AppStore.html">Apps</a>
 				<div class="clear"></div>
 			</div>
@@ -474,6 +475,7 @@ if(userTimezoneOffset == false)
 	
 	elseif(	$this->PageHelper->Controller == 'PPVTools'
 	|| 	$this->PageHelper->Controller == 'PPVSpy'
+	|| 	$this->PageHelper->Controller == 'Geotargeting'
 	||	$this->PageHelper->Function == 'AppStore'
 	)
 		$soap_containerclass = 'cont_apps';
