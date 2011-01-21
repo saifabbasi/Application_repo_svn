@@ -104,11 +104,12 @@ if($_GET && isset($_GET['page'])) {
 			$xmlrequest .= 'key='.$key;
 			
 			$xml = simplexml_load_file($xmlrequest);			
+			echo '<Pre>'; print_r($xml);die;
 			
-			/*if($page == 'SearchbyKeyword') {
-				var_dump($_GET);
-				die();
-			//} //*/
+//			if($page == 'SearchbyKeyword') {
+//				var_dump($_GET);
+//				die();
+//			} 
 			
 			if($page == 'SuggestATarget') //out[error] should rather be named "message" since its not always an error... whatever
 				$out['error'] = 'Thank you. Your target has been added to the queue. Please check back in 24 to 48 hours.';

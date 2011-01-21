@@ -583,8 +583,24 @@ Class PageHelper {
 			$PagePresets['PPVTools/LinkBuilder/UniquePageName'] = 'ppv_linkbuilder';
 			$PagePresets['PPVTools/LinkBuilder/Heading'] = 'Premium Research Tools: The List Builder';
 			$PagePresets['PPVTools/LinkBuilder/SubHeading'] = 'The List Builder Tool allows users to wrap keywords, extract the list into a CSV file, add states, countries, common first names and more common keywords.';
-			
+
 		
+		//Geotargeting
+		$PagePresets['Geotargeting/*/Area'] = 'Geotargeting';
+		$PagePresets['Geotargeting/*/HeadingImage'] = 'pagedesc_geotargeting.png';
+		
+			$PagePresets['Geotargeting/Index/UniquePageName'] = 'ppv_tools';
+			$PagePresets['Geotargeting/Index/Heading'] = 'Existing Geotargets';
+			$PagePresets['Geotargeting/Index/SubHeading'] = 'Geotarget your landing pages and offers. This feature allows you to show different pages based on where the viewer is coming from in the world. Target by any city, state, or country in the world!';
+			
+			$PagePresets['Geotargeting/EditGeotarget/UniquePageName'] = 'ppv_pagesniper';
+			$PagePresets['Geotargeting/EditGeotarget/Heading'] = 'Edit Geotarget';
+			$PagePresets['Geotargeting/EditGeotarget/SubHeading'] = 'Geotarget your landing pages and offers. This feature allows you to show different pages based on where the viewer is coming from in the world. Target by any city, state, or country in the world!';
+			
+			$PagePresets['Geotargeting/NewGeotarget/UniquePageName'] = 'ppv_pagesniper';
+			$PagePresets['Geotargeting/NewGeotarget/Heading'] = 'New Geotarget';
+			$PagePresets['Geotargeting/NewGeotarget/SubHeading'] = 'Geotarget your landing pages and offers. This feature allows you to show different pages based on where the viewer is coming from in the world. Target by any city, state, or country in the world!';
+			
 		//Tools
 			//api call history
 			$PagePresets['User/ApiCalls/UniquePageName'] = 'user_apicalls';

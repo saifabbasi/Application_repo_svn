@@ -662,6 +662,15 @@ html>body #ieBar { display: none }
 
 
 
+.geotargeting .create { 
+	width: 131px; height:24px; background:url(img/btn_track_submit.png) no-repeat;
+	border: 0px; 
+}
+
+.geotargeting .edit { 
+	width: 131px; height:24px; background:url(img/btn_track_submit.png) no-repeat;
+	border: 0px; 
+}
 
 
 
