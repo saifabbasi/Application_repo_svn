@@ -231,6 +231,21 @@
 			}//endif position left
 			
 			break;
+			
+		case 'geotargeting' : //PPV Research Tools
+			$path = '/BevoMedia/Geotargeting';
+			if($position == 'left') {
+				$out = array( //label, url, array of children if any
+					'geotargets' => array('Geotargeting',$path.'/Index.html',array(
+							'existing' => array('Existing Geotargets',$path.'/Index.html'),
+							'new' => array('New Geotarget',$path.'/NewGeotarget.html')
+							)
+						),
+				);
+			
+			}//endif position left
+			
+			break;
 		}//end switch module
 		
 		return $out;

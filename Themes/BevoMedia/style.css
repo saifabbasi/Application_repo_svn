@@ -1699,3 +1699,38 @@ tr.table_header_big td.hhrb { width: 12px; height: 46px; background-image: url('
 /*****
 END style.css
 *****/
+
+.geotarget-list-item {
+	min-height: 30px;
+	margin: 4px;	
+	padding: 5px;
+	border-width: 0px;
+	border-bottom-width: 1px;
+	border-color: #efefef;
+	border-style: solid;
+	cursor: pointer;
+	
+}
+
+.geotarget-list-item a {
+	font-size: 15px;	
+}
+
+.geotarget-list-item .titleUrl {
+	width: 800px;
+	display: block;	
+}
+
+.geotarget-list-item .urls {
+	margin-left: 10px;
+	color: #ababab;
+	float: left;
+	width: auto;
+	min-width: 800px;
+}
+
+.geotarget-list-item .delete {
+	float: right;
+	width: 75px;
+	font-size: 12px;	
+}
