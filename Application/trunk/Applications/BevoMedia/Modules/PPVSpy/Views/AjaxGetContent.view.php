@@ -104,7 +104,7 @@ if($_GET && isset($_GET['page'])) {
 			$xmlrequest .= 'key='.$key;
 			
 			$xml = simplexml_load_file($xmlrequest);			
-			echo '<Pre>'; print_r($xml);die;
+			//echo '<Pre>'; print_r($xml);die;
 			
 //			if($page == 'SearchbyKeyword') {
 //				var_dump($_GET);
