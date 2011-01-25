@@ -737,7 +737,7 @@ while($Row = mysql_fetch_assoc($Query))
 	<?php echo $this->PageDesc->ShowDesc($this->PageHelper); ?>
 
 <div class="flashchart">
-	<script language="JavaScript" src="https://www.bevomedia.com/style/AC_RunActiveContent.js"></script>
+	<script language="JavaScript" src="https://beta.bevomedia.com/style/AC_RunActiveContent.js"></script>
 		       <script language="JavaScript">
 		       <!--
 		       var requiredMajorVersion = 9;
