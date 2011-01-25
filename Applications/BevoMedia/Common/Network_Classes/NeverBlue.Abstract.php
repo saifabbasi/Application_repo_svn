@@ -80,7 +80,7 @@ abstract class NeverBlueAbstract Extends NetworksAbstract {
 		
 		ini_set('default_socket_timeout', 120);
 		$Data = @file_get_contents($URL);
-		
+		echo $Data."<br />\n\n";
 		//$Xml = new SimpleXMLElement($Data);
 		
 		libxml_use_internal_errors(true);
@@ -143,6 +143,9 @@ abstract class NeverBlueAbstract Extends NetworksAbstract {
 		
 		ini_set('default_socket_timeout', 120);
 		$Data = @file_get_contents($URL);
+		
+		echo $Data."<br />\n\n";
+		
 		echo date('H:i:s') . "Requesting stats report...\n";
 		
 		// $Xml = new SimpleXMLElement($Data);
