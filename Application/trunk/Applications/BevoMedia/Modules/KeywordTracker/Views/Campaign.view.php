@@ -93,7 +93,7 @@ $sql = "SELECT
 			and clicks.creativeId != ''
 			and campaigns.ProviderType in (1,2,3)
 			$filtering_rev_sql
-			AND ( (bevomedia_accounts_adwords.deleted = 0) OR (bevomedia_accounts_yahoo.deleted = 0) OR (bevomedia_accounts_msnadcenter.deleted = 0) ) 
+			AND ( (bevomedia_accounts_adwords.deleted = 0) OR (bevomedia_accounts_yahoo.deleted = 0) OR (bevomedia_accounts_msnadcenter.deleted = 0) OR (bevomedia_accounts_adwords.deleted IS NULL) OR (bevomedia_accounts_yahoo.deleted IS NULL) OR (bevomedia_accounts_msnadcenter.deleted IS NULL)  ) 
 		GROUP BY
 			campaigns.id,
 			campaigns.name
