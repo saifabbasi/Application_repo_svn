@@ -16,6 +16,9 @@ else
 $Queue = new QueueComponent();
 $Queue->SandboxDirectory = ABSPATH . 'Applications/BevoMedia/Common/QueueSandbox';
 
+if(!file_exists($Queue->SandboxDirectory))
+	mkdir($Queue->SandboxDirectory, 0777, true);
+
 $i=0;
 while($i <= 20){
 	$Continue = $Queue->ProcessNextInQueue();
