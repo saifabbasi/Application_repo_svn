@@ -78,6 +78,7 @@ abstract class NeverBlueAbstract Extends NetworksAbstract {
 		$URL.= 'campaign=0&';
 		$URL.= 'type=subid';
 		
+		ini_set('default_socket_timeout', 120);
 		$Data = @file_get_contents($URL);
 		
 		//$Xml = new SimpleXMLElement($Data);
@@ -97,7 +98,7 @@ abstract class NeverBlueAbstract Extends NetworksAbstract {
 		echo 'Status: '.$Status."\n";
 		echo 'JobID: '.$JobID."\n";
 		
-		$startTime = time();
+//		$startTime = time();
 		
 		if ($Status=='success')
 		{
@@ -108,10 +109,10 @@ abstract class NeverBlueAbstract Extends NetworksAbstract {
 				{
 					sleep(5);
 					
-					if ( (time()-$startTime) >= 8*60 ) 
-					{
-						break;
-					}
+//					if ( (time()-$startTime) >= 8*60 ) 
+//					{
+//						break;
+//					}
 					
 					echo date('H:i:s') . "SLEEPING (5)\n";
 					continue;
@@ -140,6 +141,7 @@ abstract class NeverBlueAbstract Extends NetworksAbstract {
 		$URL.= 'reportJob='.$ID.'&';
 		$URL.= 'format=xml';
 		
+		ini_set('default_socket_timeout', 120);
 		$Data = @file_get_contents($URL);
 		echo date('H:i:s') . "Requesting stats report...\n";
 		
@@ -222,6 +224,7 @@ abstract class NeverBlueAbstract Extends NetworksAbstract {
 	{
 		$URL = 'http://'.urlencode($this->offersUsername).':'.urlencode($this->offersPassword).'@secure.neverblue.com/service/aff/v1/rest/getOffers/';
 	
+		ini_set('default_socket_timeout', 120);
 		$Data = file_get_contents($URL);
 		
 		$Xml = new SimpleXMLElement($Data);
