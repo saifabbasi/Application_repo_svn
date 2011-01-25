@@ -94,6 +94,8 @@ abstract class NeverBlueAbstract Extends NetworksAbstract {
 		 //die;
 		$Status = (string)$Xml->status;
 		$JobID = (string)$Xml->reportJob;
+		echo 'Status: '.$Status."\n";
+		echo 'JobID: '.$JobID."\n";
 		
 		$startTime = time();
 		
