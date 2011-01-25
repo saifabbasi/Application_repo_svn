@@ -95,6 +95,8 @@ abstract class NeverBlueAbstract Extends NetworksAbstract {
 		$Status = (string)$Xml->status;
 		$JobID = (string)$Xml->reportJob;
 		
+		$startTime = time();
+		
 		if ($Status=='success')
 		{
 			while (1)
@@ -103,6 +105,12 @@ abstract class NeverBlueAbstract Extends NetworksAbstract {
 				if (!$ResultNeverBlue)
 				{
 					sleep(5);
+					
+					if ( (time()-$startTime) >= 8*60 ) 
+					{
+						break;
+					}
+					
 					echo date('H:i:s') . "SLEEPING (5)\n";
 					continue;
 				}
