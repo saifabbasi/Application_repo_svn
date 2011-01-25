@@ -254,9 +254,7 @@
 					$outputs = array();
 					$status = 'success';
 					try {
-//					  exec("/usr/bin/php " .$this->SandboxDirectory.DIRECTORY_SEPARATOR.$Results2[0]->jobId.'.php', $outputs);
-$ivan = $this->SandboxDirectory.DIRECTORY_SEPARATOR.$Results2[0]->jobId;
-						$outputs[] = `/usr/bin/php {$ivan}.php`;
+					  exec("php " .$this->SandboxDirectory.DIRECTORY_SEPARATOR.$Results2[0]->jobId.'.php', $outputs);
 					} catch (Exception $e) {
 					  $status = 'error';
 					  $outputs[] = $e->getMessage();
