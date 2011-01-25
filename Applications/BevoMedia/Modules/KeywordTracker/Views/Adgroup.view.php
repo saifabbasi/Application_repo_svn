@@ -84,7 +84,7 @@ $query = "SELECT
 			and campaigns.ProviderType in (1,2,3)
 			AND clicks.clickDate BETWEEN '$stDate' AND '$enDate'
 			$filtering_rev_sql
-			AND ( (bevomedia_accounts_adwords.deleted = 0) OR (bevomedia_accounts_yahoo.deleted = 0) OR (bevomedia_accounts_msnadcenter.deleted = 0) )
+			AND ( (bevomedia_accounts_adwords.deleted = 0) OR (bevomedia_accounts_yahoo.deleted = 0) OR (bevomedia_accounts_msnadcenter.deleted = 0) OR (bevomedia_accounts_adwords.deleted IS NULL) OR (bevomedia_accounts_yahoo.deleted IS NULL) OR (bevomedia_accounts_msnadcenter.deleted IS NULL)  )
 		GROUP BY
 			ads.id,
 			ads.name,

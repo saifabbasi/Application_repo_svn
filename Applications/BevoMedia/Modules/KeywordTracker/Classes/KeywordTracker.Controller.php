@@ -720,7 +720,10 @@
 	        	$table_add_join .= "LEFT JOIN bevomedia_accounts_yahoo ON (campaigns.AccountID = bevomedia_accounts_yahoo.id) \n";
 	        	$table_add_join .= "LEFT JOIN bevomedia_accounts_msnadcenter ON (campaigns.AccountID = bevomedia_accounts_msnadcenter.id) \n";
 	        	
-	        	$where_add .= " AND ( (bevomedia_accounts_adwords.deleted = 0) OR (bevomedia_accounts_yahoo.deleted = 0) OR (bevomedia_accounts_msnadcenter.deleted = 0) ) ";
+	        	$where_add .= " AND ( ";
+	        	$where_add .= "  (bevomedia_accounts_adwords.deleted = 0) OR (bevomedia_accounts_yahoo.deleted = 0) OR (bevomedia_accounts_msnadcenter.deleted = 0) OR  ";
+	        	$where_add .= "  (bevomedia_accounts_adwords.deleted IS NULL) OR (bevomedia_accounts_yahoo.deleted IS NULL) OR (bevomedia_accounts_msnadcenter.deleted IS NULL)  ";
+	        	$where_add .= " ) ";
 	        }
 	        
 	        if($filter_ppcaccount != 0)
