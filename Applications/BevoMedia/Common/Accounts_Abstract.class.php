@@ -299,7 +299,7 @@ Abstract Class Accounts_Abstract {
 		$Insert['User_ID'] = $Data['user__id'];
 		$Insert['Username'] = $Data['Username'];
 		$Insert['Password'] = $Data['Password'];
-		$Insert['APIKey'] = $Data['APIKey'];
+		$Insert['APIKey'] = @$Data['APIKey'];
 		
 		foreach($Insert as $Key=>$Value)
 			$Insert[$Key] = $this->_db->quote($Value);
