@@ -30,6 +30,13 @@
 			
 			$this->db = Zend_Registry::get('Instance/DatabaseObj');
 
+			//GoogleMaps_API
+			$Sql = "SELECT value FROM bevomedia_settings WHERE name = 'GoogleMaps_API' ";
+			$Row = mysql_query($Sql);
+			$Row = mysql_fetch_assoc($Row);
+			$this->GoogleMaps_API = $Row['value'];
+			//GoogleMaps_API
+			
 		}
 		
 		Public Function ListGeoCountries()
