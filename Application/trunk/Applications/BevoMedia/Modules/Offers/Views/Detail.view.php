@@ -165,7 +165,7 @@ require_once(PATH . "Legacy.Abstraction.class.php");
 		<tr>
             <td class="border">&nbsp;</td>
 			<td class="GridRowHead">Category&nbsp;</td>
-			<td class="GridRowCol"><?=LegacyAbstraction::getcategorylist($offer['id'])?>&nbsp;</td>
+			<td class="GridRowCol"><?=LegacyAbstraction::getcategorylist($offer['category__id'])?>&nbsp;</td>
             <td class="tail">&nbsp;</td>
 		</tr>
 		<tr>

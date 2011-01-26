@@ -1,6 +1,6 @@
 <?php 
 
-require_once('Hitpath.Abstract.php');
+require_once('CakeMarketing.Abstract.php');
 
 /**
  * Convert2Media.php
@@ -12,12 +12,18 @@ require_once('Hitpath.Abstract.php');
  * @author RCS
  * @version 0.1.2
  */
-class Convert2Media Extends HitpathAbstract {
+class Convert2Media Extends CakeMarketingAbstract {
 	/**
 	 * @access protected
 	 * @var string $apiUrl
 	 */
-	protected $apiUrl = 'http://reporting.c2mclicks.com/api.php';
+	protected $apiUrl = 'http://www.c2mtrax.com/affiliates/api/1/reports.asmx/Clicks';
+	
+	/**
+	 * @access protected
+	 * @var string $apiUrlConversions
+	 */
+	protected $apiUrlConversions = 'http://www.c2mtrax.com/affiliates/api/1/reports.asmx/Conversions';
 	
 	/**
 	 * @access protected
@@ -33,15 +39,15 @@ class Convert2Media Extends HitpathAbstract {
 	
 	/**
 	 * @access protected
-	 * @var string $offersUsername
+	 * @var string $offersAffiliateId
 	 */
-	protected $offersUsername = 'bevomedia';
+	protected $offersAffiliateId = '474';
 	
 	/**
 	 * @access protected
-	 * @var string $offersPassword
+	 * @var string $offersApiKey
 	 */
-	protected $offersPassword = 'yoyoyo1025';
+	protected $offersApiKey = 'nmOYaXP5Yeg';
 	
 	/**
 	 * Convert2Media class constructor.
