@@ -4,7 +4,7 @@
 ?>
 	
 	<div id="landingPageCountries_<?=$landingPageId?>_<?=$count?>">
-		<select id="country" class="formselect" style="width: 250px" name="country_<?=$landingPageId?>_<?=$count?>_<?=isset($this->Data->ID)?$this->Data->ID:'0'?>">
+		<select id="country" class="formselect countrySelect" landingPageId="<?=$landingPageId?>" count="<?=$count?>" style="width: 250px" name="country_<?=$landingPageId?>_<?=$count?>_<?=isset($this->Data->ID)?$this->Data->ID:'0'?>">
 			<option value="0">Any Country</option>
 		<?php 
 			foreach ($this->Countries as $Country) {
@@ -22,11 +22,11 @@
 		?>	
 		</select>
 		
-		<select id="region" class="formselect" style="width: 250px" name="region_<?=$landingPageId?>_<?=$count?>_<?=isset($this->Data->ID)?$this->Data->ID:'0'?>">
+		<select id="region" class="formselect regionSelect" style="width: 250px" name="region_<?=$landingPageId?>_<?=$count?>_<?=isset($this->Data->ID)?$this->Data->ID:'0'?>">
 			<option value="0">Any Region</option>
 		</select>
 		
-		<select id="city" class="formselect" style="width: 250px" name="city_<?=$landingPageId?>_<?=$count?>_<?=isset($this->Data->ID)?$this->Data->ID:'0'?>">
+		<select id="city" class="formselect citySelect" style="width: 250px" name="city_<?=$landingPageId?>_<?=$count?>_<?=isset($this->Data->ID)?$this->Data->ID:'0'?>">
 			<option value="0">Any City</option>
 		</select>
 		
@@ -40,6 +40,8 @@
 		$('#landingPageCountries_<?=$landingPageId?>_<?=$count?> #country').change(function() {
 
 			loadRegions_<?=$landingPageId?>_<?=$count?>($(this).val());
+
+			redrawMarkers();
 
 		});
 
@@ -61,6 +63,13 @@
 
 				region.val(EditRegionID_<?=$landingPageId?>_<?=$count?>);
 
+				if (EditRegionID_<?=$landingPageId?>_<?=$count?>>0) {
+
+					if (EditCityID_<?=$landingPageId?>_<?=$count?>==0) {
+						redrawMarkers();
+					}
+				}
+				
 				EditRegionID_<?=$landingPageId?>_<?=$count?> = '';
 
 
@@ -75,6 +84,8 @@
 		$('#landingPageCountries_<?=$landingPageId?>_<?=$count?> #region').change(function() {
 
 			loadCities_<?=$landingPageId?>_<?=$count?>($('#landingPageCountries_<?=$landingPageId?>_<?=$count?> #country').val(), $(this).val());
+
+			redrawMarkers();
 
 		});
 
@@ -94,11 +105,19 @@
 
 				if (EditCityID_<?=$landingPageId?>_<?=$count?>!='') {
 					city.val(EditCityID_<?=$landingPageId?>_<?=$count?>);
+					
+					redrawMarkers();
 				}
 
 				EditCityID_<?=$landingPageId?>_<?=$count?> = '';
 			});
 		}
+
+		$('#landingPageCountries_<?=$landingPageId?>_<?=$count?> #city').change(function() {
+
+			redrawMarkers();
+
+		});
 
 		$('#landingPageCountries_<?=$landingPageId?>_<?=$count?> .remove-location').click(function() {
 
@@ -108,12 +127,18 @@
 			
 			$('#landingPageCountries_<?=$landingPageId?>_'+$(this).attr('rowId')).remove();
 
+			redrawMarkers();
+			
 			return false;
 
 		});
 
 		if (EditRegionID_<?=$landingPageId?>_<?=$count?>!='') {
 			loadRegions_<?=$landingPageId?>_<?=$count?>($('#landingPageCountries_<?=$landingPageId?>_<?=$count?> #country').val());
+
+			if (EditRegionID_<?=$landingPageId?>_<?=$count?>==0) {
+				redrawMarkers();
+			}
 		}
 
 	</script>

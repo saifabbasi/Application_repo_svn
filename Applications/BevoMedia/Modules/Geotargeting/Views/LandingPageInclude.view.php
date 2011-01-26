@@ -56,6 +56,8 @@
 			
 			$('#landingPageFieldset_'+$(this).attr('rowId')).remove();
 
+			redrawMarkers();
+
 			return false;
 		});
 	
