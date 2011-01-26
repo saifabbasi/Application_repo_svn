@@ -300,24 +300,16 @@ class LegacyAbstraction {
     }
     public static function getcategorylist($id)
     {
-        $string='';
-        $sql="SELECT * FROM bevomedia_mcategorie_offers WHERE offer__id=".$id;
-        $res = self::executeQuery($sql);
+    	$result = '';
+    	
+    	$sql = "SELECT title FROM bevomedia_category WHERE id = ".intval($id);
+    	$res = self::executeQuery($sql);
         while($row = self::getRow($res) )
         {
-            $countryid=$row['mCategorie__id'];
-            $sql2="SELECT * FROM bevomedia_mcategorie WHERE id=".$countryid;
-            $res2 = self::executeQuery($sql2);
-            if ( $row = self::getRow($res2) )
-            {
-                if($row['mCategorie'] !='N/A' )
-                {
-                    $string.=$row['mCategorie'];
-                    $string.=',';
-                }
-            }
-        }
-        return $string;
+			$result = $row['title'];
+    	}
+    	
+    	return $result;
     }
     public static function getPartialString($str, $max=150, $link='')
     {

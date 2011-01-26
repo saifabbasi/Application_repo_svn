@@ -34,7 +34,8 @@
 
 	<br /><br />
 
-	<div style="font-weight: bold; font-size: 14px;">Geotarget Code:</div>
+	<div style="font-weight: bold; font-size: 14px;">Geotarget Code</div>
+	<div>Please place this coding on a blank php file. Viewers will then be redirected accordingly when they access the page.</div>
 	<div style="background-color: #efefef; height: 60px; line-height: 60px; text-align: center; border: 1px #ababab solid;">
 		<?php 
 			$Code = "
