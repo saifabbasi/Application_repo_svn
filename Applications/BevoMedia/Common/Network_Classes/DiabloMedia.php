@@ -74,13 +74,15 @@ class DiabloMedia Extends NetworksAbstract {
 			$postdata .= urlencode($Key).'='.urlencode($Value).'&';
 		}
 		
+		unlink(sys_get_temp_dir().'/cookiemonster'.$this->publisherLogin.md5($this->publisherPassword).'.txt');
+		
 		$arrParams = array('CURLOPT_SSL_VERIFYPEER' => FALSE,
 						'CURLOPT_USERAGENT' => "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.6) Gecko/20070725 Firefox/2.0.0.6",
 						'CURLOPT_TIMEOUT' => 60,
 						'CURLOPT_FOLLOWLOCATION' => 1,
-						'CURLOPT_COOKIEJAR' => sys_get_temp_dir().'/cookiemonster.txt',
-						'CURLOPT_COOKIEFILE' => sys_get_temp_dir().'/cookiemonster.txt',
-						'CURLOPT_REFERER' => $this->loginUrl,
+						'CURLOPT_COOKIEJAR' => sys_get_temp_dir().'/cookiemonster'.$this->publisherLogin.md5($this->publisherPassword).'.txt',
+						'CURLOPT_COOKIEFILE' => sys_get_temp_dir().'/cookiemonster'.$this->publisherLogin.md5($this->publisherPassword).'.txt',
+						'CURLOPT_REFERER' => $this->loginUrl, 
 						'CURLOPT_POSTFIELDS' => $postdata,
 						'CURLOPT_POST' => 1,
 						'CURLOPT_HEADER' => 1);
@@ -115,12 +117,14 @@ class DiabloMedia Extends NetworksAbstract {
 			$postdata .= urlencode($Key).'='.urlencode($Value).'&';
 		}
 		
+		unlink(sys_get_temp_dir().'/cookiemonster'.$this->publisherLogin.md5($this->publisherPassword).'.txt');
+		
 		$arrParams = array('CURLOPT_SSL_VERIFYPEER' => FALSE,
 						'CURLOPT_USERAGENT' => "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.6) Gecko/20070725 Firefox/2.0.0.6",
 						'CURLOPT_TIMEOUT' => 60,
 						'CURLOPT_FOLLOWLOCATION' => 1,
-						'CURLOPT_COOKIEJAR' => sys_get_temp_dir().'/cookiemonster.txt',
-						'CURLOPT_COOKIEFILE' => sys_get_temp_dir().'/cookiemonster.txt',
+						'CURLOPT_COOKIEJAR' => sys_get_temp_dir().'/cookiemonster'.$this->publisherLogin.md5($this->publisherPassword).'.txt',
+						'CURLOPT_COOKIEFILE' => sys_get_temp_dir().'/cookiemonster'.$this->publisherLogin.md5($this->publisherPassword).'.txt',
 						'CURLOPT_REFERER' => $this->loginUrl,
 						'CURLOPT_POSTFIELDS' => $postdata,
 						'CURLOPT_POST' => 1,
@@ -159,8 +163,8 @@ class DiabloMedia Extends NetworksAbstract {
 			'CURLOPT_USERAGENT' => "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.6) Gecko/20070725 Firefox/2.0.0.6",
 			'CURLOPT_TIMEOUT' => 60,
 			'CURLOPT_FOLLOWLOCATION' => 1,
-			'CURLOPT_COOKIEJAR' => sys_get_temp_dir().'/cookiemonster.txt',
-			'CURLOPT_COOKIEFILE' => sys_get_temp_dir().'/cookiemonster.txt',
+			'CURLOPT_COOKIEJAR' => sys_get_temp_dir().'/cookiemonster'.$this->publisherLogin.md5($this->publisherPassword).'.txt',
+			'CURLOPT_COOKIEFILE' => sys_get_temp_dir().'/cookiemonster'.$this->publisherLogin.md5($this->publisherPassword).'.txt',
 			'CURLOPT_REFERER' => '',
 			'CURLOPT_HTTPGET' => 1);
 		$JsonData = $this->curlIt($jsonUrl, $arrParams);
@@ -229,8 +233,8 @@ class DiabloMedia Extends NetworksAbstract {
 						'CURLOPT_USERAGENT' => "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.6) Gecko/20070725 Firefox/2.0.0.6",
 						'CURLOPT_TIMEOUT' => 60,
 						'CURLOPT_FOLLOWLOCATION' => 1,
-						'CURLOPT_COOKIEJAR' => sys_get_temp_dir().'/cookiemonster.txt',
-						'CURLOPT_COOKIEFILE' => sys_get_temp_dir().'/cookiemonster.txt',
+						'CURLOPT_COOKIEJAR' => sys_get_temp_dir().'/cookiemonster'.$this->publisherLogin.md5($this->publisherPassword).'.txt',
+						'CURLOPT_COOKIEFILE' => sys_get_temp_dir().'/cookiemonster'.$this->publisherLogin.md5($this->publisherPassword).'.txt',
 						'CURLOPT_REFERER' => 'http://pub.diablomedia.com/',
 						'CURLOPT_HTTPHEADER' => array("Accept: application/json", "X-Requested-With: XMLHttpRequest", "X-Request: JSON")
 						);
