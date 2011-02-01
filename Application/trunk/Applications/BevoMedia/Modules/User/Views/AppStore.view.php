@@ -234,7 +234,7 @@
 						<?php if($this->User->vaultID == 0) { //if user is not verified
 						?>
 							<div class="icon icon_appstore_add2cart_buy"></div>
-							<a class="btn btn_appstore_verify" href="/BevoMedia/User/AddCreditCard.html?notifyNotPaying=1">Verify</a>
+							<a class="btn btn_appstore_verify" href="/BevoMedia/User/AddCreditCard.html?notifyNotPaying=2">Verify</a>
 							
 							<p>This app is FREE to use for verified Bevo users.</p>
 							
@@ -296,7 +296,7 @@
 						<?php if($this->User->vaultID == 0) { //if user is not verified
 						?>
 							<div class="icon icon_appstore_add2cart_buy"></div>
-							<a class="btn btn_appstore_verify" href="/BevoMedia/User/AddCreditCard.html?notifyNotPaying=1">Verify</a>
+							<a class="btn btn_appstore_verify" href="/BevoMedia/User/AddCreditCard.html?notifyNotPaying=2">Verify</a>
 							
 							<p>This app is FREE to use for verified Bevo users.</p>
 							

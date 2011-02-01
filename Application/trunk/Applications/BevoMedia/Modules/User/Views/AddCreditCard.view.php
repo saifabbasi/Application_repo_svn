@@ -15,6 +15,24 @@
 <div class="left">
 	<h2>Bevo Account Verification</h2>
 	
+	<?php 
+		if (isset($_GET['notifyNotPaying'])) {
+			if($_GET['notifyNotPaying'] == 1)
+				$notifyNotPayingTxt = 'To use this Bevo App, you must first verify your account. You may return to the App Store after that to purchase the app. It only takes 30 seconds to verify!';
+			elseif($_GET['notifyNotPaying'] == 2)
+				$notifyNotPayingTxt = 'To use this Bevo App, you must first verify your account. You may return to the App Store after that to access the application. It only takes 30 seconds to verify!';
+			
+			if($notifyNotPayingTxt) {
+	?>
+				<div class="soapyell simple wide75">
+					<p class="soapyell-exmark"><?php echo $notifyNotPayingTxt; ?></p>
+				</div>
+				
+	<?php 		}
+	
+		}
+	?>
+	
 	<p>Verifying your account gives you access to the entire Bevo Interface. With a verified account, users can track keyword and campaign performance with exact revenue and expense data. Verified Bevo Users can auto-sync all of their Network Stats, access the Premium Research Tools and view and retrieve their specific network offers. Also, users gain optimum use of the analytics and PPC management pages as all stats will sync automatically.</p>
 	
 	<p><strong>Verify your account now by filling out the form below:</strong><br />
@@ -45,18 +63,6 @@
 	$Phone = $_SESSION['AddCreditCardInfo']['Phone'];
 ?>
 	
-	
-	<?php 
-		if (isset($_GET['notifyNotPaying'])) {
-	?>
-	<div class="soapyell simple">
-		<p class="soapyell-exmark">To use this Bevo App, you must first verify your account. You may return to the App Store after that to purchase the app. It only takes 30 seconds to verify!</p>
-	</div>
-	<?php 
-		}
-	?>
-	
-			
 	
 	<form class="appform registerForm" method="post" action="/BevoMedia/User/AddCreditCardProcess.html" id="AddCCProcess">
 		<!--<table>-->

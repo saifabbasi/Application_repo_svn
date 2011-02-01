@@ -64,6 +64,8 @@ ul.soapnumlist { list-style:none; margin:0 0 15px; padding:0; }
 .soapyell.simple { padding:10px; background:#FFFFB8; border:1px solid #F7931E; 
 		-moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px;
 		-moz-box-shadow:#BFBFBF 1px 1px 3px; -webkit-box-shadow:#BFBFBF 1px 1px 3px; box-shadow:#BFBFBF 1px 1px 3px; }
+		
+	.soapyell.simple.wide75 { width:75%; }
 
 .soapyell.simple.black { background:#000; border-color:#000; }
 
