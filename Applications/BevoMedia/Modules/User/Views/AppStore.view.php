@@ -197,6 +197,68 @@
 	/*
 	
 	
+	geotargeting
+	
+	
+	*/	 
+	?>
+	<div class="item">
+		<div class="apptitle">
+			<div class="apptitleleft"></div>
+			<h3>Geotargeting</h3>
+			<div class="apptitleright"></div>
+			
+		</div>
+		
+		<div class="appboxinside">
+			<div class="img"><img src="<?php echo SCRIPT_ROOT; ?>img/pagedesc_geo.png" alt="" /></div>
+			<div class="cont">			
+				<div class="desc">
+					<p>Geotarget your landing pages and offers. This feature allows you to show different pages based on where the viewer is coming from in the world. Target by any city, state, or country in the world!</p>
+				</div>
+				
+				<ul class="soapchecklist">
+					<li>Show different landing pages based on where the viewer is coming from in the world</li>
+					<li>Target users by country, state, or down to the city level</li>
+					<li>Very easy to be integrated into the tracking system of your choice</li>
+				</ul>
+				
+				<div class="add2cart">
+					<div class="cartdesc">
+						<h3>Geotargeting</h3>
+						<p>The Geotargeting App is a premium app that is free to use for verified BevoMedia users!</p>
+					</div>
+					
+					<div class="cartaction">
+					
+						<?php if($this->User->vaultID == 0) { //if user is not verified
+						?>
+							<div class="icon icon_appstore_add2cart_buy"></div>
+							<a class="btn btn_appstore_verify" href="/BevoMedia/User/AddCreditCard.html?notifyNotPaying=1">Verify</a>
+							
+							<p>This app is FREE to use for verified Bevo users.</p>
+							
+						<?php } else { //if user is verified
+						?>
+							<div class="icon icon_appstore_add2cart_check"></div>
+							<a class="btn btn_appstore_launchapp" href="/BevoMedia/Geotargeting/Index.html">Launch App</a>
+							
+							<h3>FREE</h3>
+							<p>This app is free to use!</p>
+							
+						<?php }
+						?>
+					</div><!--close cartaction-->
+				</div><!--close add2cart-->
+			</div><!--close cont-->
+			<div class="clear"></div>
+		</div><!--close appboxinside-->
+	</div><!--close appbox-->
+	
+	<?php
+	/*
+	
+	
 	appbox keyword research (PPVTools)
 	
 	
@@ -370,101 +432,22 @@
 				<div class="add2cart">
 					<div class="cartdesc">
 						<h3>Name Your Payout App</h3>
-						<p>The Name Your Payout App is a premium app that is free to use for verified BevoMedia users!</p>
+						<p>The Name Your Payout App is a premium app that is free to use for all BevoMedia users!</p>
 					</div>
 					
 					<div class="cartaction">
-					
-						<?php if($this->User->vaultID == 0) { //if user is not verified
-						?>
-							<div class="icon icon_appstore_add2cart_buy"></div>
-							<a class="btn btn_appstore_verify" href="/BevoMedia/User/AddCreditCard.html?notifyNotPaying=1">Verify</a>
-							
-							<p>This app is FREE to use for verified Bevo users.</p>
-							
-						<?php } else { //if user is verified
-						?>
 							<div class="icon icon_appstore_add2cart_check"></div>
 							<a class="btn btn_appstore_launchapp" href="/BevoMedia/Offers/NameYourPayout.html">Launch App</a>
 							
 							<h3>FREE</h3>
 							<p>This app is free to use!</p>
-							
-						<?php }
-						?>
+
 					</div><!--close cartaction-->
 				</div><!--close add2cart-->
 			</div><!--close cont-->
 			<div class="clear"></div>
 		</div><!--close appboxinside-->
 	</div><!--close appbox-->
-	
-	
-	<?php
-	/*
-	
-	
-	geotargeting
-	
-	
-	 
-	?>
-	<div class="item">
-		<div class="apptitle">
-			<div class="apptitleleft"></div>
-			<h3>Geotargeting</h3>
-			<div class="apptitleright"></div>
-			
-		</div>
-		
-		<div class="appboxinside">
-			<div class="img"><img src="<?php echo SCRIPT_ROOT; ?>img/pagedesc_geotargeting.png" alt="" /></div>
-			<div class="cont">			
-				<div class="desc">
-					<p>Get the payout you want! Enter your requested payout for a a specific offer or niche and have the Bevo networks bid for you to run with them.</p>
-				</div>
-				
-				<ul class="soapchecklist">
-					<li><p>Enter your desired offer payout and EPC for any niche...</p>
-						<span>...to get networks to bid on them.</span></li>
-					<li><p>Add a specific offer name to your request...</p>
-						<span>...if you prefer to run only that offer.</span></li>
-					<li><p>29 niches currently supported...</p>
-						<span>...and growing!</span></li>
-				</ul>
-				
-				<div class="add2cart">
-					<div class="cartdesc">
-						<h3>Geotargeting</h3>
-						<p>The Geotargeting App is a premium app that is free to use for verified BevoMedia users!</p>
-					</div>
-					
-					<div class="cartaction">
-					
-						<?php if($this->User->vaultID == 0) { //if user is not verified
-						?>
-							<div class="icon icon_appstore_add2cart_buy"></div>
-							<a class="btn btn_appstore_verify" href="/BevoMedia/User/AddCreditCard.html?notifyNotPaying=1">Verify</a>
-							
-							<p>This app is FREE to use for verified Bevo users.</p>
-							
-						<?php } else { //if user is verified
-						?>
-							<div class="icon icon_appstore_add2cart_check"></div>
-							<a class="btn btn_appstore_launchapp" href="/BevoMedia/Geotargeting/Index.html">Launch App</a>
-							
-							<h3>FREE</h3>
-							<p>This app is free to use!</p>
-							
-						<?php }
-						?>
-					</div><!--close cartaction-->
-				</div><!--close add2cart-->
-			</div><!--close cont-->
-			<div class="clear"></div>
-		</div><!--close appboxinside-->
-	</div><!--close appbox-->
-	<? */ ?>
 	
 </div><!--close pagecontent-->
 

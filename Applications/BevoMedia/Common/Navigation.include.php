@@ -128,6 +128,7 @@
 								),
 							),
 						),
+					'geotargeting' => array('Geotargeting','/BevoMedia/Geotargeting/Index.html'),
 					'rotators' => array('Rotators','/BevoMedia/KeywordTracker/LandingPageRotationSetup.html',array(
 							'rotators_lp_overview' => array('Landing Page Rotators','/BevoMedia/KeywordTracker/LandingPageRotationSetup.html'),
 							'rotators_offer_overview' => array('Offer Rotators','/BevoMedia/KeywordTracker/OfferRotationSetup.html')

@@ -587,17 +587,17 @@ Class PageHelper {
 		
 		//Geotargeting
 		$PagePresets['Geotargeting/*/Area'] = 'Geotargeting';
-		$PagePresets['Geotargeting/*/HeadingImage'] = 'pagedesc_geotargeting.png';
+		$PagePresets['Geotargeting/*/HeadingImage'] = 'pagedesc_geo.png';
 		
-			$PagePresets['Geotargeting/Index/UniquePageName'] = 'ppv_tools';
+			$PagePresets['Geotargeting/Index/UniquePageName'] = 'geot_exist';
 			$PagePresets['Geotargeting/Index/Heading'] = 'Existing Geotargets';
 			$PagePresets['Geotargeting/Index/SubHeading'] = 'Geotarget your landing pages and offers. This feature allows you to show different pages based on where the viewer is coming from in the world. Target by any city, state, or country in the world!';
 			
-			$PagePresets['Geotargeting/EditGeotarget/UniquePageName'] = 'ppv_pagesniper';
+			$PagePresets['Geotargeting/EditGeotarget/UniquePageName'] = 'geot_edit';
 			$PagePresets['Geotargeting/EditGeotarget/Heading'] = 'Edit Geotarget';
 			$PagePresets['Geotargeting/EditGeotarget/SubHeading'] = 'Geotarget your landing pages and offers. This feature allows you to show different pages based on where the viewer is coming from in the world. Target by any city, state, or country in the world!';
 			
-			$PagePresets['Geotargeting/NewGeotarget/UniquePageName'] = 'ppv_pagesniper';
+			$PagePresets['Geotargeting/NewGeotarget/UniquePageName'] = 'geot_new';
 			$PagePresets['Geotargeting/NewGeotarget/Heading'] = 'New Geotarget';
 			$PagePresets['Geotargeting/NewGeotarget/SubHeading'] = 'Geotarget your landing pages and offers. This feature allows you to show different pages based on where the viewer is coming from in the world. Target by any city, state, or country in the world!';
 			
