@@ -286,27 +286,27 @@ Class PageHelper {
 			$PagePresets['Publisher/PPCManager/SubHeading'] = 'Bevo\'s PPC Management gives our publishers the opportunity not only to examine their search marketing expenses, but also to edit and create all of their campaigns. Check out your search campaign stats, create or edit a campaign and gain an in-depth view of exactly where your money is going.';
                     
                     	$PagePresets['Publisher/CreatePPC/UniquePageName'] = 'ppc_createppc';
-			$PagePresets['Publisher/CreatePPC/HeadingImage'] = 'pagedesc_bevoeditor.png';
+			$PagePresets['Publisher/CreatePPC/HeadingImage'] = 'pagedesc_ppccampeditor.png';
 			$PagePresets['Publisher/CreatePPC/Heading'] = 'PPC Campaign Manager';
 			$PagePresets['Publisher/CreatePPC/SubHeading'] = 'Bevo\'s PPC Management gives our publishers the opportunity not only to examine their search marketing expenses, but also to edit and create all of their campaigns. Check out your search campaign stats, create or edit a campaign and gain an in-depth view of exactly where your money is going.';
                     
 			$PagePresets['Publisher/CreatePPCSubmit/UniquePageName'] = 'ppc_createppcsubmit';
-			$PagePresets['Publisher/CreatePPCSubmit/HeadingImage'] = 'pagedesc_bevoeditor.png';
+			$PagePresets['Publisher/CreatePPCSubmit/HeadingImage'] = 'pagedesc_ppccampeditor.png';
 			$PagePresets['Publisher/CreatePPCSubmit/Heading'] = 'Your items have been added to the PPC Create Queue.';
 			$PagePresets['Publisher/CreatePPCSubmit/SubHeading'] = 'Campaigns you have created may take up to 15-20 minutes to appear in your PPC Account, and up to an hour to appear in your selfhosted Bevo account. You may close your browser or navigate throughout the site as you wish. You can view your queue progress in the Campaign Editor Queue at any time.';
 			
                   	$PagePresets['Publisher/CreatePPCSaved/UniquePageName'] = 'ppc_createppcsaved';
-			$PagePresets['Publisher/CreatePPCSaved/HeadingImage'] = 'pagedesc_bevoeditor.png';
+			$PagePresets['Publisher/CreatePPCSaved/HeadingImage'] = 'pagedesc_ppccampeditor.png';
 			$PagePresets['Publisher/CreatePPCSaved/Heading'] = 'Your Session has been saved.';
 			$PagePresets['Publisher/CreatePPCSaved/SubHeading'] = 'You can load your session from the "Output" tab on the <a href="CreatePPC.html">CreatePPC</a> page.';
 			
 			$PagePresets['Publisher/PPCQueueProgress/UniquePageName'] = 'ppc_ppcqueueprogress';
-			$PagePresets['Publisher/PPCQueueProgress/HeadingImage'] = 'pagedesc_bevoeditor.png';
+			$PagePresets['Publisher/PPCQueueProgress/HeadingImage'] = 'pagedesc_ppccampeditor.png';
 			$PagePresets['Publisher/PPCQueueProgress/Heading'] = 'PPC Campaign Create Queue Progress';
 			$PagePresets['Publisher/PPCQueueProgress/SubHeading'] = 'View the status of your created campaigns in the queue.';
 			
 			$PagePresets['Publisher/AccountStatsPPC/UniquePageName'] = 'ppc_accountstats';
-			$PagePresets['Publisher/AccountStatsPPC/HeadingImage'] = 'pagedesc_bevoeditor.png';
+			$PagePresets['Publisher/AccountStatsPPC/HeadingImage'] = 'pagedesc_ppccampeditor.png';
 			$PagePresets['Publisher/AccountStatsPPC/Heading'] = 'Search Engine PPC Account Stats';
 			$PagePresets['Publisher/AccountStatsPPC/SubHeading'] = 'Analyze your PPC expenses at the Campaign level. The time period of the data can be changed which will be reflected in the graph and table. Click on the name of a Campaign to drill down to the Ad Group level.';
 			

@@ -335,7 +335,7 @@
 		</div>
 		
 		<div class="appboxinside">		
-			<div class="img"><img src="<?php echo SCRIPT_ROOT; ?>img/pagedesc_ppc.png" alt="" /></div>
+			<div class="img"><img src="<?php echo SCRIPT_ROOT; ?>img/pagedesc_ppccampeditor.png" alt="" /></div>
 			<div class="cont">			
 				<div class="desc">
 					<p>Bevo's PPC Management gives you the opportunity not only to examine your search marketing expenses, but also to edit and create all of your campaigns within a single interface. Check out your search campaign stats, create or edit a campaign and gain an in-depth view of exactly where your money is going.</p>
