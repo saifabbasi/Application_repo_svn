@@ -34,9 +34,9 @@
 			foreach($array as $first => $item) {
 				$haskids = array_key_exists(2, $item) ? true : false;
 				
-				$out .= '<li';
-				$out .= $haskids ? ' class="haskids"' : '';
-				$out .= '><a';
+				$out .= '<li class="' . $first;
+				$out .= $haskids ? ' haskids' : '';
+				$out .= '"><a';
 				$out .= $first == $firstActive ? ' class="active"' : '';
 				$out .= ' href="'.$item[1].'">'.$item[0];
 				$out .= $haskids && $first != $firstActive ? '<img src="'.$imageDir.'/icon_arrsmall_down_w.png" alt="" />' : '';
@@ -53,9 +53,9 @@
 						
 						$kidhaskids = array_key_exists(2, $kiditem) ? true : false;
 						
-						$kid .= '<li';
-						$kid .= $kidhaskids ? ' class="haskids"' : '';
-						$kid .= '><a';
+						$kid .= '<li class="' . $second;
+						$kid .= $kidhaskids ? ' haskids' : '';
+						$kid .= '"><a';
 						$kid .= $secondActive && $second == $secondActive ? ' class="active"' : '';
 						$kid .= ' href="'.$kiditem[1].'">'.$kiditem[0].'</a>';
 						
