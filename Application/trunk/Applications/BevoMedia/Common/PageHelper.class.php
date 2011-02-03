@@ -382,6 +382,7 @@ Class PageHelper {
 			$PagePresets['Publisher/PPCTutorialsSelfHosted/Area'] = 'PPCTutorials';
 			$PagePresets['Publisher/PPCTutorialsMarketplace/Area'] = 'PPCTutorials';
 			$PagePresets['Publisher/VerifiedHelp/Area'] = 'PPCTutorials';
+			$PagePresets['Publisher/PPVSpyHelp/Area'] = 'PPCTutorials';
 			
 			$PagePresets['Publisher/PPCTutorials/UniquePageName'] = 'tutorials_all'; //same for this group
 			$PagePresets['Publisher/PPCTutorials/HeadingImage'] = 'pagedesc_tutorials.png';
@@ -416,7 +417,12 @@ Class PageHelper {
 			$PagePresets['Publisher/VerifiedHelp/UniquePageName'] = 'tutorials_all';
 			$PagePresets['Publisher/VerifiedHelp/HeadingImage'] = 'pagedesc_tutorials.png';
 			$PagePresets['Publisher/VerifiedHelp/Heading'] = 'Verified Accounts';
-			$PagePresets['Publisher/VerifiedHelp/SubHeading'] = 'Have a question about Bevo? Check out some of our most commonly asked questions from our users below.';			
+			$PagePresets['Publisher/VerifiedHelp/SubHeading'] = 'Have a question about Bevo? Check out some of our most commonly asked questions from our users below.';
+
+			$PagePresets['Publisher/PPVSpyHelp/UniquePageName'] = 'tutorials_all';
+			$PagePresets['Publisher/PPVSpyHelp/HeadingImage'] = 'pagedesc_tutorials.png';
+			$PagePresets['Publisher/PPVSpyHelp/Heading'] = 'PPV Spy';
+			$PagePresets['Publisher/PPVSpyHelp/SubHeading'] = 'Have a question about Bevo? Check out some of our most commonly asked questions from our users below.';			
             
 
 		//Analytics

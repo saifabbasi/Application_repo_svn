@@ -147,7 +147,7 @@ a.btn.headfeatapp_ppvspy { position:absolute; top:55px; right:-20px; }
 	#pagemenu ul { list-style:none; }
 		#pagemenu > ul > li { float:left; display:inline; margin:0 5px 0 0; position:relative; }
 		#pagemenu > ul > li.label { color:#A8E0FF; }
-		#pagemenu ul li a { padding:2px 0 6px 8px; text-decoration:none; display:block; position:relative; background:url(img_new/pagemenu_a.png) no-repeat 0 50px; outline:none; text-shadow:#000 0 -1px 1px; }
+		#pagemenu ul li a { padding:2px 0 6px 8px; text-decoration:none; display:block; position:relative; background:url(img_new/pagemenu_a.png) no-repeat 0 100px; outline:none; text-shadow:#000 0 -1px 1px; }
 		#pagemenu ul li a span { width:8px; height:26px; position:absolute; top:0; right:-8px; background:url(img_new/pagemenu_a.png) no-repeat right 50px; }
                         #pagemenu > ul > li > a > img.arrdown { margin:0 0 2px 3px; }
 			#pagemenu ul li a:hover { color:#fff; }
@@ -342,9 +342,5 @@ ul#footermenu li { display:inline; margin:0 5px; }
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 	#networkotm a { margin-top:8px; display:block; }
 }
-
-
-
-
 
 

@@ -523,10 +523,10 @@ if(userTimezoneOffset == false)
 	</script>
 	<?php endif?>
 	
-	<?php if($this->User->vaultID == 0): ?>
+	<?php if($this->PageHelper->Controller == 'KeywordTracker' && $this->User->vaultID == 0): ?>
 	<script language="javascript">
 	    $(document).ready(function() {
-	        $('#pagemenu .geotargeting').click(function(){
+	        $('#pagemenu .li_geotargeting').click(function(){
 		        var a = document.createElement('a');
 		        a.href = '/BevoMedia/Publisher/VerifySelfHosted.html?ajax=true';
 		        a.rel = 'shadowbox;width=640;height=480;player=iframe';

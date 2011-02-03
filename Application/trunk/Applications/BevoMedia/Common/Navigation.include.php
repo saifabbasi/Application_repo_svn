@@ -34,7 +34,7 @@
 			foreach($array as $first => $item) {
 				$haskids = array_key_exists(2, $item) ? true : false;
 				
-				$out .= '<li class="' . $first;
+				$out .= '<li class="li_' . $first;
 				$out .= $haskids ? ' haskids' : '';
 				$out .= '"><a';
 				$out .= $first == $firstActive ? ' class="active"' : '';
@@ -53,7 +53,7 @@
 						
 						$kidhaskids = array_key_exists(2, $kiditem) ? true : false;
 						
-						$kid .= '<li class="' . $second;
+						$kid .= '<li class="li_' . $second;
 						$kid .= $kidhaskids ? ' haskids' : '';
 						$kid .= '"><a';
 						$kid .= $secondActive && $second == $secondActive ? ' class="active"' : '';
@@ -64,7 +64,9 @@
 							foreach($kiditem[2] as $third => $babyitem)
 								$kid .= '<li><a href="'.$babyitem[1].'">'.$babyitem[0].'</a></li>';
 							$kid .= '</ul>';
-						}//endif kidhaskids					
+						}//endif kidhaskids
+						$kid .= '</li>';
+						
 					}//endforeach kiditem
 					
 					if($doSubMenu && $first == $firstActive)
@@ -197,8 +199,8 @@
 							)
 						),
 					'ppvspy' => array('PPVSpy',$path.'/PPVSpyHelp.html',array(
-							array('How Do i cancel or upgrade my PPVSpy monthly subscription?', $path.'/PPVSpyHelp.html#Cancel'),
-							array('PPVSpy tutorial', $path.'/PPVSpyHelp.html#Tutorial')	
+							array('How Do I cancel or upgrade my PPVSpy monthly subscription?', $path.'/PPVSpyHelp.html#Cancel'),
+							array('PPVSpy Tutorial', $path.'/PPVSpyHelp.html#Tutorial')	
 							)
 						),
 					);
