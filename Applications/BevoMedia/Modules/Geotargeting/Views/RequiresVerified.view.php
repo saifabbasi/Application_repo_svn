@@ -24,6 +24,8 @@ $(document).ready(function() {
 
 	    return false;
 		
-});
+    });
+    
+    $('.shs').click();
 }); //doc ready
 </script>
