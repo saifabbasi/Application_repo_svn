@@ -37,6 +37,12 @@
 			$this->GoogleMaps_API = $Row['value'];
 			//GoogleMaps_API
 			
+			if (Zend_Registry::Get('Instance/Function') != 'RequiresVerified') {
+			    if ($user->vaultID == 0) {
+			        header('Location: /BevoMedia/Geotargeting/RequiresVerified.html');
+			        exit;
+		        }
+	        }
 		}
 		
 		Public Function ListGeoCountries()
@@ -558,6 +564,11 @@
 			}
 			
 			die;
+		}
+		
+		Public Function RequiresVerified()
+		{
+		
 		}
 		 
 		
