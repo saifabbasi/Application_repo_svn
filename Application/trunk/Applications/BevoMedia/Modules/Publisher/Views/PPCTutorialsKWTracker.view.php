@@ -27,4 +27,10 @@
 	<h3 id="UnsupportedNetworks">If my network is not on the Bevo interface 
 	can I still use subID tracking?</h3>
 	<p>Yes you can! On the Bevo interface, we allow users to manually upload converting subIDs to their interface. It is important that you only upload the subIDs that generated conversions, otherwise your stats will show more conversions than they actually had. Additionally, you can even assign the value of the lead when uploading your subIDs for more indepth stats. You can find the manual subID upload page here:</p>
+	<br /><br />
+	
+	<h3 id="HowToUseGeotargeting">How do I use the Geotargetting feature?</h3>
+	<?php echo ShowMovie('K9KMi-AuFOA');?>
+	<br /><br />
+	
 </div><!--close pagecontent-->
