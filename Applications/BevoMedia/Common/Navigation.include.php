@@ -130,7 +130,8 @@
 								),
 							),
 						),
-					'geotargeting' => array('Geotargeting','/BevoMedia/Geotargeting/Index.html'),
+					'geotargeting' => array('Geotargeting','/BevoMedia/Geotargeting/Index.html', array('geotargeting_help'=>array('Geotargetting Help','/BevoMedia/Publisher/PPCTutorialsKWTracker.html#HowToUseGeotargeting'))),
+					
 					'rotators' => array('Rotators','/BevoMedia/KeywordTracker/LandingPageRotationSetup.html',array(
 							'rotators_lp_overview' => array('Landing Page Rotators','/BevoMedia/KeywordTracker/LandingPageRotationSetup.html'),
 							'rotators_offer_overview' => array('Offer Rotators','/BevoMedia/KeywordTracker/OfferRotationSetup.html')
@@ -177,7 +178,8 @@
 							array('How-To: Direct Linking',$path.'/PPCTutorialsKWTracker.html#HowdoIdirectlink'),
 							array('How-To: Media Buys',$path.'/PPCTutorialsKWTracker.html#HowdoImediabuy'),
 							array('Tracking Methods',$path.'/PPCTutorialsKWTracker.html#TrackingMethods'),
-							array('Network Not Featured Yet',$path.'/PPCTutorialsKWTracker.html#UnsupportedNetworks')
+							array('Network Not Featured Yet',$path.'/PPCTutorialsKWTracker.html#UnsupportedNetworks'),
+							array('How-To: Geotargetting',$path.'/PPCTutorialsKWTracker.html#HowToUseGeotargeting')
 							)						
 						),
 					'selfhosted' => array('Bevo Self-Hosted',$path.'/PPCTutorialsSelfHosted.html',array(
