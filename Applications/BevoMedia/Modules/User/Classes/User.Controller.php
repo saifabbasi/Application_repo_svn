@@ -275,7 +275,7 @@ Class UserController extends ClassComponent
 		{
 			$this->Message = 'ACCOUNT_DISABLED';
 			$User = new User($_SESSION['User']['ID']);
-			$User->DisableUser($User->ID);
+			$User->DisableUser($User->id);
 			unset($_SESSION['User']);
 			
 		}
