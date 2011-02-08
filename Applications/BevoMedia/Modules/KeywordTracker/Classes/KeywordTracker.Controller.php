@@ -1726,7 +1726,114 @@ END;
 			}
 			
 		}
+		
+		Public Function Geoparting()
+		{
+			$this->DateRange = (isset($_GET['DateRange'])?$_GET['DateRange']:date('m/d/Y'));
+			
+			$this->data = array();
+			
+			if (isset($_GET['submit']))
+			{
+				$this->data = $this->GeopartingData();
+			}
+			
+		}
 
+		Public Function GeopartingData()
+		{
+			$campaign = isset($_GET['campaign'])?$_GET['campaign']:0;
+			$adGroup = isset($_GET['adGroup'])?$_GET['adGroup']:0;
+			$groupBy = isset($_GET['groupBy'])?$_GET['groupBy']:'country';
+			
+			$dateRange = isset($_GET['DateRange'])?$_GET['DateRange']:'';
+			
+			$startDate = $endDate = '';
+			if (strstr($dateRange, ' - ')) {
+				$dates = explode(' - ', $dateRange);
+				$startDate = $dates[0];
+				$endDate = $dates[1];
+			} else {
+				$startDate = $endDate = $dateRange;
+			}
+			
+			if ($startDate=='') return array();
+			
+			$startDate = date('Y-m-d', strtotime($startDate));
+			$endDate = date('Y-m-d', strtotime($endDate));
+			
+			$sql = "SELECT
+						bevomedia_tracker_clicks.id, 
+						bevomedia_tracker_clicks.ipId,
+						bevomedia_tracker_ips.ipAddress,
+						bevomedia_tracker_ips.ipLocationID
+					FROM
+						bevomedia_tracker_clicks,
+						bevomedia_tracker_ips
+					WHERE
+						(bevomedia_tracker_ips.id = bevomedia_tracker_clicks.ipId) AND
+						(bevomedia_tracker_clicks.clickDate BETWEEN DATE(?) AND DATE(?)) AND 
+						(bevomedia_tracker_clicks.user__id = ?)			
+					";
+			$data = $this->db->fetchAll($sql, array($startDate, $endDate, $this->User->id));
+			
+			$results = array();
+			foreach ($data as $key => $item)
+			{
+				if ($item->ipLocationID==0) {
+					$sql = "SELECT ID, COUNTRY_NAME, REGION, CITY FROM `ip_location` where `IP_TO` >=INET_ATON(?) limit 1;";
+					$ipAddress = $this->db->fetchRow($sql, array($item->ipAddress));
+					
+					if ($ipAddress) {
+						$data[$key]->COUNTRY_NAME = $ipAddress->COUNTRY_NAME;
+						$data[$key]->REGION = $ipAddress->REGION;
+						$data[$key]->CITY = $ipAddress->CITY;
+						
+						$updateArr = array( 'ipLocationID' => $ipAddress->ID );
+						$this->db->update('bevomedia_tracker_ips', $updateArr, ' id ='.$item->id);
+					} else {
+						$data[$key]->COUNTRY_NAME = '';
+						$data[$key]->REGION = '';
+						$data[$key]->CITY = '';
+					}
+				} else {
+					$sql = "SELECT ID, COUNTRY_NAME, REGION, CITY FROM `ip_location` where ID = ? limit 1;";
+					$ipAddress = $this->db->fetchRow($sql, array($item->ipLocationID));
+					
+					$data[$key]->COUNTRY_NAME = $ipAddress->COUNTRY_NAME;
+					$data[$key]->REGION = $ipAddress->REGION;
+					$data[$key]->CITY = $ipAddress->CITY;
+				}
+				
+				
+				if ($groupBy=='city') {
+					@$results[$data[$key]->COUNTRY_NAME.','.$data[$key]->REGION.','.$data[$key]->CITY]++;
+				} else
+				if ($groupBy=='region') {
+					@$results[$data[$key]->COUNTRY_NAME.','.$data[$key]->REGION]++;
+				} else
+				{
+					@$results[$data[$key]->COUNTRY_NAME]++;
+				}
+				
+				ksort($results);
+				/*
+				if ($groupBy=='city') {
+					@$results[$data[$key]->COUNTRY_NAME][$data[$key]->REGION][$data[$key]->CITY]++;
+				} else
+				if ($groupBy=='region') {
+					@$results[$data[$key]->COUNTRY_NAME][$data[$key]->REGION]++;
+				} else
+				{
+					@$results[$data[$key]->COUNTRY_NAME]++;
+				}
+				*/
+				
+			}
+			
+			$output = array('results'=>$results, 'data'=>$data);
+			return $output;
+		}
 	}
 
 ?>
