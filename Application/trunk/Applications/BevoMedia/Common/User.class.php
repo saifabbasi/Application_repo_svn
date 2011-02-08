@@ -899,7 +899,7 @@ Class User {
 	 */
 	Public Function disableUser($ID)
 	{
-		$this->_db->exec("UPDATE bevomedia_user  SET Enabled = 0 WHERE ID = $ID");
+		$this->_db->exec("UPDATE bevomedia_user SET enabled = 0 WHERE id = $ID");
 	}
 	
 	/**
