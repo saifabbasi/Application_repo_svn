@@ -1762,6 +1762,14 @@ END;
 			$startDate = date('Y-m-d', strtotime($startDate));
 			$endDate = date('Y-m-d', strtotime($endDate));
 			
+			$campaignSql = $adGroupSql = "";
+			if ($adGroup != 0 || $campaign != 0) {
+		        $adGroupSql = "INNER JOIN bevomedia_ppc_advariations creative ON (bevomedia_tracker_clicks.creativeId = creative.apiAdId)
+						INNER JOIN bevomedia_ppc_adgroups adgroup ON (creative.adGroupId = adgroup.id) ";
+			    $campaignSql = "INNER JOIN bevomedia_ppc_campaigns campaign ON (
+					        (adgroup.campaignId = campaign.id) AND (campaign.user__id = bevomedia_tracker_clicks.user__id)
+				        )";
+	        }
 			$sql = "SELECT
 						bevomedia_tracker_clicks.id, 
 						bevomedia_tracker_clicks.ipId,
@@ -1769,11 +1777,9 @@ END;
 						bevomedia_tracker_ips.ipLocationID
 					FROM
 						bevomedia_tracker_clicks
-						LEFT JOIN bevomedia_ppc_advariations creative ON (bevomedia_tracker_clicks.creativeId = creative.apiAdId)
-						LEFT JOIN bevomedia_ppc_adgroups adgroup ON (creative.adGroupId = adgroup.id)
-					    LEFT JOIN bevomedia_ppc_campaigns campaign ON (
-					        (adgroup.campaignId = campaign.id) AND (campaign.user__id = bevomedia_tracker_clicks.user__id)
-				        ),
+						{$adGroupSql}
+						{$campaignSql}
+					    ,
 						bevomedia_tracker_ips
 					WHERE
 						(bevomedia_tracker_ips.id = bevomedia_tracker_clicks.ipId) AND
