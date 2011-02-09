@@ -1794,12 +1794,21 @@ END;
 			
 			$data = $this->db->fetchAll($sql, $sqlParameters);
 			
+			$ipAddresses = array();
+			$ipAddressesByInet = array();
+			
 			$results = array();
 			foreach ($data as $key => $item)
 			{
 				if ($item->ipLocationID==0) {
-					$sql = "SELECT ID, COUNTRY_NAME, REGION, CITY FROM `ip_location` where `IP_TO` >=INET_ATON(?) limit 1;";
-					$ipAddress = $this->db->fetchRow($sql, array($item->ipAddress));
+				    if (!in_array($item->ipAddress, $ipAddressesByInet)) {
+    					$sql = "SELECT ID, COUNTRY_NAME, REGION, CITY FROM `ip_location` where `IP_TO` >=INET_ATON(?) limit 1;";
+	    				$ipAddress = $this->db->fetchRow($sql, array($item->ipAddress));
+	    				$ipAddressesByInet[$item->ipAddress] = $ipAddress;
+    				}else{
+					    $ipAddress = $ipAddressesByInet[$item->ipAddress];
+    				}
+    				
 					if ($ipAddress) {
 						$data[$key]->COUNTRY_NAME = $ipAddress->COUNTRY_NAME;
 						$data[$key]->REGION = $ipAddress->REGION;
@@ -1822,9 +1831,14 @@ END;
 						$data[$key]->CITY = '';
 					}
 				} else {
-					$sql = "SELECT ID, COUNTRY_NAME, REGION, CITY FROM `ip_location` where ID = ? limit 1;";
-					$ipAddress = $this->db->fetchRow($sql, array($item->ipLocationID));
-					
+				    if (!in_array($item->ipLocationID, $ipAddresses)) {
+					    $sql = "SELECT ID, COUNTRY_NAME, REGION, CITY FROM `ip_location` where ID = ? limit 1;";
+					    $ipAddress = $this->db->fetchRow($sql, array($item->ipLocationID));
+					    $ipAddresses[$item->ipLocationID] = $ipAddress;
+					}else{
+					    $ipAddress = $ipAddresses[$item->ipLocationID];
+				    }
+				    
 					$data[$key]->COUNTRY_NAME = $ipAddress->COUNTRY_NAME;
 					$data[$key]->REGION = $ipAddress->REGION;
 					$data[$key]->CITY = $ipAddress->CITY;
