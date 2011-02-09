@@ -1805,12 +1805,16 @@ END;
 						$data[$key]->REGION = $ipAddress->REGION;
 						$data[$key]->CITY = $ipAddress->CITY;
 						
+						
+						$selectArr = array($item->ipAddress, $ipAddress->ID);
+			            $selectCount = $this->db->fetchOne('SELECT COUNT(id) FROM bevomedia_tracker_ips WHERE ipAddress = ? AND ipLocationID = ?', $selectArr);
 						$updateArr = array( 'ipLocationID' => $ipAddress->ID );
-						$updateCount = $this->db->update('bevomedia_tracker_ips', $updateArr, ' id ='.$item->id);
-						if (!$updateCount) {
+						if ($selectCount == 0) {
 						    $insertArr = $updateArr;
 						    $insertArr['ipAddress'] = $item->ipAddress;
 						    $insertCount = $this->db->insert('bevomedia_tracker_ips', $insertArr);
+						}else {
+						    $updateCount = $this->db->update('bevomedia_tracker_ips', $updateArr, ' id ='.$item->id);
 					    }
 					} else {
 						$data[$key]->COUNTRY_NAME = '';
