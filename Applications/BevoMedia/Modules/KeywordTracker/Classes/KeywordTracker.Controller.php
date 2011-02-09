@@ -1800,14 +1800,18 @@ END;
 				if ($item->ipLocationID==0) {
 					$sql = "SELECT ID, COUNTRY_NAME, REGION, CITY FROM `ip_location` where `IP_TO` >=INET_ATON(?) limit 1;";
 					$ipAddress = $this->db->fetchRow($sql, array($item->ipAddress));
-					
 					if ($ipAddress) {
 						$data[$key]->COUNTRY_NAME = $ipAddress->COUNTRY_NAME;
 						$data[$key]->REGION = $ipAddress->REGION;
 						$data[$key]->CITY = $ipAddress->CITY;
 						
 						$updateArr = array( 'ipLocationID' => $ipAddress->ID );
-						$this->db->update('bevomedia_tracker_ips', $updateArr, ' id ='.$item->id);
+						$updateCount = $this->db->update('bevomedia_tracker_ips', $updateArr, ' id ='.$item->id);
+						if (!$updateCount) {
+						    $insertArr = $updateArr;
+						    $insertArr['ipAddress'] = $item->ipAddress;
+						    $insertCount = $this->db->insert('bevomedia_tracker_ips', $insertArr);
+					    }
 					} else {
 						$data[$key]->COUNTRY_NAME = '';
 						$data[$key]->REGION = '';
