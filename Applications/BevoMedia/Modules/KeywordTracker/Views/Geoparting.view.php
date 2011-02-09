@@ -122,6 +122,11 @@
     }
     $key = implode($keySplit, ' &gt; ');
 ?>
+    <script language="javascript">
+        $(document).ready(function(){
+            showAddress("<?php echo implode($keySplit, ':');?>", "Clicks: <?php echo $value;?>");
+        });
+    </script>
 
     <tr>
 		<td class="border"></td>
@@ -133,32 +138,6 @@
         </td>
 		<td class="tail"></td>
     </tr>
-    
-    <?php /* foreach ($this->data['data'] as $data): ?>
-    <?php 
-        switch($groupBy) {
-        case 'city':
-            if ($data->CITY != $keySplit[2]) {
-                continue;
-            }
-        case 'region':
-            if ($data->REGION != $keySplit[1]) {
-                continue;
-            }
-        case 'country':
-            if ($data->COUNTRY_NAME != $keySplit[0]) {
-                continue;
-            }
-        }
-    ?>
-    <tr>
-		<td class="border"></td>
-            <td colspan="9">
-            <?php echo $value ?>
-        </td>
-		<td class="tail"></td>
-    </tr>
-    <?php endforeach; */?>
 
 <?php endforeach;?>
     </tbody>
@@ -168,86 +147,108 @@
 		<td class="hhr"></td>
 	</tr>
 </table>
-		
-		<?php
-		/*
-		$i = 0; $previous_account = '';
-		$total_clicks = 0; $total_conversions = 0; $total_revenue = 0; $total_cost = 0; $total_profit = 0;
-		if(count($data) > 0)
+
+<div id="map_canvas" style="width:100%; height:400px"></div> 
+
+<?php /*
+<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=ABQIAAAAkJ-nCOLFfbhKm4eJ-E2z-RR6VN925uPFn6PP-QN6tZZ9gQ4NXBTiawgaqS8geUgTpLZjZjOYl8dCDA" type="text/javascript"></script> 
+*/ ?>
+<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=ABQIAAAAgl5Nx3uJ69j4bI4WcxOLfxTE7Nt0VSXPfmZOGdFPbd5cXCuKbhQ2zudNBOu-iXhz8tbbkLuWoA_O2Q" type="text/javascript"></script> 
+
+
+<script type="text/javascript"> 
+	var map = null;
+	var geocoder = null;
+	var markers  = new Array();
+	
+  	function initialize() 
+  	{
+    	var latlng = new google.maps.LatLng(0, 0);
+
+    	map = new GMap2(document.getElementById("map_canvas"));
+    	map.setUIToDefault();
+    	map.setCenter(latlng, 2);
+    	
+    	geocoder = new GClientGeocoder();
+    	map.addControl(new GLargeMapControl());
+    	map.addControl(new GScaleControl());
+  	}
+
+	initialize();
+
+  	function showAddress(address, additional) 
+  	{
+  	    if (!additional) {
+  	        additional = '';
+        }else{
+            additional = '<br/>' + additional;
+        }
+		if (geocoder) {
+	        geocoder.getLatLng(
+	          address,
+	          function(point) {
+	            if (!point) {
+	              alert(address + " not found");
+	            } else {
+	              var marker = new GMarker(point);
+	              map.addOverlay(marker);
+
+	              GEvent.addListener(marker, "click", function() {
+            	  	  marker.openInfoWindowHtml(address + " " + additional);
+            	  });
+	              
+//		              marker.openInfoWindowHtml(address);
+	              markers.push(marker);  
+	            }
+	          }
+	        );
+        }
+    }
+
+    function clearMarkers()
+    {
+		for (var i=0; i<markers.length; i++)
 		{
-			foreach($data as $row)
-			{
-				if($previous_account != $row['account_name'])
-				{
-					?>
-					<tr>
-						<td class="border"></td>
-						<td colspan="9"><strong><?php echo htmlentities($row['account_name']); ?></strong></td>
-						<td class="tail"></td>
-					</tr>
-					<?php
-					$previous_account = $row['account_name'];
-				}
-				
-				@$ctr = ($row['clicks'] == 0) ? 0 : $row['conversions'] / $row['clicks'] * 100;
-				@$cpc = ($row['clicks'] == 0) ? 0 : $row['cost'] / $row['clicks'];
-				@$epc = ($row['clicks'] == 0) ? 0 : $row['revenue'] / $row['clicks'];
-				?>
-				<tr<?php if($i++ % 2 == 1) { echo ' class="AltRow"'; } ?>>
-					<td class="border"></td>
-					<td><?php echo htmlentities($row['name']); ?></td>
-					<td class="number"><?php echo @number_format($row['clicks'], 0); ?></td>
-					<td class="number"><?php echo @number_format($row['conversions'], 0); ?></td>
-					<td class="number"><?php echo @number_format($ctr, 2); ?>%</td>
-					<td class="number">$<?php echo @number_format($row['revenue'], 2); ?></td>
-					<td class="number">$<?php echo @number_format($row['cost'], 2); ?></td>
-					<td class="number">$<?php echo @number_format($row['profit'], 2); ?></td>
-					<td class="number">$<?php echo @number_format($cpc, 2); ?></td>
-					<td class="number">$<?php echo @number_format($epc, 2); ?></td>
-					<td class="tail"></td>
-				</tr>
-				<?php
-				@$total_clicks += $row['clicks'];
-				@$total_conversions += $row['conversions'];
-				@$total_revenue += $row['revenue'];
-				@$total_cost += $row['cost'];
-				@$total_profit += $row['profit'];
-			}
+			map.removeOverlay(markers[i]);
 		}
-		else
-		{
-			?>
-			<tr>
-				<td class="border"></td>
-				<td colspan="9">No active campaigns found for the selected time frame.</td>
-				<td class="tail"></td>
-			</tr>
-			<?php
-		}
+
+		markers = new Array();
+    }
+</script> 
+
+
+ 
+<script type="text/javascript"> 
+ 
+	var landingPagesCount = 0; 
+ 
+	$('#AddLandingPage').click(function() {
+ 
+		return addLandingPage(0);
 		
-		@$total_ctr = ($total_clicks == 0) ? 0 : $total_conversions / $total_clicks * 100;
-		@$total_cpc = ($total_clicks == 0) ? 0 : $total_cost / $total_clicks;
-		@$total_epc = ($total_clicks == 0) ? 0 : $total_revenue / $total_clicks;
-		?>
-		<tr class="total">
-			<td class="border"></td>
-			<td>Total</td>
-			<td class="number"><?php echo @number_format($total_clicks, 0); ?></td>
-			<td class="number"><?php echo @number_format($total_conversions, 0); ?></td>
-			<td class="number"><?php echo @number_format($total_ctr, 2); ?>%</td>
-			<td class="number">$<?php echo @number_format($total_revenue, 2); ?></td>
-			<td class="number">$<?php echo @number_format($total_cost, 2); ?></td>
-			<td class="number">$<?php echo @number_format($total_profit, 2); ?></td>
-			<td class="number">$<?php echo @number_format($total_cpc, 2); ?></td>
-			<td class="number">$<?php echo @number_format($total_epc, 2); ?></td>
-			<td class="tail"></td>
-		</tr>
-	</tbody>
-	<tr class="table_footer">
-		<td class="hhl"></td>
-		<td colspan="9"></td>
-		<td class="hhr"></td>
-	</tr>
-</table>
-*/
-?>
+	});
+ 
+	function addLandingPage(id) {
+ 
+		var loadDiv = $(document.createElement('div')).attr('class', 'landingPageContainer').attr('id', 'landingPageContainer_'+landingPagesCount);
+		loadDiv.load('/BevoMedia/Geotargeting/LandingPageInclude.html?ajax=true&count='+landingPagesCount+'&ID='+id);
+ 
+		$('#LandingPages').append(loadDiv);
+ 
+		$('#LandingPages').append($(document.createElement('br')));
+ 
+		landingPagesCount++;
+		
+		return false;
+		
+	}
+ 
+	$(document).ready(function() {
+ 
+		$('textarea.code').live('click', function() {
+			$(this).select();
+		})
+		
+	});
+</script> 
+

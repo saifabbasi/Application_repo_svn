@@ -1768,14 +1768,31 @@ END;
 						bevomedia_tracker_ips.ipAddress,
 						bevomedia_tracker_ips.ipLocationID
 					FROM
-						bevomedia_tracker_clicks,
+						bevomedia_tracker_clicks
+						LEFT JOIN bevomedia_ppc_advariations creative ON (bevomedia_tracker_clicks.creativeId = creative.apiAdId)
+						LEFT JOIN bevomedia_ppc_adgroups adgroup ON (creative.adGroupId = adgroup.id)
+					    LEFT JOIN bevomedia_ppc_campaigns campaign ON (
+					        (adgroup.campaignId = campaign.id) AND (campaign.user__id = bevomedia_tracker_clicks.user__id)
+				        ),
 						bevomedia_tracker_ips
 					WHERE
 						(bevomedia_tracker_ips.id = bevomedia_tracker_clicks.ipId) AND
 						(bevomedia_tracker_clicks.clickDate BETWEEN DATE(?) AND DATE(?)) AND 
-						(bevomedia_tracker_clicks.user__id = ?)			
+						(bevomedia_tracker_clicks.user__id = ?)
 					";
-			$data = $this->db->fetchAll($sql, array($startDate, $endDate, $this->User->id));
+			
+			$sqlParameters = array($startDate, $endDate, $this->User->id);
+			
+			if ($campaign != 0) {
+			    $sql .= "\n AND (campaign.id = ?) ";
+			    $sqlParameters[] = $campaign;
+			}
+			if ($adGroup != 0) {
+			    $sql .= "\n AND (adgroup.id = ?) ";
+			    $sqlParameters[] = $adGroup;
+		    }
+			
+			$data = $this->db->fetchAll($sql, $sqlParameters);
 			
 			$results = array();
 			foreach ($data as $key => $item)
