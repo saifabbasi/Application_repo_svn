@@ -16,6 +16,11 @@
 					 !$freeSelfHosted && !$verified || 
 				 	 $verified && !$paidSelfHosted  
 		   		); 
+		   		
+	echo "<!-- FREESELFHOSTED: $freeSelfHosted -->\n";
+	echo "<!-- VERIFIED: $verified -->\n";
+	echo "<!-- PAIDSELFHOSTED: $paidSelfHosted -->\n";
+	echo "<!-- SIGNEDUP: $signedUp -->\n";
 ?>
 
 <div class="sh-wrapper">
