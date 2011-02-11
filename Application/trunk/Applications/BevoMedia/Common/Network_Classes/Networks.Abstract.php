@@ -20,7 +20,7 @@ if(!defined('ABSMODE'))
 }
 
 if (!defined('ABSWEBSERVICESDIR')) {
-    define('ABSWEBSERVICESDIR', 'dirname(__FILE__)');
+    define('ABSWEBSERVICESDIR', dirname(__FILE__));
 }
 /**
  * Network.Abstract.php
