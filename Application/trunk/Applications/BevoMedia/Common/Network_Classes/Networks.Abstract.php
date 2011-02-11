@@ -18,6 +18,10 @@ if(!defined('ABSMODE'))
     define('ABSDBPASS', $ConfigFile['Database/'.$Mode]['Pass']);
     define('ABSDBNAME', $ConfigFile['Database/'.$Mode]['Name']);
 }
+
+if (!defined('ABSWEBSERVICESDIR')) {
+    define('ABSWEBSERVICESDIR', 'dirname(__FILE__)');
+}
 /**
  * Network.Abstract.php
  *
@@ -100,7 +104,7 @@ abstract class NetworksAbstract {
 	
 	public function temp_dir() {
 		if(empty($this->jobId))
-		  $this->setJobId("no_job_id_"+rand(10000));
+		  $this->setJobId("no_job_id_"+rand(1,10000));
 		$d=PATH."/QueueSandbox/".$this->jobId."_".$this->ApiName();
 		if(!file_exists($d))
 			mkdir($d, 0777, true);
