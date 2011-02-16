@@ -130,7 +130,12 @@
 								),
 							),
 						),
-					'geotargeting' => array('Geotargeting','/BevoMedia/Geotargeting/Index.html', array('geotargeting_help'=>array('Geotargetting Help','/BevoMedia/Publisher/PPCTutorialsKWTracker.html#HowToUseGeotargeting'))),
+					'geotargeting' => array('Geotargeting','/BevoMedia/Geotargeting/Index.html', 
+						array(
+							'geotargeting_existing'=>array('Existing Geotargets','/BevoMedia/Geotargeting/Index.html'),
+							'geotargeting_help'=>array('Geotargetting Help','/BevoMedia/Publisher/PPCTutorialsKWTracker.html#HowToUseGeotargeting'),
+						)
+					),
 					
 					'rotators' => array('Rotators','/BevoMedia/KeywordTracker/LandingPageRotationSetup.html',array(
 							'rotators_lp_overview' => array('Landing Page Rotators','/BevoMedia/KeywordTracker/LandingPageRotationSetup.html'),
