@@ -33,4 +33,8 @@
 	<?php echo ShowMovie('K9KMi-AuFOA');?>
 	<br /><br />
 	
+	<h3 id="MultipleOffers">How do I track Multiple Offers on a Landing Page?</h3>
+	<?php echo ShowMovie('m6W6Oib7HRo');?>
+	<br/><br/>
+	
 </div><!--close pagecontent-->
