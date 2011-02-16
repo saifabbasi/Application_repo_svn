@@ -179,7 +179,8 @@
 							array('How-To: Media Buys',$path.'/PPCTutorialsKWTracker.html#HowdoImediabuy'),
 							array('Tracking Methods',$path.'/PPCTutorialsKWTracker.html#TrackingMethods'),
 							array('Network Not Featured Yet',$path.'/PPCTutorialsKWTracker.html#UnsupportedNetworks'),
-							array('How-To: Geotargetting',$path.'/PPCTutorialsKWTracker.html#HowToUseGeotargeting')
+							array('How-To: Geotargetting',$path.'/PPCTutorialsKWTracker.html#HowToUseGeotargeting'),
+							array('How-To: Multiple Offers on a Landing Page', $path.'/PPCTutorialsKWTracker.html#MultipleOffers')
 							)						
 						),
 					'selfhosted' => array('Bevo Self-Hosted',$path.'/PPCTutorialsSelfHosted.html',array(

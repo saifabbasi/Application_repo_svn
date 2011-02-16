@@ -491,7 +491,7 @@ Class PageHelper {
 			
 			$PagePresets['KeywordTracker/CreatedCodes/UniquePageName'] = 'kwt_createdcodes';
 			$PagePresets['KeywordTracker/CreatedCodes/Heading'] = 'Keyword Tracker: Existing Codes';
-			$PagePresets['KeywordTracker/CreatedCodes/SubHeading'] = 'Below are codes that you have previously created.';
+			$PagePresets['KeywordTracker/CreatedCodes/SubHeading'] = 'Below are codes that you have previously created.<br/>Click <a href="/BevoMedia/Publisher/PPCTutorialsKWTracker.html#MultipleOffers">here</a> for help on tracking multiple offers on a landing page.';
 			
 			$PagePresets['KeywordTracker/Code/UniquePageName'] = 'kwt_code';
 			$PagePresets['KeywordTracker/Code/Heading'] = 'Keyword Tracker: Get New Codes';
