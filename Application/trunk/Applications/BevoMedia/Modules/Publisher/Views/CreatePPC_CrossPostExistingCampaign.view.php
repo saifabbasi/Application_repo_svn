@@ -70,7 +70,7 @@ function doClone()
 		tempAV.curAccountID = AccountID;
 		tempAV.curCampaignID = campaign.curCampaignID;
 		tempAV.curAdGroupID = tempAG.curAdGroupID;
-		tempAV.description = "<?php echo $Var->description ?>";
+		tempAV.description = "<?php echo str_replace('"', '\"', $Var->description )?>";
 		tempURL = "<?php echo $Var->url ?>";
 		if(FromType == 'ADWORDS' && FromType != ToType && tempURL.match(G_STR))
 		{
