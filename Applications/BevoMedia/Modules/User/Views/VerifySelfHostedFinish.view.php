@@ -66,6 +66,9 @@ Thank you for your payment.
 
 Click <a href="#" onclick="parent.location.reload();">here</a> to start using the Self-Hosted version.
 
+<br/><br/>
+
+Need Help Installing? Please contact <a href="mailto:help@bevomedia.com">help@bevomedia.com</a> to get your self hosted version personally installed by a Bevo Programmer.
 </div>
 
 
