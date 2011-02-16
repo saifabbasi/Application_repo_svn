@@ -39,7 +39,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td style="background-color: #ff00ff; height: 100%;">
+		<td style="height: 100%;">
 
 	<iframe id="bevowrap" name="bevowrap" width="100%" height="100%" scrolling="yes" frameborder="0" src="<?php print htmlentities($this->Network->signupUrl); ; ?>" >
 		<p style="text-align:center; margin:100px;">Something went wrong while trying to access the network website. Please <a href="https://www.bevomedia.com/welcome.php">go back</a> and try again.</p>
