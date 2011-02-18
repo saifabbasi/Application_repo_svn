@@ -22,8 +22,6 @@ class CPAWay extends ScrapeAbstract
         return $this;
     }
     
-    public function 
-    
     public function getUsername()
     {
         return $this->_username;
