@@ -30,6 +30,7 @@ function networkArray($name, $id, $type = false) {
 
     
     
+$networks[] = networkArray('CPAWay', 1065);
 $networks[] = networkArray('Azoogle', 1000);
 $networks[] = networkArray('ClickBank', 1040);
 $networks[] = networkArray('MaxBounty', 1016);
