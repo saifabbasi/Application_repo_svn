@@ -1,10 +1,6 @@
 <?php 
 
 include_once('ScrapeAbstract.php');
-include_once('../StatImport.class.php');
-include_once('../OfferImport.class.php');
-include_once('../Response_Objects/StatEnvelope.php');
-include_once('../Response_Objects/OfferEnvelope.php');
 
 class CPAWay extends ScrapeAbstract
 {
