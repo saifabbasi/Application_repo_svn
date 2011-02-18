@@ -76,7 +76,7 @@ class CPAWay extends ScrapeAbstract
      * Method to get the stats for this affiliate network
      * @return string
      */
-    public function getStats()
+    public function getStats($date = '')
     {
         $body = $this->getStatsBody();
         $bodyRows = explode("\n", $body);
