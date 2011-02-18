@@ -1,4 +1,27 @@
 <?php 
+require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Response_Objects' . DIRECTORY_SEPARATOR . 'StatEnvelope.php');
+require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Response_Objects' . DIRECTORY_SEPARATOR . 'OfferEnvelope.php');
+
+ini_set('max_execution_time',0);
+ini_set('display_errors', 'On');
+ini_set('memory_limit', '1024M');
+
+error_reporting(E_ALL);
+if(!defined('ABSMODE'))
+{
+    $ConfigFile = parse_ini_file('config.ini', true);
+    $Mode = $ConfigFile['Application']['Mode'];
+    define('ABSMODE', $Mode);
+    define('ABSDBHOST', $ConfigFile['Database/'.$Mode]['Host']);
+    define('ABSDBUSER', $ConfigFile['Database/'.$Mode]['User']);
+    define('ABSDBPASS', $ConfigFile['Database/'.$Mode]['Pass']);
+    define('ABSDBNAME', $ConfigFile['Database/'.$Mode]['Name']);
+}
+
+if (!defined('ABSWEBSERVICESDIR')) {
+    define('ABSWEBSERVICESDIR', dirname(__FILE__));
+}
+
 // Include path for Zend
 $IncludePaths = array(
     realpath(dirname(__FILE__) . DIRECTORY_SEPARATOR .'../../../../Externals'),
