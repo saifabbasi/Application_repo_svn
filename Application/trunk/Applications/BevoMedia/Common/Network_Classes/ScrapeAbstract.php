@@ -52,7 +52,7 @@ abstract class ScrapeAbstract extends Zend_Service_Abstract
         $this->_client = new Zend_Http_Client();
     }
     
-    protected function login()
+    public function login()
     {
         // Get necessary login post variables
         $loginPostArray = $this->_getLoginPostArray();
