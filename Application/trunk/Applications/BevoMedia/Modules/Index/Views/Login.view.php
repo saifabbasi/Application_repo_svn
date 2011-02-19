@@ -37,7 +37,7 @@
 
 					<tr>
 						<td class="td" align="right">Password:</td>
-						<td class="td"><input name="Password" size="30" tabindex="2" maxlength="20" class="effect" alt="blank" type="password"></td>
+						<td class="td"><input name="Password" size="30" tabindex="2" class="effect" alt="blank" type="password"></td>
 					</tr>
 					
 					<tr>

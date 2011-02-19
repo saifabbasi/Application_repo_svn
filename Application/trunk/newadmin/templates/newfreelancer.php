@@ -24,7 +24,7 @@
   </tr>
   <tr>
     <td><label for="Password">Password:</label></td>
-	<td><input type="password" name="Password" id="Password" maxlength="20"></td>
+	<td><input type="password" name="Password" id="Password"></td>
   </tr>
   <tr>
     <td><label for="Desc">Description:</label></td>
