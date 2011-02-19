@@ -12,6 +12,8 @@ class CPAWay extends ScrapeAbstract
     private $_username = 'ryan@bevomedia.com';
     private $_password = 'bevo1025';
     
+    private $_statDate;
+    
     public function setUsername($username)
     {
         $this->_username = $username;
@@ -44,9 +46,8 @@ class CPAWay extends ScrapeAbstract
     
     protected function _getStatsPostArray()
     {
-        // TODO: Allow specification of date range
-        $startDate = new DateTime();
-        $endDate = new DateTime();
+        $startDate = $this->_statDate;
+        $endDate = $this->_statDate;
         
         $statsPostArray = array();
         $statsPostArray['submit'] = 'EXPORT TO CSV';
@@ -74,6 +75,12 @@ class CPAWay extends ScrapeAbstract
      */
     public function getStats($date = '')
     {
+        if ($date == '') {
+            $this->_statDate = new DateTime();
+        }else{
+            $this->_statDate = new DateTime($date);
+        }
+        
         $body = $this->getStatsBody();
         $bodyRows = explode("\n", $body);
         

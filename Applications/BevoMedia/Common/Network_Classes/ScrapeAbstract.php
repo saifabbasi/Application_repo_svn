@@ -87,7 +87,7 @@ abstract class ScrapeAbstract extends Zend_Service_Abstract
         //$this->_client->resetParameters();
         
         // Set the location for the login request
-        $this->_client->setUri($this->_offers_endPoint);
+        $this->_client->setUri($this->_stats_endPoint);
         
         // Set the post variables
         foreach ($statsPostArray as $statsPostKey=>$statsPostValue) {
