@@ -69,7 +69,7 @@
 			  echo " <jsCallFunction>$('#viewInfo').show();</jsCallFunction> ";
 			  return;
 			}
-			mysql_query('drop table if exists bevomedia_view_test');		
+			mysql_query('drop view if exists bevomedia_view_test');		
     		
     		$_SESSION['DatabaseHost'] = $_GET['DatabaseHost'];
     		$_SESSION['DatabasePort'] = $_GET['DatabasePort'];
