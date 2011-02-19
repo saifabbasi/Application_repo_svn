@@ -119,6 +119,7 @@ class CPAWay extends ScrapeAbstract
         }
         
         $statEnvelope = new StatEnvelope();
+        $statEnvelope->setDate($this->_statDate->format('Y-m-d'));
         foreach ($stats as $stat) {
 			$TempStat = new Stat($stat['Clicks'], $stat['Conversions'], $stat['Payout'], $stat['SubID'], $stat['CampaignID']);
 			$statEnvelope->addStatObject($TempStat);
