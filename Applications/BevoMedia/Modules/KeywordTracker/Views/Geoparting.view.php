@@ -155,6 +155,8 @@
 	</tr>
 </table>
 
+<br/><br/><br/>
+
 <div id="map_canvas" style="width:100%; height:400px"></div> 
 <?php /*
 <script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=ABQIAAAAkJ-nCOLFfbhKm4eJ-E2z-RR6VN925uPFn6PP-QN6tZZ9gQ4NXBTiawgaqS8geUgTpLZjZjOYl8dCDA" type="text/javascript"></script> 
