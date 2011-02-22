@@ -130,7 +130,7 @@
 								),
 							),
 						),
-					'geotargeting' => array('Geotargeting','/BevoMedia/Geotargeting/Index.html', 
+					'geotargeting' => array('Geographics','/BevoMedia/Geotargeting/Index.html', 
 						array(
 							'geotargeting_existing'=>array('Existing Geotargets','/BevoMedia/Geotargeting/Index.html'),
 							'geotargeting_help'=>array('Geotargetting Help','/BevoMedia/Publisher/PPCTutorialsKWTracker.html#HowToUseGeotargeting'),

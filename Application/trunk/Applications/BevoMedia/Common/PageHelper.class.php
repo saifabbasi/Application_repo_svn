@@ -549,7 +549,7 @@ Class PageHelper {
 		$PagePresets['KeywordTracker/Geoparting/HeadingImage'] = 'pagedesc_geo.png';
 			$PagePresets['KeywordTracker/Geoparting/UniquePageName'] = 'geop';
 			$PagePresets['KeywordTracker/Geoparting/Heading'] = 'Geoparting';
-			$PagePresets['KeywordTracker/Geoparting/SubHeading'] = 'Geotarget your landing pages and offers. This feature allows you to show different pages based on where the viewer is coming from in the world. Target by any city, state, or country in the world!<br/><br/>Need help with this feature? <a href="/BevoMedia/Publisher/PPCTutorialsKWTracker.html#HowToUseGeotargeting">Click here</a> for a video tutorial.';
+			$PagePresets['KeywordTracker/Geoparting/SubHeading'] = 'See the locations of your clicks and conversions. Break down each click all the way down to the city level! View your clicks on the map below. This is a feature for verified Bevo members.';
 			
 		//Research
 		$PagePresets['PPVTools/*/Area'] = 'PPVTools';
