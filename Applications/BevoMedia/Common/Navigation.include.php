@@ -132,6 +132,7 @@
 						),
 					'geotargeting' => array('Geographics','/BevoMedia/Geotargeting/Index.html', 
 						array(
+							'geotargeting_new'=>array('Add Geotarget', '/BevoMedia/Geotargeting/NewGeotarget.html'),
 							'geotargeting_existing'=>array('Existing Geotargets','/BevoMedia/Geotargeting/Index.html'),
 							'geotargeting_help'=>array('Geotargetting Help','/BevoMedia/Publisher/PPCTutorialsKWTracker.html#HowToUseGeotargeting'),
 							'geoparting'=>array('Geoparting','/BevoMedia/KeywordTracker/Geoparting.html'),
