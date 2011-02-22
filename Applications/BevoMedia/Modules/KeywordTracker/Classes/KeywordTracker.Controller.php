@@ -1773,6 +1773,7 @@ END;
 			$sql = "SELECT
 						bevomedia_tracker_clicks.id, 
 						bevomedia_tracker_clicks.ipId,
+						bevomedia_tracker_clicks.clickThrough,
 						bevomedia_tracker_ips.ipAddress,
 						bevomedia_tracker_ips.ipLocationID
 					FROM
@@ -1820,7 +1821,6 @@ END;
 						$data[$key]->REGION = $ipAddress->REGION;
 						$data[$key]->CITY = $ipAddress->CITY;
 						
-						
 						$selectArr = array($item->ipAddress, $ipAddress->ID);
 			            $selectCount = $this->db->fetchOne('SELECT COUNT(id) FROM bevomedia_tracker_ips WHERE ipAddress = ? AND ipLocationID = ?', $selectArr);
 						$updateArr = array( 'ipLocationID' => $ipAddress->ID );
@@ -1829,13 +1829,14 @@ END;
 						    $insertArr['ipAddress'] = $item->ipAddress;
 						    $insertCount = $this->db->insert('bevomedia_tracker_ips', $insertArr);
 						}else {
-						    $updateCount = $this->db->update('bevomedia_tracker_ips', $updateArr, ' id ='.$item->id);
+							$updateCount = $this->db->update('bevomedia_tracker_ips', $updateArr, ' id ='.$item->id);
 					    }
 					} else {
 						$data[$key]->COUNTRY_NAME = '';
 						$data[$key]->REGION = '';
 						$data[$key]->CITY = '';
 					}
+					
 				} else {
 				    if (!in_array($item->ipLocationID, $ipAddresses)) {
 					    $sql = "SELECT ID, COUNTRY_NAME, REGION, CITY FROM `ip_location` where ID = ? limit 1;";
@@ -1852,30 +1853,24 @@ END;
 				
 				
 				if ($groupBy=='city') {
-					@$results[$data[$key]->COUNTRY_NAME.','.$data[$key]->REGION.','.$data[$key]->CITY]++;
-				} else
-				if ($groupBy=='region') {
-					@$results[$data[$key]->COUNTRY_NAME.','.$data[$key]->REGION]++;
-				} else
-				{
-					@$results[$data[$key]->COUNTRY_NAME]++;
+					$resultsKey = $data[$key]->COUNTRY_NAME.','.$data[$key]->REGION.','.$data[$key]->CITY;
+				} else if ($groupBy=='region') {
+					$resultsKey = $data[$key]->COUNTRY_NAME.','.$data[$key]->REGION;
+				} else {
+					$resultsKey = $data[$key]->COUNTRY_NAME;
 				}
 				
-				ksort($results);
-				/*
-				if ($groupBy=='city') {
-					@$results[$data[$key]->COUNTRY_NAME][$data[$key]->REGION][$data[$key]->CITY]++;
-				} else
-				if ($groupBy=='region') {
-					@$results[$data[$key]->COUNTRY_NAME][$data[$key]->REGION]++;
-				} else
-				{
-					@$results[$data[$key]->COUNTRY_NAME]++;
+				if(!isset($results[$resultsKey])) {
+					$results[$resultsKey] = array('clicks'=>0, 'conversions'=>0);
+				}else{
+					$results[$resultsKey]['clicks']++;
+					if ($item->clickThrough == '1') {
+						$results[$resultsKey]['conversions']++;
+					}
 				}
-				*/
+				ksort($results);
 				
 			}
-			
 			$output = array('results'=>$results, 'data'=>$data);
 			return $output;
 		}

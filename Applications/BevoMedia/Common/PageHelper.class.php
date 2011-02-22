@@ -545,7 +545,12 @@ Class PageHelper {
 			$PagePresets['KeywordTracker/ManuallyUploadSubIDsComplete/UniquePageName'] = 'kwt_manuallyuploadsubids';
 			$PagePresets['KeywordTracker/ManuallyUploadSubIDsComplete/Heading'] = 'Step 3: Success!';
 			$PagePresets['KeywordTracker/ManuallyUploadSubIDsComplete/SubHeading'] = '<a href="/BevoMedia/KeywordTracker/SubIDLookup.html">Your reports</a> should reflect the conversions in several minutes.';
-		
+				
+		$PagePresets['KeywordTracker/Geoparting/HeadingImage'] = 'pagedesc_geo.png';
+			$PagePresets['KeywordTracker/Geoparting/UniquePageName'] = 'geop';
+			$PagePresets['KeywordTracker/Geoparting/Heading'] = 'Geoparting';
+			$PagePresets['KeywordTracker/Geoparting/SubHeading'] = 'Geotarget your landing pages and offers. This feature allows you to show different pages based on where the viewer is coming from in the world. Target by any city, state, or country in the world!<br/><br/>Need help with this feature? <a href="/BevoMedia/Publisher/PPCTutorialsKWTracker.html#HowToUseGeotargeting">Click here</a> for a video tutorial.';
+			
 		//Research
 		$PagePresets['PPVTools/*/Area'] = 'PPVTools';
 		$PagePresets['PPVTools/*/HeadingImage'] = 'pagedesc_ppv.png';

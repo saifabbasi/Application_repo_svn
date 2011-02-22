@@ -1,3 +1,6 @@
+<?php echo SoapPageMenu('kwt','geotargeting','geoparting', false); ?>
+<?php echo $this->PageDesc->ShowDesc($this->PageHelper); ?>
+
 <?php 
 	$campaign = isset($_GET['campaign'])?$_GET['campaign']:0;
 	$adGroup = isset($_GET['adGroup'])?$_GET['adGroup']:0;
@@ -105,12 +108,13 @@
 
 <?php //echo '<pre>'; print_r($this->data['results']); ?>
 
-<br/><br/><br/><br/>
+<br/>
 <table cellspacing="0" class="btable" width="600">
 	<tr class="table_header">
 	    <td class="hhl">&nbsp;</td>
 		<td>Location</td>
 		<td>Clicks</td>
+		<td>Conversions</td>
 		<td class="hhr">&nbsp;</td>
 	</tr>
 	<tbody>
@@ -124,7 +128,7 @@
 ?>
     <script language="javascript">
         $(document).ready(function(){
-            showAddress("<?php echo implode($keySplit, ':');?>", "Clicks: <?php echo $value;?>");
+            showAddress("<?php echo implode($keySplit, ':');?>", "Clicks: <?php echo $value['clicks'];?><br/>\nConversions: <?php echo $value['conversions']?>");
         });
     </script>
 
@@ -134,7 +138,10 @@
             <b><?php echo $key;?></b>
         </td>
         <td>
-           <?php echo $value ?>
+           <?php echo $value['clicks'] ?>
+        </td>
+        <td>
+           <?php echo $value['conversions'] ?>
         </td>
 		<td class="tail"></td>
     </tr>
@@ -143,17 +150,17 @@
     </tbody>
 	<tr class="table_footer">
 		<td class="hhl"></td>
-		<td colspan="2"></td>
+		<td colspan="3"></td>
 		<td class="hhr"></td>
 	</tr>
 </table>
 
 <div id="map_canvas" style="width:100%; height:400px"></div> 
-
 <?php /*
 <script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=ABQIAAAAkJ-nCOLFfbhKm4eJ-E2z-RR6VN925uPFn6PP-QN6tZZ9gQ4NXBTiawgaqS8geUgTpLZjZjOYl8dCDA" type="text/javascript"></script> 
 */ ?>
 <script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=ABQIAAAAgl5Nx3uJ69j4bI4WcxOLfxTE7Nt0VSXPfmZOGdFPbd5cXCuKbhQ2zudNBOu-iXhz8tbbkLuWoA_O2Q" type="text/javascript"></script> 
+
 
 
 <script type="text/javascript"> 
@@ -251,4 +258,3 @@
 		
 	});
 </script> 
-
