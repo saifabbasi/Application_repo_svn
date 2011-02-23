@@ -124,6 +124,24 @@
 
 	<br/><br/>
 	
+	<b>Bevo Performance Connector</b>
+	<br/>
+	<select name="niche[]" size="10" id="niche" class="required formselect" rel="Niche" multiple="multiple">
+		<?php 
+			foreach ($this->Niches as $Niche) {
+				$selected = '';
+				if (in_array($Niche->ID, $this->UserNicheIDs)) {
+					$selected = 'selected="selected"';
+				}
+		?>
+				<option value="<?php echo $Niche->ID?>" <?php echo $selected;?>><?php echo $Niche->Name?></option>
+		<?php 
+			}
+		?>
+	</select>
+	
+	<br/><br/>
+	
 	<input type='hidden' name='ID' value='<?php print $this->User->id; ?>'/>
 	<input type='submit' name='editPublisherSubmit' />
 	

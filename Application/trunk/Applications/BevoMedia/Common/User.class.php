@@ -987,6 +987,51 @@ END;
 	}
 	
 	/**
+	 * Removes all niche entries for the User matching this $ID.
+	 */
+	Public Function clearPerformanceConnectorNiches()
+	{
+		$this->_db->delete('bevomedia_user_performanceconnector_niche', 'user__Id = ' . $this->id);
+	}
+	
+	/**
+	 * Insert a new row into the PerformanceConnectorNiche table for this $ID.
+	 *
+	 * @param String $Code
+	 */
+	Public Function insertPerformanceConnectorNiche($nicheId)
+	{
+		$Data = array('user__id'=>$this->id, 'niche__id'=>$nicheId);
+		$this->_db->insert('bevomedia_user_performanceconnector_niche', $Data);
+	}
+	
+	/**
+	 * Removes all niche entries for the User matching this $ID.
+	 */
+	Public Function clearPerformanceConnectorEntries()
+	{
+		$this->_db->delete('bevomedia_user_performanceconnector', 'user__Id = ' . $this->id);
+	}
+	
+	/**
+	 * Insert a new row into the PerformanceConnectorNiche table for this $ID.
+	 *
+	 * @param String $Code
+	 */
+	Public Function insertPerformanceConnectorEntry($networkId)
+	{
+		$Data = array('user__id'=>$this->id, 'network__id'=>$networkId);
+		$this->_db->insert('bevomedia_user_performanceconnector', $Data);
+	}
+	
+	Public Function getPerformanceConnectorNiches()
+	{
+		$query = $this->_db->select()->from('bevomedia_user_performanceconnector_niche')->where("user__id = ?", array($this->id));
+		$rows = $this->_db->fetchAll($query);
+		return $rows;
+	}
+	
+	/**
 	 * Return an alphanumeric string with the specified $Length.
 	 *
 	 * @param Integer $Length

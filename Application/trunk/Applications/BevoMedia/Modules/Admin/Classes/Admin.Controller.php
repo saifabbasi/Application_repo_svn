@@ -1004,7 +1004,7 @@
 			{
 				$this->User->Unsubscribe($_GET['ProductName']);
 				header('Location: /BevoMedia/Admin/ViewPublisher.html?id='.$_GET['id']);
-				die; 
+				die;
 			}
 			
 			if(isset($_POST) && !empty($_POST['changepw']))
@@ -1014,16 +1014,103 @@
 			}
 		}
 		
+		Public Function PerformanceConnector()
+		{
+			$sql = "SELECT 
+					bu.id AS userId, 
+					bu.email AS userEmail,
+					GROUP_CONCAT(DISTINCT ban.title SEPARATOR ', ') AS networks,
+					GROUP_CONCAT(DISTINCT bnyp.Name SEPARATOR ', ') AS niches
+					FROM 
+						bevomedia_user AS bu
+					LEFT JOIN bevomedia_user_performanceconnector AS bupc 
+						ON bupc.user__id = bu.id
+					LEFT JOIN bevomedia_user_performanceconnector_niche AS bupn
+						ON bu.id = bupn.user__id
+					LEFT JOIN bevomedia_aff_network AS ban 
+						ON ban.id = bupc.network__id
+					LEFT JOIN bevomedia_name_your_price_niche AS bnyp
+						ON bnyp.ID = bupn.niche__id
+					GROUP BY bu.id
+					ORDER BY networks DESC, niches DESC
+						";
+			// WHERE (bupn.id IS NOT NULL OR bupc.id IS NOT NULL)
+			$perfConn = $this->db->fetchAll($sql);
+			$this->perfConn = $perfConn;
+		}
+		
+		Public Function PerformanceConnectorEdit()
+		{
+			$this->User = new User($_GET['id']);
+			if(isset($_POST['submit'])) {
+				$this->User->clearPerformanceConnectorEntries();
+				if (isset($_POST['network'])) {
+					foreach($_POST['network'] as $network) {
+						$this->User->insertPerformanceConnectorEntry($network);
+					}
+				}
+				header('Location: PerformanceConnector.html');
+				exit();
+			}
+			
+			$sql = "SELECT
+					ban.id AS id,
+					ban.title AS title
+					FROM 
+						bevomedia_user_performanceconnector_networks AS bupn
+					INNER JOIN bevomedia_aff_network AS ban
+						ON ban.id = bupn.network__id
+					
+					";
+			$networks = $this->db->fetchAll($sql);
+			$this->networks = $networks;
+			
+			$userNetworks = array();
+			$sql = "SELECT
+					network__id AS id
+					FROM
+					bevomedia_user_performanceconnector
+					WHERE
+					user__id = {$this->User->id}
+					";
+			$userNetworksCollection = $this->db->fetchAll($sql);
+			foreach ($userNetworksCollection as $userNetwork) {
+				$userNetworks[] = $userNetwork->id;
+			}
+			$this->userNetworks = $userNetworks;
+		}
+		
 		Public Function EditPublisher()
 		{
 			$this->User = new User($_GET['id']);
+			
+			$Sql = "SELECT
+						bevomedia_name_your_price_niche.*
+					FROM
+						bevomedia_name_your_price_niche
+					ORDER BY
+						bevomedia_name_your_price_niche.Name			
+					";
+			$this->Niches = $this->db->fetchAll($Sql);
+			
+			$userNiches = $this->User->getPerformanceConnectorNiches();
+			$this->UserNicheIDs = array();
+			foreach ($userNiches as $userNiche) {
+				$this->UserNicheIDs[] = $userNiche->niche__id;
+			}
 			
 			if(isset($_POST['editPublisherSubmit']))
 			{
 				$Data = $_POST;
 				unset($Data['editPublisherSubmit']);
+				$niche = $Data['niche'];
+				unset($Data['niche']);
 				$this->User->Update($Data);
 
+				$this->User->clearPerformanceConnectorNiches();
+				foreach ($niche as $nicheId) {
+					$this->User->insertPerformanceConnectorNiche($nicheId);
+				}
 				
 				/* @var $MCAPI MCAPI */
 				$MCAPI = new MCAPI(); 
