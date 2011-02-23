@@ -352,8 +352,8 @@ abstract class LinkTrustAbstract Extends NetworksAbstract {
 			$Output->addStatObject($TempStat);
 		}
 		fclose($Handle);
-		var_dump($this->temp_dir()+'/stats.csv');
-		//@unlink($this->temp_dir()+'/stats.csv');
+		//var_dump($this->temp_dir()+'/stats.csv');
+		@unlink($this->temp_dir()+'/stats.csv');
 		return $Output;
 	}
 
