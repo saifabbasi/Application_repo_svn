@@ -1,3 +1,11 @@
+<?php 
+
+if ($this->User->vaultID == 0) {
+    header('Location: /BevoMedia/Geotargeting/RequiresVerified.html');
+	exit;
+}
+?>
+
 <?php echo SoapPageMenu('kwt','geotargeting','geoparting', false); ?>
 <?php echo $this->PageDesc->ShowDesc($this->PageHelper); ?>
 
