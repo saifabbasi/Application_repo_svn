@@ -345,6 +345,33 @@ setVisible($(".landingPageItems"), !CheckBox.checked);
 				</td>
 			</tr>
 			
+	<?php if($this->User->vaultID == 0):?>
+	<script language="javascript">
+	    $(document).ready(function() {
+	        $('#geotargetcheckbox').click(function(){
+		        var a = document.createElement('a');
+		        a.href = '/BevoMedia/Publisher/VerifySelfHosted.html?ajax=true';
+		        a.rel = 'shadowbox;width=640;height=480;player=iframe';
+		        Shadowbox.open(a);
+
+	            return false;
+    	    });
+        });
+	</script>
+	<?php endif;?>			
+			
+			<tr>
+				<th><label for="geotargeting">Geotargetting (Verified Only):</label></th>
+				<td>
+					<p>
+						<a id='geotargetcheckbox' href='/BevoMedia/Geotargeting/Index.html'>
+							<input type='checkbox' value='on'>
+						</a>
+						<span>Display different landing pages based on location:</span>
+					</p>
+				</td>
+			</tr>
+			
 
 			<tr class="landingPageItems">
 				<th><label for="landing">Landing Page Rotator:</label></th>
@@ -353,6 +380,7 @@ setVisible($(".landingPageItems"), !CheckBox.checked);
 				<span class="landingPageRotatorStuff">Enable this to rotate multiple landing pages</span>
 				<span class="landingPageRotatorStuff" style="display: none">
 					Disable this to use a single landing page destination
+					
     				<select class="formselect" id='landingPageRotatorSelectionBox' style='width:90%;' onChange="if (this.value!='') { document.getElementById('landing').disabled='disabled'; document.getElementById('landing').value='ROTATE.'+this.value; } else { document.getElementById('landing').disabled=''; } ">
     				<option value='' onClick='' style='font-weight:bold;'>Select a Landing Page Rotation Group below...</option>
     				<?php foreach($this->LandingPageGroups as $LandingPageGroup):?>
