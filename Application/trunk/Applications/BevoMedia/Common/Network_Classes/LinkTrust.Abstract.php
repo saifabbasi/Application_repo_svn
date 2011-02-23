@@ -286,6 +286,7 @@ abstract class LinkTrustAbstract Extends NetworksAbstract {
 		$Campaign = '';
 		$Line = 0;
 		$Output = new StatEnvelope($Date);
+		$lastId = 
 		while (($Arr = fgetcsv($Handle, 0, ",")) !== FALSE)
 		{
 			if ($Line++<=0)
@@ -305,7 +306,6 @@ abstract class LinkTrustAbstract Extends NetworksAbstract {
 			
 			if (strstr($this->csvUrl, 'OfferStats.aspx')===false)
 			{
-				print_r($Arr);
 				if (strstr($Arr[0], 'Totals:')) break;
 
 				if(!isset($Arr[3]))
@@ -317,6 +317,9 @@ abstract class LinkTrustAbstract Extends NetworksAbstract {
 					$Campaign = @$Arr[1];
 					if(get_class($this) == 'EWA') {
 						// patch for EWA
+						if($Arr[2] == '' && $Arr[3]) {
+							continue;
+						}
 					}else{
 						continue;
 					}
