@@ -93,6 +93,12 @@
 				Publisher CSV Export
 			</a>
 		</li>
+		<li>
+			<a href='PerformanceConnector.html'>
+				Performance Connector
+			</a>
+		</li>
+		
 	</ul>
 </div>
 
