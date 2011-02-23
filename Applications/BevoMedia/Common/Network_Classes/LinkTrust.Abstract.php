@@ -265,7 +265,11 @@ abstract class LinkTrustAbstract Extends NetworksAbstract {
 		
 		if (strstr($CSV, '<body ') && strstr($CSV, '<table '))
 		{
-			return;	
+			if(get_class($this) == 'EWA') {
+				// EWA is currently outputing unexpected results
+			}else{
+				return;	
+			}
 		}
 		
 //		print $CSV;
@@ -301,6 +305,7 @@ abstract class LinkTrustAbstract Extends NetworksAbstract {
 			
 			if (strstr($this->csvUrl, 'OfferStats.aspx')===false)
 			{
+				print_r($Arr);
 				if (strstr($Arr[0], 'Totals:')) break;
 
 				if(!isset($Arr[3]))
@@ -310,7 +315,11 @@ abstract class LinkTrustAbstract Extends NetworksAbstract {
 				{
 					$OfferID = @$Arr[0];
 					$Campaign = @$Arr[1];
-					continue;
+					if(get_class($this) == 'EWA') {
+						// patch for EWA
+					}else{
+						continue;
+					}
 				}
 				$SubID = @$Arr[2];
 				$Payout = @$Arr[12];
@@ -343,7 +352,8 @@ abstract class LinkTrustAbstract Extends NetworksAbstract {
 			$Output->addStatObject($TempStat);
 		}
 		fclose($Handle);
-		@unlink($this->temp_dir()+'/stats.csv');
+		var_dump($this->temp_dir()+'/stats.csv');
+		//@unlink($this->temp_dir()+'/stats.csv');
 		return $Output;
 	}
 
