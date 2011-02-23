@@ -491,14 +491,16 @@ Class PageHelper {
 			
 			$PagePresets['KeywordTracker/CreatedCodes/UniquePageName'] = 'kwt_createdcodes';
 			$PagePresets['KeywordTracker/CreatedCodes/Heading'] = 'Keyword Tracker: Existing Codes';
-			$PagePresets['KeywordTracker/CreatedCodes/SubHeading'] = 'Below are codes that you have previously created.<br/>Click <a href="/BevoMedia/Publisher/PPCTutorialsKWTracker.html#MultipleOffers">here</a> for help on tracking multiple offers on a landing page.';
+			$PagePresets['KeywordTracker/CreatedCodes/SubHeading'] = 'Below are codes that you have previously created.';
 			
 			$PagePresets['KeywordTracker/Code/UniquePageName'] = 'kwt_code';
 			$PagePresets['KeywordTracker/Code/Heading'] = 'Keyword Tracker: Get New Codes';
 			$PagePresets['KeywordTracker/Code/SubHeading'] = 'Follow the instructions below to add our special tracking code on the end of your offer URL. You may also find these tutorials useful: Setting up tracking for
 			<a href="/BevoMedia/Publisher/PPCTutorialsKWTracker.html#HowdoIdirectlink">Direct Link Campaigns</a>, 
 			<a href="/BevoMedia/Publisher/PPCTutorialsKWTracker.html#HowdoIlandingpage">Landing Pages</a>, or 
-			<a href="/BevoMedia/Publisher/PPCTutorialsKWTracker.html#HowdoImediabuy">Media Buys</a>';
+			<a href="/BevoMedia/Publisher/PPCTutorialsKWTracker.html#HowdoImediabuy">Media Buys</a>
+			<br/>
+			<br/>Click <a href="/BevoMedia/Publisher/PPCTutorialsKWTracker.html#MultipleOffers">here</a> for help on tracking multiple offers on a landing page.';
 			
 			//rotators
 			$PagePresets['KeywordTracker/LandingPageRotationSetup/UniquePageName'] = 'kwt_lprotationsetup';
