@@ -358,16 +358,22 @@ setVisible($(".landingPageItems"), !CheckBox.checked);
     	    });
         });
 	</script>
+	<?php else:?>
+	<script language="javascript">
+		$(document).ready(function() {
+			$('#geotargetcheckbox').click(function(){
+				document.location.href = "/BevoMedia/Geotargeting/Index.html";
+			});
+		});
+	</script>
 	<?php endif;?>			
 			
 			<tr>
-				<th><label for="geotargeting">Geotargetting (Verified Only):</label></th>
+				<th><label for="geotargeting">Geotargetting <font color="red">(Verified Only):</font></label></th>
 				<td>
-					<p>
-						<a id='geotargetcheckbox' href='/BevoMedia/Geotargeting/Index.html'>
-							<input type='checkbox' value='on'>
-						</a>
-						<span>Display different landing pages based on location:</span>
+					<p id='geotargetcheckbox'>
+						<input type='checkbox' value='on'>
+						<span>Display different landing pages based on location.</span>
 					</p>
 				</td>
 			</tr>
