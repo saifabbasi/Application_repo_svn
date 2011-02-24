@@ -369,7 +369,7 @@
 						
 						<?php } else { //if user is verified
 							
-							if($this->User->IsSubscribed(User::PRODUCT_FREE_PPC)) { //if user is subscribed to app
+							if($this->User->IsSubscribed(User::PRODUCT_FREE_PPC) || $this->User->IsSubscribed(User::PRODUCT_PPC_YEARLY_CHARGE)) { //if user is subscribed to app
 							?>
 						
 								<div class="icon icon_appstore_add2cart_check"></div>
