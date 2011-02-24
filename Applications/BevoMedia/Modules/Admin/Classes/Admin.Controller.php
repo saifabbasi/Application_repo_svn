@@ -1031,10 +1031,10 @@
 						ON ban.id = bupc.network__id
 					LEFT JOIN bevomedia_name_your_price_niche AS bnyp
 						ON bnyp.ID = bupn.niche__id
+					WHERE (bupn.id IS NOT NULL OR bupc.id IS NOT NULL)
 					GROUP BY bu.id
 					ORDER BY networks DESC, niches DESC
 						";
-			// WHERE (bupn.id IS NOT NULL OR bupc.id IS NOT NULL)
 			$perfConn = $this->db->fetchAll($sql);
 			$this->perfConn = $perfConn;
 		}
