@@ -245,10 +245,37 @@ Class UserController extends ClassComponent
 	{
 		if(isset($_POST['changeProfileFormSubmit']))
 		{
+			
 			$Data = $_POST;
+			$niche = $Data['niche'];
+			
+			$this->User->clearPerformanceConnectorNiches();
+			if($_POST['bevoPerformanceConnector'] && $_POST['bevoPerformanceConnector'] == 'on') {
+				foreach ($niche as $nicheId) {
+					$this->User->insertPerformanceConnectorNiche($nicheId);
+				}
+			}
+			
+			unset($Data['bevoPerformanceConnector']);
+			unset($Data['niche']);
 			unset($Data['changeProfileFormSubmit']);
 			$this->User->Update($Data);
 			$this->Message = 'ACCOUNT_UPDATED';
+		}
+		
+		$Sql = "SELECT
+			bevomedia_name_your_price_niche.*
+		FROM
+			bevomedia_name_your_price_niche
+		ORDER BY
+			bevomedia_name_your_price_niche.Name			
+		";
+		$this->Niches = $this->db->fetchAll($Sql);
+		
+		$userNiches = $this->User->getPerformanceConnectorNiches();
+		$this->UserNicheIDs = array();
+		foreach ($userNiches as $userNiche) {
+			$this->UserNicheIDs[] = $userNiche->niche__id;
 		}
 	}
 	
@@ -326,12 +353,33 @@ Class UserController extends ClassComponent
 			die;
 		}
 		
+		$Sql = "SELECT
+			bevomedia_name_your_price_niche.*
+		FROM
+			bevomedia_name_your_price_niche
+		ORDER BY
+			bevomedia_name_your_price_niche.Name			
+		";
+		$this->Niches = $this->db->fetchAll($Sql);
+		
+		
 		if(isset($_POST['registerFormSubmit']))
 		{
 			$user = new User();
-			$id = $user->insert($_POST);
+			$niche = $_POST['niche'];
+			unset($_POST['niche']);
+			$Data = $_POST;
+			unset($Data['bevoPerformanceConnector']);
+			$id = $user->insert($Data);
 			if(!$id)
 			    die();
+			
+			if($_POST['bevoPerformanceConnector'] && $_POST['bevoPerformanceConnector'] == 'on') {
+				foreach ($niche as $nicheId) {
+					$user->insertPerformanceConnectorNiche($nicheId);
+				}
+			}
+		    
 			$Mentor = new Mentor();
 			$Mentor = $Mentor->GetMentorUsingEmail('ryan@bevomedia.com');
 			if($Mentor !== false)

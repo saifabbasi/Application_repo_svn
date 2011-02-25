@@ -167,6 +167,38 @@
 		</select>
 	</label>
 	
+<script type="text/javascript" src="/JS/charts/jquery-1.4.2.min.js"></script>
+
+<script language="javascript">
+$(document).ready(function(){
+	$('#bpc').change(function(){
+		if($(this).attr('checked')){
+			$('#niche').show();
+		}else{
+			$('#niche').hide();
+		}
+	});
+});
+</script>
+
+	<label for="X">
+	<span class="label">Bevo Performance Connector: <br/>(Optional) </span>
+	<input type="checkbox" name="bevoPerformanceConnector" id ="bpc" /> &nbsp; Enable<br/>
+	<select style="display:none;" name="niche[]" size="10" id="niche" class="required formselect" rel="Niche" multiple="multiple">
+		<?php 
+			foreach ($this->Niches as $Niche) {
+				$selected = '';
+				if (in_array($Niche->ID, $this->UserNicheIDs)) {
+					$selected = 'selected="selected"';
+				}
+		?>
+				<option value="<?php echo $Niche->ID?>" <?php echo $selected;?>><?php echo $Niche->Name?></option>
+		<?php 
+			}
+		?>
+	</select>
+	</label>	
+	
 	<br/>
 	
 	
@@ -278,7 +310,7 @@
 
 	<p>Cardholder Terms:</p>
 
-	<p>By purchasing a premium package or service from Bevo Media, the cardholder agrees to the terms of the service for the given product or service, which may include a monthly charge. Email notification will be sent prior to any charge. In all events, BeVo Media’s total liability shall be limited to, and shall not exceed, the amount actually paid by the cardholder to BeVo Media.</p>
+	<p>By purchasing a premium package or service from Bevo Media, the cardholder agrees to the terms of the service for the given product or service, which may include a monthly charge. Email notification will be sent prior to any charge. In all events, BeVo Mediaï¿½s total liability shall be limited to, and shall not exceed, the amount actually paid by the cardholder to BeVo Media.</p>
 	
 	
 

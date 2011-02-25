@@ -169,6 +169,27 @@
 		</select>
 	</label>
 	
+	<?php $userHasNiche = (count($this->UserNicheIDs) > 0);?>
+	<label for="X">
+	<span class="label">Bevo Performance Connector: <br/>(Optional) </span>
+	<input type="checkbox" name="bevoPerformanceConnector" id ="bpc" <?php echo ($userHasNiche)?'checked="checked"':''?>/> &nbsp; Enable<br/>
+	<select style="<?php echo ($userHasNiche)?'':'display:none;'?>;" name="niche[]" size="10" id="niche" class="required formselect" rel="Niche" multiple="multiple">
+		<?php 
+			foreach ($this->Niches as $Niche) {
+				$selected = '';
+				if (in_array($Niche->ID, $this->UserNicheIDs)) {
+					$selected = 'selected="selected"';
+				}
+		?>
+				<option value="<?php echo $Niche->ID?>" <?php echo $selected;?>><?php echo $Niche->Name?></option>
+		<?php 
+			}
+		?>
+	</select>
+	</label>	
+	
+	<br/><br/>
+	
 	
 	<br/>
 	
@@ -176,3 +197,15 @@
 	
 
 </form>
+
+<script language="javascript">
+$(document).ready(function(){
+	$('#bpc').change(function(){
+		if($(this).attr('checked')){
+			$('#niche').show();
+		}else{
+			$('#niche').hide();
+		}
+	});
+});
+</script>
