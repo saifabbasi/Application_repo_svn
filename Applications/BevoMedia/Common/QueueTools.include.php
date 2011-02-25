@@ -97,9 +97,8 @@ function addMSNAccountToQueue($id)
   $msn = new msn_api($username, $password);
   
   $results = $msn->getAccounts();
-  print_r($results);
   
-  $resultsArray = $results->GetAccountsResult->AdCenterAccount;
+  @$resultsArray = $results->GetAccountsResult->AdCenterAccount;
   if (!is_array($resultsArray)) {
   	$resultsArray = array(0 => $resultsArray);
   }
@@ -108,7 +107,7 @@ function addMSNAccountToQueue($id)
   	  
   	  $reportName = $reportType . '-' . $id. '-'. $key . '-' . time();
   	
-	  $api_accountId = $result->AccountId;
+	  @$api_accountId = $result->AccountId;
 	  
 	  
 	  //echo $api_accountId."\n";die;
