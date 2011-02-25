@@ -191,7 +191,7 @@ $(document).ready(function(){
 	});
 });
 </script>
-
+<?php /*?>
 	<div id='tooltip'>
 		The Bevo Performance Connector is a free service connecting networks with publishers who want the best opportunity of promoting an offer. Bevo Media has close relationships with all of its partnered networks. If you want to be a part of the Bevo Performance Connector program, you will simply tell Bevo Media what niches you are interested in, and a Bevo Representative will get you in touch with one of their networks that will do whatever it takes to get you on their network, make sure you are satisfied, including Top payouts and guaranteed EPC's. Bevo Performance Connector ensures that publishers are getting the best performance from their offers and from the networks they run with, on a personal level. You will receive periodic intro emails from a Bevo representative letting connecting you with high potential opportunities
 	</div>
@@ -217,7 +217,7 @@ $(document).ready(function(){
 	</label>	
 	
 	<br/>
-	
+<?php */ ?>
 	
 <div class="box tos">
 	
