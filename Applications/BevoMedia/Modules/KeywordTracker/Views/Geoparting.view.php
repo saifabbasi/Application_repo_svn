@@ -126,6 +126,7 @@ if ($this->User->vaultID == 0) {
 		<td class="hhr">&nbsp;</td>
 	</tr>
 	<tbody>
+<?php if(isset($this->data['results'])):?>
 <?php foreach($this->data['results'] as $key=>$value): ?>
 <?php
     $keySplit = explode(',', $key);
@@ -155,6 +156,7 @@ if ($this->User->vaultID == 0) {
     </tr>
 
 <?php endforeach;?>
+<?php endif;?>
     </tbody>
 	<tr class="table_footer">
 		<td class="hhl"></td>
