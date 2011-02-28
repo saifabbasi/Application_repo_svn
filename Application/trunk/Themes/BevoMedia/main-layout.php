@@ -96,10 +96,11 @@
 		
 	</div><!--close container-->
 	<div id="footer">
-		<div id="nwscroller">
-			<object	classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" type="application/x-shockwave-flash" data="<?=$this->{'System/BaseURL'};?>Themes/<?=$this->{'Application/Theme'};?>/nwscroller.swf" width="880" height="70">
+		<div id="nwscroller" >
+			<object	wmode="opaque" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" type="application/x-shockwave-flash" data="<?=$this->{'System/BaseURL'};?>Themes/<?=$this->{'Application/Theme'};?>/nwscroller.swf" width="880" height="70">
 				<param name="movie" value="<?=$this->{'System/BaseURL'};?>/Themes/<?=$this->{'Application/Theme'};?>/nwscroller.swf" />
-				<embed pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" src="<?=$this->{'System/BaseURL'};?>Themes/<?=$this->{'Application/Theme'};?>/nwscroller.swf"" width="880" height="70">
+				<param name="wmode" value="opaque" />
+				<embed wmode="opaque" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" src="<?=$this->{'System/BaseURL'};?>Themes/<?=$this->{'Application/Theme'};?>/nwscroller.swf" width="880" height="70">
 				</embed>
 			</object>
 			
