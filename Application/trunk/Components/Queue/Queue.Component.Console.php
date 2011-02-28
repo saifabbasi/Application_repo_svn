@@ -216,6 +216,7 @@
 	        			completed = '0000-00-00 00:00:00'
 	        		AND
         	            deleted = 0
+                    LIMIT 0, 1000
 	        	";
 	        	
 	        	$Result2 = mysql_query($Query2, $DBLink);
