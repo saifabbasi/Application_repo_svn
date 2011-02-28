@@ -177,6 +177,7 @@
 	background:#f7f5d1;
 	padding:2px 5px;
 	width:285px;
+	z-index: 10000;
 	}
 </style>
 <script language="javascript">
@@ -381,8 +382,6 @@ $(document).ready(function(){
 	
 	</div><!--close box.tos-->
 	
-	<br/><br/>
-	
 	<label for="X">
 	<a class="tooltip" title="The Bevo Performance Connector is a free service connecting networks with publishers who want the best opportunity of promoting an offer. Bevo Media has close relationships with all of its partnered networks. If you want to be a part of the Bevo Performance Connector program, you will simply tell Bevo Media what niches you are interested in, and a Bevo Representative will get you in touch with one of their networks that will do whatever it takes to get you on their network, make sure you are satisfied, including Top payouts and guaranteed EPC's. Bevo Performance Connector ensures that publishers are getting the best performance from their offers and from the networks they run with, on a personal level. You will receive periodic intro emails from a Bevo representative connecting you with high potential opportunities.">
 		<br/>
@@ -405,13 +404,13 @@ $(document).ready(function(){
 			}
 		?>
 	</select>
-	</label>	
+	</label>
 	
-	<br/><br/>
+	<br/>
 	
 	<label><input type="checkbox" id="EULAAccepted" name="EULAAccepted" value="1" /> &nbsp; I accept the User Agreement, Privacy Policy, and Terms of Service</label>
 	
-	<br/><br/>
+	<br/>
 	
 	
 	<input type='submit' name='registerFormSubmit' class='formRegister' onclick="if ($$('EULAAccepted').checked==false) { alert('You must accept the END USER SOFTWARE AGREEMENT in order to continue.'); return false;} ">
