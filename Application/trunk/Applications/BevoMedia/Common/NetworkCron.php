@@ -69,7 +69,12 @@ foreach($networks as $network)
     try {
         if($Offers)
         {
-            queueUpdateOffers($network);
+        	// TODO: Implement a more efficient method for offer retrieval for CPAWay
+        	if($network[0] == 'CPAWay') {
+        		// NOOP
+        	}else{
+	            queueUpdateOffers($network);
+        	}
         }
         else
         {
