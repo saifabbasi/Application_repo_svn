@@ -29,7 +29,8 @@ function networkArray($name, $id, $type = false) {
     return array('name' => $name, 'id' => $id, 'type' => $type); }
 
     
-    
+
+//$networks[] = networkArray('FeedFlare', 1066);
 $networks[] = networkArray('CPAWay', 1065);
 $networks[] = networkArray('Azoogle', 1000);
 $networks[] = networkArray('ClickBank', 1040);
@@ -70,7 +71,7 @@ foreach($networks as $network)
         if($Offers)
         {
         	// TODO: Implement a more efficient method for offer retrieval for CPAWay
-        	if($network[0] == 'CPAWay') {
+        	if($network['name'] == 'CPAWay') {
         		// NOOP
         	}else{
 	            queueUpdateOffers($network);
