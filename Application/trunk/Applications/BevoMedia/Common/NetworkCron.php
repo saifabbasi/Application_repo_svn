@@ -30,7 +30,7 @@ function networkArray($name, $id, $type = false) {
 
     
 
-//$networks[] = networkArray('FeedFlare', 1066);
+$networks[] = networkArray('FeedFlare', 1066);
 $networks[] = networkArray('CPAWay', 1065);
 $networks[] = networkArray('Azoogle', 1000);
 $networks[] = networkArray('ClickBank', 1040);
