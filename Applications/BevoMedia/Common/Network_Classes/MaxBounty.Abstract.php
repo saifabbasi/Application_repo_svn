@@ -5,7 +5,6 @@ require_once('Networks.Abstract.php');
 /**
  * This class uses nusoap.
  */
-require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Include' . DIRECTORY_SEPARATOR . 'nusoap' . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'nusoap.php');
 
 /**
  * MaxBounty.Abstract.php
@@ -202,27 +201,17 @@ abstract class MaxBountyAbstract Extends NetworksAbstract {
 	 */
 	Protected Function DoSoapRequest($method, $args)
 	{
-		$client = new nusoapclientw($this->apiUrl, true);
-		$result = $client->call($method, $args);
+		$client = new SoapClient($this->apiUrl);
+		//$client = new nusoapclientw($this->apiUrl, true);
 
-		if($client->fault)
-		{
-			echo $this->ApiName().' Fault: '.$client->faultstring; // TODO: Log the fault instead
+		try {
+			$result = $client->__soapCall($method, $args);
+		}catch (Exception $e) {
+			echo $this->ApiName().' Fault: '.$e->getMessage(); // TODO: Log the fault instead
 			return false;
 		}
-		else
-		{
-			$err = $client->getError();
-			if($err)
-			{
-				echo $this->name.' Error: '.$err; // TODO: Log the error instead
-				return false;
-			}
-			else
-			{
-				return $result;
-			}
-		}
+		
+		return $result;
 	}
 	
 }
