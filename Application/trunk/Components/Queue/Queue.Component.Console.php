@@ -195,10 +195,10 @@
 				}
         	}
         	
-        	if(count($Results)>4)
+        	if(count($Results)>19)
         	{
         		//There is, lets return right now
-				echo "\n5 currently running jobs, quitting!";
+				echo "\n20 currently running jobs, quitting!";
         		return false;
         	}
         	else
