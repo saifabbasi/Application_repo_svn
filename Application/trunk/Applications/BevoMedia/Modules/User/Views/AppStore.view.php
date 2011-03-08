@@ -449,6 +449,66 @@
 		</div><!--close appboxinside-->
 	</div><!--close appbox-->
 	
+	<?php
+	/*
+	
+	
+	appbox peformance connector
+	
+	
+	*/ 
+	?>
+	<div class="item">
+		<div class="apptitle">
+			<div class="apptitleleft"></div>
+			<h3>Performance Connector</h3>
+			<div class="apptitleright"></div>
+		</div>
+		
+		<div class="appboxinside">
+			<div class="img"><img src="<?php echo SCRIPT_ROOT; ?>img/pagedesc_perfconn.png" alt="" /></div>
+			<div class="cont">			
+				<div class="desc">
+					<p>
+						The Bevo Performance Connector is a free service connecting networks with publishers who want the best opportunity of promoting an offer. Bevo Performance Connector members receive periodic introductory emails connecting them with their best fit partnered networks.
+					</p>
+				</div>
+				
+				<ul class="soapchecklist">
+					<li><p>Personalized help</p>
+						<span>Have a dedicated rep at your network personally help you with whatever you need to get your campaign going in the right direction.</span></li>
+					<li><p>Top payouts and guarenteed EPC's</p>
+						<span>Get access to exclusive offers, top payouts, and even guarenteed EPC's from your best fit networks.</span></li>
+					<li><p>Whatever it takes</p>
+						<span>Our partnered networks will do whatever it takes going above and beyond to get you running on their networks giving you extra benefits because you are a Bevo publisher.</span></li>
+				</ul>
+				
+				<div class="add2cart">
+					<div class="cartdesc">
+						<h3>Bevo Performance Connector</h3>
+						<p>The Bevo Performance Connector is feature that is free to use for all BevoMedia users!</p>
+					</div>
+					
+					<div class="cartaction">
+							<div class="icon icon_appstore_add2cart_check"></div>
+							<?php $userHasNiche = (count($this->User->getPerformanceConnectorNiches()) > 0);?>
+
+							<?php if(!$userHasNiche):?>
+							<a class="btn btn_appstore_subscribe" href="#" rel="/BevoMedia/User/PerfConn.html" id="PerfConn">Subscribe</a>
+							<?php else:?>
+							<a class="btn btn_appstore_unsubscribe" href="#" rel="/BevoMedia/User/PerfConn.html?unsubscribe=true" id="PerfConn">Unsubscribe</a>
+							<?php endif;?>
+							
+							<h3>FREE</h3>
+							<p>This app is free to use!</p>
+
+					</div><!--close cartaction-->
+				</div><!--close add2cart-->
+			</div><!--close cont-->
+			<div class="clear"></div>
+		</div><!--close appboxinside-->
+	</div><!--close appbox-->
+	
 </div><!--close pagecontent-->
 
 <script type="text/javascript">
@@ -457,6 +517,13 @@ $(document).ready(function() {
 		var a = document.createElement('a');
 		a.href = $(this).attr('rel')+'?ajax=true';
 		a.rel = 'shadowbox;width=640;height=480;player=iframe';
+		Shadowbox.open(a);
+		return false;
+	});
+	$('a#PerfConn').click(function() {
+		var a = document.createElement('a');
+		a.href = $(this).attr('rel')+'?ajax=true';
+		a.rel = 'shadowbox;width=300;height=340;player=iframe';
 		Shadowbox.open(a);
 		return false;
 	});
