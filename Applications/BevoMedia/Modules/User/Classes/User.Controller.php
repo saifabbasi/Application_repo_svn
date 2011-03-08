@@ -241,6 +241,46 @@ Class UserController extends ClassComponent
 	/**
 	 * Change Profile Page Functionality
 	 */
+	Public Function PerfConn()
+	{
+		if(isset($_GET['unsubscribe'])) {
+			$this->User->clearPerformanceConnectorNiches();
+			$goto = '/BevoMedia/User/AppStore.html';
+			$goto = $this->PageHelper->URLEncode($goto);
+			header('Location: /BevoMedia/Index/CloseShadowbox.html?goto=' . $goto);
+			die;
+		}
+		
+		if(isset($_POST['changeProfileFormSubmit']))
+		{
+			$Data = $_POST;
+			$niche = $Data['niche'];
+			
+			$this->User->clearPerformanceConnectorNiches();
+			foreach ($niche as $nicheId) {
+				$this->User->insertPerformanceConnectorNiche($nicheId);
+			}
+			
+			$this->Message = 'ACCOUNT_UPDATED';
+		}
+		Zend_Registry::set('Instance/LayoutType', 'shadowbox-layout');
+		
+		$Sql = "SELECT
+			bevomedia_name_your_price_niche.*
+		FROM
+			bevomedia_name_your_price_niche
+		ORDER BY
+			bevomedia_name_your_price_niche.Name			
+		";
+		$this->Niches = $this->db->fetchAll($Sql);
+		
+		$userNiches = $this->User->getPerformanceConnectorNiches();
+		$this->UserNicheIDs = array();
+		foreach ($userNiches as $userNiche) {
+			$this->UserNicheIDs[] = $userNiche->niche__id;
+		}
+	}
+	
 	Public Function ChangeProfile()
 	{
 		if(isset($_POST['changeProfileFormSubmit']))
@@ -263,6 +303,7 @@ Class UserController extends ClassComponent
 			$this->Message = 'ACCOUNT_UPDATED';
 		}
 		
+
 		$Sql = "SELECT
 			bevomedia_name_your_price_niche.*
 		FROM
@@ -277,6 +318,7 @@ Class UserController extends ClassComponent
 		foreach ($userNiches as $userNiche) {
 			$this->UserNicheIDs[] = $userNiche->niche__id;
 		}
+		
 	}
 	
 	/**

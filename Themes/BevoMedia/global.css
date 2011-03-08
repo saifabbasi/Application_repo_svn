@@ -344,6 +344,8 @@ a.btn_appstore_launchapp_wide { width:282px; height:41px; background:url(img_new
 a.btn_appstore_verify_wide { width:282px; height:41px; background:url(img_new/btn_appstore_verify_wide.png) no-repeat; }
 a.btn_appstore_add2cart { width:187px; height:41px; background:url(img_new/btn_appstore_add2cart.png) no-repeat; }
 a.btn_appstore_launchapp { width:187px; height:41px; background:url(img_new/btn_appstore_launchapp.png) no-repeat; }
+a.btn_appstore_subscribe { width:187px; height:41px; background:url(img_new/btn_appstore_subscribe.png) no-repeat; }
+a.btn_appstore_unsubscribe { width:187px; height:41px; background:url(img_new/btn_appstore_unsubscribe.png) no-repeat; }
 a.btn_appstore_verify { width:187px; height:41px; background:url(img_new/btn_appstore_verify.png) no-repeat; }
 	
 
