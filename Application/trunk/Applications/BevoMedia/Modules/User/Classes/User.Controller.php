@@ -243,9 +243,10 @@ Class UserController extends ClassComponent
 	 */
 	Public Function PerfConn()
 	{
+		$goto = '/BevoMedia/User/AppStore.html';
+		
 		if(isset($_GET['unsubscribe'])) {
 			$this->User->clearPerformanceConnectorNiches();
-			$goto = '/BevoMedia/User/AppStore.html';
 			$goto = $this->PageHelper->URLEncode($goto);
 			header('Location: /BevoMedia/Index/CloseShadowbox.html?goto=' . $goto);
 			die;
@@ -262,6 +263,9 @@ Class UserController extends ClassComponent
 			}
 			
 			$this->Message = 'ACCOUNT_UPDATED';
+			$goto = $this->PageHelper->URLEncode($goto);
+			header('Location: /BevoMedia/Index/CloseShadowbox.html?goto=' . $goto);
+			die;
 		}
 		Zend_Registry::set('Instance/LayoutType', 'shadowbox-layout');
 		
