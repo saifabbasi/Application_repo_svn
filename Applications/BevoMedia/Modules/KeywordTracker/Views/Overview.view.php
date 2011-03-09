@@ -14,13 +14,29 @@ $filtering_cost_sql = $filtering_sql[1];
 
 
 
-$query = "SELECT
-				tc.clickDate as date, COALESCE(SUM(afs.revenue),0) AS revenue
-			FROM
-				bevomedia_tracker_clicks AS tc FORCE INDEX ( user_id )
-			JOIN bevomedia_user_aff_network_subid AS afs FORCE INDEX ( USERID )
-				ON tc.user__id = afs.user__id
-			WHERE afs.user__id = $userId AND tc.user__id = $userId AND tc.clickDate BETWEEN '$stDate' AND '$enDate' GROUP BY tc.clickDate ORDER BY tc.clickDate
+$query = "
+SELECT 
+    tc.clickDate as date, COALESCE(SUM(afs.revenue),0) AS revenue
+FROM 
+    bevomedia_tracker_clicks AS tc FORCE INDEX ( sub_id )
+JOIN
+    bevomedia_user_aff_network_subid AS afs FORCE INDEX ( SUB_ID )
+ON
+    tc.subId = afs.subId
+WHERE
+    afs.user__id = $userId 
+AND 
+    tc.user__id = $userId 
+AND 
+    tc.clickDate 
+BETWEEN 
+    '$stDate' 
+AND 
+    '$enDate' 
+GROUP BY 
+    tc.clickDate 
+ORDER BY 
+    tc.clickDate
 ";
 
 $query = mysql_query($query);
