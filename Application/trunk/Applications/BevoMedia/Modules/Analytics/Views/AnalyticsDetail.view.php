@@ -179,7 +179,7 @@ function getMonthlyData($XML = true, $SubChart = false) {
 	
 	if($isSelfHosted == '1')
 	{
-		$Data = array();
+		//$Data = array();
 	}
 	
 	$Days = "<string>Days</string>";
@@ -591,7 +591,7 @@ if ($is_registerd) {
 		<td class="border4" style="border-left: none;">&nbsp;</td>
 	</tr>
 <?
-		}echo $DateRange ;
+		}
 
 		if(!sizeof(listDomains())):
 		?>
