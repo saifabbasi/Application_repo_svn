@@ -263,14 +263,17 @@ abstract class LinkTrustAbstract Extends NetworksAbstract {
 						'CURLOPT_POST' => 1);
 		$CSV = $this->curlIt($this->csvUrl, $arrParams);
 		
+		
+		
 		if (strstr($CSV, '<body ') && strstr($CSV, '<table '))
 		{
-			if(get_class($this) == 'EWA') {
+			if(get_class($this) == 'EWA' || get_class($this) == 'CPAStaxx' ) {
 				// EWA is currently outputing unexpected results
 			}else{
 				return;	
 			}
 		}
+		
 		
 //		print $CSV;
 //		 echo '<pre>'; echo htmlentities(print_r($CSV));
@@ -288,6 +291,7 @@ abstract class LinkTrustAbstract Extends NetworksAbstract {
 		$Output = new StatEnvelope($Date);
 		while (($Arr = fgetcsv($Handle, 0, ",")) !== FALSE)
 		{
+		    
 			if ($Line++<=0)
 			{
 				continue;
@@ -314,7 +318,7 @@ abstract class LinkTrustAbstract Extends NetworksAbstract {
 				{
 					$OfferID = @$Arr[0];
 					$Campaign = @$Arr[1];
-					if(get_class($this) == 'EWA') {
+					if(get_class($this) == 'EWA' || get_class($this) == 'CPAStaxx') {
 						// patch for EWA
 						if($Arr[2] == '' && $Arr[3] == '') {
 							continue;
@@ -351,6 +355,7 @@ abstract class LinkTrustAbstract Extends NetworksAbstract {
 			$Date = date('Y-m-d', strtotime($FromDate));
 			
 			$TempStat = new Stat($Clicks, $Conversions, $Payout, $SubID, $OfferID);
+			
 			$Output->addStatObject($TempStat);
 		}
 		fclose($Handle);
