@@ -11,9 +11,47 @@ $filtering_sql = $this->filter->getSql();
 $filtering_rev_sql = $filtering_sql[0];
 $filtering_cost_sql = $filtering_sql[1];
  
+$dateDiff = ((strtotime($enDate) - strtotime($stDate))/86400)+1;
+$data = array();
+
+for ( $i = 0; $i < $dateDiff; $i++ ) {
+	$data[date("Y-m-d", strtotime("{$stDate} + {$i} days"))] = 0;	
+}  
 
 
+$query = "
+	SELECT tc.clickDate AS date, tc.subId
+	FROM bevomedia_tracker_clicks AS tc
+	WHERE tc.user__id = $userId
+	AND tc.clickDate
+	BETWEEN '$stDate'
+	AND '$enDate'
+";
 
+
+$query = mysql_query($query);
+
+
+while($row = mysql_fetch_object($query))
+{
+	$sql = "
+		SELECT COALESCE(SUM(afs.revenue),0) AS revenue
+		FROM bevomedia_user_aff_network_subid AS afs 
+		WHERE afs.user__id = $userId
+		AND afs.subId = {$row->subId}
+		AND afs.statDate
+		BETWEEN '$stDate' 
+		AND '$enDate' 
+	";
+	
+	$result = mysql_query($sql);
+	$revRow = mysql_fetch_object($result);
+	
+	$data[$row->date] = $data[$row->date]+$revRow->revenue;
+	
+}
+
+/*
 $query = "
 SELECT 
     tc.clickDate as date, COALESCE(SUM(afs.revenue),0) AS revenue
@@ -39,6 +77,8 @@ ORDER BY
     tc.clickDate
 ";
 
+
+
 $query = mysql_query($query);
 $data = array();
 
@@ -46,6 +86,7 @@ while($row = mysql_fetch_array($query))
 {
 	$data[$row['date']] = $row;
 }
+*/
 
 // Get all the unique creatives
 $query = "
