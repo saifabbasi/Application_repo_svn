@@ -411,7 +411,7 @@ $(document).ready(function(){
 	<input type="checkbox" name="promomethod[]" value="<?php echo $PromoMethod->id;?>" <?php echo $selected;?>/><?php echo $PromoMethod->promomethod;?>
 	<?php endforeach;?>
 	</label>
-	
+	<br/>
 	<label for="Z">
 	Experience: <br/>
 	<?php foreach($this->ExpLevels as $ExpLevel):?>
