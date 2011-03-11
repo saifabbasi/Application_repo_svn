@@ -987,17 +987,64 @@ END;
 	}
 	
 	/**
+	 * Removes all explevel entries for the User matching this $ID.
+	 */
+	Public Function clearPerformanceConnectorExpLevel()
+	{
+		$this->_db->delete('bevomedia_user_performanceconnector_explevel', 'user__Id = ' . $this->id);
+	}
+	/**
+	 * Insert a new row into the PerformanceConnectorExpLevel table for this $ID.
+	 *
+	 * @param String $nicheId
+	 */
+	Public Function insertPerformanceConnectorExpLevel($expId)
+	{
+		$Data = array('user__id'=>$this->id, 'explevel__id'=>$expId);
+		$this->_db->insert('bevomedia_user_performanceconnector_explevel', $Data);
+	}
+	Public Function getPerformanceConnectorExpLevels()
+	{
+		$query = $this->_db->select()->from('bevomedia_user_performanceconnector_explevel')->where("user__id = ?", array($this->id));
+		$rows = $this->_db->fetchAll($query);
+		return $rows;
+	}
+	
+	/**
+	 * Removes all promomethod entries for the User matching this $ID.
+	 */
+	Public Function clearPerformanceConnectorPromoMethod()
+	{
+		$this->_db->delete('bevomedia_user_performanceconnector_promomethod', 'user__Id = ' . $this->id);
+	}
+	/**
+	 * Insert a new row into the PerformanceConnectorPromoMethod table for this $ID.
+	 *
+	 * @param String $nicheId
+	 */
+	Public Function insertPerformanceConnectorPromoMethod($promoId)
+	{
+		$Data = array('user__id'=>$this->id, 'promomethod__id'=>$promoId);
+		$this->_db->insert('bevomedia_user_performanceconnector_promomethod', $Data);
+	}
+	Public Function getPerformanceConnectorPromoMethods()
+	{
+		$query = $this->_db->select()->from('bevomedia_user_performanceconnector_promomethod')->where("user__id = ?", array($this->id));
+		$rows = $this->_db->fetchAll($query);
+		return $rows;
+	}
+	
+	/**
 	 * Removes all niche entries for the User matching this $ID.
 	 */
 	Public Function clearPerformanceConnectorNiches()
 	{
 		$this->_db->delete('bevomedia_user_performanceconnector_niche', 'user__Id = ' . $this->id);
 	}
-	
 	/**
 	 * Insert a new row into the PerformanceConnectorNiche table for this $ID.
 	 *
-	 * @param String $Code
+	 * @param String $nicheId
 	 */
 	Public Function insertPerformanceConnectorNiche($nicheId)
 	{
@@ -1006,17 +1053,16 @@ END;
 	}
 	
 	/**
-	 * Removes all niche entries for the User matching this $ID.
+	 * Removes all network entries for the User matching this $ID.
 	 */
 	Public Function clearPerformanceConnectorEntries()
 	{
 		$this->_db->delete('bevomedia_user_performanceconnector', 'user__Id = ' . $this->id);
 	}
-	
 	/**
 	 * Insert a new row into the PerformanceConnectorNiche table for this $ID.
 	 *
-	 * @param String $Code
+	 * @param String $networkId
 	 */
 	Public Function insertPerformanceConnectorEntry($networkId)
 	{

@@ -171,9 +171,11 @@
 	
 	<?php $userHasNiche = (count($this->UserNicheIDs) > 0);?>
 	<label for="X">
-	<span class="label">Bevo Performance Connector: <br/>(Optional) </span>
+	<span class="label">Bevo Performance Connector: <br/>(Optional) <br/><br/></span>
 	<input type="checkbox" name="bevoPerformanceConnector" id ="bpc" <?php echo ($userHasNiche)?'checked="checked"':''?>/> &nbsp; Enable<br/>
-	<select style="<?php echo ($userHasNiche)?'':'display:none;'?>;" name="niche[]" size="10" id="niche" class="required formselect" rel="Niche" multiple="multiple">
+	<div id="perfconn" style="<?php echo ($userHasNiche)?'':'display:none;'?>;" >
+	Hold down Ctrl to select multiple niches.<br/>
+	<select name="niche[]" size="10" id="niche" class="required formselect" rel="Niche" multiple="multiple">
 		<?php 
 			foreach ($this->Niches as $Niche) {
 				$selected = '';
@@ -186,7 +188,30 @@
 			}
 		?>
 	</select>
-	</label>	
+	<br/>
+	
+	<br/>
+	</label>
+	
+	<label for="Y">
+	<span class="label">&nbsp;<br/>&nbsp;<br/></span>
+	Promotion Method (check all that apply): <br/>
+	<?php foreach($this->PromoMethods as $PromoMethod):?>
+		<?php $selected = (in_array($PromoMethod->id, $this->UserPromoMethodIDs))?'checked="checked"':'';?>
+	<input type="checkbox" name="promomethod[]" value="<?php echo $PromoMethod->id;?>" <?php echo $selected;?>/><?php echo $PromoMethod->promomethod;?>&nbsp;
+	<?php endforeach;?>
+	</label>
+	
+	<label for="Z">
+	<span class="label">&nbsp;<br/>&nbsp;<br/></span>
+	Experience: <br/>
+	<?php foreach($this->ExpLevels as $ExpLevel):?>
+		<?php $selected = (in_array($ExpLevel->id, $this->UserExpLevelIDs))?'checked="checked"':'';?>
+	<input type="radio" name="explevel[]" value="<?php echo $ExpLevel->id;?>" <?php echo $selected?>/><?php echo $ExpLevel->explevel;?>&nbsp;
+	<?php endforeach;?>
+	</label>
+	
+	</div>
 	
 	<br/><br/>
 	
@@ -202,9 +227,9 @@
 $(document).ready(function(){
 	$('#bpc').change(function(){
 		if($(this).attr('checked')){
-			$('#niche').show();
+			$('#perfconn').show();
 		}else{
-			$('#niche').hide();
+			$('#perfconn').hide();
 		}
 	});
 });

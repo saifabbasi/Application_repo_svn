@@ -350,7 +350,7 @@ $(document).ready(function(){
 	<p>BevoMedia discloses Personal Information to those who help it provide Services, including those who perform technical, administrative and data processing tasks such as hosting, data storage and security.</p>
 
 	<p>By Law or to Protect Rights.</p>
-	BevoMedia discloses Personal Information when required to do so by law, or in response to a subpoena or court order, or when BevoMedia believes in its sole discretion that disclosure is reasonably necessary to protect the property or rights of BevoMedia, third parties or the public at large.</p>
+	<p>BevoMedia discloses Personal Information when required to do so by law, or in response to a subpoena or court order, or when BevoMedia believes in its sole discretion that disclosure is reasonably necessary to protect the property or rights of BevoMedia, third parties or the public at large.</p>
 
 	<p>Business Transfers; Bankruptcy.</p>
 	<p>BevoMedia reserves the right to transfer all Personal Information in its possession to a successor organization in the event of a merger, acquisition, or bankruptcy or other sale of all or a portion of BevoMedia' assets. Other than to the extent ordered by a bankruptcy or other court, the use and disclosure of all transferred Personal Information will be subject to this Privacy Policy, or to a new privacy policy if You are given notice of that new privacy policy and an opportunity to affirmatively opt-out of it.  Personal Information submitted or collected after a transfer, however, may be subject to a new privacy policy adopted by BevoMedia successor organization.</p>
@@ -390,14 +390,13 @@ $(document).ready(function(){
 	</a>
 	</label>
 	
+	<div style="display:none;" id="niche" >
 	<label>
-	<select style="display:none;" name="niche[]" size="10" id="niche" class="required formselect" rel="Niche" multiple="multiple">
+	Hold down Ctrl to select multiple niches.<br/>
+	<select name="niche[]" size="10" class="required formselect" rel="Niche" multiple="multiple">
 		<?php 
+			$selected = '';
 			foreach ($this->Niches as $Niche) {
-				$selected = '';
-				if (in_array($Niche->ID, $this->UserNicheIDs)) {
-					$selected = 'selected="selected"';
-				}
 		?>
 				<option value="<?php echo $Niche->ID?>" <?php echo $selected;?>><?php echo $Niche->Name?></option>
 		<?php 
@@ -405,7 +404,23 @@ $(document).ready(function(){
 		?>
 	</select>
 	</label>
+	<br/>
+	<label for="Y">
+	Promotion Method (check all that apply): <br/>
+	<?php foreach($this->PromoMethods as $PromoMethod):?>
+	<input type="checkbox" name="promomethod[]" value="<?php echo $PromoMethod->id;?>" <?php echo $selected;?>/><?php echo $PromoMethod->promomethod;?>
+	<?php endforeach;?>
+	</label>
 	
+	<label for="Z">
+	Experience: <br/>
+	<?php foreach($this->ExpLevels as $ExpLevel):?>
+	<input type="radio" name="explevel[]" value="<?php echo $ExpLevel->id;?>" <?php echo $selected?>/><?php echo $ExpLevel->explevel;?>&nbsp;
+	<?php endforeach;?>
+	</label>
+	
+	
+	</div>
 	<br/>
 	
 	<label><input type="checkbox" id="EULAAccepted" name="EULAAccepted" value="1" /> &nbsp; I accept the User Agreement, Privacy Policy, and Terms of Service</label>

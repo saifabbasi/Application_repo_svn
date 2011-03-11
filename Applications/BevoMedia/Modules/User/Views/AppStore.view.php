@@ -523,7 +523,7 @@ $(document).ready(function() {
 	$('a#PerfConn').click(function() {
 		var a = document.createElement('a');
 		a.href = $(this).attr('rel')+'?ajax=true';
-		a.rel = 'shadowbox;width=300;height=340;player=iframe';
+		a.rel = 'shadowbox;width=400;height=460;player=iframe';
 		Shadowbox.open(a);
 		return false;
 	});

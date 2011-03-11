@@ -1020,7 +1020,9 @@
 					bu.id AS userId, 
 					bu.email AS userEmail,
 					GROUP_CONCAT(DISTINCT ban.title SEPARATOR ', ') AS networks,
-					GROUP_CONCAT(DISTINCT bnyp.Name SEPARATOR ', ') AS niches
+					GROUP_CONCAT(DISTINCT bnyp.Name SEPARATOR ', ') AS niches,
+					GROUP_CONCAT(DISTINCT bupes.explevel SEPARATOR ', ') AS experience,
+					GROUP_CONCAT(DISTINCT bupps.promomethod SEPARATOR ', ') AS promomethods
 					FROM 
 						bevomedia_user AS bu
 					LEFT JOIN bevomedia_user_performanceconnector AS bupc 
@@ -1031,9 +1033,17 @@
 						ON ban.id = bupc.network__id
 					LEFT JOIN bevomedia_name_your_price_niche AS bnyp
 						ON bnyp.ID = bupn.niche__id
+					LEFT JOIN bevomedia_user_performanceconnector_explevel AS bupe
+						ON bupe.user__id = bu.id
+					LEFT JOIN bevomedia_user_performanceconnector_explevels AS bupes
+						ON bupes.id = bupe.explevel__id
+					LEFT JOIN bevomedia_user_performanceconnector_promomethod AS bupp
+						ON bupp.user__id = bu.id
+					LEFT JOIN bevomedia_user_performanceconnector_promomethods as bupps
+						ON bupps.id = bupp.promomethod__id
 					WHERE (bupn.id IS NOT NULL OR bupc.id IS NOT NULL)
 					GROUP BY bu.id
-					ORDER BY networks DESC, niches DESC
+					ORDER BY bu.id DESC
 						";
 			$perfConn = $this->db->fetchAll($sql);
 			$this->perfConn = $perfConn;
