@@ -26,19 +26,19 @@ body {
 	<br/>
 	Hold down Ctrl to select multiple niches.
 	</label>
-	
-	<label for="Y">
-	<span class="label">&nbsp;<br/>&nbsp;<br/></span>
+	<br/>
+	<br/>
+	<div style="text-align: left;  width: 200px; margin-top: 0px; margin: auto; ">
 	Promotion Method: <br/>
 	<?php foreach($this->PromoMethods as $PromoMethod):?>
 		<?php $selected = (in_array($PromoMethod->id, $this->UserPromoMethodIDs))?'checked="checked"':'';?>
 	<input type="checkbox" name="promomethod[]" value="<?php echo $PromoMethod->id;?>" <?php echo $selected;?>/><?php echo $PromoMethod->promomethod;?>
 	<br/>
 	<?php endforeach;?>
-	</label>
+	</div>
 	
 	<label for="Z">
-	<span class="label">&nbsp;<br/>&nbsp;<br/></span>
+	<span class="label">&nbsp;<br/></span>
 	Experience: <br/>
 	<?php foreach($this->ExpLevels as $ExpLevel):?>
 		<?php $selected = (in_array($ExpLevel->id, $this->UserExpLevelIDs))?'checked="checked"':'';?>
