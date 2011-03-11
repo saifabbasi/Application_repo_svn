@@ -1,5 +1,6 @@
 <?php 
-	if ($this->User->vaultID==0)
+
+	if ($this->User->vaultID==0 && !$this->User->IsSubscribed(User::PRODUCT_FREE_SELF_HOSTED))
 	{
 		header('Location: /BevoMedia/User/AddCreditCard.html');
 		die;
