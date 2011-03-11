@@ -247,6 +247,8 @@ Class UserController extends ClassComponent
 		
 		if(isset($_GET['unsubscribe'])) {
 			$this->User->clearPerformanceConnectorNiches();
+			$this->User->clearPerformanceConnectorPromoMethod();
+			$this->User->clearPerformanceConnectorExpLevel();
 			$goto = $this->PageHelper->URLEncode($goto);
 			header('Location: /BevoMedia/Index/CloseShadowbox.html?goto=' . $goto);
 			die;
@@ -256,10 +258,22 @@ Class UserController extends ClassComponent
 		{
 			$Data = $_POST;
 			$niche = $Data['niche'];
+			$promomethods = $Data['promomethod'];
+			$explevels = $Data['explevel'];
 			
 			$this->User->clearPerformanceConnectorNiches();
 			foreach ($niche as $nicheId) {
 				$this->User->insertPerformanceConnectorNiche($nicheId);
+			}
+			
+			$this->User->clearPerformanceConnectorPromoMethod();
+			foreach ($promomethods as $promoId) {
+				$this->User->insertPerformanceConnectorPromoMethod($promoId);
+			}
+			
+			$this->User->clearPerformanceConnectorExpLevel();
+			foreach ($explevels as $expId) {
+				$this->User->insertPerformanceConnectorExpLevel($expId);
 			}
 			
 			$this->Message = 'ACCOUNT_UPDATED';
@@ -268,7 +282,9 @@ Class UserController extends ClassComponent
 			die;
 		}
 		Zend_Registry::set('Instance/LayoutType', 'shadowbox-layout');
+	
 		
+
 		$Sql = "SELECT
 			bevomedia_name_your_price_niche.*
 		FROM
@@ -278,10 +294,40 @@ Class UserController extends ClassComponent
 		";
 		$this->Niches = $this->db->fetchAll($Sql);
 		
+		$Sql = "SELECT
+			bevomedia_user_performanceconnector_promomethods.*
+		FROM
+			bevomedia_user_performanceconnector_promomethods
+		ORDER BY
+			bevomedia_user_performanceconnector_promomethods.promomethod
+		";
+		$this->PromoMethods = $this->db->fetchAll($Sql);
+		
+		$Sql = "SELECT
+			bevomedia_user_performanceconnector_explevels.*
+		FROM
+			bevomedia_user_performanceconnector_explevels
+		ORDER BY
+			bevomedia_user_performanceconnector_explevels.id
+		";
+		$this->ExpLevels = $this->db->fetchAll($Sql);
+		
 		$userNiches = $this->User->getPerformanceConnectorNiches();
 		$this->UserNicheIDs = array();
 		foreach ($userNiches as $userNiche) {
 			$this->UserNicheIDs[] = $userNiche->niche__id;
+		}
+		
+		$userPromos = $this->User->getPerformanceConnectorPromoMethods();
+		$this->UserPromoMethodIDs = array();
+		foreach ($userPromos as $userPromo) {
+			$this->UserPromoMethodIDs[] = $userPromo->promomethod__id;
+		}
+		
+		$userLevels = $this->User->getPerformanceConnectorExpLevels();
+		$this->UserExpLevelIDs = array();
+		foreach ($userLevels as $userLevel) {
+			$this->UserExpLevelIDs[] = $userLevel->explevel__id;
 		}
 	}
 	
@@ -291,18 +337,36 @@ Class UserController extends ClassComponent
 		{
 			
 			$Data = $_POST;
-			$niche = $Data['niche'];
 			
+			$niche = $Data['niche'];
 			$this->User->clearPerformanceConnectorNiches();
-			if($_POST['bevoPerformanceConnector'] && $_POST['bevoPerformanceConnector'] == 'on') {
+			if(isset($_POST['bevoPerformanceConnector']) && $_POST['bevoPerformanceConnector'] == 'on') {
 				foreach ($niche as $nicheId) {
 					$this->User->insertPerformanceConnectorNiche($nicheId);
+				}
+			}
+			
+			$promomethods = $Data['promomethod'];
+			$this->User->clearPerformanceConnectorPromoMethod();
+			if(isset($_POST['bevoPerformanceConnector']) && $_POST['bevoPerformanceConnector'] == 'on') {
+				foreach ($promomethods as $promoId) {
+					$this->User->insertPerformanceConnectorPromoMethod($promoId);
+				}
+			}
+			
+			$explevels = $Data['explevel'];
+			$this->User->clearPerformanceConnectorExpLevel();
+			if(isset($_POST['bevoPerformanceConnector']) && $_POST['bevoPerformanceConnector'] == 'on') {
+				foreach ($explevels as $expId) {
+					$this->User->insertPerformanceConnectorExpLevel($expId);
 				}
 			}
 			
 			unset($Data['bevoPerformanceConnector']);
 			unset($Data['niche']);
 			unset($Data['changeProfileFormSubmit']);
+			unset($Data['promomethod']);
+			unset($Data['explevel']);
 			$this->User->Update($Data);
 			$this->Message = 'ACCOUNT_UPDATED';
 		}
@@ -317,10 +381,40 @@ Class UserController extends ClassComponent
 		";
 		$this->Niches = $this->db->fetchAll($Sql);
 		
+		$Sql = "SELECT
+			bevomedia_user_performanceconnector_promomethods.*
+		FROM
+			bevomedia_user_performanceconnector_promomethods
+		ORDER BY
+			bevomedia_user_performanceconnector_promomethods.promomethod
+		";
+		$this->PromoMethods = $this->db->fetchAll($Sql);
+		
+		$Sql = "SELECT
+			bevomedia_user_performanceconnector_explevels.*
+		FROM
+			bevomedia_user_performanceconnector_explevels
+		ORDER BY
+			bevomedia_user_performanceconnector_explevels.id
+		";
+		$this->ExpLevels = $this->db->fetchAll($Sql);
+		
 		$userNiches = $this->User->getPerformanceConnectorNiches();
 		$this->UserNicheIDs = array();
 		foreach ($userNiches as $userNiche) {
 			$this->UserNicheIDs[] = $userNiche->niche__id;
+		}
+		
+		$userPromos = $this->User->getPerformanceConnectorPromoMethods();
+		$this->UserPromoMethodIDs = array();
+		foreach ($userPromos as $userPromo) {
+			$this->UserPromoMethodIDs[] = $userPromo->promomethod__id;
+		}
+		
+		$userLevels = $this->User->getPerformanceConnectorExpLevels();
+		$this->UserExpLevelIDs = array();
+		foreach ($userLevels as $userLevel) {
+			$this->UserExpLevelIDs[] = $userLevel->explevel__id;
 		}
 		
 	}
@@ -408,12 +502,35 @@ Class UserController extends ClassComponent
 		";
 		$this->Niches = $this->db->fetchAll($Sql);
 		
+		$Sql = "SELECT
+			bevomedia_user_performanceconnector_promomethods.*
+		FROM
+			bevomedia_user_performanceconnector_promomethods
+		ORDER BY
+			bevomedia_user_performanceconnector_promomethods.promomethod
+		";
+		$this->PromoMethods = $this->db->fetchAll($Sql);
+		
+		$Sql = "SELECT
+			bevomedia_user_performanceconnector_explevels.*
+		FROM
+			bevomedia_user_performanceconnector_explevels
+		ORDER BY
+			bevomedia_user_performanceconnector_explevels.id
+		";
+		$this->ExpLevels = $this->db->fetchAll($Sql);
+		
+		
 		
 		if(isset($_POST['registerFormSubmit']))
 		{
 			$user = new User();
 			$niche = $_POST['niche'];
 			unset($_POST['niche']);
+			$promomethods = $_POST['promomethod'];
+			unset($_POST['promomethod']);
+			$explevels = $_POST['explevel'];
+			unset($_POST['explevel']);
 			$Data = $_POST;
 			unset($Data['bevoPerformanceConnector']);
 			$id = $user->insert($Data);
@@ -424,6 +541,15 @@ Class UserController extends ClassComponent
 				foreach ($niche as $nicheId) {
 					$user->insertPerformanceConnectorNiche($nicheId);
 				}
+				
+				foreach ($promomethods as $promoId) {
+					$user->insertPerformanceConnectorPromoMethod($promoId);
+				}
+				
+				foreach ($explevels as $expId) {
+					$user->insertPerformanceConnectorExpLevel($expId);
+				}
+				
 			}
 		    
 			$Mentor = new Mentor();

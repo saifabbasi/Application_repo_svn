@@ -25,7 +25,7 @@
 <?php foreach ($this->perfConn as $perfConn):?>
 <tr>
 	<td>
-		<?php print $perfConn->userId?>
+		<a href="EditPublisher.html?id=<?php print $perfConn->userId?>"><?php print $perfConn->userId?></a>
 	</td>
 	<td>
 		<?php print $perfConn->userEmail?>
@@ -39,7 +39,7 @@
 	</td>
 	<td>
 		<?php if($perfConn->niches):?>
-			<a href='#' class='showNiches'>Show Niches</a>
+			<a href='#' class='showNiches'>Show Info</a>
 		<?php else:?>
 			<i>None Selected</i>
 		<?php endif;?>
@@ -50,8 +50,13 @@
 </tr>
 <?php if($perfConn->niches):?>
 <tr class="lightBlueRow textAlignRight displayNone">
-	<td colspan="5">
+	<td colspan="1">
+		<?php print $perfConn->experience?>
+	</td>
+	<td colspan="4">
 		<?php print $perfConn->niches?>
+		<br/>
+		<?php print $perfConn->promomethods?>
 	</td>
 </tr>
 <?php endif;?>
