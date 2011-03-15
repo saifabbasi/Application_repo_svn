@@ -41,6 +41,7 @@
 			<li><a href="/BevoMedia/User/CreditCard.html">My Payment Options</a></li>
 		<?php } ?>
 		<li><a href="/BevoMedia/User/Invoice.html">Billing</a></li>
+		<li><a href="/BevoMedia/User/Referrals.html">Referrals</a></li>
 		<li><a href="/BevoMedia/User/ChangePassword.html" rel="shadowbox;width=320;height=200;player=iframe" title="Change Password">Change Password</a></li>
 		<li><a href="/BevoMedia/User/CancelAccount.html" rel="shadowbox;width=480;height=250;player=iframe" title="Cancel Bevo Account">Cancel Account</a></li>
 	</ul>
