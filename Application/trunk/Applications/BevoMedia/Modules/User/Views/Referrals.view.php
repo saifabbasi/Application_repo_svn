@@ -72,11 +72,13 @@
 	
 	<div>
 		<b>Referral Terms:</b><br /><br />
-		Payments Net $<?php echo number_format($totalRevenue, 2)?><br />
+		Total Referred $<?php echo number_format($totalRevenue, 2)?><br />
+		Payments are made on are made upon request on NET30<br/>
 		Minimum Payment $100<br />
 		W9 Required.<br />
 		Payment Via Check/Wire/Paypal<br />
 		Refunded items or fraudulent purchases will not be credited.<br />
+		Users recieve 10% commission of their referred user's payments to Bevo.<br/>
 		You may request your referral payment by emailing <a href="referrals@bevomedia.com">referrals@bevomedia.com</a>.
 	</div>
 	
