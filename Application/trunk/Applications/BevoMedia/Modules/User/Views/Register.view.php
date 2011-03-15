@@ -408,7 +408,10 @@ $(document).ready(function(){
 	<label for="Y">
 	Promotion Method (check all that apply): <br/>
 	<?php foreach($this->PromoMethods as $PromoMethod):?>
-	<input type="checkbox" name="promomethod[]" value="<?php echo $PromoMethod->id;?>" <?php echo $selected;?>/><?php echo $PromoMethod->promomethod;?>
+	<input type="checkbox" name="promomethod[]" value="<?php echo $PromoMethod->id;?>" <?php echo $selected;?>/>
+	
+	<?php echo $PromoMethod->promomethod;?>
+	&nbsp;
 	<?php endforeach;?>
 	</label>
 	<br/>
