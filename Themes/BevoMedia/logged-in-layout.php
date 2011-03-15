@@ -430,6 +430,7 @@ if(userTimezoneOffset == false)
 			</ul>
 			<ul id="topmenu_tools" class="topmenusub">
 				<li><a href="/BevoMedia/User/ApiCalls.html">API Call History</a></li>
+				<li><a href="/BevoMedia/User/Referrals.html">Referrals</a></li>
 				<li><a href="/BevoMedia/Publisher/PPCQueueProgress.html">Campaign Editor Queue</a></li>
 				<li><a href="/BevoMedia/User/ManageStats.html">Delete Stats</a></li>
 				<li><a href="http://ryanbuke.com/" target="_blank">Official Blog</a></li>
