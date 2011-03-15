@@ -25,7 +25,7 @@
 <?php foreach ($this->perfConn as $perfConn):?>
 <tr>
 	<td>
-		<a href="EditPublisher.html?id=<?php print $perfConn->userId?>"><?php print $perfConn->userId?></a>
+		<a href="ViewPublisher.html?id=<?php print $perfConn->userId?>"><?php print $perfConn->userId?></a>
 	</td>
 	<td>
 		<?php print $perfConn->userEmail?>
