@@ -97,9 +97,11 @@ $this->filter->show_ppv_filtering_table();
 	<tr class="table_header">
 	    <td class="hhl">&nbsp;</td>
 		<td><?php get_column_sort_link('SubID', 'data'); ?></td>
-		<td style="text-align: center;"><?php get_column_sort_link('Clicks', 'sumClick'); ?></td>
+		<td style="text-align: center;"><?php get_column_sort_link('Impressions', 'sumClick'); ?></td>
+		<td style="text-align: center;"><?php get_column_sort_link('Clicks', 'sumClicks'); ?></td>
+		<td style="text-align: center;"><?php get_column_sort_link('CTR', 'sumClicks'); ?></td>
 		<td style="text-align: center;"><?php get_column_sort_link('Conv', 'sumConv'); ?></td>
-		<td style="text-align: center;"><?php get_column_sort_link('Conv %', 'ctr'); ?></td>
+		<td style="text-align: center;"><?php get_column_sort_link('Conv %', 'sumConv'); ?></td>
 		<td style="text-align: center;"><?php get_column_sort_link('Earnings', 'revenue'); ?></td>
 		<td style="text-align: center;"><?php get_column_sort_link('Cost', 'cost'); ?></td>
 		<td style="text-align: center;"><?php get_column_sort_link('Profit', 'profit'); ?></td>
@@ -110,18 +112,20 @@ $this->filter->show_ppv_filtering_table();
 	<tbody>
 		<?php
 		$i = 0;
-		$total_clicks = 0; $total_conversions = 0; $total_revenue = 0; $total_cost = 0; $total_profit = 0;
+		$total_clicks = 0; $total_conversions = 0; $total_revenue = 0; $total_cost = 0; $total_profit = 0; $total_sumClicks = 0;
 		if(sizeof($this->StatRows)>0)
 		{
 		foreach($this->StatRows as $key=>$row):?>
 		<?php
 			$row->profit = $row->sumRevenue - $row->sumCost;
-			$row->cpc = $row->epc = 0;
-			if($row->sumClick > 0)
-			{
+			$row->cpc = $row->epc = $row->convPercent = 0;
+			if($row->sumClick > 0) {
 				$row->cpc = $row->sumCost / $row->sumClick;
 				$row->epc = $row->sumRevenue / $row->sumClick;
-				$row->ctr = $row->sumConv / $row->sumClick;
+				$row->ctr = $row->sumClicks / $row->sumClick;
+			}
+			if ($row->sumClicks > 0) {
+				$row->convPercent = $row->sumConv / $row->sumClicks;
 			}
 		?>
 				<tr class='show row_id'>
@@ -130,8 +134,10 @@ $this->filter->show_ppv_filtering_table();
 						<?php print $row->data; ?>&nbsp;
 					</td>
 					<td class="number"><?php print number_format($row->sumClick, 0); ; ?></td>
+					<td class="number"><?php print number_format($row->sumClicks, 0); ; ?></td>
+					<td class="number"><?php print number_format($row->ctr*100, 2); ; ?>%</td>
 					<td class="number"><?php print number_format($row->sumConv, 0); ; ?></td>
-					<td class="number"><?php print number_format($row->ctr, 2); ; ?>%</td>
+					<td class="number"><?php print number_format($row->convPercent*100, 2);?>%</td>
 					<td class="number">$<?php print number_format($row->sumRevenue, 2); ; ?></td>
 					<td class="number">$<?php print number_format($row->sumCost, 5); ; ?></td>
 					<td class="number">$<?php print number_format($row->profit, 2); ; ?></td>
@@ -142,6 +148,7 @@ $this->filter->show_ppv_filtering_table();
 				
 				<?php
 				$total_clicks += $row->sumClick;
+				$total_sumClicks += $row->sumClicks;
 				$total_conversions += $row->sumConv;
 				$total_revenue += $row->sumRevenue;
 				$total_cost += $row->sumCost;
@@ -159,7 +166,8 @@ $this->filter->show_ppv_filtering_table();
 			<?php
 		}
 		
-		$total_ctr = ($total_clicks == 0) ? 0 : $total_conversions / $total_clicks * 100;
+		$total_convPercent = ($total_sumClicks == 0) ? 0 : $total_conversions / $total_sumClicks * 100;
+		$total_ctr = ($total_clicks == 0) ? 0 : $total_sumClicks / $total_clicks * 100;
 		$total_cpc = ($total_clicks == 0) ? 0 : $total_cost / $total_clicks;
 		$total_epc = ($total_clicks == 0) ? 0 : $total_revenue / $total_clicks;
 		?>
@@ -167,8 +175,10 @@ $this->filter->show_ppv_filtering_table();
 			<td class="border">&nbsp;</td>
 			<td>Total</td>
 			<td class="number"><?php echo number_format($total_clicks, 0); ?></td>
-			<td class="number"><?php echo @number_format($total_conversions, 0); ?></td>
+			<td class="number"><?php echo number_format($total_sumClicks, 0); ?></td>
 			<td class="number"><?php echo @number_format($total_ctr, 2); ?>%</td>
+			<td class="number"><?php echo @number_format($total_conversions, 0); ?></td>
+			<td class="number"><?php echo @number_format($total_convPercent, 2); ?>%</td>
 			<td class="number">$<?php echo @number_format($total_revenue, 2); ?></td>
 			<td class="number">$<?php echo @number_format($total_cost, 5); ?></td>
 			<td class="number">$<?php echo @number_format($total_profit, 2); ?></td>
@@ -179,7 +189,7 @@ $this->filter->show_ppv_filtering_table();
 	</tbody>
 	<tr class="table_footer">
 		<td class="hhl">&nbsp;</td>
-		<td colspan="9">&nbsp;</td>
+		<td colspan="11">&nbsp;</td>
 		<td class="hhr">&nbsp;</td>
 	</tr>
 </table>
