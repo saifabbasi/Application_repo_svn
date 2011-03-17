@@ -332,7 +332,7 @@ Class CreatePPC {
 			}
 		}
 		
-		if ( (!$User->IsSubscribed(User::PRODUCT_FREE_PPC)) || 
+		if ( (!$User->IsSubscribed(User::PRODUCT_FREE_PPC)) && 
 		 	 (($User->vaultID!=0) && !$User->IsSubscribed(User::PRODUCT_PPC_YEARLY_CHARGE))
 	   		)
 		{
