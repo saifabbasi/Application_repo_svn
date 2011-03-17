@@ -91,6 +91,7 @@ if ($this->User->vaultID == 0) {
 		<input class="formsubmit track_apply floatright" type="submit" name="submit" value="Apply" />
 		<div class="clear"></div>
 	</div>
+<div class="jclock"></div>
 </div>
 
 <script type="text/javascript">
@@ -121,14 +122,13 @@ if ($this->User->vaultID == 0) {
 $(function($) {
     var options={
         utc: true,
-        utc_offset: -5.5
+        utc_offset: -3.5
       };
     $('.jclock').jclock(options);
 });
 </script>
  
  
-<div class="jclock"></div>
  
 <br/>
 <table cellspacing="0" class="btable" width="600">
