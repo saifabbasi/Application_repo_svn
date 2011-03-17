@@ -9,6 +9,7 @@ $enDate = $this->EndDate;
 $isTrackerPage = true;
 
 $Sql = "SELECT 
+			clicks.referrerUrl AS referrerUrl,
 			lps.landingPageUrl AS url,
 			COALESCE( COUNT( DISTINCT  `clicks`.`id` ) , 0 ) AS clicks, 
 			(COALESCE( SUM(  `subid`.`clicks` ) , 0 ) + COALESCE( SUM(  `clicks`.`clickThrough` ) , 0 )) AS click_thrus,
@@ -39,12 +40,9 @@ $Sql = "SELECT
 		)
 		)
 		GROUP BY  
-			lps.landingPageUrl
+			clicks.id
 		ORDER BY lps.landingPageUrl
 		";
-
-
-
 //$query = "
 //		SELECT
 //			lps.landingPageUrl AS url,
@@ -66,9 +64,18 @@ $Sql = "SELECT
 $query = mysql_query($Sql);
 
 $data = array();
+
 while($row = mysql_fetch_assoc($query))
 {
-    $data[] = $row;
+	if(isset($data[$row['url']])) {
+	    $data[$row['url']]['referrerUrls'][] = $row;
+	    $data[$row['url']]['clicks'] += $row['clicks'];
+	    $data[$row['url']]['click_thrus'] += $row['click_thrus'];
+	    $data[$row['url']]['actions'] += $row['actions'];
+	}else {
+	    $data[$row['url']] = $row;
+	    $data[$row['url']]['referrerUrls'] = array($row);
+	}
 }
 
 if(isset($_GET['ExportCSV']) && $_GET['ExportCSV'] == 'FILE')
@@ -117,6 +124,29 @@ if(isset($_GET['ExportCSV']) && $_GET['ExportCSV'] == 'FILE')
 
 <br />
 
+<style type="text/css">
+.landingPageRow {
+	cursor: pointer;
+}
+.referrerRow {
+	display: none;
+	color: #666;
+}
+.referrerRow tr td {
+	background-color: #DFE9FF;
+	}
+</style>
+<script>
+$(document).ready(function(){
+
+	$('.landingPageRow').click(function() {
+		$(this).parent().next().toggle();
+	});
+	
+});
+
+</script>
+
 <table cellspacing="0" class="btable" width="600">
 	<tr class="table_header">
 		<td class="hhl">&nbsp;</td>
@@ -139,7 +169,7 @@ if(isset($_GET['ExportCSV']) && $_GET['ExportCSV'] == 'FILE')
 	        $ctr = ($row['clicks'] == 0) ? 0 : $row['click_thrus'] / $row['clicks'] * 100;
 	        $signup_rate = ($row['click_thrus'] == 0) ? 0 : $row['actions'] / $row['click_thrus'] * 100;
 	        ?>
-		<tr <?php if($i++ % 2 == 1) { echo ' class="AltRow"'; } ?>>
+		<tr class="landingPageRow" <?php if($i++ % 2 == 1) { echo ' class="AltRow"'; } ?>>
 			<td class="border">&nbsp;</td>
 			<td><?php echo htmlentities($row['url']); ?></td>
 			<td class="number"><?php echo number_format($row['clicks'], 0); ?></td>
@@ -149,6 +179,28 @@ if(isset($_GET['ExportCSV']) && $_GET['ExportCSV'] == 'FILE')
 			<td class="number"><?php echo number_format($signup_rate, 2); ?>%</td>
 			<td class="tail">&nbsp;</td>
 		</tr>
+		</tbody>
+		
+		<tbody class="referrerRow">
+			<?php foreach($row['referrerUrls'] as $refRow):?>
+		        <?php 
+		        $ctr = ($refRow['clicks'] == 0) ? 0 : $refRow['click_thrus'] / $refRow['clicks'] * 100;
+		        $signup_rate = ($refRow['click_thrus'] == 0) ? 0 : $refRow['actions'] / $refRow['click_thrus'] * 100;
+		        ?>
+			<tr <?php if($i++ % 2 == 1) { echo ' class="AltRow"'; } ?>>
+				<td class="border">&nbsp;</td>
+				<td> <b>Referrer:</b> <?php echo ($refRow['referrerUrl'] != '')?htmlentities($refRow['referrerUrl']):'<i>No Referrer</i>'; ?></td>
+				<td class="number"><?php echo number_format($refRow['clicks'], 0); ?></td>
+				<td class="number"><?php echo number_format($refRow['click_thrus'], 0); ?></td>
+				<td class="number"><?php echo number_format($ctr, 2); ?>%</td>
+				<td class="number"><?php echo number_format($refRow['actions'], 0); ?></td>
+				<td class="number"><?php echo number_format($signup_rate, 2); ?>%</td>
+				<td class="tail">&nbsp;</td>
+			</tr>
+			<?php endforeach;?>
+		</tbody>
+		
+		<tbody>
 		<?php
 		$total_clicks += $row['clicks'];
 		@$total_click_thrus += $row['click_thrus'];
