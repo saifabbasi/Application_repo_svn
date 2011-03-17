@@ -138,6 +138,15 @@
 							'geoparting'=>array('Geoparting','/BevoMedia/KeywordTracker/Geoparting.html'),
 						)
 					),
+					'timetargeting' => array('Time','/BevoMedia/Geotargeting/Index.html', 
+						array(
+							//'timetargeting_new'=>array('Add Geotarget', '/BevoMedia/Geotargeting/NewGeotarget.html'),
+							//'geotargeting_existing'=>array('Existing Geotargets','/BevoMedia/Geotargeting/Index.html'),
+							//'geotargeting_help'=>array('Geotargetting Help','/BevoMedia/Publisher/PPCTutorialsKWTracker.html#HowToUseGeotargeting'),
+							'timeparting'=>array('Dayparting','/BevoMedia/KeywordTracker/Dayparting.html'),
+						)
+					),
+					
 					
 					'rotators' => array('Rotators','/BevoMedia/KeywordTracker/LandingPageRotationSetup.html',array(
 							'rotators_lp_overview' => array('Landing Page Rotators','/BevoMedia/KeywordTracker/LandingPageRotationSetup.html'),

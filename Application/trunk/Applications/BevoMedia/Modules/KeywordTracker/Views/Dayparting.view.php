@@ -6,7 +6,7 @@ if ($this->User->vaultID == 0) {
 }
 ?>
 
-<?php echo SoapPageMenu('kwt','geotargeting','geoparting', false); ?>
+<?php echo SoapPageMenu('kwt','timetargeting','dayparting', false); ?>
 <?php echo $this->PageDesc->ShowDesc($this->PageHelper); ?>
 
 <?php 
@@ -87,11 +87,15 @@ if ($this->User->vaultID == 0) {
 			<input class="formtxt" type="text" name="DateRange" id="datepicker" value="<?= htmlentities($this->DateRange); ?>" />
 		</div>
 	</div>
+	
+	
 	<div class="actions">
+		<div style="float:left; width:50%; text-align: right;"><b>Current Time:</b> &nbsp;<div style="float:right;" class="jclock"></div></div>
+	
 		<input class="formsubmit track_apply floatright" type="submit" name="submit" value="Apply" />
 		<div class="clear"></div>
 	</div>
-<div class="jclock"></div>
+
 </div>
 
 <script type="text/javascript">
@@ -115,14 +119,12 @@ if ($this->User->vaultID == 0) {
 </script>
 </form>
 
-<?php //echo '<pre>'; print_r($this->data['results']); ?>
-
 <script src="/Themes/BevoMedia/jquery.jclock-1.2.0.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(function($) {
     var options={
         utc: true,
-        utc_offset: -3.5
+        utc_offset: -4
       };
     $('.jclock').jclock(options);
 });
