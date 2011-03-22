@@ -167,6 +167,25 @@ abstract class ScrapeAbstract extends Zend_Service_Abstract
         return $result->getBody();
     }
     
+    protected function getNodeAttribute($search, $attributeName, $body)
+    {
+        try{
+            //setup the query object with the result body (HTML page)
+            $query = new Zend_Dom_Query($body);
+            $domCollection = $query->query($search);
+        }catch(Zend_Dom_Exception $e){
+            throw new Exception('Error Loading Document: ' . $e);
+        }
+        
+        if ($domCollection->current()) {
+            /* @var $domNode DOMElement */
+			return $domCollection->current()->getAttribute($attributeName);
+        }else{
+            return '';
+        }
+    }
+    
+    
     protected function getNodeValue($search, $body) 
     {
         try{
