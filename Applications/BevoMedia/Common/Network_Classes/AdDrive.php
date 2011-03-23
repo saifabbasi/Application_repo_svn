@@ -161,6 +161,16 @@ class AdDrive extends ScrapeAbstract
         
 		$offerEnvelope = new OfferEnvelope();
         foreach($offers as $offer) {
+        	// BEGIN: WORK AROUND DUE TO DB CONNECTION BEING STOPPED BY SOME OTHER SCRIPT OR PROCESS
+        	$sql = "SELECT id, offer__id FROM bevomedia_offers WHERE offer__id= '" . $offer . "' AND network__id = '1067'";
+        	$result = mysql_query($sql);
+        	if(mysql_num_rows($result) > 0) {
+        		// Offer exists, skip to next offer
+        		//echo 'Database contains Offer ' . $offer . ', skipping.' . "\n";
+        		continue;
+        	}
+        	// ENDOF: WORK AROUND DUE TO DB CONNECTION BEING STOPPED BY SOME OTHER SCRIPT OR PROCESS
+        	
             $body = $this->getOfferDetailBody($offer);
             
             $title = $this->getNodeValue('/html/body/div/div[2]/div/div[2]/strong', $body);
