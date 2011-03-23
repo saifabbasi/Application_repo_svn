@@ -62,7 +62,7 @@ require_once(PATH . "Legacy.Abstraction.class.php");
 						
 						}
 					//$catidlist=implode(",",$catids);
-			if( @$catid != '')
+			if( false && @$catid != '')
 			{
 			$categoryId=$catid;
 			}
