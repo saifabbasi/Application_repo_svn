@@ -140,6 +140,13 @@ if(isset($_GET['ExportCSV']) && $_GET['ExportCSV'] == 'FILE')
 $(document).ready(function(){
 
 	$('.landingPageRow').click(function() {
+		var val = $('.btn', this).attr('src');
+		if($(this).parent().next().css('display') == 'none') {
+			val = val.replace('plus', 'minus');
+		}else{
+			val = val.replace('minus', 'plus');
+		}
+		$('.btn', this).attr('src', val);
 		$(this).parent().next().toggle();
 	});
 	
@@ -171,7 +178,13 @@ $(document).ready(function(){
 	        ?>
 		<tr class="landingPageRow" <?php if($i++ % 2 == 1) { echo ' class="AltRow"'; } ?>>
 			<td class="border">&nbsp;</td>
-			<td><?php echo htmlentities($row['url']); ?></td>
+			<td>
+				<?php echo htmlentities($row['url']); ?>
+				<?php if(count($row['referrerUrls']) > 0):?>
+					<img class="btn" align="right" src="/Themes/BevoMedia/img/button-plus.gif" />
+				<?php endif;?>
+			
+			</td>
 			<td class="number"><?php echo number_format($row['clicks'], 0); ?></td>
 			<td class="number"><?php echo number_format($row['click_thrus'], 0); ?></td>
 			<td class="number"><?php echo number_format($ctr, 2); ?>%</td>
@@ -189,7 +202,9 @@ $(document).ready(function(){
 		        ?>
 			<tr <?php if($i++ % 2 == 1) { echo ' class="AltRow"'; } ?>>
 				<td class="border">&nbsp;</td>
-				<td> <b>Referrer:</b> <?php echo ($refRow['referrerUrl'] != '')?htmlentities($refRow['referrerUrl']):'<i>No Referrer</i>'; ?></td>
+				<td style="word-wrap: break-word">
+					<b>Referrer:</b> <?php echo ($refRow['referrerUrl'] != '')?htmlentities($refRow['referrerUrl']):'<i>No Referrer</i>'; ?>
+				</td>
 				<td class="number"><?php echo number_format($refRow['clicks'], 0); ?></td>
 				<td class="number"><?php echo number_format($refRow['click_thrus'], 0); ?></td>
 				<td class="number"><?php echo number_format($ctr, 2); ?>%</td>
