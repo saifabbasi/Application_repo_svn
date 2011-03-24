@@ -203,7 +203,9 @@ $(document).ready(function(){
 			<tr <?php if($i++ % 2 == 1) { echo ' class="AltRow"'; } ?>>
 				<td class="border">&nbsp;</td>
 				<td style="word-wrap: break-word">
+					<div style="width: 600px;">
 					<b>Referrer:</b> <?php echo ($refRow['referrerUrl'] != '')?htmlentities($refRow['referrerUrl']):'<i>No Referrer</i>'; ?>
+					</div>
 				</td>
 				<td class="number"><?php echo number_format($refRow['clicks'], 0); ?></td>
 				<td class="number"><?php echo number_format($refRow['click_thrus'], 0); ?></td>
