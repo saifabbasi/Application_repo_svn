@@ -146,14 +146,13 @@ while ($startDate<=$endDate) {
 	$startDate = strtotime('+1 day', $startDate);
 }
 
-
 foreach ($preData as $row)
 {
 	
 	if(!empty($data[$row['date']]))
 	{
-		$data[$row['date']]['cost'] = $row['cost'];
-		$data[$row['date']]['profit'] = $data[$row['date']]['revenue'] - $row['cost'] ;
+		@$data[$row['date']]['cost'] = $row['cost'];
+		@$data[$row['date']]['profit'] = $data[$row['date']]['revenue'] - $row['cost'] ;
 	}else{
 		$data[$row['date']] = array();
 		$data[$row['date']]['cost'] = $data[$row['date']]['profit'] = $data[$row['date']]['revenue'] = 0;
@@ -195,8 +194,8 @@ foreach ($preData as $row)
 				
 	$cquery = mysql_query($csql);
 	$crow = @mysql_fetch_assoc($cquery);
-	$data[$row['date']]['cost'] = (isset($crow['cost']))?$crow['cost']:0;
-	$data[$row['date']]['profit'] = $data[$row['date']]['revenue'] - $data[$row['date']]['cost'];
+	@$data[$row['date']]['cost'] = (isset($crow['cost']))?$crow['cost']:0;
+	@$data[$row['date']]['profit'] = $data[$row['date']]['revenue'] - $data[$row['date']]['cost'];
 }
 
 
