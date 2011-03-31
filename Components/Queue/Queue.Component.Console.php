@@ -280,7 +280,7 @@
 					mysql_query("UPDATE bevomedia_queue_log SET status='$status' WHERE status='in-progress' AND queueId = {$Results2[0]->id}", $DBLink); 
                     exec("rm -rf {$this->SandboxDirectory}/{$Results2[0]->jobId}*");
 	        		
-	        		return true;
+                    return $this->ProcessNextInQueue();
 	        	}
 	        	else 
 	        	{
