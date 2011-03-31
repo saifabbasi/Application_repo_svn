@@ -53,6 +53,7 @@ Class Analytics_Import
 		debug_analytics_import('>>BEGIN ANALYTICS IMPORT ' . $Date);
 		foreach($Creds as $Cred)
 		{
+			$ID = $Cred['ID'];
 			$Email = $Cred['Username'];
 			$Pass = $Cred['Password'];
 			
@@ -61,7 +62,12 @@ Class Analytics_Import
 				$GA = new gapi($Email, $Pass);
 				if(isset($GA->AuthFailure) && $GA->AuthFailure == '1')
 				{
-					debug_analytics_import('AUTH FAILED!');
+					$Analytics = new Accounts_Analytics();
+					$Analytics->getInfo($ID);
+					
+					// $Analytics->SetVerified(false);
+					
+					debug_analytics_import('AUTH FAILED! UNVERIFYING ACCOUNT: '.$ID.'!');
 					continue;
 				}
 			} catch(Exception $e)
@@ -265,7 +271,7 @@ Class Analytics_Import
 		
 	Private Function GetGACreds()
 	{
-		$Sql = "SELECT Username, Password FROM bevomedia_accounts_analytics WHERE user__id = {$this->User_ID} AND Enabled = 1 AND Deleted = 0";
+		$Sql = "SELECT ID, Username, Password FROM bevomedia_accounts_analytics WHERE user__id = {$this->User_ID} AND Enabled = 1 AND Deleted = 0 AND verified =1";
 		$Query = mysql_query($Sql, ABSDB);
 		$Rows = array();
 		while($Row = (mysql_fetch_assoc($Query)))
