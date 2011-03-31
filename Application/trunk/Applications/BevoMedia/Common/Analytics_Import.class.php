@@ -62,6 +62,8 @@ Class Analytics_Import
 				$GA = new gapi($Email, $Pass);
 				if(isset($GA->AuthFailure) && $GA->AuthFailure == '1')
 				{
+					require_once(Zend_Registry::get('Application/TrueWorkingDirectory') .'Applications/'. Zend_Registry::get('Instance/Application') .'/Common/IncludeHelper.include.php');
+					
 					$Analytics = new Accounts_Analytics();
 					$Analytics->getInfo($ID);
 					
