@@ -3,7 +3,7 @@ date_default_timezone_set ("America/New_York");
 $Temp = (realpath(substr(__FILE__, 0, strrpos(__FILE__, DIRECTORY_SEPARATOR)) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..'  . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' ));
 require_once($Temp . DIRECTORY_SEPARATOR . 'Applications/BevoMedia/Common/AbsoluteIncludeHelper.include.php');
 
-$sql = "SELECT * FROM bevomedia_accounts_analytics WHERE username != '' AND password != '' AND Enabled = 1 AND Deleted = 0  GROUP BY user__id";
+$sql = "SELECT * FROM bevomedia_accounts_analytics WHERE username != '' AND password != '' AND Enabled = 1 AND Deleted = 0 AND verified = 1  GROUP BY user__id";
 
 $query = mysql_query($sql, $db);
    

@@ -47,6 +47,18 @@ Class Accounts_Analytics Extends Accounts_Abstract {
 		}
 	}
 	
+	Public Function SetVerified($Verified)
+	{
+		if($Verified)
+		{
+			$this->Update(array("verified"=>0, "id"=>$this->id));
+			return false;
+		}else{
+			$this->Update(array("verified"=>1, "id"=>$this->id));
+			return true;
+		}
+	}
+	
 	Public Function GetMonthlyStats($UserID, $StartDate, $EndDate)
 	{
 		$Sql = "SELECT
