@@ -268,6 +268,21 @@
 			}//endif position left
 			
 			break;
+			
+		case 'timetargeting' : //PPV Research Tools
+			$path = '/BevoMedia/Timetargeting';
+			if($position == 'left') {
+				$out = array( //label, url, array of children if any
+					'timetargets' => array('Timetargeting',$path.'/Index.html',array(
+							'existing' => array('Existing Timetargets',$path.'/Index.html'),
+							'new' => array('New Timetarget',$path.'/NewTimetarget.html')
+							)
+						),
+				);
+			
+			}//endif position left
+			
+			break;
 		}//end switch module
 		
 		return $out;
