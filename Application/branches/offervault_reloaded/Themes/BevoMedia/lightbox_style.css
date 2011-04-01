@@ -1,0 +1,86 @@
+/* it's soapdesigned.com
+*/
+
+* { margin:0; padding:0;}
+img, a img { border:none; }
+a { color:#29abe2; text-decoration:underline; }
+a:hover { color:#2E3192; }
+p { margin:0 0 15px; line-height:1.5em; }
+h1,h2,h3,h4 { font-family:Helvetica, Arial, sans-serif; letter-spacing:-.05em; font-weight:normal; }
+
+.floatleft { float:left; }
+.floatright { float:right; }
+.clear { clear:both; }
+
+body { font-family:Helvetica, Arial, sans-serif; color:#333; font-size:75%; background:#fff; }
+
+/*lightbox pop*/
+.lpop { width:640px; height:480px; position:relative; overflow:hidden; }
+	
+	/*verify*/
+	.lpop_verify { background:url(img_new/lpop_verify.jpg) no-repeat;}
+	.lpop_verify.lpop_withvid { background:url(img_new/lpop_verify_withvid.jpg) no-repeat; }
+	
+	.lpop_verify .lpop_veriquired { width:390px; height:33px; position:absolute; top:73px; left:125px; overflow:hidden; }
+		.lpop_verify .lpop_veriquired p { text-align:center; color:#2E3192; font-weight:bold; font-size:.9em; line-height:1em; }	
+	.lpop_verify ul.iconlist_qmark { width:265px; height:220px; position:absolute; top:255px; left:58px; overflow:hidden;  }
+	.lpop_verify a.btn_lpop_verify { position:absolute; top:275px; left:340px; }
+	.lpop_verify a.btn_lpop_no_verify { position:absolute; top:420px; left:340px; text-align: center; }
+	
+		/*withvid*/
+        	.lpop_verify.lpop_withvid .lpop_veriquired { top:73px; left:20px; }
+		.lpop_verify.lpop_withvid object { position:absolute; top:120px; left:10px; }
+		.lpop_verify.lpop_withvid ul.iconlist_qmark { width:620px; height:100px; top:370px; left:10px; }
+			.lpop_verify.lpop_withvid ul.iconlist_qmark li { width:275px; margin:0 20px 0 0; float:left; display:inline; }
+		.lpop_verify.lpop_withvid a.btn_lpop_verify { top:210px; }
+		
+	/*license*/
+	.lpop_license { background:url(img_new/lpop_license.jpg) no-repeat; }
+	.lpop_license.lpop_withvid { background:url(img_new/lpop_license_withvid.jpg) no-repeat; }
+	
+	.lpop_license .lpop_title,
+	.lpop_pay .lpop_title { width:385px; height:50px; position:absolute; top:45px; left:245px; overflow:hidden; }
+		.lpop_license h2,
+		.lpop_pay h2 { margin:0 0 5px; font-size:1.4em; color:#2E3192; line-height:1em; font-weight:bold; }
+		.lpop_license p,
+		.lpop_pay p,
+                .lpop_pay ul li { margin:0; color:#808080; font-size:.85em; line-height:1em; }
+	
+	.lpop_license object { position:absolute; top:100px; right:15px; }
+	.lpop_license ul { width:380px; height:290px; position:absolute; top:110px; left:245px; overflow:hidden; }
+	.lpop_license a.btn_lpop_continuetopay { position:absolute; top:395px; left:160px;  }
+	
+		/*withvid*/
+		.lpop_license.lpop_withvid ul { width:210px; height:280px; top:125px; left:15px; }
+		.lpop_license.lpop_withvid a.btn_lpop_continuetopay { left:80px; }
+		
+	/*pay*/
+	.lpop_pay { background:url(img_new/lpop_pay.jpg) no-repeat; }
+	
+	.lpop_pay .lpop_title { height:65px; border-bottom:1px solid #29abe2; }
+	.lpop_pay .lpop_content { width:610px; height:350px; position:absolute; top:120px; left:15px; }
+		
+		.lpop_pay .lpop_cart { padding:8px; margin:5px 0 0; background:#fff; border:1px solid #e6e6e6; border-right:2px solid #e6e6e6; border-bottom:2px solid #e6e6e6; }
+			.lpop_cart .lpop_cartbox { padding-bottom:8px; margin-bottom:8px; border-bottom:1px solid#e6e6e6; }
+				.lpop_cart .lpop_cartbox .product { width:335px; float:left; }
+				.lpop_cart .lpop_cartbox .price { width:250px; float:right; }
+			        .lpop_cart .lpop_cartbox .price > * { float:right; }
+								
+			.lpop_cart .lpop_cartbox h3 { margin:0 0 5px; font-size:1.1em; font-weight:bold; line-height:1em; color:#333; letter-spacing:normal; }
+
+                        .lpop_cart .lpop_cartbox .lpop_payoptions { width:240px; height:21px; clear:right; }
+                                .lpop_cart .lpop_cartbox .lpop_payoptions p { margin:5px 5px 0 0; float:left; }
+                        	.lpop_cart .lpop_cartbox .lpop_payoptions a.btn { float:left; }
+                        
+                        .lpop_cart .lpop_cartbox .lpop_payoptions_ppvspy { width:245px; }
+                        	
+                        .lpop_cartbox ul { margin:0 0 0 15px; }
+			.lpop_cartbox.lpop_securicons { background:url(img_new/icons_lpop_securicons.gif) no-repeat; }			
+			.lpop_tos { height:90px; padding:8px; margin:8px 0; border:1px solid #e6e6e6; overflow:auto; }			
+			.lpop_tos h2 { font-size:1em; color:#808080; }
+       			.lpop_tos p { margin:0 0 5px; }
+			.lpop_cart .lpop_cartbox.last { border:none; margin:0; padding:0; }			
+			.lpop_cart .lpop_cartbox.last p { float:left; }			
+			.lpop_cart .lpop_cartbox a.btn_lpop_paynow { float:right; }
+
+

@@ -1,0 +1,1040 @@
+<?php
+	if(file_exists('config.ini'))
+	{
+		print 'Bevo Media is already installed.';
+		exit();
+	}
+
+	session_start();
+
+	$Path = $_SERVER['SCRIPT_FILENAME'];
+	$PathInfo = pathinfo($Path);
+	$Path = $PathInfo['dirname'].'/';
+	$hostparts = explode('/', $_SERVER['REQUEST_URI']);
+	if(!empty($hostparts[count($hostparts)-1]))
+	    unset($hostparts[count($hostparts)-1]);
+	$host = 'http://'.$_SERVER['HTTP_HOST'].implode($hostparts, '/');
+	error_reporting(E_ALL);
+	ini_set('max_execution_time',0);
+	ini_set('display_errors', 'On');
+	ini_set('memory_limit', '500M');
+	
+	if (isset($_GET['Ajax']))
+	{
+	    if(@$_GET['Action']=='setlocalusername')
+	    {
+	        $_SESSION['shu'] = $_GET['u'];
+	        $_SESSION['shp'] = $_GET['p'];
+	        return;
+	    }
+	    if(@$_GET['Action']=='CheckUsername')
+	    {
+	        $checkBevoLiveUrl = 'http://beta.bevomedia.com/BevoMedia/API/SelfHostedAuthentication.html?username='.@$_GET['username'].'&password='.@$_GET['password'];
+	        $bevo_response = file_get_contents($checkBevoLiveUrl);
+	        $vars = json_decode($bevo_response);
+	        if(isset($vars->apiKey) && !isset($vars->error))
+	        {
+	            $_SESSION['blu'] = $_GET['username'];
+	            $_SESSION['blp'] = $_GET['password'];
+	            $_SESSION['apiKey'] = $vars->apiKey;
+	            echo "<jsCallFunction>window.location = '{$_SERVER['SCRIPT_NAME']}?Step=4';</jsCallFunction>";
+	            return;
+	        } else
+	        if (isset($vars->error))
+	        {
+	        	echo '<jsCallFunction>alert("'.$vars->error.'");</jsCallFunction>';
+	        	return;	
+	        }
+	        echo '<jsCallFunction>alert("The Bevomedia.com credentials you entered are incorrect!");</jsCallFunction>';
+	        return;
+	    }
+	    if(@$_GET['Action']=='CheckDatabase')
+	    {
+    		$Connection = mysql_connect($_GET['DatabaseHost'].':'.$_GET['DatabasePort'], $_GET['DatabaseUsername'], $_GET['DatabasePassword']) ;
+    		if (!$Connection)
+    		{
+    			echo " <jsCallFunction>alert('Database connection failed. Please check your information.');</jsCallFunction> ";
+    			return;
+    	    }
+    		
+    		$Database = mysql_select_db($_GET['DatabaseName']) ;
+    		if (!$Database)
+    		{
+    			echo " <jsCallFunction>alert('Database \'{$_GET['DatabaseName']}\' does not exist.');</jsCallFunction> ";
+    			return;
+    		}
+			$create_view = mysql_query('create view bevomedia_view_test as select 1') ;
+			if(!$create_view)
+			{
+			  echo " <jsCallFunction>$('#viewInfo').show();</jsCallFunction> ";
+			  return;
+			}
+			mysql_query('drop view if exists bevomedia_view_test');		
+    		
+    		$_SESSION['DatabaseHost'] = $_GET['DatabaseHost'];
+    		$_SESSION['DatabasePort'] = $_GET['DatabasePort'];
+    		$_SESSION['DatabaseUsername'] = $_GET['DatabaseUsername'];
+    		$_SESSION['DatabasePassword'] = $_GET['DatabasePassword'];
+    		$_SESSION['DatabaseName'] = $_GET['DatabaseName'];
+    		if(@$_GET['checkFTP'] == 'true')
+    		{
+    		    $_GET['fdir'] = str_replace('//','/',$_GET['fdir'].'/');
+    		    $data = 'testData';
+    		    $ftp = @ftp_connect($_GET['fhost'], $_GET['fport'], 30);
+    		    @ftp_login($ftp, $_GET['fuser'], $_GET['fpass']);
+    		    $fdir = '';
+    		    $discard = false;
+    		    foreach(explode('/', $_GET['fdir']) as $d)
+    		    {
+    		        if(empty($d))
+    		            continue;
+    		        if(@ftp_chdir($ftp, $d) == true)
+    		        {
+    		            $fdir .= $d.'/';
+    		            $discard = false;
+    		        } else {
+    		            $discard = true;
+    		        }
+    		    }
+    		    if($discard)
+    		        die("Couldn't find folder on FTP host");
+    		    $f = tmpfile();
+    		    fwrite($f, $data);
+    		    rewind($f);
+    		    @ftp_fput($ftp, 'testFTP.txt', $f, FTP_ASCII);
+    		    if(!file_exists($Path.'testFTP.txt') || file_get_contents($Path.'testFTP.txt') != $data)
+    		        die('<jsCallFunction>alert("Unable to FTP into your server with the provided credentials!")</jsCallFunction>');
+    		    @ftp_delete($ftp, 'testFTP.txt');
+    		    @ftp_close($ftp);
+        		$_SESSION['useftp'] = true;
+        		$_SESSION['fhost'] = $_GET['fhost'];
+        		$_SESSION['fport'] = $_GET['fport'];
+        		$_SESSION['fuser'] = $_GET['fuser'];
+        		$_SESSION['fpass'] = $_GET['fpass'];
+        		$_SESSION['fdir'] = $fdir;
+    		}
+    		echo " <jsCallFunction>window.location = '{$_SERVER['SCRIPT_NAME']}?Step=3';</jsCallFunction>";
+    		return;
+	    }
+	}
+	
+	
+	if (!isset($_GET['Step']))
+	{
+		$Step = 1;
+	} else
+	{
+		$Step = $_GET['Step'];
+	}
+function unpackBevoInstall($Path, $useftp = false, $ftp_settings = array())
+{
+    @flush();@ob_flush();//Send data immediately
+	$PackUrl = ($_SERVER['HTTP_HOST'] == 'bsh' ? 'http://bevolocal/' : 'http://beta.bevomedia.com/') . 'getselfhost/getLatest.php?apiKey='.$_SESSION['apiKey'];
+	echo 'Downloading '. $PackUrl;
+	@flush();@ob_flush();//Send data immediately
+	$PackData = file_get_contents($PackUrl);
+	
+	if (strlen($PackData)<=4096)
+    {
+        $vars = json_decode($bevo_response);
+        $error = 'You must have BevoMedia premium account in order to install Bevo SelfHosted version.';
+        if (isset($vars->error))
+        {
+            echo $vars->error;
+        }
+        return;
+    }
+	
+	$ftp = false;
+	if($useftp === true)
+	{
+	    $ftp = @ftp_connect($ftp_settings['fhost'], $ftp_settings['fport'], 10);
+	    @ftp_login($ftp, $ftp_settings['fuser'], $ftp_settings['fpass']);
+	    if(@ftp_chdir($ftp, $ftp_settings['fdir']) != true)
+	        die('FTP: Unable to chdir to ' . $ftp_settings['fdir']);
+	    else
+	        echo 'FTP: chdir to ' . $ftp_settings['fdir'] . ', current dir is ' . @ftp_pwd($ftp) . "<br />";
+	    $f = tmpfile();
+	    fwrite($f, $PackData);
+	    rewind($f);
+	    @ftp_fput($ftp, 'SelfHosted.zip', $f, FTP_BINARY);
+	    $zipFile = $Path.'SelfHosted.zip';
+	} else {
+	    file_put_contents($Path.'SelfHosted.zip', $PackData);
+	    $zipFile = $Path.'SelfHosted.zip';
+	}
+	if(!file_exists($zipFile))
+	    die('<span style="color: red">Error opening ' . $zipFile . '</span>');
+	else
+	    echo 'SelfHost.zip archive downloaded successfully!<br />';
+	@flush();@ob_flush();//Send data immediately
+	echo 'Starting to unzip<br />';
+	$zip = zip_open($zipFile);
+	$files = 0;
+	if ($zip)
+	{
+	    echo 'Zip opened successfully!<br />';
+	    $extensions = array();
+        while ($zip_entry = zip_read($zip))
+        {
+            $files++;
+            $filename = zip_entry_name($zip_entry);
+            $fileinfo = pathinfo($filename);
+            $dirname = $fileinfo['dirname'].'/';
+            if(isset($fileinfo['extension']))
+            {
+                $extensions[$fileinfo['extension']] = true;
+            }
+            if($ftp)
+            {
+                if(substr($filename, -1) == '/')
+                {
+                    if(strstr($filename,'Externals') === false)
+                        echo 'Making directory ' . $filename . "<br />";
+                    @ftp_rmdir($ftp, $filename);
+                    @ftp_mkdir($ftp, $filename);
+                } else {
+                    @ftp_rmdir($ftp, $dirname);
+                    @ftp_mkdir($ftp, $dirname);
+                    if(strstr($filename,'Externals') === false)
+                        echo 'Unpacking ' . $filename . "<br />";
+            	    if(zip_entry_open($zip, $zip_entry, "r"))
+            	    {
+            	        $buf = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
+            	        $tmp = tmpfile();
+            	        fwrite($tmp, "$buf");
+            	        rewind($tmp);
+            	        zip_entry_close($zip_entry);
+            	        $binary = isset($fileinfo['extension']) && in_array($fileinfo['extension'], array('swf', 'gif', 'png', 'jpg', 'ico', '0b', 'jar'));
+            	        @ftp_fput($ftp, $filename, $tmp, $binary ? FTP_BINARY : FTP_ASCII);
+            	    } else {
+            	        die('<span style="color: red">Error reading zip archive</span>');
+            	    }
+                }
+            }
+            else
+            {
+        		if(substr($filename, -1) == '/')
+        		{
+        		    
+        		    if(strstr($filename,'Externals') === false)
+                        echo 'Making directory ' . $filename . "<br />";
+        		    @rmdir($filename);
+        		    @mkdir($filename, 0777, true);
+        		} else {
+        		    if(strstr($filename,'Externals') === false)
+                        echo 'Unpacking ' . $filename . "<br />";
+            	    $fp = @fopen($filename, "w");
+        		
+            		if(!$fp)
+            		    die('<span style="color: red">Error opening '. $filename . '</span><br />');
+            		if (zip_entry_open($zip, $zip_entry, "r"))
+            		{
+            		  $buf = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
+            		  fwrite($fp,"$buf");
+            		  zip_entry_close($zip_entry);
+            		  @fclose($fp);
+            		  @chmod($filename, 0755);
+                    }
+
+        		}
+           }
+           if($files % 10 == 0)
+           {
+               @flush();@ob_flush();//Send data immediately
+           }
+      }
+      echo 'Unpacked ' . $files . " files<br />";
+	  zip_close($zip);
+	}
+	echo "Done unpacking!<br />";
+	if($ftp)
+	{
+	    echo "FTP: Deleting archive...<br />";
+	    @ftp_chdir($ftp, $ftp_settings['fdir']);
+	    @ftp_delete($ftp, 'SelfHosted.zip');
+	    return $ftp;
+	} else {
+	    echo "Deleting archive...<br />";
+	    @unlink($Path.'Archive.zip');
+	    return false;
+	}
+	@flush();@ob_flush();//Send data immediately
+}
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+<title>Install Bevo</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="robots" content="noindex">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="http://beta.bevomedia.com/JS/Functions.js" type="text/javascript"></script>
+<script src="http://beta.bevomedia.com/JS/Ajax.js" type="text/javascript"></script>
+<script src="http://beta.bevomedia.com/JS/Lock.js" type="text/javascript"></script>
+<script language="JavaScript">
+var AC_FL_RunContent = 0;
+var DetectFlashVer = 0;
+var requiredMajorVersion = 9;
+var requiredMinorVersion = 0;
+var requiredRevision = 45;
+
+</script>
+
+<script language="JavaScript" src="http://beta.bevomedia.com/Themes/BevoMedia/AC_RunActiveContent.js"></script>
+
+
+<!-- BEGIN New Chart System -->
+<script type="text/javascript" src="http://beta.bevomedia.com/JS/charts/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="http://beta.bevomedia.com/JS/jquery.md5.js"></script>
+<!--[if IE]><script type="text/javascript" src="http://beta.bevomedia.com/JS/charts/excanvas.compiled.js"></script><![endif]-->
+<script type="text/javascript" src="http://beta.bevomedia.com/JS/charts/visualize.jQuery.js"></script>
+<link type="text/css" rel="stylesheet" href="http://beta.bevomedia.com/JS/charts/visualize.jQuery.css"/>
+<link type="text/css" rel="stylesheet" href="http://beta.bevomedia.com/JS/charts/demopage.css"/>
+<!-- ENDOF New Chart System -->
+
+<link href="http://beta.bevomedia.com/CSS/Application.css" rel="stylesheet" type="text/css" />
+<link href="http://beta.bevomedia.com/Themes/BevoMedia/main.css" rel="stylesheet" type="text/css" />
+<link href="http://beta.bevomedia.com/Themes/BevoMedia/style.css" rel="stylesheet" type="text/css" />
+
+<link href="http://beta.bevomedia.com/Themes/BevoMedia/default.css" rel="stylesheet" type="text/css" />
+<link href="http://beta.bevomedia.com/Themes/BevoMedia/ui.daterangepicker.css" rel="stylesheet" type="text/css" />
+<link href="http://beta.bevomedia.com/Themes/BevoMedia/jquery-ui-1.7.1.custom.css" rel="stylesheet" type="text/css" />
+<link href="http://beta.bevomedia.com/Themes/BevoMedia/market.css" rel="stylesheet" type="text/css" />
+<link href="http://beta.bevomedia.com/assets/css/style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="http://beta.bevomedia.com/Themes/BevoMedia/shadowbox-source-3.0b/shadowbox.css">
+
+
+<script src="http://beta.bevomedia.com/Themes/BevoMedia/jquery-ui-1.7.1.custom.min.js" type="text/javascript"></script>
+<script src="http://beta.bevomedia.com/Themes/BevoMedia/jquery.validate.min.js" type="text/javascript"></script>
+<script src="http://beta.bevomedia.com/Themes/BevoMedia/daterangepicker.jQuery.js" type="text/javascript"></script>
+<script src="http://beta.bevomedia.com/Themes/BevoMedia/FusionCharts.js" type="text/javascript"></script>
+<script src="http://beta.bevomedia.com/Themes/BevoMedia/RegisterForm.js" type="text/javascript"></script>
+
+<script src="http://beta.bevomedia.com/Themes/BevoMedia/json2.js" type="text/javascript"></script>
+<script language="JavaScript" src="http://beta.bevomedia.com/Themes/BevoMedia/firstlogin.js"></script>
+<script type="text/javascript" src="http://beta.bevomedia.com/Themes/BevoMedia/shadowbox-source-3.0b/shadowbox.js"></script>
+<script type="text/javascript">
+	Shadowbox.init({
+	    language: 'en',
+	    players:  ['html', 'iframe', 'img']
+	});
+</script>
+
+<script>
+function makeRequest(url, div)
+{
+    try
+    {
+        var httpRequest;
+
+        if (window.XMLHttpRequest) { // Mozilla, Safari, ...
+            httpRequest = new XMLHttpRequest();
+            if (httpRequest.overrideMimeType) {
+                httpRequest.overrideMimeType("text/xml");
+                // See note below about this line
+            }
+        }
+        else if (window.ActiveXObject) { // IE
+            try {
+                httpRequest = new ActiveXObject("Msxml2.XMLHTTP");
+                }
+                catch (e) {
+                           try {
+                                httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+                               }
+                             catch (e) {}
+                          }
+                                       }
+
+        if (!httpRequest) {
+            alert("Giving up :( Cannot create an XMLHTTP instance");
+            return false;
+        }
+        httpRequest.onreadystatechange = function()
+        {
+            if (eval("typeof " + "alertContents" + " == 'function'"))
+            {
+                alertContents(httpRequest, div);
+            }
+        };
+        httpRequest.open("GET", url, true);
+        httpRequest.send("");
+    }
+    catch (err)
+    {
+    
+    }
+
+}
+
+function alertContents(httpRequest, div)
+{
+    try
+    {
+        if (httpRequest.readyState == 4)
+		{
+            if (httpRequest.status == 200)
+            {
+                
+                var responseText = httpRequest.responseText;
+                if (httpRequest.responseText.indexOf("<jsReloadPage")>-1)
+                {
+                    location.reload(true);
+                }
+                
+                if (httpRequest.responseText.indexOf("<jsCallFunction")>-1)
+                {
+                    var functionName = httpRequest.responseText.substr(httpRequest.responseText.indexOf("<jsCallFunction>")+("<jsCallFunction>").length);
+                    functionName = functionName.substr(0, functionName.indexOf("</jsCallFunction>"));
+                    //responseText = responseText.substr(responseText.indexOf("</jsCallFunction>")+("</jsCallFunction>").length);
+                    
+                    responseText = responseText.replace('<jsCallFunction>'+functionName+'</jsCallFunction>', '');
+                    eval(functionName);
+                }
+
+       
+                document.getElementById(div).innerHTML = responseText;
+            } else
+			{
+                //alert("There was a problem with the request.");
+            }
+        }
+    
+    }
+    catch (err)
+    {
+    
+    }
+
+}
+function CheckCredentials() {
+	ajax = '<?=$_SERVER["SCRIPT_NAME"]?>?Ajax=true&';
+	checkDb = 'Action=CheckDatabase&DatabaseHost='+$('#DatabaseHost').val()+'&DatabaseUsername='+$('#DatabaseUsername').val()+'&DatabasePassword='+$('#DatabasePassword').val()+'&DatabasePort='+$('#DatabasePort').val()+'&DatabaseName='+$('#DatabaseName').val();
+	checkFTP = '&checkFTP=false';
+	<?php if(@$_GET['ftp'] == 'true') { ?>
+	checkFTP = '&checkFTP=true';
+	checkFTP += '&fhost='+$('#FTPHost').val();
+	checkFTP += '&fuser='+$('#FTPUser').val();
+	checkFTP += '&fpass='+$('#FTPPass').val();
+	checkFTP += '&fport='+$('#FTPPort').val();
+	checkFTP += '&fdir='+$('#FTPDir').val();
+	<?php } ?>
+	makeRequest(ajax+checkDb+checkFTP, 'Result');
+}
+function CheckUsername() {
+	ajax = '<?=$_SERVER["SCRIPT_NAME"]?>?Ajax=true&';
+	if($('#shu').val().length < 2)
+	{
+		alert("Please enter a valid username!");
+		return;
+	}
+	if($('#shp').val().length < 2)
+	{
+		alert("Please enter a valid password!");
+		return;
+	}
+	makeRequest(ajax+'Action=setlocalusername&u='+$('#shu').val()+'&p='+$.md5($("#shp").val()), 'Result');
+	if($('#bloptout').val() == 'false')
+	{
+		
+		makeRequest(ajax+'Action=CheckUsername&username='+$('#blu').val()+'&password='+$.md5($("#blp").val()), 'Result');
+		return;
+	}
+
+    alert('You must enter BevoLive Account credentials.');
+    return false;
+}
+</script>
+
+<style>
+.instructions {
+	display: none;
+	padding: 4px;
+	margin: 4px;
+	padding-left: 10px;
+	border: 1px solid #fefefe;
+	line-height: 2em;
+}
+</style>
+</head>
+
+<body>
+
+	
+    <div id="divPopWin" class="PopWin" style="display:none;">
+       <div class="PopWinLeft"><div class="PopWinRight"><div class="PopWinTop"><div class="PopWinBot"><div class="PopWinTopLeft"><div class="PopWinTopRight"><div class="PopWinBotLeft"><div class="PopWinBotRight">
+       <div class="PopWinContainer">
+
+           <table width="98%" height="92%" cellspacing="0" cellpadding="3" border="0">
+
+               <tr>
+                   <td colspan="2" align="right"><div id="divPopWinTopClose"><a href="javascript:hidePop();"><img src="/Themes/BevoMedia/img/close_window.gif" width="100" height="20" border=0 alt=""></a></div></td>
+               </tr>
+               <tr valign="top">
+                   <td><div id="divPopWinIcon"></div></td>
+                   <td width="100%"><div id="divPopWinData" style="font-weight:bold;"></div></td>
+               </tr>
+
+               <tr>
+                   <td colspan="2" align="center">
+
+                       <div id="divPopWinButtons"><input type="button" name="btnClosePopWin" value="Close" class="baseeffect" onClick="hidePop();"></div>
+                   </td>
+               </tr>
+           </table>
+       </div>
+       </div></div></div></div></div></div></div></div>
+
+   </div>
+
+    <div id="pub_main">
+       <div id="pub_header">
+
+        	<div id="pub_logo">
+        		<!-- &nbsp; -->
+        	</div>
+        </div>
+        
+        <div class="TabBar">
+            <div style="margin-left: 10px;" class="TabOver"><a href="#">Installer</a></div>
+                     
+        </div>
+
+        <div class="MainArea">
+        
+            <div class="Stack">
+            
+                <div class="StackRight">
+                    <br /><br /><br />
+                    <table cellspacing="5" cellpadding="0" border="0">
+                        <tr>
+                            <td>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="StackLeft">
+                <br /><br />
+                
+                
+				
+<?
+	if ($Step==1)
+	{
+	    session_destroy();
+?>
+				
+<?
+        $DirPerms = false;
+        @file_put_contents($Path.'test_writable.txt', '123');
+        $c = @file_get_contents($Path.'test_writable.txt');
+        @unlink($Path.'test_writable.txt');
+        $DirPerms = $c == '123' ? true : false;
+		$AllPassed = extension_loaded("Zip") && extension_loaded("curl") && extension_loaded("soap") && extension_loaded("mysql");
+?>
+				
+                
+                <fieldset style="padding: 5px;">
+					<legend>( Step 1 of 3 ) Pre-Install Check:</legend>
+					<table>
+						<tr>
+							<td width="170px">
+								Check for Zip Extension:
+							</td>
+							<td>
+								<?=(extension_loaded("Zip"))?"[Passed]":"<span style='color: red'>[Failed]</span>";?>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Check for Curl Extension:
+							</td>
+							<td>
+								<?=(extension_loaded("curl"))?"[Passed]":"<span style='color: red'>[Failed]</span>";?>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Check for Soap Extension:
+							</td>
+							<td>
+								<?=(extension_loaded("soap"))?"[Passed]":"<span style='color: red'>[Failed]</span>";?>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Check for MySQL Extension:
+							</td>
+							<td>
+								<?=(extension_loaded("mysql"))?"[Passed]":"<span style='color: red'>[Failed]</span>";?>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Check for PDO Extension:
+							</td>
+							<td>
+								<?=(extension_loaded("pdo"))?"[Passed]":"<span style='color: red'>[Failed]</span>";?>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Able to write to current directory:
+							</td>
+							<td>
+								<?=$DirPerms?"[Passed]":"<span style='color: yellow'>[Warning]</span> -- See Below" ?>
+							</td>
+						</tr>
+						<?php if ( !$DirPerms ) { ?>
+						<tr>
+							<td colspan=2>
+								<b>The current directory is not writable,</b>
+								so you have two options to complete the installation:<br /><br />
+								
+								<ol>
+									<li>
+										<a onClick="javascript:$('#auto.instructions').toggle();">Install over FTP (Easiest, recommended)</a>
+										<div class="instructions" id="auto">
+										Just continue to step 2, where Bevo will ask you for your FTP credentials.<br />
+										Bevo will download the required files, and use FTP to write them to your server. This is different from <b>Option #3</b> because you do not have to make this directory writable, so it's more secure.<br />
+										</div>
+									</li>
+									<li>
+										<a onClick="javascript:$('#writable.instructions').toggle();">Make the directory writable (Less secure)</a>
+										<div class="instructions" id="writable">
+										The installer will automatically download the zip file for you.<br />
+										<ol>
+											<li>
+											Through your FTP client, set <b><?=$Path?></b> to writable-by-all. Different FTP clients have different ways of describing this, but you want to enable both 'read' and 'write' permissions for 'Everyone'.<br />
+											If you're familiar with SSH shell, you can do this by running<br />
+												<textarea style="padding: 5px; border: 1px dotted black; background: ffa; width: 95%; height: 20px;">chmod -R 777 <?= $Path ?></textarea>
+											</li>
+											<li>
+												Refresh this page to verify that the directory is writable (this message should disappear), and continue with installation.
+											</li>
+										</div>
+									</li>
+								</ol>
+							</td>
+						</tr>
+						<?php } ?>
+						<tr>
+						<tr>
+							<td>
+								
+							</td>
+							<td>
+							
+								<br/>
+	                            You must agree to the End User Software Agreement to install
+	                            this application.
+	                            <br/>
+	                            <br/>
+	                          	<input <?php if($AllPassed) { ?>onChange='javascript:$("#submit-button_id").attr("disabled", (!this.checked));' <?php } ?>name='agreement-checkbox' id='agreement-checkbox_id' type='checkbox'/>
+	                          	<script language="javascript">
+								$("#agreement-checkbox_id").attr('checked', '');
+								$("#submit-button_id").attr('disabled', 'disabled');
+	                          	</script>
+	                          	I agree to the terms specified in the
+	                            <br/>
+	                            <a href="http://beta.bevomedia.com/enduseragreement.html">End User Software Agreement</a>
+	                            <br/>
+                            	<br/>
+                            	
+								<input disabled="true" id='submit-button_id' type="submit" value="Next" onclick="window.location = '<?=$_SERVER["SCRIPT_NAME"]?>?Step=2<?= $DirPerms ? '' : '&ftp=true' ?>';  return false" />
+							</td>
+						</tr>
+					</table>
+				</fieldset>
+                
+<?
+	} else
+	if ($Step==2)
+	{
+?>
+			<div id="Result"></div>
+			<form onsubmit="CheckCredentials(); return false;" id="credentialsForm">
+				<fieldset>
+					<legend>( Step 2 of 3 )</legend>
+					<table>
+						<tr>
+							<td colspan=2><h3>Database Information<img src="http://beta.bevomedia.com/info.gif" href="#" onClick="javascript:$('#dbinfo').toggle()" /></h3></td>
+						</tr>
+						<tr id='dbinfo' style='display: none'>
+							<td colspan=3>Information to connect to your database with. If you don't know these values, contact your webhost. Bevo requires that you have permission to create 'Views' on the database.</td>
+						</tr>
+						<tr>
+							<td>
+								Database Server Host:<br />
+							</td>
+							<td>
+								<input type="text" id="DatabaseHost" name="DatabaseHost" value="localhost" />
+							</td>
+							<td><i>Usually 'localhost'</i></td>
+						</tr>
+						<tr>
+							<td>
+								Database Server Port:<br />
+							</td>
+							<td>
+								<input type="text" id="DatabasePort" name="DatabasePort" value="3306" />
+							</td>
+							<td><i>If you don't know, set to 3306</i></td>
+						</tr>
+						<tr>
+							<td>
+								Database Name:
+							</td>
+							<td>
+								<input type="text" id="DatabaseName" name="DatabaseName" value="<?= @$_GET['dbname'] ?>"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Database Server Username:
+							</td>
+							<td>
+								<input type="text" id="DatabaseUsername" name="DatabaseUsername" value="<?= @$_GET['dbuser']?>" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Database Server Password:
+							</td>
+							<td>
+								<input type="password" id="DatabasePassword" name="DatabasePassword" value="<?= @$_GET['dbpass']?>" />
+							</td>
+						</tr>
+						<?php if(@$_GET['ftp'] == 'true') { ?>
+						<tr>
+							<td colspan=2><h3>FTP Information<img src="http://beta.bevomedia.com/info.gif" href="#" onClick="javascript:$('#ftpinfo').toggle()" /></h3></td>
+						</tr>
+						<tr id='ftpinfo' style='display: none'>
+							<td colspan=3>Bevo will automatically download the setup.zip and FTP it to your server. If you don't know these values, contact your webhost.</td>
+						</tr>
+						<tr>
+							<td>
+								FTP Server Host:<br />
+							</td>
+							<td>
+								<input type="text" id="FTPHost" name="FTPHost" value="<?= $_SERVER['HTTP_HOST'] ?>" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								FTP Server Port:<br />
+							</td>
+							<td>
+								<input type="text" id="FTPPort" name="FTPPort" value="21" />
+							</td>
+							<td><i>If you don't know, set to 21</i></td>
+						</tr>
+						<tr>
+							<td>
+								FTP Username:
+							</td>
+							<td>
+								<input type="text" id="FTPUser" name="FTPUser" value="" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								FTP Password:
+							</td>
+							<td>
+								<input type="password" id="FTPPass" name="FTPPass" value="" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Directory to install Bevo:
+							</td>
+							<td>
+								<input type="text" id="FTPDir" name="FTPDir" value="<?= $Path ?>" />
+							</td>
+						</tr>
+						<?php } ?>
+						<tr id="viewInfo" style="display: none"><td></td>
+							<td>
+<h3>You don't have permission to create a database view!</h3>
+The SQL user you chose to use doesn't have all the necessary permissions.<br /><br />If you're using cPanel or WHM, this is a known bug -- Even if you select "All Permissions" when creating the user account, the account gets created without VIEW permission.<br />To fix this, do the following:
+<ol>
+  <li>Log into your WHM account (if you only have access to cPanel, ask your host to do this for you)</li>
+  <li>In the "Find" box in the top left, type "phpmyadmin" and hit enter. <b>You must do this through WHM, and not cPanel.</b></li>
+  <li>When PHPMyAdmin opens, you will see all of your server's databases in the navigation on the left. Click on the name of the database you created for Bevo.</li>
+  <li>Click on the "Privileges" tab, on the top of the screen and second from the right.</li>
+  <li>In the list of users, find the user you want to give permissions to, and click the Edit icon (looks like a little person with a big pencil)</li>
+  <li>Ensure all the boxes are properly checked.</li>
+  <li>Try running this installer again.</li>
+</ol>
+<br /><br />
+<span style="color: red">
+*Godaddy and Hostgator shared hosting accounts do not have root access, therefore are not compatable with Bevo Self Hosted. We urge users to use Rackspace, an alternative hosting solution with a comparable price range of $10/month that has all of their servers preconfigured to support Bevo Self Hosted. <a href="http://beta.bevomedia.com/BevoMedia/User/RackspaceWizard.html" target="_blank">Click here for more information.</a>
+</span>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								
+							</td>
+							<td>
+								<input type="submit" value="Next" />
+								<?php if(isset($_GET['dbuser']) && isset($_GET['dbpass']) && isset($_GET['dbname'])) { ?>
+								<script>
+								$(function() {
+									CheckCredentials();
+									});
+								</script>
+								<?php  } ?>
+							</td>
+						</tr>
+					</table>
+				</fieldset>
+			</form>
+<?
+	} else
+		if ($Step==3)
+	{
+?>
+			<div id="Result"></div>
+			<form onsubmit="CheckUsername(); return false;" >
+				<fieldset>
+					<legend>( Step 3 of 3 )</legend>
+					<table>
+						<tr>
+							<td colspan=2><h3>Selfhost Account Setup</h3></td>
+						</tr>
+						<tr>
+							<td>
+								Desired Username:<br />
+							</td>
+							<td>
+								<input type="text" id="shu" name="shu" value="" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Password:<br />
+							</td>
+							<td>
+								<input type="password" id="shp" name="shp" value="" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2><h3>BevoLive API</h3></td>
+						</tr>
+						
+						<tr class="shh">
+							<td>
+								Your Bevomedia.com Username:<br />
+							</td>
+							<td>
+								<input type="hidden" id="bloptout" name="bloptout" value="false" />
+								<input type="text" id="blu" name="blu" value="" />
+							</td>
+						</tr>
+						<tr class="shh">
+							<td>
+								Your Bevomedia.com Password:<br />
+							</td>
+							<td>
+								<input type="password" id="blp" name="blp" value="" />
+							</td>
+						</tr>
+						<tr class="shs" style="display: none">
+							<td colspan=2>
+								Since you unchecked all 3 options, we'll <b>completely disable</b> all communication with Bevo's servers.<br />
+								Strictly for the paranoid!<br />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="submit" value="Done" />
+							</td>
+						</tr>
+					</table>
+				</fieldset>
+			</form>
+				
+<?
+	} else
+	if ($Step==4)
+	{
+	    ignore_user_abort(true);
+		echo 'Installing...<br/>Please wait...<br/>';
+		$ftp = unpackBevoInstall($Path, @$_SESSION['useftp'], $_SESSION);
+		echo "Creating SQL tables...<br />";
+		$SqlUrl = (realpath($Path) . DIRECTORY_SEPARATOR .'bevomedia-self-hosted.sql');
+		$SqlData = file_get_contents($SqlUrl);
+		mysql_connect($_SESSION['DatabaseHost'].':'.$_SESSION['DatabasePort'], $_SESSION['DatabaseUsername'], $_SESSION['DatabasePassword']);
+		mysql_select_db($_SESSION['DatabaseName']);
+		set_time_limit(0);
+		$sql_statements = str_replace('DEFINER=`root`', 'DEFINER=`' . $_SESSION['DatabaseUsername'] . '`', $SqlData);
+		if ($_SESSION['DatabaseHost']=='localhost')
+			$sql_statements = str_replace('`'.$_SESSION['DatabaseUsername'].'`@`%`', '`'.$_SESSION['DatabaseUsername'].'`@`'.$_SESSION['DatabaseHost'].'`', $sql_statements);
+		$arr_sql =  preg_split('/;[\n\r]+/',$sql_statements);
+		reset($arr_sql);
+		$arr_success=array();
+		$arr_failure=array();
+		
+		ob_start();
+		while (list($k,$v)=each($arr_sql))
+		{
+			if (trim($v)!="")
+			{
+				if(strpos($v, 'CREATE TABLE IF NOT EXISTS `bevomedia_view_') !== false)
+				  continue;
+				if (!mysql_query($v) && strpos($v, 'DROP TABLE') === false)
+				{
+					echo "<span style='color: red'>Error executing the following query: </span><br /> {$v} <br />";
+					echo "Error: ".mysql_error()."<br /><br />";
+					if(strpos($v, 'INSERT INTO') === false && strpos($v, '/*') !== 0 && strpos($v, '--') !== 0)
+						die;
+					else
+					  echo "Probably nonfatal, continuing.<br />\n";
+				}
+				
+				ob_flush();
+				flush();
+			}
+		}
+		
+		$e = mysql_real_escape_string($_SESSION['shu']);
+		$p = mysql_real_escape_string($_SESSION['shp']);
+		mysql_query("INSERT INTO bevomedia_user (email, password, enabled, deleted) VALUES
+					  ('$e', '$p', 1, 0)");
+		$uid = mysql_insert_id();
+		$v = 0;
+		foreach(glob('selfhost-version-[0-9]*.txt') as $r)
+		{
+		  print 'Found version ' . $r."<br />\n";
+		  $p = explode('-', $r);
+		  $z = explode('.', $p[2]);
+		  $n = intval($z[0]);
+		  if($n > $v)
+			$v = $n;
+		}
+		mysql_query("INSERT INTO bevomedia_settings (name, value) VALUES ('selfhost_version', $v)");
+		$ConfigData = <<<EOM
+; This is the BevoMedia SelfHosted configuration file
+; Comments start with \';\', as in php.ini
+
+[Application]
+Mode = SelfHosted
+Theme = BevoMedia
+
+[Database/SelfHosted]
+Type = MySQL
+Host = {DB_HOST}
+Name = {DB_NAME}
+User = {DB_USER}
+Pass = {DB_PASS}
+Port = {DB_PORT}
+
+[Instance]
+PageTitle = "Bevo Self Host"
+
+[Router]
+Routes[] = ("Core 3 Directory w/html", "|^/(.*?)/(.*?)/(.*?).html|", 1, 2, 3)
+Routes[] = ("Core 3 Directory wo/html", "|^/(.*?)/(.*?)/(.*?)/|", 1, 2, 3)
+Routes[] = ("Core 3 Directory Index", "|^/(.*?)/(.*?)/$|", 1, 2, "Index")
+Routes[] = ("Core 2 Directory w/html", "|^/(.*?)/(.*?).html|", 1, 1, 2)
+Routes[] = ("Core 2 Directory wo/html", "|^/(.*?)/(.*?)/|", 1, 1, 2)
+Routes[] = ("Core 2 Directory Index", "|^/(.*?)/$|", 1, "Index", "Index")
+Routes[] = ("Core 1 Directory w/html", "|^/(.*?).html|", 1, 1, 1)
+Routes[] = ("Core 1 Directory wo/html", "|^/(.*?)/|", 1, 1, 1)
+Routes[] = ("Core Landing Page", "|^/$|", "BevoMedia", "Index", "Index")
+Routes[] = ("Core Landing Page AJAX ", "|^/\?(.*?)|", "BevoMedia", "Index", "Index")
+EOM;
+		if(empty($_SESSION['blu']) || empty($_SESSION['blp']))
+		{
+		    echo "You have opted out of BevoLive -- disabling all phonehome services<br />";
+		    $ConfigData = str_replace("[Application]\n", "[Application]\nNoPhoneHome = true\n", $ConfigData);
+		} else {
+		    echo "Linking your local account to BevoLive... <br />";
+		    $blu = mysql_real_escape_string($_SESSION['blu']);
+		    $blp = mysql_real_escape_string($_SESSION['blp']);
+		    mysql_query("INSERT INTO bevomedia_dotcom_accounts (user__id, username, password) VALUES ($uid, '$blu', '$blp')");
+		}
+		echo "SQL tables created!<br />";
+		if($ftp)
+		{
+		    @ftp_delete($ftp, 'bevomedia-self-hosted.sql');
+		    mysql_query("INSERT INTO bevomedia_settings (name, value) VALUES
+					  ('selfhost_ftphost', '{$_SESSION['fhost']}'), ('selfhost_ftpport', '{$_SESSION['fport']}'), ('selfhost_ftpuser', '{$_SESSION['fuser']}'), ('selfhost_ftppass', '{$_SESSION['fpass']}'), ('selfhost_ftpdir', '{$_SESSION['fdir']}')");
+		} else {
+		    @unlink(realpath($Path) . DIRECTORY_SEPARATOR .'bevomedia-self-hosted.sql');
+		}
+		
+		
+		$ConfigData = str_replace('{DB_HOST}', $_SESSION['DatabaseHost'], $ConfigData);
+		$ConfigData = str_replace('{DB_NAME}', $_SESSION['DatabaseName'], $ConfigData);
+		$ConfigData = str_replace('{DB_USER}', $_SESSION['DatabaseUsername'], $ConfigData);
+		$ConfigData = str_replace('{DB_PASS}', $_SESSION['DatabasePassword'], $ConfigData);
+		$ConfigData = str_replace('{DB_PORT}', $_SESSION['DatabasePort'], $ConfigData);
+		if($ftp)
+		{
+		    @ftp_delete($ftp, 'config.ini');
+		    $tmpcfg = tmpfile();
+		    fwrite($tmpcfg, $ConfigData);
+		    rewind($tmpcfg);
+		    @ftp_fput($ftp, 'config.ini', $tmpcfg, FTP_ASCII);
+		} else {
+		    @unlink($Path.'config.ini');
+		    file_put_contents($Path. 'config.ini', $ConfigData);
+		}
+		echo '<a style="font-size: 3em" href="/">SUCCESS! Click here to log in.</a>';
+	}
+?>
+                
+                
+				<br /><br />
+	
+	
+
+	
+	
+	
+	
+
+				
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="Copyright">
+			<a href="http://beta.bevomedia.com/">BevoMedia.com</a>
+			-
+			<a href="http://beta.bevomedia.com/BevoMedia/Index/PrivacyPolicyBevoMedia.html">Privacy Policy</a>
+			-
+			<a href="http://beta.bevomedia.com/BevoMedia/Index/TermsOfServiceBevoMedia.html">Terms Of Service</a>
+			-
+			<a href="http://beta.bevomedia.com/BevoMedia/Index/SitemapBevoMedia.html">Site Map</a>
+			-
+			<a href="http://beta.bevomedia.com/BevoMedia/Index/AboutBevoMedia.html">About BeVo</a>
+			-
+			<a href="http://beta.bevomedia.com/BevoMedia/Index/FaqsBevoMedia.html">FAQs</a>
+			-
+			<a href="http://beta.bevomedia.com/BevoMedia/Index/CareersBevoMedia.html">Careers</a>
+			-
+			<a href="http://beta.bevomedia.com/BevoMedia/Index/PressBevoMedia.html">Press</a>
+			-
+			<a href="http://beta.bevomedia.com/BevoMedia/Index/InvestorsBevoMedia.html">Investors</a>
+			-
+			<a href="http://beta.bevomedia.com/BevoMedia/Index/AdNetworksBevoMedia.html">Ad Networks</a>
+
+			<br>
+			Copyright &copy; 2010 BeVo Media LLC. La Jolla, CA 92122
+		</div>
+
+	</div>
+
+</body>
+
+</html>

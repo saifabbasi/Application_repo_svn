@@ -1,0 +1,22 @@
+/*pbs*/
+.pbs-wrapper .pbs-box form .row input.formtxt { width:472px; height:25px; padding:8px 10px 0; background:url(img/blank.gif); }
+.pbs-wrapper .pbs-box form .row .formtxtwrap { background:url(img/pbs_formtxt.gif) no-repeat; }
+.pbs-wrapper .pbs-box form .row .formtxtwrap:focus { background-position:0px -35px !important; }
+.pbs-wrapper .pbs-box form .row .formtxtwrap.formtxtwrap-disabled,
+.pbs-wrapper .pbs-box form .row .formtxtwrap.formtxtwrap-disabled:focus { background-position:0px -70px; }
+.pbs-wrapper.pbs-step3 .pbs-box form p input.formsubmit.clickheresmall-pbs { top:1px; }
+/*rack*/
+.rack-wrapper .rack-box .rack-content .rack-inbox form .formtxtwrap { width:393px; height:35px; background:url(img/rack_formtxt.gif) no-repeat; }
+.rack-wrapper .rack-box .rack-content .rack-inbox form input.formtxt { width:378px; padding-top:0; background:transparent url(img/blank.gif); }
+.rack-wrapper .rack-box .rack-content .rack-inbox form select.formselect { width:392px; }
+
+.rack-wrapper .rack-boxbutt p { width:480px; padding-bottom:5px; margin:16px 0 0 3px; }
+.rack-wrapper .rack-boxbutt a.button { position:absolute; top:0px; right:5px; }
+
+#pagemenu ul li a { padding-top:3px; }
+#pagesubmenu > ul > li.haskids > a { background-position:right 9px; }
+#pagesubmenu > ul > li > ul { top:20px; }
+
+#networkotm { height:60px; padding:39px 10px 0 30px; }
+
+.nwotm_inner .top { position:relative; top:-6px; }

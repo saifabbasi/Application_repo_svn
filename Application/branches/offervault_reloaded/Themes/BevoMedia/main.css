@@ -1,0 +1,748 @@
+
+/*****
+main.css
+*****/
+
+html * { margin: 0px; padding: 0px; }
+/* body
+{
+margin:0px;
+background:url(img/tbg.gif) repeat-x;
+background-color:#002b56;
+font-family:Arial, Helvetica, sans-serif;
+font-size:12px;
+}*/
+
+body
+{
+margin:0px;
+background-color: #002c56;
+font-family:Arial, Helvetica, sans-serif;
+font-size:12px;
+}
+#xbody
+{
+width:1200px;
+margin:auto;
+position:relative;
+}
+#ibody
+{
+width:1200px;
+float:left;
+position:relative;
+}
+#leftside
+{
+width:148px;
+height:423px;
+float:left;
+background:url(img/leftside.gif);
+}
+.midside
+{
+width:900px;
+float:left;
+position:relative;
+}
+#rightside
+{
+width:152px;
+height:423px;
+float:left;
+background:url(img/rightside.gif);
+}
+#header
+{
+width:900px;
+height:170px;
+float:left;
+background:url(img/header.gif);
+}
+
+/* body {
+	background:			url(img/bgx.gif) repeat-x left top;
+	background-color:	#014874;
+	font-family:		Arial;
+	font-size:			11px;
+	font-style:			normal;
+	color:				#333333;
+	margin:				0px;
+	text-align:			center;
+}
+*/
+.Header {
+	width:				1003px;
+	background:			url(img/bt_top.jpg);
+	margin:				auto;
+}
+
+.TabBar {
+	width:				900px;
+	height:				41px;
+	margin:				auto;
+	background:			url(img/tab-bar.gif);
+}
+.Tab {
+	width:				109px;
+	height:				41px;
+	line-height:		41px;
+	text-align:			center;
+	float:				left;
+}
+.Tab A:link, .Tab A:visited, .Tab A:hover {
+	font-family:		Arial;
+	font-size:			11px;
+	font-style:			normal;
+	color:				#FFFFFF;
+	text-decoration:	none;
+}
+.TabOver, div.Tab:hover {
+	background:			url(img/menu.gif) no-repeat left bottom;
+}
+.TabOver A:link, .TabOver A:visited, .TabOver A:hover, div.Tab:hover A:link, div.Tab:hover A:visited, div.Tab:hover A:hover {
+	color:				#000000;
+}
+.TabOver {
+	width:				109px;
+	height:				41px;
+	background:			url(img/menu.gif) no-repeat left bottom;
+	line-height:		41px;
+	text-align:			center;
+	float:				left;
+}
+.TabOver A:link, .TabOver A:visited, .TabOver A:hover {
+	font-family:		Arial;
+	font-size:			11px;
+	font-style:			normal;
+	color:				#000000;
+	text-decoration:	none;
+}
+
+.MainArea {
+	clear:				both;
+	display:			table;
+	width:				894px;
+	_width:				894px;
+	min-height:			280px;
+	_height:			280px;
+	margin:				auto;
+	/* padding:			20px; */
+	/* background:			url(img/main-foot.gif) no-repeat left bottom; */
+	background-color:	#FFFFFF;
+	text-align:			left;
+}
+
+.Stack {
+	clear:				both;
+	width:				854px;
+}
+.StackLeft {
+	overflow:			hidden;
+	width:				620px;
+	float:				left; 
+	margin: 0px; 
+	margin-top: 10px; 
+}
+.StackRight {
+	width:				220px;
+	float:				right;
+}
+
+.Copyright {
+	line-height:		25px;
+	clear:				both;
+	font-family:		Arial;
+	font-size:			11px;
+	font-weight:		normal;
+	color:				#FFFFFF;
+	text-align:			center;
+	text-decoration:	none;
+}
+
+.Copyright A:link, .Copyright A:visited {
+	line-height:		25px;
+	font-family:		Arial;
+	font-size:			11px;
+	font-weight:		normal;
+	color:				#FFFFFF;
+	text-align:			center;
+	text-decoration:	none;
+}
+
+.SkyBox {
+	
+}
+.SkyBoxTopLeft {
+	
+}
+.SkyBoxTopRight {
+	
+}
+.SkyBoxBotLeft {
+	background:			url(img/sky-bot-left.gif) no-repeat left bottom;
+}
+.SkyBoxBotRight {
+	background:			url(img/sky-bot-right.gif) no-repeat right bottom;
+}
+
+.BlueBox {
+	width:				220px;
+	height:				230px;
+	_width:				240px;
+	_height:			250px;
+	padding:			10px;
+	background:			url(img/blue-box.gif) no-repeat left top;
+	font-family:		Arial;
+	font-size:			11px;
+	font-weight:		normal;
+	color:				#FFFFFF;
+	text-align:			center;
+}
+.BlueBox H3, .BlueBox H4, .BlueBox H5, .BlueBox .main {
+	color:				#FFFFFF;
+}
+
+.LightBlueBoxTop {
+	width:				220px;
+	_width:				240px;
+	padding:			10px;
+	background:			url(img/light-blue-box-top.gif) no-repeat left top;
+	background-color:	#00CEE3;
+	font-family:		Arial;
+	font-size:			11px;
+	font-weight:		normal;
+	color:				#FFFFFF;
+	text-align:			center;
+}
+.LightBlueBox H5 {
+	color:				#FFFFFF;
+}
+.LightBlueBoxBot {
+	width:				240px;
+	height:				6px;
+	background:			url(img/light-blue-box-bot.gif) no-repeat left top;
+}
+
+.BoxHeading {
+	width:				240px;
+	height:				30px;
+	line-height:		30px;
+	margin-bottom:		10px;
+	background:			url(img/blue-box.gif) repeat-x left top;
+	font-family:		Arial;
+	font-size:			13px;
+	font-weight:		bold;
+	color:				#FFFFFF;
+	text-align:			center;
+}
+
+.text {
+	font-family: Eurostar, Arial;
+	font-size: 13px;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	color: #DCDCDC;
+	text-decoration: none;
+}
+.tableh {
+	font-family: Eurostar, Arial;
+	font-size: 13px;
+	font-style: normal;
+	font-weight: bold;
+	font-variant: normal;
+	color: #D9AA42;
+	text-decoration: none;
+	
+}
+.table {
+	font-family: Eurostar, Arial;
+	font-size: 13px;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	color: #000000;
+	text-decoration: none;
+}
+
+
+.heading  {
+	font-family: Arial;
+	font-size: 12px;
+	font-weight: bold;
+	margin-bottom:3px;
+	color: #0F3343;
+	text-decoration: none;
+	text-align: left;
+}
+.bottom {
+	font-family: Eurostar, Arial;
+	font-size: 13px;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	color: #ffffff;
+	text-decoration: none;
+}
+.bottom:hover {
+	font-family: Eurostar, Arial;
+	font-size: 13px;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	color: #bfbf8b;
+	text-decoration: underline;
+}
+
+.style1 {
+	font-family: Eurostar, Arial, Helvetica, sans-serif;
+	font-size: 13px;
+}
+.style2 {font-family: "Eurostar Regular Extended", "Eurostar Black Extended", Eurostar}
+.style3 {
+	font-size: 16px;
+	font-weight: bold;
+}
+.style5 {font-size: 12px}
+.style6 {font-family: Eurostar, Arial, Helvetica, sans-serif; font-size: 12px; }
+#Layer1 {
+	position:absolute;
+	width:200px;
+	height:115px;
+	z-index:1;
+}
+#Layer2 {
+	position:absolute;
+	width:54px;
+	height:18px;
+	z-index:1;
+	left: 767px;
+	top: 253px;
+}
+
+/* 
+.applybut {
+	width:				69px;
+	height:				19px;
+	font-family:		Arial;
+	font-size:			11px;
+	font-weight:		normal;
+	color:				#000000;
+	text-align:			center;
+	background:			url(img/butwhite.gif);
+	border:				none;
+}
+
+.appliedbut {
+	width:				69px;
+	height:				19px;
+	font-family:		Arial;
+	font-size:			11px;
+	font-weight:		normal;
+	color:				#000000;
+	text-align:			center;
+	background:			url(img/butgrey.gif);
+	border:				none;
+}
+
+.networkBut {
+	width:				69px;
+	height:				19px;
+	font-family:		Arial;
+	font-size:			11px;
+	font-weight:		normal;
+	color:				#FFFFFF;
+	text-align:			center;
+	background:			url(img/butblue.gif);
+	border:				none;
+}
+
+.acceptedbut {
+	width:				69px;
+	height:				19px;
+	font-family:		Arial;
+	font-size:			11px;
+	font-weight:		normal;
+	color:				#FFFFFF;
+	text-align:			center;
+	background:			url(img/butgreen.gif);
+	border:				none;
+}
+
+.rejectedBut {
+	width:				69px;
+	height:				19px;
+	font-family:		Arial;
+	font-size:			11px;
+	font-weight:		normal;
+	color:				#FFFFFF;
+	text-align:			center;
+	background:			url(img/butred.gif);
+	border:				none;
+}
+*/
+
+.applybut {
+	width:				47px;
+	height:				28px;
+	font-family:		Arial;
+	font-size:			11px;
+	font-weight:		normal;
+	color:				#000000;
+	text-align:			center;
+	background:			url(img/applys.jpg);
+	border:				none;
+	text-indent: -9999px;
+	background-repeat: no-repeat;
+	margin: 0px;
+	float: left;
+	cursor: pointer;
+	
+}
+ .blueBut {
+    width:                69px;
+    height:                19px;
+    font-family:        Arial;
+    font-size:            11px;
+    font-weight:        normal;
+    color:                #FFFFFF;
+    text-align:            center;
+    background:            url(img/butblue.gif);
+    border:                none;
+	cursor: pointer;
+}
+.appliedbut {
+	width:				47px;
+	height:				28px;
+	font-family:		Arial;
+	font-size:			11px;
+	font-weight:		normal;
+	color:				#000000;
+	text-align:			center;
+	background:			url(img/applieds.jpg);
+	background-repeat: no-repeat;
+	border:				none;
+	text-indent: -9999px;
+	margin: 0px;
+	float: left;
+	position:absolute;
+	cursor: pointer;
+}
+
+.networkBut {
+	width:				47px;
+	height:				28px;
+	font-family:		Arial;
+	font-size:			11px;
+	font-weight:		normal;
+	color:				#FFFFFF;
+	text-align:			center;
+	background:			url(img/edits.jpg);
+	background-repeat: no-repeat;
+	text-indent: -9999px;
+	border:				none;
+	margin: 0px;
+	align: right;
+	position:absolute;
+	cursor: pointer;
+}
+.statsBut {
+    width:                46px;
+    height:                29px;
+    font-family:        Arial;
+    font-size:            11px;
+    font-weight:        normal;
+    color:                #FFFFFF;
+    text-align:            center;
+    background:            url(img/stats.jpg);
+    border:                none;
+    background-repeat: no-repeat;
+	text-indent: -9999px;
+	margin: 0 auto;
+	float: left;
+	cursor: pointer;
+}
+
+.acceptedbut {
+	width:				47px;
+	height:				28px;
+	font-family:		Arial;
+	font-size:			11px;
+	font-weight:		normal;
+	color:				#FFFFFF;
+	text-align:			center;
+	background:			url(img/accepteds.jpg);
+	border:				none;
+	text-indent: -9999px;
+	margin:0px;
+	float: left;
+	cursor: pointer;
+}
+
+.offersBut {
+    width:                49px;
+    height:                29px;
+    font-family:        Arial;
+    font-size:            11px;
+    font-weight:        normal;
+    color:                #FFFFFF;
+    text-align:            center;
+    background:            url(img/offers.jpg);
+    border:                none;
+    text-indent: -9999px;
+    margin:0px;
+	float: right;
+	cursor: pointer;
+}
+
+.codesBut {
+    width:                47px;
+    height:                29px;
+    font-family:        Arial;
+    font-size:            11px;
+    font-weight:        normal;
+    color:                #FFFFFF;
+    text-align:            center;
+    background:            url(img/codes.jpg);
+    border:                none;
+    text-indent: -9999px;
+    margin:0px;
+    float: right;
+	cursor: pointer;
+}
+
+
+.rejectedBut {
+	width:				69px;
+	height:				19px;
+	font-family:		Arial;
+	font-size:			11px;
+	font-weight:		normal;
+	color:				#FFFFFF;
+	text-align:			center;
+    
+	background:			url(img/butred.gif);
+	border:				none;
+	cursor: pointer;
+}
+
+.optimizerBut {
+    width:                69px;
+    height:                19px;
+    font-family:        Arial;
+    font-size:            11px;
+    font-weight:        normal;
+    color:                #FFFFFF;
+    text-align:            center;
+    background:            url(img/butwhite.gif);
+    border:                none;
+	cursor: pointer;
+}
+
+.greyBut {
+    width:                69px;
+    height:                19px;
+    font-family:        Arial;
+    font-size:            11px;
+    font-weight:        normal;
+    color:                #000000;
+    text-align:            center;
+    background:            url(img/butgrey.gif);
+    border:                none;
+}
+.applybut_b {
+	width:				94px;
+	height:				28px;
+	font-family:		Arial;
+	font-size:			11px;
+	font-weight:		normal;
+	color:				#000000;
+	text-align:			center;
+	background:			url(img/applyb.jpg);
+	border:				none;
+	text-indent: -9999px;
+	background-repeat: no-repeat;
+	margin: 0 auto;
+	float: right;
+	
+}
+
+
+.appliedbut_b {
+	width:				94px;
+	height:				28px;
+	font-family:		Arial;
+	font-size:			11px;
+	font-weight:		normal;
+	color:				#000000;
+	text-align:			center;
+	background:			url(img/appliedb.jpg);
+	background-repeat: no-repeat;
+	border:				none;
+	text-indent: -9999px;
+	margin: 0 auto;
+	float: right;
+}
+
+.networkBut_b {
+	width:				94px;
+	height:				28px;
+	font-family:		Arial;
+	font-size:			11px;
+	font-weight:		normal;
+	color:				#FFFFFF;
+	text-align:			center;
+	background:			url(img/editb.jpg);
+	background-repeat: no-repeat;
+	text-indent: -9999px;
+	border:				none;
+	margin-left: 1px;
+	float: right;
+}
+
+.acceptedbut_b {
+	width:				94px;
+	height:				28px;
+	font-family:		Arial;
+	font-size:			11px;
+	font-weight:		normal;
+	color:				#FFFFFF;
+	text-align:			center;
+	background:			url(img/acceptedb.jpg);
+	border:				none;
+	text-indent: -9999px;
+	float: right;
+}
+
+.rejectedBut_b {
+	width:				69px;
+	height:				19px;
+	font-family:		Arial;
+	font-size:			11px;
+	font-weight:		normal;
+	color:				#FFFFFF;
+	text-align:			center;
+	background:			url(img/butred.gif);
+	border:				none;
+}
+
+.ClassroomCourseRow {
+	font-family:		Arial;
+	font-size:			11px;
+	font-weight:		normal;
+	color:				#333333;
+	padding:			5px;
+	padding-left:		15px;
+	margin:				10px;
+	text-align:			left;
+	background:			url(img/icon_3arr.gif) no-repeat left top;
+	background-position:0px 10px;
+	border-bottom:		1px dotted #AAAAAA;
+}
+/*custom report for ppc manager and analityc pages by mahdi*/
+ .right_box2{ width:240px;
+			 margin-top:10px;
+ }
+ .right_box2_top{ float:left;
+					 width:240px;
+					  background:url(img/img_34.gif) no-repeat left bottom;
+					 height:5px;
+ }
+  .right_box2_middle{ float:left;
+					 width:238px;
+					 border-left:1px solid #a1d4e5;
+					border-right:1px solid #a1d4e5;
+					background:url(img/img_36.gif) repeat-x left top;
+					background-color:#cde8f5;
+ }
+   .right_box2_middle2{ float:left;
+					 width:226px;
+					 border-left:1px solid #ffffff;
+					border-right:1px solid #ffffff;
+					padding:5px;
+ }
+  .right_box2_bottom{ float:left;
+					 width:240px;
+				  background:url(img/img_45.gif) no-repeat left top;
+				 height:5px;
+				 overflow:hidden;
+ }
+ .right_box2_title{ width:226px;
+					 padding-bottom:10px;
+					 color:#004074;
+					 font-size:12px;
+					 text-align:center;
+					 font-weight:bold;
+ }
+.right_box2_td1{ width:150px; float:left; font-weight:bold; height:20px;}
+.right_box2_td2{ width:50px; float:right;font-weight:bold; height:20px;}
+.right_box2_tr2{ width:226px;
+				float:left;
+ }
+.right_box2_tr{ width:226px;
+				float:left;
+				 background:url(img/img_39.gif) repeat-x left top;
+				 height:20px;
+				 font-size:10px;
+				 line-height:20px;
+				 margin-bottom:3px;
+ }
+ .right_box2_num{ width:20px; text-align:center; float:left; border-right:3px solid #d0e9f6; color:#FFFFFF;}
+ .right_box2_center{ width:140px; padding:0px 5px; float:left; border-right:3px solid #d0e9f6; color:#FFFFFF;}
+ .right_box2_right{ width:40px; padding:0px 5px; font-size:11px; font-weight:bold; float:left; background:url(img/img_41.gif) repeat-x left;}
+ 
+.right_box4_tr{ width:226px;
+				float:left;
+				padding-bottom:10px;
+}
+.right_redio{ float:left;
+				width:80px;
+				padding-left:20px;
+}
+/*End custom report*/
+
+
+/*Right Buttons*/
+
+#RightButtons
+{
+	width: 28px;
+	height: 252px;
+	background: url('/Themes/BevoMedia/img/bevo_sidebuttons2.png');
+	background-position: bottom right; 
+	position: fixed;
+	right: 0px;
+	top: 40%;
+	margins: 0px;
+	padding: 0px;
+	
+	
+}
+
+#SupportForumButton
+{
+	z-index:100001;
+	width: 24px;
+	height: 118px;
+	
+	position: relative;
+	display: block;
+	top: -16px;
+}
+
+#RyanBukeButton
+{	
+	z-index:100001;
+	width: 24px;
+	height: 120px;
+	
+	position: relative;
+	display: block;
+}
+
+/*Right Buttons*/
+
+/*****
+END main.css
+*****/

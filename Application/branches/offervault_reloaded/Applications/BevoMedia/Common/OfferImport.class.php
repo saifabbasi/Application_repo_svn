@@ -1,0 +1,162 @@
+<?php
+
+class OfferImport {
+	private $offersTableName = 'bevomedia_offers';
+	private $categoryTableName = 'bevomedia_category';
+	private $multipleCategoryTableName = 'bevomedia_mcategorie';
+	private $multipleCategoryToOffersTableName = 'bevomedia_mcategorie_offers';
+	private $multipleCountryTableName = 'bevomedia_mcountry';
+	private $multipleCountryToOffersTableName = 'bevomedia_mcountry_offers';
+	
+	private $tableToOfferBinding = array(
+		'offer__id'=>'offerId', 'title'=>'name', 'detail'=>'description', 'launchedOn'=>'openDate',
+		'expiresOn'=>'expireDate', 'trackingCodesUrl'=>'trackUrl', 'payout'=>'payout', 'epc'=>'ecpc');
+	private $networkId = 0;
+	private $userId = 0;
+	
+	public function __construct($NetworkID)
+	{
+		$this->networkId = $NetworkID;
+	}
+	
+	public function insertOffer($OfferObj)
+	{
+		$Sql = "SELECT id, offer__id FROM " . $this->offersTableName . " WHERE offer__id= '" . $OfferObj->offerId . "' AND network__id = '" . $this->networkId . "'";
+		$Result = mysql_query($Sql);
+		if(mysql_num_rows($Result)>0)
+		{
+			$Row = mysql_fetch_assoc($Result);
+			$OfferInsertID = $Row['id'];
+			
+			$UpdateSql = '';
+			foreach($this->tableToOfferBinding as $columnName=>$offerParam)
+			{
+				if($OfferObj->{$offerParam} != NULL)
+				{
+					$UpdateSql .= $columnName . " = '" . mysql_escape_string($OfferObj->{$offerParam}) . "', ";
+				}
+			}
+			
+			$UpdateSql .= "network__id = '" . $this->networkId . "'";
+			
+			$Sql = "UPDATE " . $this->offersTableName . " SET " . $UpdateSql . " WHERE id = '" . $OfferInsertID . "'";
+		
+			$Result = mysql_query($Sql);
+			if(!$Result){
+				die(mysql_error());
+			}
+		}else{
+			$ColumnNames = '';
+			$ColumnValues = '';
+			foreach($this->tableToOfferBinding as $columnName=>$offerParam)
+			{
+				if($OfferObj->{$offerParam} != NULL)
+				{
+					$ColumnNames .= $columnName . ',';
+					$ColumnValues .= "'" . mysql_escape_string($OfferObj->{$offerParam}) . "',";
+				}
+			}
+			
+			$CategoryID = 0;
+			if(sizeof($OfferObj->category)>0)
+			{
+				$CategoryID = $this->getCategoryId($OfferObj->category[0]);
+			}
+			
+			$ColumnNames .= 'network__id,user__id,category__id';
+			$ColumnValues .= $this->networkId . ',' . $this->userId . ',' . $CategoryID;
+			$Sql = "INSERT INTO " . $this->offersTableName . " (" . $ColumnNames . ") VALUES (" . $ColumnValues . ")";
+			
+			$Result = mysql_query($Sql);
+			if(!$Result){
+				die(mysql_error());
+			}
+			$OfferInsertID = mysql_insert_id();
+		}
+		
+		if(sizeof($OfferObj->category)>1)
+		{
+			print 'MULTIPLE CATEGORIES';
+			$Sql = "DELETE FROM " . $this->multipleCategoryToOffersTableName . " WHERE offer__id = '" . $OfferInsertID . "'";
+			$Result = mysql_query($Sql);
+			
+			foreach($OfferObj->category as $CategoryName)
+			{
+				$Sql = "INSERT INTO " . $this->multipleCategoryToOffersTableName . " (mCategorie__id,offer__id) VALUES (" . $this->getMultipleCategoryId($CategoryName) . "," . $OfferInsertID . ")";
+				mysql_query($Sql);
+			}
+		}
+		
+		if(sizeof($OfferObj->countries)>0)
+		{
+			$Sql = "DELETE FROM " . $this->multipleCountryToOffersTableName . " WHERE offer__id = '" . $OfferInsertID . "'";
+			$Result = mysql_query($Sql);
+			
+			foreach($OfferObj->countries as $CountryName)
+			{
+				$Sql = "INSERT INTO " . $this->multipleCountryToOffersTableName . " (mCountry__id,offer__id) VALUES (" . $this->getMultipleCountryId($CountryName) . "," . $OfferInsertID . ")";
+				mysql_query($Sql);
+			}
+		}
+	}
+	
+	private function getCategoryId($CategoryName)
+	{
+		$Sql = "SELECT id FROM " . $this->categoryTableName . " WHERE title = '" . mysql_escape_string($CategoryName) . "'";
+		$Result = mysql_query($Sql);
+		if(!mysql_num_rows($Result))
+		{
+			return $this->insertCategory($CategoryName);
+		}
+		$Row = mysql_fetch_assoc($Result);
+		return $Row['id'];
+	}
+	
+	private function insertCategory($CategoryName)
+	{
+		$Sql = "INSERT INTO " . $this->categoryTableName . " (title) VALUES ('" . mysql_escape_string($CategoryName) . "')";
+		mysql_query($Sql);
+		return mysql_insert_id();
+	}
+	
+	private function getMultipleCategoryId($CategoryName)
+	{
+		$Sql = "SELECT id FROM " . $this->multipleCategoryTableName. " WHERE mCategorie = '" . mysql_escape_string($CategoryName) . "'";echo $Sql."\n";
+		$Result = mysql_query($Sql);
+		if(!mysql_num_rows($Result))
+		{
+			return $this->insertMultipleCategory($CategoryName);
+		}
+		$Row = mysql_fetch_assoc($Result);
+		return $Row['id'];
+	}
+	
+	private function insertMultipleCategory($CategoryName)
+	{
+		$Sql = "INSERT INTO " . $this->multipleCategoryTableName . " (mCategorie) VALUES ('" . mysql_escape_string($CategoryName) . "')";
+		mysql_query($Sql);
+		return mysql_insert_id();
+	}
+	
+	private function getMultipleCountryId($CountryName)
+	{
+		$Sql = "SELECT id FROM " . $this->multipleCountryTableName. " WHERE mCountry = '" . mysql_escape_string($CountryName) . "'";
+		$Result = mysql_query($Sql);
+		if(!mysql_num_rows($Result))
+		{
+			return $this->insertMultipleCountry($CountryName);
+		}
+		$Row = mysql_fetch_assoc($Result);
+		return $Row['id'];
+	}
+	
+	private function insertMultipleCountry($CountryName)
+	{
+		$Sql = "INSERT INTO " . $this->multipleCountryTableName . " (mCountry) VALUES ('" . mysql_escape_string($CountryName) . "')";
+		mysql_query($Sql);
+		return mysql_insert_id();
+	}
+}
+
+
+?>

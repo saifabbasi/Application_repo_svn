@@ -1,0 +1,1 @@
+<?=$this->{'Instance/ViewContent'};?>
