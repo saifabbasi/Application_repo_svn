@@ -553,6 +553,13 @@ if(userTimezoneOffset == false)
 		$sideAdIDright = 1052; //EWA
 		$sideAdIDleft = 1059; //CPA Staxx
 		
+		//110401: added override to place a manual ad (BLAMads). if active, should be an array with 'img' (abspath to img location) and 'url' (http://).
+		//only for "left" right now... $sideAds['left'] seems to have been removed from the remapping below, so we'll just refill that for now as a temp solution.
+		$sideAdOverrideLeft = array(
+			'img' => $this->{'System/BaseURL'}.'Themes/'.$this->{'Application/Theme'}.'/sideads/override/blamads_left.jpg',
+			'url' => 'http://blamads.com/'
+		);
+		
 		$db = Zend_Registry::get('Instance/DatabaseObj');
 		$query = "SELECT n.*, u.status FROM bevomedia_aff_network AS n LEFT JOIN bevomedia_user_aff_network AS u ON n.id = u.network__id AND u.user__id = {$this->User->id} WHERE n.model = 'CPA' AND n.isValid = 'Y' AND n.id IN ('$sideAdIDleft','$sideAdIDright') ORDER BY n.title";
 		$sideAds_raw = $db->fetchAll($query);
@@ -565,8 +572,21 @@ if(userTimezoneOffset == false)
 			
 		}
 		
+		//temp: add $sideAds['left']
+		if($sideAdOverrideLeft && is_array($sideAdOverrideLeft) && !empty($sideAdOverrideLeft)) {
+			$sideAds['left'] = $sideAdOverrideLeft;	
+		}
+		
 		if(!empty($sideAds)) {
 			foreach($sideAds as $side => $ad) {
+				
+				/*TEMP 110401 start (remove later in favor of a scalable / dynamic solution)*/
+				if($side == 'left' && !empty($ad)) {
+					echo '<div class="sidead left">
+					<a href="'.$ad['url'].'" title="Visit BLAM!Ads.com" target="_blank"><img src="'.$ad['img'].'" alt="" /></a>
+					</div>';
+				} else {
+				/*END TEMP 110401. be sure to remove the } on line 652! */
 				
 				//add ad banner image
 				$sideAds[$side]->ad_image = $this->{'System/BaseURL'}.'Themes/'.$this->{'Application/Theme'}.'/sideads/'.$ad->id.'.png';
@@ -625,6 +645,10 @@ if(userTimezoneOffset == false)
 				<?php } //endif status
 				
 				echo '</div>'; //close div.sidead.right/left
+				
+				/*TEMP 110401*/
+				}
+				/*END TEMP 110401*/
 				
 			} //endforeach sideads
 		} //endif sideads exist
