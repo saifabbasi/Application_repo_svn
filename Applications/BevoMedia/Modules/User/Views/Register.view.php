@@ -101,7 +101,7 @@
 	</label>
 
 	<label for="phone_id">
-		<span class="label">Phone Number:</span>
+		<span class="label">[required] Phone Number:</span>
 		<input type="text" name="Phone" value="" id="phone_id" />
 	</label>
 
@@ -111,17 +111,18 @@
 	</label>
 	
 	<label>
-		<span class="label">Instant Messenger Service:</span>
+		<span class="label">[required] Instant Messenger Service:</span>
 		<div class="radioFloat">
 			<input type="radio" name="Messenger" value="AIM">AIM<br/>
 			<input type="radio" name="Messenger" value="YAHOO_MESSENGER">Yahoo Messenger<br/>
 			<input type="radio" name="Messenger" value="MSN_MESSENGER">MSN Messenger<br/>
 			<input type="radio" name="Messenger" value="GTALK">Gtalk<br/>		
+			<input type="radio" name="Messenger" value="SKYPE">Skype<br/>		
 		</div>
 	</label>
 	
 	<label for="messengerhandle_id">
-		<span class="label">Messenger Handle:</span>
+		<span class="label">[required] Messenger Handle:</span>
 		<input type="text" name="MessengerHandle" value="" id="messengerhandle_id" />
 	</label>
 	

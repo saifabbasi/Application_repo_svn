@@ -249,6 +249,7 @@ Class UserController extends ClassComponent
 			$this->User->clearPerformanceConnectorNiches();
 			$this->User->clearPerformanceConnectorPromoMethod();
 			$this->User->clearPerformanceConnectorExpLevel();
+			$this->User->clearPerformanceConnectorContactEntries();
 			$goto = $this->PageHelper->URLEncode($goto);
 			header('Location: /BevoMedia/Index/CloseShadowbox.html?goto=' . $goto);
 			die;
@@ -256,30 +257,40 @@ Class UserController extends ClassComponent
 		
 		if(isset($_POST['changeProfileFormSubmit']))
 		{
-			$Data = $_POST;
-			$niche = $Data['niche'];
-			$promomethods = $Data['promomethod'];
-			$explevels = $Data['explevel'];
-			
-			$this->User->clearPerformanceConnectorNiches();
-			foreach ($niche as $nicheId) {
-				$this->User->insertPerformanceConnectorNiche($nicheId);
+			if ( (trim($_POST['im_service'])=='') || (trim($_POST['im'])=='') || 
+				 (trim($_POST['phone'])=='')
+				)
+			{
+				$this->ErrorMessage = 'You must enter contact info.';	
+			} else {
+				$Data = $_POST;
+				$niche = $Data['niche'];
+				$promomethods = $Data['promomethod'];
+				$explevels = $Data['explevel'];
+				
+				$this->User->clearPerformanceConnectorNiches();
+				foreach ($niche as $nicheId) {
+					$this->User->insertPerformanceConnectorNiche($nicheId);
+				}
+				
+				$this->User->clearPerformanceConnectorPromoMethod();
+				foreach ($promomethods as $promoId) {
+					$this->User->insertPerformanceConnectorPromoMethod($promoId);
+				}
+				
+				$this->User->clearPerformanceConnectorExpLevel();
+				foreach ($explevels as $expId) {
+					$this->User->insertPerformanceConnectorExpLevel($expId);
+				}
+				
+				$this->User->clearPerformanceConnectorContactEntries();	
+				$this->User->insertPerformanceConnectorContactEntry($_POST['im_service'], $_POST['im'], $_POST['phone']);
+				
+				$this->Message = 'ACCOUNT_UPDATED';
+				$goto = $this->PageHelper->URLEncode($goto);
+				header('Location: /BevoMedia/Index/CloseShadowbox.html?goto=' . $goto);
+				die;
 			}
-			
-			$this->User->clearPerformanceConnectorPromoMethod();
-			foreach ($promomethods as $promoId) {
-				$this->User->insertPerformanceConnectorPromoMethod($promoId);
-			}
-			
-			$this->User->clearPerformanceConnectorExpLevel();
-			foreach ($explevels as $expId) {
-				$this->User->insertPerformanceConnectorExpLevel($expId);
-			}
-			
-			$this->Message = 'ACCOUNT_UPDATED';
-			$goto = $this->PageHelper->URLEncode($goto);
-			header('Location: /BevoMedia/Index/CloseShadowbox.html?goto=' . $goto);
-			die;
 		}
 		Zend_Registry::set('Instance/LayoutType', 'shadowbox-layout');
 	
@@ -549,6 +560,16 @@ Class UserController extends ClassComponent
 				foreach ($explevels as $expId) {
 					$user->insertPerformanceConnectorExpLevel($expId);
 				}
+				
+				$Messenger = $_POST['Messenger'];
+				
+				if ($Messenger=='AIM') $Messenger = 'AIM'; else
+				if ($Messenger=='GTALK') $Messenger = 'Gtalk'; else
+				if ($Messenger=='SKYPE') $Messenger = 'Skype'; else
+				if ( ($Messenger=='YAHOO_MESSENGER') || ($Messenger=='MSN_MESSENGER') ) $Messenger = 'Yahoo/MSN'; 
+				
+				
+				$user->insertPerformanceConnectorContactEntry($Messenger, $_POST['MessengerHandle'], $_POST['Phone']);
 				
 			}
 		    
