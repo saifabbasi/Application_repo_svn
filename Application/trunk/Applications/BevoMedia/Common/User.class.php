@@ -1070,6 +1070,32 @@ END;
 		$this->_db->insert('bevomedia_user_performanceconnector', $Data);
 	}
 	
+	/**
+	 * Insert a new row into the PerformanceConnectorContact table for this $ID.
+	 *
+	 * @param String $networkId
+	 */
+	Public Function insertPerformanceConnectorContactEntry($IMService, $IM, $Phone)
+	{
+		$Data = array('user__id'=>$this->id, 'im_service'=>$IMService, 'im' => $IM, 'phone' => $Phone);
+		$this->_db->insert('bevomedia_user_performanceconnector_contact', $Data);
+	}
+	
+	/**
+	 * Removes all network entries for the User matching this $ID.
+	 */
+	Public Function clearPerformanceConnectorContactEntries()
+	{
+		$this->_db->delete('bevomedia_user_performanceconnector_contact', 'user__Id = ' . $this->id);
+	}
+	
+	Public Function getPerformanceConnectorContact()
+	{
+		$query = $this->_db->select()->from('bevomedia_user_performanceconnector_contact')->where("user__id = ?", array($this->id));
+		$row = $this->_db->fetchRow($query);
+		return $row;
+	}
+	
 	Public Function getPerformanceConnectorNiches()
 	{
 		$query = $this->_db->select()->from('bevomedia_user_performanceconnector_niche')->where("user__id = ?", array($this->id));

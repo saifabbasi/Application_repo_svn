@@ -6,6 +6,15 @@ body {
 	}
 </style>
 
+<?php 
+	if (isset($this->ErrorMessage))
+	{
+?>
+	<div style="color: #f00; text-align: center;"><?=$this->ErrorMessage?></div>
+<?php 
+	}
+?>
+
 <form method="post">
 	<?php $userHasNiche = (count($this->UserNicheIDs) > 0);?>
 	<label for="X">
@@ -45,6 +54,43 @@ body {
 	<input type="radio" name="explevel[]" value="<?php echo $ExpLevel->id;?>" <?php echo $selected?>/><?php echo $ExpLevel->explevel;?>&nbsp;
 	<?php endforeach;?>
 	</label>
+	
+	<br /><br />
+	
+	<span style="font-size: 10px;">The Bevo Performance Connector provides users with personal help. What is the best way for a Bevo Representative to get in contact with you?</span>
+	<br />
+	
+	Contact:
+	<div style="text-align: left;  width: 250px; margin-top: 0px; margin: auto; ">
+		
+		
+		<label style="width: 80px; display: inline-block;">
+			
+			IM Service: 
+		</label>
+		
+			<select name="im_service">
+				<option>AIM</option>
+				<option>Gtalk</option>
+				<option>Skype</option>
+				<option>Yahoo/MSN</option>
+			</select>
+		
+		
+		<label style="width: 80px; display: inline-block;">
+			
+			IM Name: 
+		</label>
+		<input type="text" name="im" value="" />
+		
+		
+		<label style="width: 80px; display: inline-block;">
+			
+			Phone: 
+		</label>
+		<input type="text" name="phone" value="" />
+	 	
+ 	</div>
 	
 	</div>
 	<br/><br/>
