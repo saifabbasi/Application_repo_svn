@@ -53,7 +53,33 @@
 	<td colspan="1">
 		<?php print $perfConn->experience?>
 	</td>
-	<td colspan="4">
+	<td style="text-align: left; width: 100px;">
+		<?php 
+			$User = new User($perfConn->userId);
+			$contactInfo = $User->getPerformanceConnectorContact();
+			if ($contactInfo!=null)
+			{
+				if ($contactInfo->im!='') 
+				{
+		?>
+			<b>IM:</b> <?php print $contactInfo->im.' ('.$contactInfo->im_service.')'; ?> <br/>
+		<?php 
+				}
+				
+				if ($contactInfo->phone!='')
+				{
+		?>
+			<b>Phone:</b> <?php print $contactInfo->phone; ?> <br/>
+		<?php
+				}
+		?>
+		
+		
+		<?php 
+			}
+		?>
+	</td>
+	<td colspan="3">
 		<?php print $perfConn->niches?>
 		<br/>
 		<?php print $perfConn->promomethods?>

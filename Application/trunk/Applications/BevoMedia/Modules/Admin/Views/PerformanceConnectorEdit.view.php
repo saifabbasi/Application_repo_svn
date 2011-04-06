@@ -9,16 +9,7 @@
 
 <b>User ID:</b> <?php print $this->User->id; ?> <br/>
 <b>User Email:</b> <?php print $this->User->email; ?> <br/>
-<?php 
-	$contactInfo = $this->User->getPerformanceConnectorContact();
-	if ($contactInfo!=null)
-	{
-?>
-<b>IM:</b> <?php print $contactInfo->im.' ('.$contactInfo->im_service.')'; ?> <br/>
-<b>Phone:</b> <?php print $contactInfo->phone; ?> <br/>
-<?php 
-	}
-?>
+
 <br/><br/>
 
 <form method='post' style="line-height:200%">
