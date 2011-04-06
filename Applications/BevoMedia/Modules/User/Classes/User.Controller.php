@@ -257,8 +257,8 @@ Class UserController extends ClassComponent
 		
 		if(isset($_POST['changeProfileFormSubmit']))
 		{
-			if ( (trim($_POST['im_service'])=='') || (trim($_POST['im'])=='') || 
-				 (trim($_POST['phone'])=='')
+			if ( (trim($_POST['ContactType'])=='IM') && (trim($_POST['im'])=='') || 
+				( (trim($_POST['ContactType'])=='Phone') && (trim($_POST['phone'])=='') )
 				)
 			{
 				$this->ErrorMessage = 'You must enter contact info.';	
@@ -542,6 +542,16 @@ Class UserController extends ClassComponent
 			unset($_POST['promomethod']);
 			$explevels = $_POST['explevel'];
 			unset($_POST['explevel']);
+			unset($_POST['ContactType']);
+			
+			$im_service = $_POST['im_service'];
+			$im = $_POST['im'];
+			$phone = $_POST['phone'];
+			
+			unset($_POST['im_service']);
+			unset($_POST['im']);
+			unset($_POST['phone']);
+			
 			$Data = $_POST;
 			unset($Data['bevoPerformanceConnector']);
 			$id = $user->insert($Data);
@@ -561,15 +571,8 @@ Class UserController extends ClassComponent
 					$user->insertPerformanceConnectorExpLevel($expId);
 				}
 				
-				$Messenger = $_POST['Messenger'];
 				
-				if ($Messenger=='AIM') $Messenger = 'AIM'; else
-				if ($Messenger=='GTALK') $Messenger = 'Gtalk'; else
-				if ($Messenger=='SKYPE') $Messenger = 'Skype'; else
-				if ( ($Messenger=='YAHOO_MESSENGER') || ($Messenger=='MSN_MESSENGER') ) $Messenger = 'Yahoo/MSN'; 
-				
-				
-				$user->insertPerformanceConnectorContactEntry($Messenger, $_POST['MessengerHandle'], $_POST['Phone']);
+				$user->insertPerformanceConnectorContactEntry($im_service, $im, $phone);
 				
 			}
 		    
