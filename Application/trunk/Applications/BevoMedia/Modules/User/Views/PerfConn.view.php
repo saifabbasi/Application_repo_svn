@@ -6,6 +6,8 @@ body {
 	}
 </style>
 
+<script type="text/javascript" src="/JS/charts/jquery-1.4.2.min.js"></script>
+
 <?php 
 	if (isset($this->ErrorMessage))
 	{
@@ -63,34 +65,36 @@ body {
 	Contact:
 	<div style="text-align: left;  width: 250px; margin-top: 0px; margin: auto; ">
 		
-		
 		<label style="width: 80px; display: inline-block;">
-			
-			IM Service: 
+			&nbsp;	 
 		</label>
+		<select id="ContactType" name="ContactType">
+			<option>Phone</option>
+			<option>IM</option>
+		</select>
 		
+		
+		<br /><br />
+		
+		<div id="ContactIM" style="display: none;">
+			<label style="width: 80px; display: inline-block;">IM Service:</label>
 			<select name="im_service">
+				<option></option>
 				<option>AIM</option>
 				<option>Gtalk</option>
 				<option>Skype</option>
 				<option>Yahoo/MSN</option>
 			</select>
-		
-		
-		<label style="width: 80px; display: inline-block;">
 			
-			IM Name: 
-		</label>
-		<input type="text" name="im" value="" />
+			<label style="width: 80px; display: inline-block;">IM Name:</label>
+			<input type="text" name="im" value="" />
+		</div>
 		
 		
-		<label style="width: 80px; display: inline-block;">
-			
-			Phone: 
-		</label>
-		<input type="text" name="phone" value="" />
-	 	
- 	</div>
+		<div id="ContactPhone">
+			<label style="width: 80px; display: inline-block;">Phone:</label>
+			<input type="text" name="phone" value="" />
+ 		</div>
 	
 	</div>
 	<br/><br/>
@@ -100,5 +104,17 @@ body {
 	
 	<input class="formsubmit tbtn" type='submit' name='changeProfileFormSubmit' value="Apply Changes" />
 
-
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#ContactType').change(function() {
+				if ($(this).val()=='Phone') {
+					$('#ContactIM').hide();
+					$('#ContactPhone').show();
+				} else {
+					$('#ContactIM').show();
+					$('#ContactPhone').hide();
+				}
+			});
+		});
+	</script>
 </form>

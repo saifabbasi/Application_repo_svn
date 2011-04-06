@@ -101,7 +101,7 @@
 	</label>
 
 	<label for="phone_id">
-		<span class="label">[required] Phone Number:</span>
+		<span class="label">Phone Number:</span>
 		<input type="text" name="Phone" value="" id="phone_id" />
 	</label>
 
@@ -111,7 +111,7 @@
 	</label>
 	
 	<label>
-		<span class="label">[required] Instant Messenger Service:</span>
+		<span class="label">Instant Messenger Service:</span>
 		<div class="radioFloat">
 			<input type="radio" name="Messenger" value="AIM">AIM<br/>
 			<input type="radio" name="Messenger" value="YAHOO_MESSENGER">Yahoo Messenger<br/>
@@ -122,7 +122,7 @@
 	</label>
 	
 	<label for="messengerhandle_id">
-		<span class="label">[required] Messenger Handle:</span>
+		<span class="label">Messenger Handle:</span>
 		<input type="text" name="MessengerHandle" value="" id="messengerhandle_id" />
 	</label>
 	
@@ -422,6 +422,71 @@ $(document).ready(function(){
 	<input type="radio" name="explevel[]" value="<?php echo $ExpLevel->id;?>" <?php echo $selected?>/><?php echo $ExpLevel->explevel;?>&nbsp;
 	<?php endforeach;?>
 	</label>
+	
+	
+	<br /><br />
+	
+	
+	
+	<span style="font-size: 10px;">The Bevo Performance Connector provides users with personal help. What is the best way for a Bevo Representative to get in contact with you?</span>
+	<br />
+	
+	Contact:
+	<div>
+		
+		<label style="width: 80px; display: inline-block;">
+			&nbsp;	 
+		</label>
+		<select id="ContactType" name="ContactType">
+			<option>Phone</option>
+			<option>IM</option>
+		</select>
+		
+		
+		<br /><br />
+		
+		<div id="ContactIM" style="display: none;">
+			<label style="width: 80px; display: inline-block;">IM Service:</label>
+			<select name="im_service">
+				<option></option>
+				<option>AIM</option>
+				<option>Gtalk</option>
+				<option>Skype</option>
+				<option>Yahoo/MSN</option>
+			</select>
+			
+			<br />
+			
+			<label style="width: 80px; display: inline-block;">IM Name:</label>
+			<input type="text" name="im" value="" />
+		</div>
+		
+		
+		<div id="ContactPhone">
+			<label style="width: 80px; display: inline-block;">Phone:</label>
+			<input type="text" name="phone" value="" />
+ 		</div>
+	
+	</div>
+	<br/><br/>
+	
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#ContactType').change(function() {
+				if ($(this).val()=='Phone') {
+					$('#ContactIM').hide();
+					$('#ContactPhone').show();
+				} else {
+					$('#ContactIM').show();
+					$('#ContactPhone').hide();
+				}
+			});
+		});
+	</script>
+	
+	
+	
 	
 	
 	</div>
