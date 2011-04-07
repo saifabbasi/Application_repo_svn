@@ -13,9 +13,16 @@
 		<div class="urls" geoId="<?=$geotarget->ID?>">
 		<?php 
 			foreach ($geotarget->urls as $url) {
+				
+				if ($url->DaytargetID==0) {
 		?>
 			<span><?=$url->URL?></span><br />
 		<?php 	
+				} else {
+		?>
+			<span>Daytarget: <?=$url->Name?></span><br />
+		<?php 	
+				}
 			}
 		?>
 		</div>

@@ -138,14 +138,15 @@
 							'geoparting'=>array('Geoparting','/BevoMedia/KeywordTracker/Geoparting.html'),
 						)
 					),
-					'timetargeting' => array('Time','/BevoMedia/Geotargeting/Index.html', 
+					'timetargeting' => array('Daytargeting','/BevoMedia/Timetargeting/Index.html', 
 						array(
-							//'timetargeting_new'=>array('Add Geotarget', '/BevoMedia/Geotargeting/NewGeotarget.html'),
-							//'geotargeting_existing'=>array('Existing Geotargets','/BevoMedia/Geotargeting/Index.html'),
-							//'geotargeting_help'=>array('Geotargetting Help','/BevoMedia/Publisher/PPCTutorialsKWTracker.html#HowToUseGeotargeting'),
-							'timeparting'=>array('Dayparting','/BevoMedia/KeywordTracker/Dayparting.html'),
+							'timetargeting_new'=>array('Add Daytarget', '/BevoMedia/Timetargeting/NewGeotarget.html'),
+							'timetargeting_existing'=>array('Existing Daytarget','/BevoMedia/Timetargeting/Index.html'),
+							'timetargeting_help'=>array('Daytargeting Help','/BevoMedia/Publisher/PPCTutorialsKWTracker.html#HowToUseGeotargeting'),
+							'timetargeting'=>array('Daytargeting','/BevoMedia/Timetargeting/Index.html'),
 						)
 					),
+					
 					
 					
 					'rotators' => array('Rotators','/BevoMedia/KeywordTracker/LandingPageRotationSetup.html',array(
@@ -273,9 +274,9 @@
 			$path = '/BevoMedia/Timetargeting';
 			if($position == 'left') {
 				$out = array( //label, url, array of children if any
-					'timetargets' => array('Timetargeting',$path.'/Index.html',array(
-							'existing' => array('Existing Timetargets',$path.'/Index.html'),
-							'new' => array('New Timetarget',$path.'/NewTimetarget.html')
+					'timetargets' => array('Daytargeting',$path.'/Index.html',array(
+							'existing' => array('Existing Daytargets',$path.'/Index.html'),
+							'new' => array('New Daytarget',$path.'/NewTimetarget.html')
 							)
 						),
 				);

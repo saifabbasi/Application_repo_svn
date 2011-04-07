@@ -617,19 +617,19 @@ Class PageHelper {
 		
 		//Timetargeting
 		$PagePresets['Timetargeting/*/Area'] = 'Timetargeting';
-		$PagePresets['Timetargeting/*/HeadingImage'] = 'pagedesc_geo.png';
+		$PagePresets['Timetargeting/*/HeadingImage'] = 'pagedesc_dayparting.png';
 		
 			$PagePresets['Timetargeting/Index/UniquePageName'] = 'Timet_exist';
-			$PagePresets['Timetargeting/Index/Heading'] = 'Existing Timetargets';
-			$PagePresets['Timetargeting/Index/SubHeading'] = 'Timetarget your landing pages and offers. This feature allows you to show different pages based on where the viewer is coming from in the world. Target by any city, state, or country in the world!<br/><br/>Need help with this feature? <a href="/BevoMedia/Publisher/PPCTutorialsKWTracker.html#HowToUseTimetargeting">Click here</a> for a video tutorial.';
+			$PagePresets['Timetargeting/Index/Heading'] = 'Existing Daytargets';
+			$PagePresets['Timetargeting/Index/SubHeading'] = 'Target your landing pages and offers by both day and hour! This feature allows you to see the time period your campaign converts the best at, and allows you to optimize and target accordingly.';
 			
 			$PagePresets['Timetargeting/EditTimetarget/UniquePageName'] = 'Timet_edit';
-			$PagePresets['Timetargeting/EditTimetarget/Heading'] = 'Edit Timetarget';
-			$PagePresets['Timetargeting/EditTimetarget/SubHeading'] = 'Timetarget your landing pages and offers. This feature allows you to show different pages based on where the viewer is coming from in the world. Target by any city, state, or country in the world!<br/><br/>Need help with this feature? <a href="/BevoMedia/Publisher/PPCTutorialsKWTracker.html#HowToUseTimetargeting">Click here</a> for a video tutorial.';
+			$PagePresets['Timetargeting/EditTimetarget/Heading'] = 'Edit Daytarget';
+			$PagePresets['Timetargeting/EditTimetarget/SubHeading'] = 'Target your landing pages and offers by both day and hour! This feature allows you to see the time period your campaign converts the best at, and allows you to optimize and target accordingly.';
 			
 			$PagePresets['Timetargeting/NewTimetarget/UniquePageName'] = 'Timet_new';
-			$PagePresets['Timetargeting/NewTimetarget/Heading'] = 'New Timetarget';
-			$PagePresets['Timetargeting/NewTimetarget/SubHeading'] = 'Timetarget your landing pages and offers. This feature allows you to show different pages based on where the viewer is coming from in the world. Target by any city, state, or country in the world!<br/><br/>Need help with this feature? <a href="/BevoMedia/Publisher/PPCTutorialsKWTracker.html#HowToUseTimetargeting">Click here</a> for a video tutorial.';
+			$PagePresets['Timetargeting/NewTimetarget/Heading'] = 'New Daytarget';
+			$PagePresets['Timetargeting/NewTimetarget/SubHeading'] = 'Target your landing pages and offers by both day and hour! This feature allows you to see the time period your campaign converts the best at, and allows you to optimize and target accordingly.';
 			
 		//Tools
 			//api call history

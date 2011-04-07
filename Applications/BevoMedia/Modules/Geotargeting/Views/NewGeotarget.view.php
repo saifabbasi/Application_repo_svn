@@ -21,6 +21,8 @@
 		<br /><br />
 		
 		<a id="AddLandingPage" href="#">Add Landing Page</a>
+		|
+		<a id="AddLandingDaytarget" href="#">Add Landing Daytarget</a>
 		
 		<br /><br />
 		
@@ -42,6 +44,20 @@
 		
 		var loadDiv = $(document.createElement('div')).attr('class', 'landingPageContainer').attr('id', 'landingPageContainer_'+landingPagesCount);
 		loadDiv.load('/BevoMedia/Geotargeting/LandingPageInclude.html?ajax=true&count='+landingPagesCount);
+
+		$('#LandingPages').append(loadDiv);
+
+		$('#LandingPages').append($(document.createElement('br')));
+
+		landingPagesCount++;
+		
+		return false;
+	});
+
+	$('#AddLandingDaytarget').click(function() {
+		
+		var loadDiv = $(document.createElement('div')).attr('class', 'landingPageContainer').attr('id', 'landingPageContainer_'+landingPagesCount);
+		loadDiv.load('/BevoMedia/Geotargeting/DaytargetInclude.html?ajax=true&count='+landingPagesCount);
 
 		$('#LandingPages').append(loadDiv);
 

@@ -21,6 +21,8 @@
 		<br /><br />
 		
 		<a id="AddLandingPage" href="#">Add Landing Page</a>
+		|
+		<a id="AddLandingDaytarget" href="#">Add Landing Daytarget</a>
 		
 		<br /><br />
 		
@@ -151,10 +153,31 @@
 		
 	});
 
+	$('#AddLandingDaytarget').click(function() {
+
+		return addLandingDaytarget(0);
+		
+	});
+
 	function addLandingPage(id) {
 
 		var loadDiv = $(document.createElement('div')).attr('class', 'landingPageContainer').attr('id', 'landingPageContainer_'+landingPagesCount);
 		loadDiv.load('/BevoMedia/Geotargeting/LandingPageInclude.html?ajax=true&count='+landingPagesCount+'&ID='+id);
+
+		$('#LandingPages').append(loadDiv);
+
+		$('#LandingPages').append($(document.createElement('br')));
+
+		landingPagesCount++;
+		
+		return false;
+		
+	}
+
+	function addLandingDaytarget(id) {
+
+		var loadDiv = $(document.createElement('div')).attr('class', 'landingPageContainer').attr('id', 'landingPageContainer_'+landingPagesCount);
+		loadDiv.load('/BevoMedia/Geotargeting/DaytargetInclude.html?ajax=true&count='+landingPagesCount+'&ID='+id);
 
 		$('#LandingPages').append(loadDiv);
 
@@ -179,9 +202,15 @@
 
 <?php 
 	foreach ($this->URLs as $URL) {
+		if ($URL->DaytargetID==0) {
 ?>
 	addLandingPage(<?php echo $URL->LocationID;?>);
 <?php
+		} else {
+?>
+	addLandingDaytarget(<?php echo $URL->LocationID;?>);
+<?php
+		}
 	}
 ?>
 
