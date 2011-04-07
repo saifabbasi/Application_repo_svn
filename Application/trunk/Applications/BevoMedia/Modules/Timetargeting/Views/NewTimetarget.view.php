@@ -1,4 +1,4 @@
-<?php echo SoapPageMenu('geotargeting','geotargets','new',true); ?>
+<?php echo SoapPageMenu('timetargeting','timetargets','new',true); ?>
 </div>
 <?php echo $this->PageDesc->ShowDesc($this->PageHelper); ?>
 
@@ -41,7 +41,7 @@
 	$('#AddLandingPage').click(function() {
 		
 		var loadDiv = $(document.createElement('div')).attr('class', 'landingPageContainer').attr('id', 'landingPageContainer_'+landingPagesCount);
-		loadDiv.load('/BevoMedia/Geotargeting/LandingPageInclude.html?ajax=true&count='+landingPagesCount);
+		loadDiv.load('/BevoMedia/Timetargeting/LandingPageInclude.html?ajax=true&count='+landingPagesCount);
 
 		$('#LandingPages').append(loadDiv);
 

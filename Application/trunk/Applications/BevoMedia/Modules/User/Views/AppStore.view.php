@@ -255,6 +255,74 @@
 		</div><!--close appboxinside-->
 	</div><!--close appbox-->
 	
+	
+	
+	<?php
+	/*
+	
+	
+	daytargeting
+	
+	
+	*/	 
+	?>
+	<div class="item">
+		<div class="apptitle">
+			<div class="apptitleleft"></div>
+			<h3>Daytargeting</h3>
+			<div class="apptitleright"></div>
+			
+		</div>
+		
+		<div class="appboxinside">
+			<div class="img"><img src="<?php echo SCRIPT_ROOT; ?>img/pagedesc_dayparting.png" alt="" /></div>
+			<div class="cont">			
+				<div class="desc">
+					<p>
+						Target your landing pages and offers by both day and hour! This feature allows you to see the time period your campaign converts the best at, and allows you to optimize and target accordingly.
+					</p>
+				</div>
+				
+				<ul class="soapchecklist">
+					<li>See what days and time of day that your campaign converts best at!</li>
+					<li>Show different landing pages or offers depending on the time of day.</li>
+					<li>Easily combine with the Geoparting feature to bring campaign optimization to a whole new level!</li>
+				</ul>
+				
+				<div class="add2cart">
+					<div class="cartdesc">
+						<h3>Daytargeting</h3>
+						<p>The Day Targeting App is a premium app that is free to use for verified BevoMedia users!</p>
+					</div>
+					
+					<div class="cartaction">
+					
+						<?php if($this->User->vaultID == 0) { //if user is not verified
+						?>
+							<div class="icon icon_appstore_add2cart_buy"></div>
+							<a class="btn btn_appstore_verify" href="/BevoMedia/User/AddCreditCard.html?notifyNotPaying=2">Verify</a>
+							
+							<p>This app is FREE to use for verified Bevo users.</p>
+							
+						<?php } else { //if user is verified
+						?>
+							<div class="icon icon_appstore_add2cart_check"></div>
+							<a class="btn btn_appstore_launchapp" href="/BevoMedia/Timetargeting/Index.html">Launch App</a>
+							
+							<h3>FREE</h3>
+							<p>This app is free to use!</p>
+							
+						<?php }
+						?>
+					</div><!--close cartaction-->
+				</div><!--close add2cart-->
+			</div><!--close cont-->
+			<div class="clear"></div>
+		</div><!--close appboxinside-->
+	</div><!--close appbox-->
+	
+	
+	
 	<?php
 	/*
 	

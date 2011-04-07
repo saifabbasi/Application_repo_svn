@@ -184,15 +184,18 @@
 				$dbGeotargetId = $this->db->lastInsertId();
 				
 				foreach ($_POST as $Key => $Value) {
-					if (!strstr($Key, 'landingPageURL_')) continue;
+					if (!strstr($Key, 'landingPageURL_') && !strstr($Key, 'daytarget_')) continue;
 						
 						$landingPageId = explode('_', $Key); $landingPageId = $landingPageId[1];
 						$landingPageName = $Value;
 						
+						$daytargetId = explode('_', $Key); $dbDaytargetId = intval($daytargetId[2]); $daytargetId = $daytargetId[1];
+						$dbDaytargetId = $Value;
 						
 						$insertArr = array(
 											'GeotargetID' 	=> $dbGeotargetId,
-											'URL'		=> $landingPageName,
+											'URL'			=> $landingPageName,
+											'DaytargetID'	=> $dbDaytargetId,
 											);
 						$this->db->insert('bevomedia_geotargets_landing_pages', $insertArr);
 						$dbLandingPageId = $this->db->lastInsertId();
@@ -253,21 +256,26 @@
 				$dbGeotargetId = $ID;
 				
 				foreach ($_POST as $Key => $Value) {
-					if (!strstr($Key, 'landingPageURL_')) continue;
+					if (!strstr($Key, 'landingPageURL_') && !strstr($Key, 'daytarget_')) continue;
 						
 						$landingPageId = explode('_', $Key); $dbLandingPageId = intval($landingPageId[2]); $landingPageId = $landingPageId[1];
 						$landingPageName = $Value;
 						
+						$daytargetId = explode('_', $Key); $dbDaytargetId = intval($daytargetId[2]); $daytargetId = $daytargetId[1];
+						$dbDaytargetId = $Value;
+						
 						if ($dbLandingPageId>0) {
 							$updateArr = array(
 												'GeotargetID' 	=> $dbGeotargetId,
-												'URL'		=> $landingPageName,
+												'URL'			=> $landingPageName,
+												'DaytargetID'	=> $dbDaytargetId,
 												);
 							$this->db->update('bevomedia_geotargets_landing_pages', $updateArr, " ID = $dbLandingPageId ");
 						} else {
 							$insertArr = array(
-											'GeotargetID' 	=> $dbGeotargetId,
-											'URL'		=> $landingPageName,
+												'GeotargetID' 	=> $dbGeotargetId,
+												'URL'			=> $landingPageName,
+												'DaytargetID'	=> $dbDaytargetId,
 											);
 							$this->db->insert('bevomedia_geotargets_landing_pages', $insertArr);
 							$dbLandingPageId = $this->db->lastInsertId();
@@ -325,7 +333,8 @@
 						bevomedia_geotargets.ID,
 						bevomedia_geotargets.Name,
 						bevomedia_geotargets_landing_pages.ID as `LocationID`,
-						bevomedia_geotargets_landing_pages.URL
+						bevomedia_geotargets_landing_pages.URL,
+						bevomedia_geotargets_landing_pages.DaytargetID
 					FROM
 						bevomedia_geotargets,
 						bevomedia_geotargets_landing_pages						
@@ -378,9 +387,12 @@
 			foreach ($results as $key => $row) 
 			{
 				$sql = "SELECT
-							URL
+							bevomedia_geotargets_landing_pages.URL,
+							bevomedia_timetargets.Name,
+							bevomedia_geotargets_landing_pages.DaytargetID
 						FROM
 							bevomedia_geotargets_landing_pages
+						LEFT JOIN bevomedia_timetargets ON (bevomedia_timetargets.ID = bevomedia_geotargets_landing_pages.DaytargetID)
 						WHERE
 							(bevomedia_geotargets_landing_pages.GeotargetID = ?)				
 						";
@@ -569,6 +581,47 @@
 		Public Function RequiresVerified()
 		{
 		
+		}
+		
+		Public Function DaytargetInclude()
+		{
+			$Sql = "SELECT
+						*
+					FROM
+						bevomedia_timetargets
+					WHERE
+						(bevomedia_timetargets.UserID = ?)
+					";
+			$this->Daytargets = $this->db->fetchAll($Sql, $this->User->id);
+			
+			
+			if (!isset($_GET['ID'])) {
+				return;
+			}
+			
+			$Sql = "SELECT
+						*
+					FROM
+						bevomedia_geotargets_landing_pages
+					WHERE
+						(bevomedia_geotargets_landing_pages.ID = ?)			
+					";
+			$this->Data = $this->db->fetchAll($Sql, $_GET['ID']);
+			
+			if (count($this->Data)>0) {
+				$this->Data = $this->Data[0];
+				
+				$Sql = "SELECT
+							*
+						FROM
+							bevomedia_geotargets_landing_pages_locations
+						WHERE
+							(bevomedia_geotargets_landing_pages_locations.LandingPageID = ?)				
+						";
+				$this->Data->Locations = $this->db->fetchAll($Sql, $this->Data->ID); 
+			} else {
+				$this->Data = array();
+			}
 		}
 		 
 		

@@ -46,7 +46,7 @@
 			}
 			
 			$ID = intval($_GET['ID']);
-			
+			// echo '<pre>';print_r($_POST); die;
 			//EditTimetarget
 			if ( isset($_POST['Submit']) ) {
 				$timetargetName = $_POST['name'];
@@ -80,36 +80,32 @@
 //						$dbLandingPageId = $this->db->lastInsertId();
 												
 						foreach ($_POST as $Key1 => $Value1) {
-							if (!strstr($Key1, "country_{$landingPageId}_")) continue;
+							if (!strstr($Key1, "day_{$landingPageId}")) continue;
 							
-							$countryId = explode('_', $Key1); $dbLandingPageLocationId = intval($countryId[3]); $countryId = $countryId[2];
-							$countryCode = $Value1;
+							$dayId = explode('_', $Key1); $dbLandingPageLocationId = intval($dayId[2]);
 							
-							$regionCode = $_POST["region_{$landingPageId}_{$countryId}_{$dbLandingPageLocationId}"];
-							$cityCode = $_POST["city_{$landingPageId}_{$countryId}_{$dbLandingPageLocationId}"];
+							$day = $Value1;
 							
-							
-							$countryCode = $this->GetCountryCode($countryCode);
-							$regionCode = $this->GetRegionCode($regionCode);
-							$cityCode = $this->GetCityCode($cityCode);
-							
+							$fromTime = $_POST["fromTime_{$landingPageId}"];
+							$toTime = $_POST["toTime_{$landingPageId}"];
 							
 							if ($dbLandingPageLocationId>0) {
 								$updateArr = array(
 											'LandingPageID' 	=> $dbLandingPageId,
-											'CityID'			=> $cityCode,
-											'RegionID'			=> $regionCode,
-											'CountryID'			=> $countryCode,
+											'Day'			=> $day,
+											'Start'			=> $fromTime,
+											'End'			=> $toTime,
 											);
-								$this->db->update('bevomedia_geotargets_landing_pages_locations', $updateArr, " ID = {$dbLandingPageLocationId} ");
+											
+								$this->db->update('bevomedia_timetargets_landing_pages_times', $updateArr, " ID = {$dbLandingPageLocationId} ");
 							} else {
 								$insertArr = array(
 											'LandingPageID' 	=> $dbLandingPageId,
-											'CityID'			=> $cityCode,
-											'RegionID'			=> $regionCode,
-											'CountryID'			=> $countryCode,
+											'Day'			=> $day,
+											'Start'			=> $fromTime,
+											'End'			=> $toTime,
 											);
-								$this->db->insert('bevomedia_geotargets_landing_pages_locations', $insertArr);
+								$this->db->insert('bevomedia_timetargets_landing_pages_times', $insertArr);
 								$dbLandingPageLocationId = $this->db->lastInsertId();
 							}
 							
@@ -119,7 +115,7 @@
 					
 				}
 				
-				header('Location: /BevoMedia/Geotargeting/Index.html');
+				header('Location: /BevoMedia/Timetargeting/Index.html');
 				die;
 			}
 			//EditGeotarget
@@ -218,7 +214,7 @@
 			$this->db->delete('bevomedia_timetargets_landing_pages', " GeotargetID = {$ID} ");
 			
 			foreach ($rows as $row) {
-				//$this->db->delete('bevomedia_timetargets_landing_pages_locations', " LandingPageID = {$row->ID} ");
+				$this->db->delete('bevomedia_timetargets_landing_pages_times', " LandingPageID = {$row->ID} ");
 			}
 			
 			exit;
@@ -349,17 +345,17 @@
 			}
 		}
 		
-		Public Function NewGeotarget()
+		Public Function NewTimetarget()
 		{
 			if (isset($_POST['Submit'])) {
-//				echo '<pre>';print_r($_POST); die;
+				// echo '<pre>';print_r($_POST); die;
 				$geotargetName = $_POST['name'];
 				
 				$insertArr = array(
 									'UserID' 	=> $this->User->id,
 									'Name'		=> $geotargetName,
 									);
-				$this->db->insert('bevomedia_geotargets', $insertArr);
+				$this->db->insert('bevomedia_timetargets', $insertArr);
 				$dbGeotargetId = $this->db->lastInsertId();
 				
 				foreach ($_POST as $Key => $Value) {
@@ -370,40 +366,35 @@
 						
 						
 						$insertArr = array(
-											'GeotargetID' 	=> $dbGeotargetId,
+											'TimetargetID' 	=> $dbGeotargetId,
 											'URL'		=> $landingPageName,
 											);
-						$this->db->insert('bevomedia_geotargets_landing_pages', $insertArr);
+						$this->db->insert('bevomedia_timetargets_landing_pages', $insertArr);
 						$dbLandingPageId = $this->db->lastInsertId();
 						
 						
 						foreach ($_POST as $Key1 => $Value1) {
-							if (!strstr($Key1, "country_{$landingPageId}_")) continue;
+							if (!strstr($Key1, "day_{$landingPageId}")) continue;
 							
-							$countryId = explode('_', $Key1); $countryId = $countryId[2];
-							$countryCode = $Value1;
+							$day = $Value1;
 							
-							$regionCode = $_POST["region_{$landingPageId}_{$countryId}_0"];
-							$cityCode = $_POST["city_{$landingPageId}_{$countryId}_0"];
-							
-							$countryCode = $this->GetCountryCode($countryCode);
-							$regionCode = $this->GetRegionCode($regionCode);
-							$cityCode = $this->GetCityCode($cityCode);
+							$fromTime = $_POST["fromTime_{$landingPageId}"];
+							$toTime = $_POST["toTime_{$landingPageId}"];
 							
 							$insertArr = array(
 											'LandingPageID' 	=> $dbLandingPageId,
-											'CityID'			=> $cityCode,
-											'RegionID'			=> $regionCode,
-											'CountryID'			=> $countryCode,
+											'Day'			=> $day,
+											'Start'			=> $fromTime,
+											'End'			=> $toTime,
 											);
-							$this->db->insert('bevomedia_geotargets_landing_pages_locations', $insertArr);
+							$this->db->insert('bevomedia_timetargets_landing_pages_times', $insertArr);
 							$dbLandingPageLocationId = $this->db->lastInsertId();
 						}
 						
 					
 				}
 				
-				header('Location: /BevoMedia/Geotargeting/EditGeotarget.html?ID='.$dbGeotargetId);
+				header('Location: /BevoMedia/Timetargeting/EditTimetarget.html?ID='.$dbGeotargetId);
 				die;
 			}
 		}
@@ -418,9 +409,9 @@
 			$Sql = "SELECT
 						*
 					FROM
-						bevomedia_geotargets_landing_pages
+						bevomedia_timetargets_landing_pages
 					WHERE
-						(bevomedia_geotargets_landing_pages.ID = ?)			
+						(bevomedia_timetargets_landing_pages.ID = ?)			
 					";
 			$this->Data = $this->db->fetchAll($Sql, $_GET['ID']);
 			
@@ -430,11 +421,11 @@
 				$Sql = "SELECT
 							*
 						FROM
-							bevomedia_geotargets_landing_pages_locations
+							bevomedia_timetargets_landing_pages_times
 						WHERE
-							(bevomedia_geotargets_landing_pages_locations.LandingPageID = ?)				
+							(bevomedia_timetargets_landing_pages_times.LandingPageID = ?)				
 						";
-				$this->Data->Locations = $this->db->fetchAll($Sql, $this->Data->ID); 
+				$this->Data->Times = $this->db->fetchRow($Sql, $this->Data->ID); 
 			} else {
 				$this->Data = array();
 			}
