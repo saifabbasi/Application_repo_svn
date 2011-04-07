@@ -60,7 +60,9 @@ abstract class CakeMarketingAbstract Extends NetworksAbstract {
 	 * @return String|Boolean	Authentication Hash or false.
 	 */
   Public function login()
-  {
+  { 
+  	return true;
+  	
     $this->logTransaction('Login: ' . $this->publisherLogin);
     $postdata = 'username=' . $this->publisherLogin . '&password=' . $this->publisherPassword;
     $arrParams = array('CURLOPT_SSL_VERIFYPEER' => FALSE,
@@ -142,7 +144,6 @@ abstract class CakeMarketingAbstract Extends NetworksAbstract {
 			$SubID = (string)$Click->subid_1;
 			
 			$Clicks = $Click->total_clicks;
-			
 			
 			$TempStat = new Stat($Clicks, $Conversions, $Amount, $SubID, $ID);
 			if($TempStat->offerId != '')
