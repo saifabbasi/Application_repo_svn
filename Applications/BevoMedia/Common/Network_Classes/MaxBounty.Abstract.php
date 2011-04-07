@@ -102,15 +102,16 @@ abstract class MaxBountyAbstract Extends NetworksAbstract {
 		foreach ($Result as $Row)
 		{
 			$SubId = $Row['SUB_ID'];
-			$SubIdDetail = $this->getDateRangeSubIdDetails($SubId, $Date);
+			//function too slow. blocking queue
+			//$SubIdDetail = $this->getDateRangeSubIdDetails($SubId, $Date);
 			
-			$OfferID = @$SubIdDetail[0]['OFFER_ID'];
+			//$OfferID = @$SubIdDetail[0]['OFFER_ID'];
 			$Clicks = $Row['CLICKS'];
 			$Leads = $Row['LEADS'];
 			$Earnings = $Row['EARNINGS'];
 			$Earnings = str_replace('$', '', $Earnings);
 			
-			$TempStat = new Stat($Clicks, $Leads, $Earnings, $SubId, $OfferID);
+			$TempStat = new Stat($Clicks, $Leads, $Earnings, $SubId, NULL);
 			$Output->addStatObject($TempStat);
 		}
 		
