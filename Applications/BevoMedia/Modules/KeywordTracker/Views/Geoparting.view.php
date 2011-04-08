@@ -4,6 +4,44 @@ if ($this->User->vaultID == 0) {
     header('Location: /BevoMedia/Geotargeting/RequiresVerified.html');
 	exit;
 }
+
+if (!isset($_GET['sortBy'])) {
+	$_GET['sortBy'] = 'clicks';
+	$_GET['sortDirection'] = 'desc';
+}
+
+?>
+
+<?php 
+	function sortItems($a, $b)
+	{
+		if ($_GET['sortBy']=='clicks') 
+		{
+			if ($a['clicks']==$b['clicks']) {
+				return 0;
+			}
+			
+			if ($_GET['sortDirection']=='asc') {
+				return ($a['clicks']<$b['clicks'])?-1:1;
+			} else {
+				return ($a['clicks']>$b['clicks'])?-1:1;
+			}
+		} else 
+		if ($_GET['sortBy']=='conversions') 
+		{
+			if ($a['conversions']==$b['conversions']) {
+				return 0;
+			}
+			
+			if ($_GET['sortDirection']=='asc') {
+				return ($a['conversions']<$b['conversions'])?-1:1;
+			} else {
+				return ($a['conversions']>$b['conversions'])?-1:1;
+			}
+		}
+	}
+	
+	uasort($this->data['results'], 'sortItems');
 ?>
 
 <?php echo SoapPageMenu('kwt','geotargeting','geoparting', false); ?>
@@ -117,12 +155,31 @@ if ($this->User->vaultID == 0) {
 <?php //echo '<pre>'; print_r($this->data['results']); ?>
 
 <br/>
+<?php 
+	$sortUrl = '/BevoMedia/KeywordTracker/Geoparting.html?';
+	foreach ($_GET as $Key => $Value)
+	{
+		if ($Key=='sortBy') continue;
+		if ($Key=='sortDirection') continue;
+		
+		$sortUrl .= $Key.'='.$Value.'&';
+	}
+	/*
+	if (isset($_GET['sortBy']))
+	{
+		if ($_GET['sortBy'])
+			$sortUrl .= 
+	}*/
+	
+	
+	
+?>
 <table cellspacing="0" class="btable" width="600">
 	<tr class="table_header">
 	    <td class="hhl">&nbsp;</td>
 		<td>Location</td>
-		<td>Clicks</td>
-		<td>Conversions</td>
+		<td><a href="<?=$sortUrl?>sortBy=clicks&sortDirection=<? echo (($_GET['sortBy']=='clicks') && ($_GET['sortDirection']=='desc'))?'asc':'desc';  ?>">Clicks</a></td>
+		<td><a href="<?=$sortUrl?>sortBy=conversions&sortDirection=<? echo (($_GET['sortBy']=='conversions') && ($_GET['sortDirection']=='desc'))?'asc':'desc';  ?>">Conversions</a></td>
 		<td class="hhr">&nbsp;</td>
 	</tr>
 	<tbody>
@@ -168,11 +225,12 @@ if ($this->User->vaultID == 0) {
 <br/><br/><br/>
 
 <div id="map_canvas" style="width:100%; height:400px"></div> 
-<?php /*
-<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=ABQIAAAAkJ-nCOLFfbhKm4eJ-E2z-RR6VN925uPFn6PP-QN6tZZ9gQ4NXBTiawgaqS8geUgTpLZjZjOYl8dCDA" type="text/javascript"></script> 
-*/ ?>
-<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=ABQIAAAAgl5Nx3uJ69j4bI4WcxOLfxTE7Nt0VSXPfmZOGdFPbd5cXCuKbhQ2zudNBOu-iXhz8tbbkLuWoA_O2Q" type="text/javascript"></script> 
 
+<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=ABQIAAAAgl5Nx3uJ69j4bI4WcxOLfxT8lA5YgEtP1VCCPa_Q-VTD4uCnhhRGlmZX60OJWzrDgRH0Jg-q2zhnGw" type="text/javascript"></script> 
+
+<?php /*
+<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=ABQIAAAAgl5Nx3uJ69j4bI4WcxOLfxTE7Nt0VSXPfmZOGdFPbd5cXCuKbhQ2zudNBOu-iXhz8tbbkLuWoA_O2Q" type="text/javascript"></script> 
+*/ ?>
 
 
 <script type="text/javascript"> 
