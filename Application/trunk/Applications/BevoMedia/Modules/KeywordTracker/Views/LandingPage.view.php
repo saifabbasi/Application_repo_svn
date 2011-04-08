@@ -38,6 +38,7 @@ $Sql = "SELECT
 		BETWEEN  '$stDate'
 		AND  '$enDate'
 		)
+		AND (subid.statDate = `clicks`.`clickDate`)
 		)
 		GROUP BY  
 			clicks.id
