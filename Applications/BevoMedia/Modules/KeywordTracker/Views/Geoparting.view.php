@@ -225,12 +225,12 @@ if (!isset($_GET['sortBy'])) {
 <br/><br/><br/>
 
 <div id="map_canvas" style="width:100%; height:400px"></div> 
-
-<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=ABQIAAAAgl5Nx3uJ69j4bI4WcxOLfxT8lA5YgEtP1VCCPa_Q-VTD4uCnhhRGlmZX60OJWzrDgRH0Jg-q2zhnGw" type="text/javascript"></script> 
-
 <?php /*
-<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=ABQIAAAAgl5Nx3uJ69j4bI4WcxOLfxTE7Nt0VSXPfmZOGdFPbd5cXCuKbhQ2zudNBOu-iXhz8tbbkLuWoA_O2Q" type="text/javascript"></script> 
+<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=ABQIAAAAgl5Nx3uJ69j4bI4WcxOLfxT8lA5YgEtP1VCCPa_Q-VTD4uCnhhRGlmZX60OJWzrDgRH0Jg-q2zhnGw" type="text/javascript"></script> 
 */ ?>
+
+<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=ABQIAAAAgl5Nx3uJ69j4bI4WcxOLfxTE7Nt0VSXPfmZOGdFPbd5cXCuKbhQ2zudNBOu-iXhz8tbbkLuWoA_O2Q" type="text/javascript"></script> 
+
 
 
 <script type="text/javascript"> 
