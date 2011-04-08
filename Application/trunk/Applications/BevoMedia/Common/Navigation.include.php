@@ -143,7 +143,7 @@
 							'timetargeting_new'=>array('Add Daytarget', '/BevoMedia/Timetargeting/NewGeotarget.html'),
 							'timetargeting_existing'=>array('Existing Daytarget','/BevoMedia/Timetargeting/Index.html'),
 							'timetargeting_help'=>array('Daytargeting Help','/BevoMedia/Publisher/PPCTutorialsKWTracker.html#HowToUseGeotargeting'),
-							'timetargeting'=>array('Daytargeting','/BevoMedia/Timetargeting/Index.html'),
+							'timetargeting'=>array('Dayparting','/BevoMedia/KeywordTracker/Dayparting.html'),
 						)
 					),
 					

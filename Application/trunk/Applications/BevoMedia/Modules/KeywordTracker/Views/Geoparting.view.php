@@ -41,7 +41,9 @@ if (!isset($_GET['sortBy'])) {
 		}
 	}
 	
-	uasort($this->data['results'], 'sortItems');
+	if (isset($this->data['results']) && is_array($this->data['results'])) {
+		uasort($this->data['results'], 'sortItems');
+	}
 ?>
 
 <?php echo SoapPageMenu('kwt','geotargeting','geoparting', false); ?>
