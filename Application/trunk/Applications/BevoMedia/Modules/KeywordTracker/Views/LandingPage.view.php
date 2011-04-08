@@ -12,7 +12,7 @@ $Sql = "SELECT
 			clicks.referrerUrl AS referrerUrl,
 			lps.landingPageUrl AS url,
 			COALESCE( COUNT( DISTINCT  `clicks`.`id` ) , 0 ) AS clicks, 
-			(COALESCE( SUM(  `subid`.`clicks` ) , 0 ) + COALESCE( SUM(  `clicks`.`clickThrough` ) , 0 )) AS click_thrus,
+			(COALESCE( SUM(  `clicks`.`clickThrough` ) , 0 )) AS click_thrus,
 			
 			
 			COALESCE( SUM(  `subid`.`conversions` ) , 0 ) AS actions
