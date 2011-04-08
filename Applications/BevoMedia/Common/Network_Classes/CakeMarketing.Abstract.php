@@ -110,29 +110,40 @@ abstract class CakeMarketingAbstract Extends NetworksAbstract {
 		{
 			return;
 		}
+		//echo $url; die('da');
 		
+		$conversionsUrl = $this->apiUrlConversions."?affiliate_id={$this->publisherLogin}&api_key={$this->publisherId}&offer_id=0&start_date=".urlencode($StartDate)."&end_date=".urlencode($EndDate);
+		$ConversionData = file_get_contents($conversionsUrl);
+		$ConverionXml = simplexml_load_string($ConversionData);
+		$count = 0;
 		$Output = new StatEnvelope($Date);
+		//echo '<pre>'; print_r($ConversionData);
 		foreach ($Xml->Click as $Click)
 		{
 			$Date = date('Y-m-d', strtotime((string)$Click->click_date));
+			// echo time().'<br />';
+			if ($count++>=1000) break;
 			
-			$conversionsUrl = $this->apiUrlConversions."?affiliate_id={$this->publisherLogin}&api_key={$this->publisherId}&offer_id={$Click->offer_id}&start_date=".urlencode($StartDate)."&end_date=".urlencode($EndDate);
-			
+			// die($conversionsUrl);
 			$Conversions = 0;
 			$Amount = 0;
-			
+			//echo '$Click->offer_id:'.$Click->offer_id.'<br />';
 			if (isset($Click->paid_action))
 			{
-				$ConversionData = file_get_contents($conversionsUrl);			
-				$ConverionXml = simplexml_load_string($ConversionData);
+				// $ConversionData = file_get_contents($conversionsUrl);			
+				
 				if ($ConverionXml)
 				{
 					$Conversions = 0;
 					$Amount = 0;
+					reset($ConverionXml->Conversion);
 					foreach ($ConverionXml->Conversion as $Conversion)
 					{
+						//if ($Conversion->offer_id!=$Click->offer_id) continue;
+						
 						if (trim($Conversion->conversion_id)==trim($Click->paid_action))
 						{
+						//	echo '$Conversion->offer_id: '.$Conversion->offer_id.'<br />';die;
 							$Conversions++;
 							$Amount += (float)$Conversion->price;
 						}
