@@ -38,6 +38,18 @@ if (!isset($_GET['sortBy'])) {
 			} else {
 				return ($a['conversions']>$b['conversions'])?-1:1;
 			}
+		} else 
+		if ($_GET['sortBy']=='clickThroughs')
+		{
+			if ($a['clickThroughs']==$b['clickThroughs']) {
+				return 0;
+			}
+			
+			if ($_GET['sortDirection']=='asc') {
+				return ($a['clickThroughs']<$b['clickThroughs'])?-1:1;
+			} else {
+				return ($a['clickThroughs']>$b['clickThroughs'])?-1:1;
+			}
 		}
 	}
 	
@@ -181,6 +193,7 @@ if (!isset($_GET['sortBy'])) {
 	    <td class="hhl">&nbsp;</td>
 		<td>Location</td>
 		<td><a href="<?=$sortUrl?>sortBy=clicks&sortDirection=<? echo (($_GET['sortBy']=='clicks') && ($_GET['sortDirection']=='desc'))?'asc':'desc';  ?>">Clicks</a></td>
+		<td><a href="<?=$sortUrl?>sortBy=clickThroughs&sortDirection=<? echo (($_GET['sortBy']=='clickThroughs') && ($_GET['sortDirection']=='desc'))?'asc':'desc';  ?>">Click Throughs</a></td>
 		<td><a href="<?=$sortUrl?>sortBy=conversions&sortDirection=<? echo (($_GET['sortBy']=='conversions') && ($_GET['sortDirection']=='desc'))?'asc':'desc';  ?>">Conversions</a></td>
 		<td class="hhr">&nbsp;</td>
 	</tr>
@@ -209,6 +222,9 @@ if (!isset($_GET['sortBy'])) {
            <?php echo $value['clicks'] ?>
         </td>
         <td>
+           <?php echo $value['clickThroughs'] ?>
+        </td>
+        <td>
            <?php echo $value['conversions'] ?>
         </td>
 		<td class="tail"></td>
@@ -219,7 +235,7 @@ if (!isset($_GET['sortBy'])) {
     </tbody>
 	<tr class="table_footer">
 		<td class="hhl"></td>
-		<td colspan="3"></td>
+		<td colspan="4"></td>
 		<td class="hhr"></td>
 	</tr>
 </table>
