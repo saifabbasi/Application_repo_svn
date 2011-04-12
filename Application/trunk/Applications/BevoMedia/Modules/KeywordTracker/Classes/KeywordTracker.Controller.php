@@ -965,7 +965,7 @@
 					pc.name as CampaignName,
 					pa.name as AdGroupName,
 					count(DISTINCT tc.id) as sumClick,
-					sum(afs.clicks) as sumClicks,
+					sum(tc.clickThrough) as sumClicks,
 					sum(afs.conversions) as sumConv,
 					sum(afs.revenue) as sumRevenue,
 					( max(pavs.cost) * (count(DISTINCT tc.id)) ) as sumCost,
@@ -1001,7 +1001,7 @@
 				ORDER BY
 					data
 				";
-					echo '<pre>'.$Sql;die;
+					
 			$this->StatRows = $db->fetchAll($Sql);
 			
 		}
