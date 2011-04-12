@@ -1001,7 +1001,7 @@
 				ORDER BY
 					data
 				";
-					
+					echo '<pre>'.$Sql;die;
 			$this->StatRows = $db->fetchAll($Sql);
 			
 		}
