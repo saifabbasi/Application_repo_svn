@@ -1785,7 +1785,10 @@ END;
 	        }
 			$sql = "SELECT 
 						bevomedia_tracker_clicks.clickTime,
-						bevomedia_tracker_clicks.clickThrough
+						bevomedia_tracker_clicks.clickThrough,
+						bevomedia_tracker_clicks.subId,
+						bevomedia_tracker_clicks.user__id,
+						bevomedia_tracker_clicks.clickDate
 					FROM
 						bevomedia_tracker_clicks
 						{$adGroupSql}
@@ -1817,17 +1820,17 @@ END;
 				foreach ($daysOfWeek as $dayOfWeek) {
 					for ($i=0; $i<24; $i++) {
 						$hour = ($i<10)?('0'.$i):$i;
-						$results[$hour.':00 - '.$hour.':59 : '.$dayOfWeek] = array('clicks'=>0, 'conversions'=>0);
+						$results[$hour.':00 - '.$hour.':59 : '.$dayOfWeek] = array('clicks'=>0, 'conversions'=>0, 'clickThroughs' => 0);
 					}
 				}
 			} else if ($groupBy=='day') {
 				foreach ($daysOfWeek as $dayOfWeek) {
-					$results[$dayOfWeek] = array('clicks'=>0, 'conversions'=>0);
+					$results[$dayOfWeek] = array('clicks'=>0, 'conversions'=>0, 'clickThroughs' => 0);
 				}
 			} else {
 				for ($i=0; $i<24; $i++) {
 					$hour = ($i<10)?('0'.$i):$i;
-					$results[$hour.':00 - '.$hour.':59'] = array('clicks'=>0, 'conversions'=>0);
+					$results[$hour.':00 - '.$hour.':59'] = array('clicks'=>0, 'conversions'=>0, 'clickThroughs' => 0);
 				}
 			}
 			
@@ -1843,15 +1846,39 @@ END;
 				}
 				
 				if(!isset($results[$resultsKey])) {
-					$results[$resultsKey] = array('clicks'=>1, 'conversions'=>0);
+					$results[$resultsKey] = array('clicks'=>1, 'conversions'=>0, 'clickThroughs' => 0);
 				}else{
 					$results[$resultsKey]['clicks']++;
 					if ($item->clickThrough == '1') {
-						$results[$resultsKey]['conversions']++;
+						$results[$resultsKey]['clickThroughs']++;
 					}
 				}
 				
+				$sql = "SELECT
+							SUM(conversions) as `total`
+						FROM	
+							bevomedia_user_aff_network_subid
+						WHERE
+							(bevomedia_user_aff_network_subid.statDate = DATE(?)) AND 
+							(bevomedia_user_aff_network_subid.user__id = ?) AND
+							(bevomedia_user_aff_network_subid.subId = ?)
+						";
+				
+				$conversions = $this->db->fetchRow($sql, array($item->clickTime, $item->user__id, $item->subId));
+				$results[$resultsKey]['conversions'] = intval($conversions->total);
 			}
+			
+			
+			$campaignSql = $adGroupSql = "";
+			if ($adGroup != 0 || $campaign != 0) {
+		        $adGroupSql = "INNER JOIN bevomedia_ppc_advariations creative ON (bevomedia_tracker_clicks.creativeId = creative.apiAdId)
+						INNER JOIN bevomedia_ppc_adgroups adgroup ON (creative.adGroupId = adgroup.id) ";
+			    $campaignSql = "INNER JOIN bevomedia_ppc_campaigns campaign ON (
+					        (adgroup.campaignId = campaign.id) AND (campaign.user__id = bevomedia_tracker_clicks.user__id)
+				        )";
+	        }
+			
+			
 			$output = array('results'=>$results, 'data'=>$data);
 			return $output;
 		}
