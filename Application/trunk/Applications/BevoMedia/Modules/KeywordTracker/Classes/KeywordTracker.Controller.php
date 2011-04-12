@@ -1917,6 +1917,9 @@ END;
 						bevomedia_tracker_clicks.id, 
 						bevomedia_tracker_clicks.ipId,
 						bevomedia_tracker_clicks.clickThrough,
+						bevomedia_tracker_clicks.user__id,
+						bevomedia_tracker_clicks.clickTime,
+						bevomedia_tracker_clicks.subId,
 						bevomedia_tracker_ips.ipAddress,
 						bevomedia_tracker_ips.ipLocationID
 					FROM
@@ -1929,6 +1932,7 @@ END;
 						(bevomedia_tracker_ips.id = bevomedia_tracker_clicks.ipId) AND
 						(bevomedia_tracker_clicks.clickDate BETWEEN DATE(?) AND DATE(?)) AND 
 						(bevomedia_tracker_clicks.user__id = ?)
+						
 					";
 			
 			$sqlParameters = array($startDate, $endDate, $this->User->id);
@@ -2004,15 +2008,28 @@ END;
 				}
 				
 				if(!isset($results[$resultsKey])) {
-					$results[$resultsKey] = array('clicks'=>1, 'conversions'=>0);
+					$results[$resultsKey] = array('clicks'=>1, 'conversions'=>0, 'clickThroughs' => 0);
 				}else{
 					$results[$resultsKey]['clicks']++;
 					if ($item->clickThrough == '1') {
-						$results[$resultsKey]['conversions']++;
+						$results[$resultsKey]['clickThroughs']++;
 					}
 				}
 				ksort($results);
+
 				
+				$sql = "SELECT
+							SUM(conversions) as `total`
+						FROM	
+							bevomedia_user_aff_network_subid
+						WHERE
+							(bevomedia_user_aff_network_subid.statDate = DATE(?)) AND 
+							(bevomedia_user_aff_network_subid.user__id = ?) AND
+							(bevomedia_user_aff_network_subid.subId = ?)
+						";
+				
+				$conversions = $this->db->fetchRow($sql, array($item->clickTime, $item->user__id, $item->subId));
+				$results[$resultsKey]['conversions'] = intval($conversions->total);
 			}
 			$output = array('results'=>$results, 'data'=>$data);
 			return $output;
