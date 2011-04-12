@@ -97,8 +97,8 @@ $this->filter->show_ppv_filtering_table();
 	<tr class="table_header">
 	    <td class="hhl">&nbsp;</td>
 		<td><?php get_column_sort_link('SubID', 'data'); ?></td>
-		<td style="text-align: center;"><?php get_column_sort_link('Impressions', 'sumClick'); ?></td>
-		<td style="text-align: center;"><?php get_column_sort_link('Clicks', 'sumClicks'); ?></td>
+		<td style="text-align: center;"><?php get_column_sort_link('Clicks', 'sumClick'); ?></td>
+		<td style="text-align: center;"><?php get_column_sort_link('Click Throughs', 'sumClicks'); ?></td>
 		<td style="text-align: center;"><?php get_column_sort_link('CTR', 'sumClicks'); ?></td>
 		<td style="text-align: center;"><?php get_column_sort_link('Conv', 'sumConv'); ?></td>
 		<td style="text-align: center;"><?php get_column_sort_link('Conv %', 'sumConv'); ?></td>
