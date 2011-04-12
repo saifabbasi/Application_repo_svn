@@ -138,6 +138,7 @@ $(function($) {
 	    <td class="hhl">&nbsp;</td>
 		<td>When</td>
 		<td>Clicks</td>
+		<td>Click Throughs</td>
 		<td>Conversions</td>
 		<td class="hhr">&nbsp;</td>
 	</tr>
@@ -161,6 +162,9 @@ $(function($) {
            <?php echo $value['clicks'] ?>
         </td>
         <td>
+           <?php echo $value['clickThroughs'] ?>
+        </td>
+        <td>
            <?php echo $value['conversions'] ?>
         </td>
 		<td class="tail"></td>
@@ -171,7 +175,7 @@ $(function($) {
     </tbody>
 	<tr class="table_footer">
 		<td class="hhl"></td>
-		<td colspan="3"></td>
+		<td colspan="4"></td>
 		<td class="hhr"></td>
 	</tr>
 </table>
