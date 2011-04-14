@@ -25,9 +25,9 @@ $Sql = "SELECT
 		AND (
 		 `clicks`.`subId` =  `subid`.`subId`
 		)
-		AND (
-		 `subid`.`statDate` >=  `clicks`.`clickDate`
-		) )
+		
+		AND (subid.statDate = `clicks`.`clickDate`)
+		)
 		)
 		JOIN bevomedia_tracker_landing_pages AS lps ON (  `clicks`.`landingPageId` = lps.id ) 
 		AND (
@@ -38,12 +38,12 @@ $Sql = "SELECT
 		BETWEEN  '$stDate'
 		AND  '$enDate'
 		)
-		AND (subid.statDate = `clicks`.`clickDate`)
+		
 		)
 		GROUP BY  
 			clicks.id
 		ORDER BY lps.landingPageUrl
-		";
+		";//echo '<pre>'.$Sql;die;
 //$query = "
 //		SELECT
 //			lps.landingPageUrl AS url,
