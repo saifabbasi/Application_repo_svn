@@ -146,7 +146,7 @@ Class APIController extends ClassComponent
     		exit;
     	}
     	$apiKey = mysql_real_escape_string(@$_GET['apiKey']);
-    	$finduserId = mysql_query("select id, created, membershipType from bevomedia_user where apiKey='$apiKey'");
+    	$finduserId = mysql_query("select id, created, membershipType, vaultID from bevomedia_user where apiKey='$apiKey'");
     	if(mysql_num_rows($finduserId) == 0)
     	{
     	    echo Zend_Json::encode(array('error' => 'No such user'));
@@ -155,7 +155,7 @@ Class APIController extends ClassComponent
     	$user = mysql_fetch_assoc($finduserId);
     	$userId = @$user['id'];
     	
-    	if (@$user['membershipType']!='premium')
+    	if ( (@$user['membershipType']!='premium') && (@$user['vaultID']==0) )
     	{
     		echo Zend_Json::encode(array('error' => 'You need to have a premium account to upgrade/update your stats'));
     	    exit;
