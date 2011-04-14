@@ -994,6 +994,7 @@
 					pc.user__id = {$UserID}
 					AND clickDate
 						BETWEEN '{$StartDate}' AND '{$EndDate}'
+					
 					AND tc.creativeId != ''
 					{$AndSql}
 				GROUP BY
