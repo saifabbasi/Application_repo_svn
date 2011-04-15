@@ -10,6 +10,20 @@
 
 <br />
 
+	<div style="width:150px; text-align: left;"><b>Current Time:</b> &nbsp;<div style="float:right;" class="jclock"></div></div>
+	
+	<script src="/Themes/BevoMedia/jquery.jclock-1.2.0.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	$(function($) {
+	    var options={
+	        utc: true,
+	        utc_offset: -4
+	      };
+	    $('.jclock').jclock(options);
+	});
+	</script>
+
+	<br />
 
 	<form method='post' class="geotargeting">
 		
