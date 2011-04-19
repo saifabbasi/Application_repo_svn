@@ -1,3 +1,5 @@
+<?php /* OLD PAGE HEADER, before offerzzz. can go!
+
 <?php
 //*************************************************************************************************
 
@@ -82,16 +84,383 @@ e.checked = false;
 }
 </script>
 	
-	<?= @$info ?>
+<?= @$info ?>
+
+*/ ?>
+
+<?php /* ##################################################### OUTPUT ############### */ ?>
+<div id="pagemenu">
+	<ul>
+		<li><a href="/BevoMedia/Offers/BestPerformers.html">Best Performing Offers<span></span></a></li>
+		<li><a class="active" href="/BevoMedia/Offers/Index.html">Search<span></span></a></li>
+		<li><a href="/BevoMedia/Offers/MySavedLists.html">My Saved Lists<span></span></a></li>
+	</ul>
+</div>
+<?php echo $this->PageDesc->ShowDesc($this->PageHelper, false, false, false, 'ovault'); //disable toggle, custom css class
+?>
+
+<?php include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Odial.include.php'; ?>
+
+<div class="pagecontent" id="ovault">
+	<?php include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Pagecontent.include.php'; ?>
+</div><!--close pagecontent#ovault-->
+
+<script type="text/javascript">
+$(document).ready(function() {
+	/*offer vault*/
+	var	ajaxGet = 'AjaxGetContent.html',
+		cache = [],
+		
+		//current
+		currentOid; //the current offer id that is being fetched for orowbig
+		
+	cache.offerdetails = []; //index = the offer ID
+	cache.searchresults = []; //index = the actual search string
 	
-	<?php /* ##################################################### OUTPUT ############### */ ?>
-	<div id="pagemenu">
-		<ul>
-			<li><a class="active" href="/BevoMedia/Offers/Index.html">Offers<span></span></a></li>
-			<li><a href="/BevoMedia/Offers/NameYourPayout.html">Name Your Payout<span></span></a></li>
-		</ul>
-	</div>
-	<?php echo $this->PageDesc->ShowDesc($this->PageHelper); ?>
+	
+	//orow expand/collapse
+	$('#j_otablecont .orow').live('click', function() {
+		var thisrow = $(this);
+		currentOid = $(this).data('oid'); //the network ID to fetch
+		
+		if($(this).hasClass('expanded')) { //collapse
+			thisrow.removeClass('expanded');
+			$('#j_otablecont .orowbig.j_oid-'+currentOid).fadeOut(400, function() {
+				$(this).remove();
+			})
+			
+		} else { //expand
+			
+			//check if in cache already
+			if(cache.offerdetails[currentOid]) {
+				thisrow.addClass('expanded').after(cache.offerdetails[currentOid]);
+				$('#j_otablecont .orowbig.j_oid-'+currentOid).slideDown(400);
+			
+			} else {
+				$.ajax({
+					type: 'GET',
+					url: ajaxGet+'?get=orowbig&oid='+currentOid,
+					success: function(r) {
+						r = $.parseJSON(r);
+						if(r.error) {
+							ajaxMessage(r);
+						} else {
+							//add to cache
+							cache.offerdetails[currentOid] = r.html;
+							//add to dom
+							thisrow.addClass('expanded').after(r.html);
+							$('#j_otablecont .orowbig.j_oid-'+currentOid).fadeIn(400);
+						}
+					},
+					error: function(r) {
+						m = ['Something went wrong, please try again.']
+						ajaxError(m);
+					}
+				});
+			}//endif in cache
+		}//end collapse/expand
+	})//orow expand/collapse
+	
+	/*search dial*/
+	//submit
+	$('#osearchform').live('submit', function() {
+		//e.preventDefault();
+		
+		var 	error = [],
+			search = $('#osearch').val(),
+			type = $('#osearch_type').val(),
+			include_mysaved = $('#osearch_include_mysaved').val(),
+			include_networks = $('#osearch_include_networks').val();
+		
+		//check options
+		if((search == $('#osearch').prev().html()) || (search == ''))
+			error.push('Please enter an offer name or vertical to search for!');
+		
+		if(type == '')
+			error.push('Please select at least one conversion type!');
+		
+		if(include_networks == '')
+			error.push('You must include at least one network!');
+		
+		//errors?
+		if(error.length != 0)
+			ajaxMessage(error);
+		
+		else {
+			//construct string
+			var s = 'get=searchresults&search='+search+'&type='+type+'&include_mysaved='+include_mysaved+'&include_networks='+include_networks;
+			
+			$.ajax({
+				type: 'GET',
+				url: ajaxGet+'?'+s,
+				success: function(r) {
+					r = $.parseJSON(r);
+					
+					if(r.error) {
+						ajaxMessage(r.error);
+					} else {						
+						var target = $('#j_otablecont');
+						
+						cache.searchresults[r.searchstring] = s; //REPLACE WITH THE BELOW
+						window.location.hash = s; //REPLACE WITH THE BELOW
+						
+						//cache.searchresults[r.searchstring] = r.resultarr; //use sanitized search string from script as an index
+						//window.location.hash = r.searchstring; //same here
+
+						target.html(''); //remove old content
+						for(var i in r.resultarr) { //add to dom
+							target.append(addOfferTableRow(r.resultarr[i]));
+						}
+					}
+				},
+				error: function(r) {
+					ajaxError(r);
+				}
+			});
+		}//endif errors
+		
+		return false;
+		
+	})//#osearchform submit
+	
+	//input label
+	$('input#osearch').live('focus', function() {
+		if($(this).val() == $(this).prev().html())
+			$(this).val('');
+		
+	}).live('blur', function() {
+		if($(this).val() == '')
+			$(this).val($(this).prev().html());
+	
+	})//input#osearch label
+	
+	//checkbox change
+	$('#odial a.ocheck').live('click', function() {
+		var	field = $(this).data('hiddenfield'),
+			v = $(this).data('value');
+			
+			/*target = $('#osearch_'+k),
+			targetval = target.val();*/
+		
+		if($(this).hasClass('active')) { //uncheck
+			odialHiddenFieldUpdate(field, v, 'remove');
+			$(this).removeClass('active');
+			
+			/*if(k == 'include_mysaved') //this is the only bool one
+				targetval = 0;
+			else {
+				targetval.replace(v, ''); //ignore commas, we'll take care of empty fields later when parsing
+				$(this).removeClass('active');
+			}*/
+		
+		} else { //check
+			odialHiddenFieldUpdate(field, v);
+			$(this).addClass('active');
+			
+			/*if(k == 'include_mysaved') //this is the only bool one
+				targetval = 1;
+			else {
+				target.val(targetval+','+v);
+				$(this).addClass('active');
+			}*/
+		}
+		
+		return false;
+	})//a.ocheck
+	
+	//olay show
+	$('#odial .j_showolay').click(function() {
+		var target = $('#'+$(this).data('olay'));
+		
+		if(target.hasClass('active'))
+			target.fadeOut(300).removeClass('active');
+		else	target.fadeIn(300).addClass('active');
+	})
+	
+	//olay close
+	$('#odial .ovault_olay a.ovault_olay_close').click(function() {
+		$(this).parents('.ovault_olay').fadeOut(300).removeClass('active');
+	})
+	
+	//olay_selelist items
+	$('#odial ul.olay_selelist li a').live('click', function() {
+		var 	num = $(this).data('number'),
+			field = $(this).data('hiddenfield'),
+			v = $(this).data('value');
+		
+		if($(this).hasClass('active')) { //deselect
+			odialNumberUpdate(num, true);			
+			odialHiddenFieldUpdate(field, v, 'remove');
+			$(this).removeClass('active');
+			
+		} else { //add
+			odialNumberUpdate(num);
+			odialHiddenFieldUpdate(field, v);
+			$(this).addClass('active');
+		}
+			
+		return false;
+	})
+	
+	//olay_selelist all/none
+	$('#odial a.j_olay_selelist').click(function() {
+		var 	ul = $('#odial ul.'+$(this).data('ul')),
+			field = $(this).data('hiddenfield'),
+			action = $(this).data('action'),
+			num = $(this).data('number'),
+			
+			values = []; //in each(), add each item's value to this arr, then pass to odialHiddenFieldUpdate
+			
+		if(action == 'addall') { //select all
+			$('li a', ul).not('.active').each(function() {
+				values.push($(this).data('value'));
+				odialNumberUpdate(num);
+				$(this).addClass('active');
+			})
+		} else { //remove all
+			$('li a.active', ul).each(function() {
+				values.push($(this).data('value'));
+				odialNumberUpdate(num,true);
+				$(this).removeClass('active');
+			})
+		}
+		
+		odialHiddenFieldUpdate(field, values, action)
+		
+		return false;		
+	})	
+	
+	/*
+	
+	FUNCTIONS
+	
+	*/
+	
+	/*ajaxMessage*/ //m should be an array
+	function ajaxMessage(m) {
+		for(i=0; i<=m.length-1; i++)
+			alert(m[i]);
+	}//ajaxMessage()
+	
+	/*ajaxSuccess*/
+	function ajaxSuccess(r) {
+		r = $.parseJSON(r);
+		
+		
+	}//ajaxSuccess()
+	
+	/*odialHiddenFieldUpdate*/
+	//hiddenfield = 2nd part of the ID of the hidden field, after #osearch_
+	//value = either the value of a single button, or an array of multiple values (for addall and removeall)
+	//action (optional) if not set, it's getting added
+	function odialHiddenFieldUpdate(hiddenfield, value, action) {
+		var	hiddenfield = $('#osearch_'+hiddenfield), //target hidden field
+			currval = hiddenfield.val(); //current val of field
+			
+			bool = ((value === 0) || (value === 1)) ? true : false; //whether or not the field is boolean (right now only true for include_mysaved)
+			
+			alert(currval);
+		
+		if(action == 'remove') {
+			if(bool)
+				hiddenfield.val(0);
+			else	hiddenfield.val(currval.replace(value, ''));
+			
+		} else if(action == 'removeall' && value.length > 0) {
+			for(i=0; i<=value.length-1; i++)
+				hiddenfield.val(currval.replace(value[i], ''));
+			
+		} else if(action == 'addall' && value.length > 0) {
+			for(i=0; i<=value.length-1; i++)
+				tmp = ','+value[i];
+			
+			hiddenfield.val(currval+tmp);
+		
+		} else { //add single
+			if(bool)
+				hiddenfield.val(1);
+			else	hiddenfield.val(currval+','+value);		
+		}	
+	}//odialNumberUpdate()
+	
+	/*odialNumberUpdate*/
+	function odialNumberUpdate(id, subtract) {
+		if(subtract)
+			$('#'+id).html(parseInt($('#'+id).html())-1);
+		else	$('#'+id).html(parseInt($('#'+id).html())+1);			
+	}//odialNumberUpdate()
+	
+	/*addOfferTableRow*/ //adds 1 row. passed var must be an object from AjaxGetContent, usually r.resultarr[i]
+	function addOfferTableRow(offer) {
+		var out;
+		out += '<tr class="orow j_old-'+offer['oid']+'" data-oid="'+offer['oid']+'" title="Click to expand or collapse this offer">';
+		out += '<td class="border">&nbsp;</td>';
+		
+		//saved2list
+		out += '<td class="td_saved2list" style="width:15px;">';
+			out += offer['saved2list'] == 1 ? '<div class="icon icon_ovault_added2list" title="You have already saved this offer"></div>' : '&nbsp;';
+		out += '</td>';
+		
+		//savelist
+		out += '<td class="td_savelist" style="width:40px;">';
+			out += '<a class="btn ovault_add2list" href="#" data-oid="'+offer['oid']+'" title="Add this offer to the active list">Add</a>';
+			out += '<a class="btn ovault_add2list_select" href="#" data-oid="'+offer['oid']+'" title="Select a list to add this offer to...">Select</a></td>';
+			
+		//offername
+		out += '<td class="td_offername" style="width:465px;"><p>'+offer['offername']+'<span>'+offer['dateadded']+'</span></p></td>';
+			
+		//payout
+		out += '<td class="td_payout" style="width:54px;"><p>'+offer['payout']+'</p></td>';
+			
+		//type
+		out += '<td class="td_type" style="width:41px;"><p>'+offer.offertype+'</p></td>';
+			
+		//vertical
+		out += '<td class="td_vertical" style="width:123px;"><p>'+offer['vertical']+'</p></td>';
+			
+		//network
+		out += '<td class="td_network" colspan="2" style="width:120px;"><p class="icon';
+			out += offer['is_networkmember'] == 1 ? ' icon_nwmember' : '';
+		out += '">'+offer['networkname']+'</p></td>';
+			
+		out += '</tr>';
+		
+		return out;
+	}//addOfferTableRow
+
+	/*json*/
+	$.parseJSON = function(src) {
+		//if(typeof(JSON) == 'object' && JSON.parse)
+		//	return JSON.parse(src);
+		return eval("(" + src + ")");
+	};
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php /* OLD INDEX
+
+
+
+##############################################################
+##############################################################
+##############################################################
+##############################################################
+##############################################################
+
 
 				<form method=get action="Search.html" name="frm" class="appform" id="offmain_searchform">
 				<table class="btable wide2x3" cellspacing="0" cellpadding="5">
@@ -150,7 +519,7 @@ e.checked = false;
 						<td colspan="2"  style="text-align: right; padding-top: 2px;">
 							<input class="formsubmit off_search baseeffect search" type="submit" value="Search" />
 							<?php /* this looks like it could confuse people
-							<input type="reset" value="Default" class="baseeffect default" style="color: white"> */ ?>
+							<input type="reset" value="Default" class="baseeffect default" style="color: white"> * / ?>
 						</td>
 						<td class="tail">&nbsp;</td>
 					</tr>
@@ -231,4 +600,4 @@ e.checked = false;
 						<td colspan="2">&nbsp;</td>
 						<td class="hhr"></td>
 					</tr>
-				</table>
+				</table> */ ?>

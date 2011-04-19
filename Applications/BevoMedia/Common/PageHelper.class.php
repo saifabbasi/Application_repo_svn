@@ -226,10 +226,31 @@ Class PageHelper {
 			$PagePresets['Offers/NameYourPayoutResult/SubHeading'] = 'Get the payout you want! Enter your requested payout for a a specific offer or niche and have the Bevo networks bid for you to run with them. If a match is found, a Bevo representative will connect you with your winning network.</p><p>Please note: the highest bidding network may not match your desired payout and/or EPC <em>exactly</em>, but it\'s the winner among all bidders.';			
 		
 			$PagePresets['Offers/Index/UniquePageName'] = 'offers_index';
+			$PagePresets['Offers/Index/HeadingImage'] = 'pagedesc_offervault.png';
+			$PagePresets['Offers/Index/Heading'] = 'Bevo Offer Vault';
+			$PagePresets['Offers/Index/SubHeading'] = 'Using Bevo\'s revolutionary Search Offer Tool, you can search for offers across all affiliate networks.';
+			
+			$PagePresets['Offers/BestPerformers/UniquePageName'] = 'offers_bestperf';
+			$PagePresets['Offers/BestPerformers/HeadingImage'] = 'pagedesc_offervault.png';
+			$PagePresets['Offers/BestPerformers/Heading'] = 'Bevo Offer Vault';
+			$PagePresets['Offers/BestPerformers/SubHeading'] = 'Using Bevo\'s revolutionary Search Offer Tool, you can search for offers across all affiliate networks.';
+			
+			$PagePresets['Offers/MySavedLists/UniquePageName'] = 'offers_mysavedlists';
+			$PagePresets['Offers/MySavedLists/HeadingImage'] = 'pagedesc_mysavedlists.png';
+			$PagePresets['Offers/MySavedLists/Heading'] = 'My Saved Offer Lists';
+			$PagePresets['Offers/MySavedLists/SubHeading'] = 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.';
+			
+			$PagePresets['Offers/MyStats/UniquePageName'] = 'offers_mystats';
+			$PagePresets['Offers/MyStats/HeadingImage'] = 'pagedesc_mynetworkstats.png';
+			$PagePresets['Offers/MyStats/Heading'] = 'My Network Stats';
+			$PagePresets['Offers/MyStats/SubHeading'] = 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.';
+			
+			/*
+			$PagePresets['Offers/Index/UniquePageName'] = 'offers_index';
 			$PagePresets['Offers/Index/HeadingImage'] = 'pagedesc_offers.png';
 			$PagePresets['Offers/Index/Heading'] = 'Analyze Offer Performance';
 			$PagePresets['Offers/Index/SubHeading'] = 'Analyze your performance with a specific network below by clicking on stats - you can even drill down to your performance on a specific offer and sub id. Using Bevo\'s Search Offer Tool, you can search for CPA offers across all of the affiliate networks of which you are a member.';
-			
+			*/
 			$PagePresets['Offers/Search/UniquePageName'] = 'offers_search';
 			$PagePresets['Offers/Search/HeadingImage'] = 'pagedesc_offers.png';
 			$PagePresets['Offers/Search/Heading'] = 'Your Offer Search Results';
