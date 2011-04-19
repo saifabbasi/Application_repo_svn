@@ -759,8 +759,266 @@ h2.imagetitle.interested { width:147px; height:22px; background:url(img/imagetit
 .nyp .working { display:none; }
 
 
+/*offervault 110404*/
+	/*pagedesc, globals*/
+#pagedesc.ovault { padding-right:435px; }
+
+#pagedesc.ovault { z-index:40; }
+#ovault.pagecontent { margin-top:50px; position:relative; z-index:40; }
+#odial { z-index:100; }
+
+#odial .hide,
+#ovault.pagecontent .hide { display:none; }/*see if we have this already*/
+
+	/*dial*/
+#odial { width:432px; height:202px; position:absolute; top:20px; right:-5px; background:url(img_new/odial.png) no-repeat; }
+#odial .top { width:401px; height:100px; position:absolute; top:10px; left:30px; }
+#odial .butt { width:311px; height:65px; position:absolute; top:110px; left:84px; }
+
+	/*dial top*/
+	#odial .top .label_searchfor { width:41px; height:19px; position:absolute; top:5px; left:8px; background:url(img_new/odial_label_searchfor.png) no-repeat; }
+	#odial .top .main { width:318px; height:100px; position:absolute; top:0; left:50px; background:url(img_new/odial_main.png) no-repeat; }
+	#odial .top .btn.odial_go { position:absolute; top:6px; left:365px; }
+	
+		#odial .top .main .obox { position:absolute; }
+		#odial .top .main .obox.upper { top:5px; left:5px; }
+		#odial .top .main .obox.mediatype { width:119px; height:39px; top:58px; left:8px; }
+		#odial .top .main .obox.countries { width:90px; height:56px; top:39px; left:133px; cursor:pointer; }
+		#odial .top .main .obox.include { width:80px; height:39px; top:55px; left:235px; }
+		
+			#odial .top .main .obox.upper label { display:none; }
+			#odial .top .main .obox.upper input.formtxt { width:196px; padding:4px 3px; margin:3px 10px 0 5px; float:left; font-size:10px; -moz-box-shadow:none; -webkit-box-shadow:none; box-shadow:none; }
+			#odial .top .main .obox.upper a.ocheck { margin:9px 0 0 0; float:left; }
+			
+			#odial .top .main .obox.mediatype a.ocheck { float:left; margin:0 7px 2px 0; }
+			
+			#odial .top .main .obox.countries .number { width:25px; position:absolute; top:0; left:0; font-size:10px; text-align:center; color:#000; font-family:Verdana, Arial, sans-serif; }
+			#odial .top .main .obox.countries .preview { width:85px; height:37px; position:absolute; top:18px; left:2px; overflow:hidden; }
+				#odial .top .main .obox.countries ul { margin:0; color:#ccc; font-size:8px; font-family:Verdana, Arial, sans-serif; }
+				#odial .top .main .obox.countries li { margin:0; padding:0; }
+				
+			#odial .top .main .obox.include a.ocheck {}
+			#odial .top .main .obox.include .number { width:25px; position:absolute; top:19px; left:2px; font-size:10px; text-align:center; color:#000; font-family:Verdana, Arial, sans-serif; cursor:pointer; }
+	
+/*START ODIAL SIMPLE - remove this once the final odial is implemented*/
+	/*dial top.simple*/
+	#odial .top .main { width:318px; height:100px; position:absolute; top:0; left:50px; background:url(img_new/odial_main_simple.png) no-repeat; }
+	
+		#odial .top.simple .main .obox.convtype { width:119px; height:39px; top:58px; left:12px; }
+		#odial .top.simple .main .obox.include { width:90px; height:56px; top:58px; left:133px; cursor:pointer; }
+		#odial .top.simple .main .obox.networks { width:80px; height:39px; top:58px; left:235px; }
+		
+			#odial .top.simple .main .obox.upper input.formtxt { width:291px; padding:4px 3px; margin:3px 10px 0 5px; float:left; font-size:10px; -moz-box-shadow:none; -webkit-box-shadow:none; box-shadow:none; }
+			
+			#odial .top.simple .main .obox.convtype a.ocheck { margin:0 0 2px 0; }
+			
+			#odial .top.simple .main .obox.include a.ocheck {}
+			
+			#odial .top.simple .main .obox.networks .number { width:25px; position:absolute; top:-5px; left:1px; font-size:10px; text-align:center; color:#000; font-family:Verdana, Arial, sans-serif; cursor:pointer; }
+/*END ODIAL SIMPLE*/
+				
+	/*dial butt*/
+	#odial .butt .rows { width:98px; height:65px; position:absolute; top:0; left:0; background:url(img_new/odial_butt_rows.png) no-repeat; }
+	#odial .butt .save { width:220px; height:65px; position:absolute; top:0; left:98px; background:url(img_new/odial_butt_save.png) no-repeat; }
+	
+		#odial .butt .selebtn { padding:2px 2px 2px 5px; position:absolute; color:#666; background:#fff; cursor:pointer; font-size:10px;
+						border:1px solid #ccc; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }
+		#odial .butt .selebtn span.down { width:5px; height:3px; margin:6px 1px 0 1px; display:block; float:right; background:url(img_new/selebtn_arrdown.png) no-repeat; }
+		#odial .butt .selebtn a { color:#666; text-decoration:none; }
+		#odial .butt .selebtn a.active { color:#0071bc; }
+		
+		#odial .butt .rows .selebtn { width:29px; top:18px; left:51px; }
+		#odial .butt .save .selebtn { width:150px; top:18px; left:11px; }
+		#odial .butt .save a.btn { position:absolute; top:42px; left:19px; }
+
+
+	/*pagecontent - table*/
+#ovault .btable tr.orow {}
+#ovault .btable tr.orow td { vertical-align:middle; }
+#ovault .btable tr.orow td.td_saved2list,
+#ovault .btable tr.orow td.td_savelist,
+#ovault .btable tr.orow td.td_offername,
+#ovault .btable tr.orow td.td_payout,
+#ovault .btable tr.orow td.td_type,
+#ovault .btable tr.orow td.td_vertical,
+#ovault .btable tr.orow td.td_network { padding:4px 5px; }
+
+/*#ovault .btable td.td_saved2list { width:15px !important; }
+#ovault .btable td.td_savelist { width:40px !important; border-left:none; }
+#ovault .btable td.td_offername { width:465px; }
+#ovault .btable td.td_payout { width:54px !important; text-align:center; }
+#ovault .btable td.td_type { width:41px !important; text-align:center; }
+#ovault .btable td.td_vertical { width:123px !important; text-align:center; }
+#ovault .btable td.td_network { width:120px !important; text-align:center; }
+        #ovault .btable tr.orow td.td_network { border-right:1px solid #ABE2F5 !important; }*/
+#ovault .btable td.td_savelist { border-left:none; }
+#ovault .btable td.td_payout,
+#ovault .btable td.td_type,
+#ovault .btable td.td_vertical,
+#ovault .btable td.td_network { text-align:center; }
+        #ovault .btable tr.orow td.td_network { border-right:1px solid #ABE2F5 !important; }
+        
+
+	#ovault .btable td a.tcol { padding-left:8px; text-decoration:none; color:#1D569B; }
+	#ovault .btable td a.tcol.asc,
+	#ovault .btable td a.tcol.desc { font-weight:bold; }
+	#ovault .btable td a.tcol.asc { background:url(img_new/tcol_asc.png) no-repeat 0 4px; }
+	#ovault .btable td a.tcol.desc { background:url(img_new/tcol_desc.png) no-repeat 0 4px; }
+	
+	/*orow*/
+	#ovault .btable tr.orow td { cursor:pointer; }
+		#ovault .btable tr.orow.expanded td { cursor:normal; }
+		#ovault .btable tr.orow:hover td,
+		#ovault .btable tr.orow.expanded td { background:#E3E6F5; }
+	
+	#ovault .btable tr td.td_saved2list .icon_ovault_added2list { margin:0 0 0 -5px; }
+	#ovault .btable td.td_savelist a.btn.ovault_add2list,
+	#ovault .btable td.td_savelist a.btn.ovault_add2list_select { margin:0; float:left; display:none; }
+        	#ovault .btable tr:hover td.td_savelist a.btn.ovault_add2list,
+	        #ovault .btable tr.expanded td.td_savelist a.btn.ovault_add2list,
+        	#ovault .btable tr:hover td.td_savelist a.btn.ovault_add2list_select,
+            	#ovault .btable tr.expanded td.td_savelist a.btn.ovault_add2list_select { display:block; }
+	
+	
+	#ovault .btable td.td_offername p { color:#000; }
+		#ovault .btable td.td_offername p span { font-size:.8em; color:#999; display:block; margin:-5px 0 0; }
+	#ovault .btable td.td_payout p { color:#000; }	
+	#ovault .btable td.td_type p { font-size:.9em; color:#808080; }
+	#ovault .btable td.td_vertical p { font-size:.9em; color:#808080; }
+	#ovault .btable td.td_network p { font-size:.9em; color:#808080; }
+	
+	/*orow.expanded*/
+	#ovault .btable tr.orow.expanded td { border-top:5px solid #333; }
+	#ovault .btable tr.orow.expanded td.td_payout { background:url(img_new/orow_exp_bg_dark.gif) repeat-y; }
+                #ovault .btable tr.orow.expanded td.td_payout p { color:#fff; }  
+	#ovault .btable tr.orow.expanded td.td_type { background:url(img_new/orow_exp_bg_darkgray.gif) repeat-y; border-left:none; }
+                #ovault .btable tr.orow.expanded td.td_type p { color:#fff; }
+	#ovault .btable tr.orow.expanded td.td_vertical { background:url(img_new/orow_exp_bg_litegray.gif) repeat-y; border-left:none; }
+        	#ovault .btable tr.orow.expanded td.td_vertical p { color:#000; }
+	#ovault .btable tr.orow.expanded td.td_network { background:url(img_new/orow_exp_bg_dark.gif) repeat-y right top; border-left:none;}
+        	#ovault .btable tr.orow.expanded td.td_network p { color:#fff; }
+	
+	/*orowbig*/
+	#ovault .btable tr.orowbig.hide { display:none; }
+        #ovault .btable tr.orowbig td { border-top:none; border-bottom:5px solid #333; }
+        #ovault .btable tr.orowbig td .td_inner { padding:5px; }
+
+	#ovault .btable tr.orowbig td.td_info { background:url(img_new/orow_exp_bg_lite.gif) repeat-y; }
+                #ovault .btable tr.orowbig td.td_info .td_inner { width:550px; margin:3px 0 0 -10px; }
+	#ovault .btable tr.orowbig td.td_nw { background:url(img_new/orow_exp_bg_dark.gif) repeat-y; }
+                #ovault .btable tr.orowbig td.td_nw .td_inner { width:113px; }
+	#ovault .btable tr.orowbig td.td_nwdesc { background:url(img_new/orow_exp_bg_dark.gif) repeat-y right top; border-left:none; }
+                #ovault .btable tr.orowbig td.td_nwdesc .td_inner { width:245px; }
+
+	
+		#ovault tr.orowbig td.td_info h3 { margin:0; font-size:; color:#333; }
+		#ovault tr.orowbig p { margin:0; line-height:1.3em; font-size:.9em; }
+	
+		/*td_info*/
+		#ovault tr.orowbig td.td_info .floatleft { width:280px; }
+		#ovault tr.orowbig td.td_info .floatright { width:250px; }
+		
+			#ovault tr.orowbig td.td_info small { margin:-5px 0 15px; font-size:.8em; color:#999; display:block; }
+			#ovault tr.orowbig td.td_info p { color:#808080; }
+                        #ovault tr.orowbig td.td_info a.btn.ovault_importoffer { margin:0; }
+			
+			/*ovault_thumb*/
+			a.ovault_othumb { width:290px; height:125px; margin:0 0 10px; overflow:hidden; display:block; }
+				a.ovault_othumb img { max-width:245px; width:auto !important; width:245px; float:left; }
+				a.ovault_othumb span { width:35px; height:73px; margin:0; display:block; float:left; background:url(img_new/othumb.png) no-repeat; }
+				a.ovault_othumb:hover span { background-position:left bottom; }
+			
+			/*olink*/			
+			#ovault .olink { width:260px; height:67px; margin-left:-12px; position:relative; background:url(img_new/olink.png) no-repeat; overflow:hidden; }
+				#ovault .olink input { width:200px; font-size:.9em; position:absolute; top:34px; left:15px; }
+				#ovault .olink a.btn { position:absolute; top:37px; right:3px; }
+				
+				#ovault tr.orowbig td.td_info .olink { margin-top:10px; }
+				
+		/*td_nw*/
+		#ovault tr.orowbig td.td_nw p,
+		#ovault tr.orowbig td.td_nwdesc p{ color:#F2F2F2; }
+		#ovault tr.orowbig .icon_ovault_nwmember_bigwhite { margin:10px auto; }
+		#ovault tr.orowbig a.btn.ovault_gotomystats_trans { margin:0 auto; }
+		
+			/*onwpic*/
+		#ovault .onwpic { width:110px; padding:5px; margin:0 0 10px; border:1px solid #999; background:#fff;
+				-moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px;
+				-moz-border-radius-topleft:0; -webkit-border-top-left-radius:0; border-top-left-radius:0; }
+				
+			#ovault .onwpic img { max-width:120px; width:auto !important; width:120px; margin:0 -5px 10px; }
+			#ovault .onwpic p { color:#808080 !important; }
+			#ovault .onwpic p.bordertop { padding:5px 5px 0; margin:0 -5px; border-top:1px solid #E6E6E6; }
+
+			
+		/*td_nwdesc*/
+		#ovault tr.orowbig td.td_nwdesc .otitle_latestnwreviews { margin-top:10px; }
+		
+			
+	/*offer of the month*/		
+table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:none; position:relative; z-index:40; }
+#ovault .icon_ovault_ootm_tabletop { position:absolute; top:0; left:360px; z-index:50; }
+.icon.icon_ovault_bevoalsorecommends,
+.icon.icon_ovault_hotnewestoffers { margin:30px auto; }
+
+	/*olay*/
+.ovault_olay { position:absolute; display:none; z-index:150; }
+	.ovault_olay .olaytop { width:100%; height:10px; margin:0 0 -7px; background:#E0D06C;
+			-moz-border-radius:8px; -webkit-border-radius:8px; border-radius:8px; }
+	.ovault_olay .olaycont { width:96%; padding:10px; border:1px solid #ccc; background:#333;
+			-moz-border-radius:8px; -webkit-border-radius:8px; border-radius:8px; 
+			-moz-box-shadow:#808080 0 0 5px; -webkit-box-shadow:#808080 0 0 5px; box-shadow:#808080 0 0 5px; }
+	.ovault_olay .olaytopflag { width:27px; height:19px; position:absolute; top:-5px; background:url(img_new/ovault_olaytopflag.png) no-repeat; }
+	.ovault_olay a.btn.ovault_olay_close { position:absolute; top:16px; right:10px; }
+
+            /*single olays*/
+	.ovault_olay#olay_networks { width:542px; top:100px; right:37px; }
+                #olay_networks .olaytopflag { right:52px }
+
+        	#olay_networks.simple { top:80px; right:38px; }/*TEMP - remove along with simple*/
+	
+		.ovault_olay .olaycont > p { color:#FFE87A; text-align:center; }
+		
+		.ovault_olay .olaybox { padding:10px; margin:0 10px 0 0; float:left; border:1px solid #808080; background:#4d4d4d; 
+			-moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px;  }
+			.ovault_olay .olaybox.nomargin { margin:0 !important; }
+			.ovault_olay .olaybox.col1 { width:150px; }
+			.ovault_olay .olaybox.col2 { width:315px; }
+			
+			.ovault_olay .olayboxtitle { height:17px; margin:-10px -10px 0; padding:3px 0 0 10px; background-color:#1A1A1A; background-repeat:no-repeat; background-position:10px 6px; 
+-moz-border-radius-topleft:5px; -webkit-border-top-left-radius:5px; border-top-left-radius:5px;
+-moz-border-radius-topright:5px; -webkit-border-top-right-radius:5px; border-top-right-radius:5px; }
+				.ovault_olay .olayboxtitle.allnetworks { background-image:url(img_new/ovault_olaytitle_allnetworks.gif); }
+				.ovault_olay .olayboxtitle.mynetworks { background-image:url(img_new/ovault_olaytitle_mynetworks.gif); }
+			.ovault_olay .olayboxstripe { height:18px; margin:0 -10px 10px; padding:5px 0 0 9px; background:#666; overflow:hidden; }
+				.ovault_olay .olayboxstripe a.btn { margin:0 5px 0 0; float:left; }
+				
+		
+
+		/*olay_selelist*/
+		ul.olay_selelist { margin:0 -5px; padding:0; list-style:none; overflow:hidden; }
+			.col1 ul.olay_selelist { width:150px; }
+			.col2 ul.olay_selelist { width:330px; }
+		
+			.olay_selelist li a { width:130px; padding:4px 5px 4px 18px; margin:0 5px 2px; float:left; display:block; font-size:.9em; text-align:left; text-decoration:none;	
+					background:url(img_new/icon_olay_selelist_checkgray.png) no-repeat 0 -500px; color:#ccc; line-height:1em; 
+					-moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }
+			.olay_selelist li a.active { background-color:#000; background-position:5px 6px; }
+			.olay_selelist li a:hover { background-color:#333; color:#fff; }
+		
+
 /*offers 110120*/
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 	#offmain_searchform { float:left; }
 	table.floatleft { display:inline !important; }
 }
+
+
+
+
+
+
+
+
+
+
