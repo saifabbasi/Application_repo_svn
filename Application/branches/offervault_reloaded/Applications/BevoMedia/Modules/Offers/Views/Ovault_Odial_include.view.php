@@ -1,4 +1,33 @@
 <div id="odial">
+	<?
+		function isUserRegisteredOnNetwork($networkID)
+		{
+			$sql = "SELECT 
+						id
+					FROM 
+						bevomedia_user_aff_network 
+					WHERE 
+						(bevomedia_user_aff_network.network__id = {$networkID}) AND
+						(bevomedia_user_aff_network.user__id = {$_SESSION['User']['ID']})
+					";
+			$isMemberOfNetwork = mysql_query($sql);
+			return (mysql_num_rows($isMemberOfNetwork)==1);
+		}
+	
+		$sql = "SELECT
+					*
+				FROM
+					bevomedia_aff_network
+				";
+		$networksData = mysql_query($sql);
+		
+		$networks = array();
+		while ($network = mysql_fetch_object($networksData))
+		{
+			$networks[] = $network;
+		}
+	?>
+	
 	<?php /*
 
 	THIS IS THE ENHANCED ODIAL, including country selection and media type options.
