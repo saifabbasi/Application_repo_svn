@@ -33,6 +33,115 @@ class ConstructAjaxOutput {
 		//fetch offer from db HERE using the following params:
 		//$query['params']['oid'] (the offer ID)
 		//no need to parse anything after fetching - just fetch the offer object
+		
+		$offerID = intval($query['params']['oid']);
+		
+		$sql = "SELECT
+					bevomedia_offers.*,
+					bevomedia_category.title as `categoryTitle`,
+					bevomedia_aff_network.title as `networkName`,
+					bevomedia_aff_network.detail as `networkDescription`
+				FROM
+					bevomedia_offers,
+					bevomedia_category,
+					bevomedia_aff_network
+				WHERE
+					(bevomedia_category.id = bevomedia_offers.category__id) AND
+					(bevomedia_aff_network.id = bevomedia_offers.network__id) AND
+					(bevomedia_offers.id = {$offerID})
+				"; echo $sql;die;
+		$data = mysql_query($sql);
+		
+		while ($offer = mysql_fetch_object($data))
+		{
+			$sql = "SELECT 
+						id
+					FROM 
+						bevomedia_user_aff_network 
+					WHERE 
+						(bevomedia_user_aff_network.network__id = {$offer->network__id}) AND
+						(bevomedia_user_aff_network.user__id = {$_SESSION['User']['ID']})
+					";
+			$isMemberOfNetwork = mysql_query($sql);
+			$offer->isNetworkMember = (mysql_num_rows($isMemberOfNetwork))?1:0;
+			
+			
+			$sql = "SELECT
+						rating
+					FROM
+						bevomedia_user_aff_network_rating
+					WHERE
+						(bevomedia_user_aff_network_rating.network__id = {$offer->network__id}) AND
+						(bevomedia_user_aff_network_rating.user__id = {$_SESSION['User']['ID']})			
+					";
+			$userRating = mysql_query($sql);
+			
+			if (mysql_num_rows($userRating)>0) {
+				$userRating = mysql_fetch_assoc($userRating);
+				$offer->userRating = $userRating['rating'];
+			} else {
+				$offer->userRating = 0;
+			}
+			
+			
+			
+			$sql = "SELECT
+						rating
+					FROM
+						bevomedia_user_aff_network_rating
+					WHERE
+						(bevomedia_user_aff_network_rating.network__id = {$offer->network__id}) AND
+						(bevomedia_user_aff_network_rating.user__id = {$_SESSION['User']['ID']})			
+					";
+			$userRating = mysql_query($sql);
+			
+			if (mysql_num_rows($userRating)>0) {
+				$userRating = mysql_fetch_assoc($userRating);
+				$offer->userRating = $userRating['rating'];
+			} else {
+				$offer->userRating = 0;
+			}
+			
+			
+			
+			$sql = "SELECT
+						*
+					FROM
+						bevomedia_user_aff_network_rating
+					WHERE
+						(bevomedia_user_aff_network_rating.network__id = {$offer->network__id}) AND
+						(bevomedia_user_aff_network_rating.approved = 1)
+					ORDER BY 
+						bevomedia_user_aff_network_rating.id DESC
+					LIMIT 3
+					";
+			$ratings = mysql_query($sql);
+			
+			if (mysql_num_rows($ratings)>0) {
+				$offer->ratings = array();
+				while ($rating = mysql_fetch_object($ratings)) {
+					$offer->ratings[] = $rating;
+				}
+			} else {
+				$offer->ratings = array();
+			}
+			
+			
+			
+			
+			// $offer->id
+			// $offer->title = $offerTEMP->offername
+			// $offer->dateAdded = $offerTEMP->dateadded
+			// $offer->payout = $offerTEMP->payout
+			// $offer->type = $offerTEMP->offerType
+			// $offer->categoryTitle = $offerTEMP->vertical
+			// $offer->isNetworkMember = $offerTEMP->is_networkmember
+			// $offer->networkName = $offerTEMP->networkname
+			// $offer->userRating
+			// $offer->ratings
+			
+		}
+		
 		$offer = true;
 		
 		if(!$offer)
@@ -54,28 +163,142 @@ class ConstructAjaxOutput {
 		//$query['params']['include_mysaved'] (1 or 0. if 0, add something like "offers.id NOT IN {db table that stores saved offers for this user}" to the query) (ignore this for now)
 		//$query['params']['include_networks'] (is a comma-separated list of at least 1 netword ID. search only in offers from these networks.)
 		
-		$offers_raw = 'DB FETCHED OBJECT HERE';
 		
-		//$offerTEMP simulates the query results for 1 offer. We need these fields in ajax.
-		//I can remap the raw fetched object later if necessary, no need for you to do that now. Just give me the raw DB obj to work with :)
-		$offerTEMP = new stdClass;
-		$offerTEMP->oid = 1000; //offer id
-		$offerTEMP->saved2list = 1; //already saved in a list or not? 
-		$offerTEMP->offername = 'Shields Deluxe Enhanced Pro Ultra Plus';
-		$offerTEMP->dateadded = '12/12/2011';
-		$offerTEMP->payout = '$12.50';
-		$offerTEMP->type = 'Lead';
-		$offerTEMP->vertical = 'Shields &amp; Daggers';
-		$offerTEMP->is_networkmember = 1; //is this user a member of the network?
-		$offerTEMP->networkname = 'CPA Staxx';
+		//$query['params']['type'] ?? how are we going to get this
+		//$query['params']['include_mysaved'] how are we going to save the offers in this table?
 		
-		//TEMP inflate offerTEMP to get a gazillion results
-		$offersTEMP = new stdClass;
-		for($i=0; $i<=99; $i++)
-			$offersTEMP->$i = $offerTEMP;
 		
-		$out['resultarr'] = $offersTEMP;
+		
+		$searchAdd = '';
+		if (isset($query['params']['search'])) {
+			
+			$terms = explode(' ', $query['params']['search']);
+			
+			
+			foreach ($terms as $term)
+			{
+				if (trim($term)=='') continue;
+				
+				$term = trim($term);
+				
+				$searchAdd .= " (bevomedia_offers.title LIKE '%{$term}%') AND ";
+			}
+			
+			if (strlen($searchAdd)>1) {
+				$searchAdd = ' AND ('.rtrim($searchAdd, 'AND ').' )';
+			} else {
+				$searchAdd = '';
+			}
+		}
+		
+		
+		$networksSearchAdd = '';
+		if (isset($query['params']['include_networks'])) {
+			$terms = explode(',', $query['params']['include_networks']);
+			
+			
+			foreach ($terms as $term)
+			{
+				if (trim($term)=='') continue;
+				
+				$term = intval(trim($term));
+				
+				$networksSearchAdd .= " (bevomedia_offers.network__id = {$term} ) OR ";
+			}
+			
+			if (strlen($networksSearchAdd)>1) {
+				$networksSearchAdd = ' AND ('.rtrim($networksSearchAdd, 'OR ').' )';
+			} else {
+				$networksSearchAdd = '';
+			}
+		}
+		
+		
+		
+		$sql = "SELECT
+					bevomedia_offers.*,
+					bevomedia_category.title as `categoryTitle`,
+					bevomedia_aff_network.title as `networkName`
+				FROM
+					bevomedia_offers,
+					bevomedia_category,
+					bevomedia_aff_network
+				WHERE
+					(bevomedia_category.id = bevomedia_offers.category__id) AND
+					(bevomedia_aff_network.id = bevomedia_offers.network__id)
+					{$searchAdd}
+					{$networksSearchAdd}
+				"; 
+		$data = mysql_query($sql);
+		
+		$offersArray = array();
+		while ($offer = mysql_fetch_object($data))
+		{
+			$sql = "SELECT 
+						id
+					FROM 
+						bevomedia_user_aff_network 
+					WHERE 
+						(bevomedia_user_aff_network.network__id = {$offer->network__id}) AND
+						(bevomedia_user_aff_network.user__id = {$_SESSION['User']['ID']})
+					";
+			$isMemberOfNetwork = mysql_query($sql);
+			$offerTEMP->isNetworkMember = (mysql_num_rows($isMemberOfNetwork))?1:0;
+			
+			
+			// $offer->id
+			// $offer->title = $offerTEMP->offername
+			// $offer->dateAdded = $offerTEMP->dateadded
+			// $offer->payout = $offerTEMP->payout
+			// $offer->type = $offerTEMP->offerType
+			// $offer->categoryTitle = $offerTEMP->vertical
+			// $offer->isNetworkMember = $offerTEMP->is_networkmember
+			// $offer->networkName = $offerTEMP->networkname
+			
+			
+			
+			//OLD OBJECT
+			// $offerTEMP->saved2list = 1; //already saved in a list or not? 
+			// $offerTEMP->offername = 'Shields Deluxe Enhanced Pro Ultra Plus';
+			// $offerTEMP->dateadded = '12/12/2011';
+			// $offerTEMP->payout = '$12.50';
+			// $offerTEMP->type = 'Lead';
+			// $offerTEMP->vertical = 'Shields &amp; Daggers';
+			// $offerTEMP->is_networkmember = 1; //is this user a member of the network?
+			// $offerTEMP->networkname = 'CPA Staxx';
+			
+			$offersArray[] = $offer;
+		}
+		
+		
+		$out['resultarr'] = $offersArray;
 		return $out;
+		
+		
+		// print_r($data);
+		
+		// $offers_raw = 'DB FETCHED OBJECT HERE';
+		
+		// //$offerTEMP simulates the query results for 1 offer. We need these fields in ajax.
+		// //I can remap the raw fetched object later if necessary, no need for you to do that now. Just give me the raw DB obj to work with :)
+		// $offerTEMP = new stdClass;
+		// $offerTEMP->oid = 1000; //offer id
+		// $offerTEMP->saved2list = 1; //already saved in a list or not? 
+		// $offerTEMP->offername = 'Shields Deluxe Enhanced Pro Ultra Plus';
+		// $offerTEMP->dateadded = '12/12/2011';
+		// $offerTEMP->payout = '$12.50';
+		// $offerTEMP->type = 'Lead';
+		// $offerTEMP->vertical = 'Shields &amp; Daggers';
+		// $offerTEMP->is_networkmember = 1; //is this user a member of the network?
+		// $offerTEMP->networkname = 'CPA Staxx';
+		
+		// //TEMP inflate offerTEMP to get a gazillion results
+		// $offersTEMP = new stdClass;
+		// for($i=0; $i<=99; $i++)
+			// $offersTEMP->$i = $offerTEMP;
+		
+		// $out['resultarr'] = $offersTEMP;
+		// return $out;
 		
 	}//orowbig()
 	
