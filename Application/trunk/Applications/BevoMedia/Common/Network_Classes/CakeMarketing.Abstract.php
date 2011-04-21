@@ -177,7 +177,7 @@ abstract class CakeMarketingAbstract Extends NetworksAbstract {
 		//ini_set("max_execution_time", 0);
 		$this->offersLogin();
 		
-		$url = "http://www.c2mtrax.com/affiliates/api/1/offers.asmx/OfferFeed?affiliate_id={$this->offersAffiliateId}&api_key={$this->offersApiKey}";
+		$url = $this->offersUrl."?affiliate_id={$this->offersAffiliateId}&api_key={$this->offersApiKey}";
 		
 		$xmlData = file_get_contents($url);
 		
@@ -197,9 +197,13 @@ abstract class CakeMarketingAbstract Extends NetworksAbstract {
 			$payout = $offer->payout;
 			$url = $offer->preview_link;
 			$description = $offer->description;
+			$offerType = $offer->offer_type;
+			$offerLink = $offer->offer_link;
+			$thumbnailImageUrl = $offer->thumbnail_image_url;
 			
 			echo $offerId."\n";
 			echo $offerName."\n";
+			echo $offerType."\n";
 			$countries = array();
 			
 			if (isset($offer->allowed_countries))
@@ -216,7 +220,10 @@ abstract class CakeMarketingAbstract Extends NetworksAbstract {
 			$OfferObj->name = $offerName;
 			$OfferObj->description = $description;
 			$OfferObj->previewUrl = $url;
+			$OfferObj->imageUrl = $thumbnailImageUrl;
+			$OfferObj->offerType = $offerType;
 			$OfferObj->payout = str_replace('$', '', $payout);
+			$OfferObj->dateAdded = date('Y-m-d');
 			$OfferObj->countries = $countries;
 			$OfferObj->category = $categories;
 			$Output->addOfferObject($OfferObj);

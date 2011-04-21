@@ -29,7 +29,7 @@ class Convert2Media Extends CakeMarketingAbstract {
 	 * @access protected
 	 * @var string $offersUrl
 	 */
-	protected $offersUrl = 'https://affiliate.c2mclicks.com/offersdetail2.php';
+	protected $offersUrl = 'http://www.c2mtrax.com/affiliates/api/1/offers.asmx/OfferFeed';
 	
 	/**
 	 * @access protected
