@@ -10,7 +10,10 @@ class OfferImport {
 	
 	private $tableToOfferBinding = array(
 		'offer__id'=>'offerId', 'title'=>'name', 'detail'=>'description', 'launchedOn'=>'openDate',
-		'expiresOn'=>'expireDate', 'trackingCodesUrl'=>'trackUrl', 'payout'=>'payout', 'epc'=>'ecpc');
+		'expiresOn'=>'expireDate', 'trackingCodesUrl'=>'trackUrl', 'payout'=>'payout', 'epc'=>'ecpc',
+		'imageUrl' => 'imageUrl', 'offerType' => 'offerType', 'dateAdded' => 'dateAdded',
+		'previewUrl' => 'previewUrl'
+	);
 	private $networkId = 0;
 	private $userId = 0;
 	
