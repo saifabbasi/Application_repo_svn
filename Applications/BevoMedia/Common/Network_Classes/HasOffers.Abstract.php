@@ -177,6 +177,10 @@ abstract class HasOffersAbstract Extends NetworksAbstract {
 			$OfferObj->type = $Offer->payout_type;
 			$OfferObj->previewUrl = $Offer->preview_url;
 			
+			$OfferObj->imageUrl = '';
+			$OfferObj->offerType = $Offer->payout_type;
+			$OfferObj->dateAdded = date('Y-m-d');
+			
 			$Output->addOfferObject($OfferObj);
 		}
 		return $Output;
