@@ -40,9 +40,17 @@ if($_GET && isset($_GET['get']) && in_array($_GET['get'], $allowed_gets)) {
 			foreach($required_keys as $key) {
 				$f = str_replace(array('\'','"'), '', strip_tags(trim($_GET[$key])));
 				
-				//LATERRRRRR check for values like "1000,2000,,,3000,,4000": strip out empty
+				//clean up empty/comma
+				if($key == 'include_networks') {
+					$terms = explode(',', $f);
+					foreach($terms as $term) {
+						if(trim($term) != '')
+							$goodterms[] = trim($term);
+					}
+					$f = implode(',', $goodterms);
+				}
 				
-				if($f != '')
+				if($f != '' || !empty($f))
 					$query['params'][$key] = $f;
 				else	$error = 'You have either entered an invalid search term, or a required option is missing. Please try again!'; //only 1 error for all
 			}
@@ -56,7 +64,7 @@ if($_GET && isset($_GET['get']) && in_array($_GET['get'], $allowed_gets)) {
 	} elseif(!empty($query['params'])) {
 			
 		//build request
-		include_once dirname(__FILE__).'/Ovault.ConstructAjaxOutput.class.php';
+		include_once dirname(__FILE__).'/Ovault_ConstructAjaxOutput_class.view.php';
 		$construct = new ConstructAjaxOutput();
 		
 		$out = $construct->$query['get']($query);		
@@ -68,12 +76,19 @@ if($_GET && isset($_GET['get']) && in_array($_GET['get'], $allowed_gets)) {
 if(count($out) == 0) {
 	$out['error'] = 'Oops, something went wrong! Please try again.';
 
-//elseif(array_key_exists('html', $out))
+//} elseif(array_key_exists('html', $out)) {
 //	echo $out['html'];
+
 } else {
 	//construct sanitized search string and add it
-	//$out['searchstring'] = LATERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR 
+	$out['searchstring'] = http_build_query($query['params']);
 	
+	/*if($query['get'] == 'orowbig') {
+		//echo '<pre>';
+		var_dump($out['resultarr']);
+		//echo '</pre>';
+		die();
+	}*/
 	echo json_encode($out);
 }
 

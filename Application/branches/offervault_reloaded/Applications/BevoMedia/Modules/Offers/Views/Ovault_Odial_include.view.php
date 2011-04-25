@@ -21,10 +21,13 @@
 				";
 		$networksData = mysql_query($sql);
 		
-		$networks = array();
+		$allnetworks = array();
+		$mynetworks = array();
 		while ($network = mysql_fetch_object($networksData))
 		{
-			$networks[] = $network;
+			if(isUserRegisteredOnNetwork($network->id) == 1)
+				$mynetworks[] = $network;
+			else	$allnetworks[] = $network;
 		}
 	?>
 	
@@ -152,14 +155,10 @@
 					<a class="btn ovault_smallyell_none j_olay_selelist" href="#" data-hiddenfield="include_networks" data-ul="j_olay_allnetworkslist" data-action="removeall" data-number="number_networks">None</a>
 				</div>
 				<ul class="olay_selelist j_olay_allnetworkslist">
-					<?php	//list all networks
-					$fakenetworks = array('CPA Staxx','Clickbooth','Convert2Media','Wolf Storm Media','W4','Diablo Media');
-					
-					for($i=1; $i<=3; $i++) {
-						for($j=0; $j<=count($fakenetworks)-1; $j++) {
-							echo '<li><a href="#" data-hiddenfield="include_networks" data-value="1000" data-number="number_networks">'.$fakenetworks[$j].'</a></li>';
-						}
-					} ?>
+					<?php	foreach($allnetworks as $network) {
+							echo '<li><a href="#" data-hiddenfield="include_networks" data-value="'.$network->id.'" data-number="number_networks">'.$network->title.'</a></li>';
+					}
+					?>
 				</ul>
 			</div>
 			<div class="olaybox col1 nomargin">
@@ -169,9 +168,10 @@
 					<a class="btn ovault_smallyell_none j_olay_selelist" href="#" data-hiddenfield="include_networks" data-ul="j_olay_mynetworklist" data-action="removeall" data-number="number_networks">None</a>
 				</div>
 				<ul class="olay_selelist j_olay_mynetworklist">
-					<?php for($j=0; $j<=count($fakenetworks)-1; $j++) {
-						echo '<li><a class="active" href="#" data-hiddenfield="include_networks" data-value="1000" data-number="number_networks">'.$fakenetworks[$j].'</a></li>';
-					} ?>
+					<?php	foreach($mynetworks as $network) {
+							echo '<li><a href="#" data-hiddenfield="include_networks" data-value="'.$network->id.'" data-number="number_networks">'.$network->title.'</a></li>';
+					}
+					?>
 				</ul>
 			</div>
 			<div class="clear"></div>

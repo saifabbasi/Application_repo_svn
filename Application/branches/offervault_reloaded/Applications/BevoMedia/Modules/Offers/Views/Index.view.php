@@ -99,7 +99,7 @@ e.checked = false;
 <?php echo $this->PageDesc->ShowDesc($this->PageHelper, false, false, false, 'ovault'); //disable toggle, custom css class
 ?>
 
-<?php include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Odial.include.php'; ?>
+<?php include 'Applications/BevoMedia/Modules/Offers/Views/Ovault_Odial_include.view.php'; ?>
 
 <div class="pagecontent" id="ovault">
 	<?php include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Pagecontent.include.php'; ?>
@@ -110,6 +110,7 @@ $(document).ready(function() {
 	/*offer vault*/
 	var	ajaxGet = 'AjaxGetContent.html',
 		cache = [],
+		cookName = 'lastOfferSearch',
 		
 		//current
 		currentOid; //the current offer id that is being fetched for orowbig
@@ -142,6 +143,11 @@ $(document).ready(function() {
 					url: ajaxGet+'?get=orowbig&oid='+currentOid,
 					success: function(r) {
 						r = $.parseJSON(r);
+						
+						//$('#ovault').prepend(r);
+						
+						//alert(r.html);
+						
 						if(r.error) {
 							ajaxMessage(r);
 						} else {
@@ -201,11 +207,14 @@ $(document).ready(function() {
 					} else {						
 						var target = $('#j_otablecont');
 						
-						cache.searchresults[r.searchstring] = s; //REPLACE WITH THE BELOW
-						window.location.hash = s; //REPLACE WITH THE BELOW
+						//cache.searchresults[r.searchstring] = s; //REPLACE WITH THE BELOW
+						//window.location.hash = s; //REPLACE WITH THE BELOW
 						
-						//cache.searchresults[r.searchstring] = r.resultarr; //use sanitized search string from script as an index
-						//window.location.hash = r.searchstring; //same here
+						cache.searchresults[r.searchstring] = r.resultarr; //use sanitized search string from script as an index
+						window.location.hash = r.searchstring;
+						
+						//set cookie
+						createCookie(cookName,r.searchstring,365);
 
 						target.html(''); //remove old content
 						for(var i in r.resultarr) { //add to dom
@@ -239,30 +248,13 @@ $(document).ready(function() {
 		var	field = $(this).data('hiddenfield'),
 			v = $(this).data('value');
 			
-			/*target = $('#osearch_'+k),
-			targetval = target.val();*/
-		
 		if($(this).hasClass('active')) { //uncheck
 			odialHiddenFieldUpdate(field, v, 'remove');
 			$(this).removeClass('active');
-			
-			/*if(k == 'include_mysaved') //this is the only bool one
-				targetval = 0;
-			else {
-				targetval.replace(v, ''); //ignore commas, we'll take care of empty fields later when parsing
-				$(this).removeClass('active');
-			}*/
 		
 		} else { //check
 			odialHiddenFieldUpdate(field, v);
 			$(this).addClass('active');
-			
-			/*if(k == 'include_mysaved') //this is the only bool one
-				targetval = 1;
-			else {
-				target.val(targetval+','+v);
-				$(this).addClass('active');
-			}*/
 		}
 		
 		return false;
@@ -280,6 +272,7 @@ $(document).ready(function() {
 	//olay close
 	$('#odial .ovault_olay a.ovault_olay_close').click(function() {
 		$(this).parents('.ovault_olay').fadeOut(300).removeClass('active');
+		return false;
 	})
 	
 	//olay_selelist items
@@ -358,8 +351,6 @@ $(document).ready(function() {
 			currval = hiddenfield.val(); //current val of field
 			
 			bool = ((value === 0) || (value === 1)) ? true : false; //whether or not the field is boolean (right now only true for include_mysaved)
-			
-			alert(currval);
 		
 		if(action == 'remove') {
 			if(bool)
@@ -393,7 +384,7 @@ $(document).ready(function() {
 	/*addOfferTableRow*/ //adds 1 row. passed var must be an object from AjaxGetContent, usually r.resultarr[i]
 	function addOfferTableRow(offer) {
 		var out;
-		out += '<tr class="orow j_old-'+offer['oid']+'" data-oid="'+offer['oid']+'" title="Click to expand or collapse this offer">';
+		out += '<tr class="orow j_old-'+offer['id']+'" data-oid="'+offer['id']+'" title="Click to expand or collapse this offer">';
 		out += '<td class="border">&nbsp;</td>';
 		
 		//saved2list
@@ -403,25 +394,25 @@ $(document).ready(function() {
 		
 		//savelist
 		out += '<td class="td_savelist" style="width:40px;">';
-			out += '<a class="btn ovault_add2list" href="#" data-oid="'+offer['oid']+'" title="Add this offer to the active list">Add</a>';
-			out += '<a class="btn ovault_add2list_select" href="#" data-oid="'+offer['oid']+'" title="Select a list to add this offer to...">Select</a></td>';
+			out += '<a class="btn ovault_add2list" href="#" data-oid="'+offer['id']+'" title="Add this offer to the active list">Add</a>';
+			out += '<a class="btn ovault_add2list_select" href="#" data-oid="'+offer['id']+'" title="Select a list to add this offer to...">Select</a></td>';
 			
 		//offername
-		out += '<td class="td_offername" style="width:465px;"><p>'+offer['offername']+'<span>'+offer['dateadded']+'</span></p></td>';
+		out += '<td class="td_offername" style="width:465px;"><p>'+offer['title']+'<span>'+offer['dateAdded']+'</span></p></td>';
 			
 		//payout
 		out += '<td class="td_payout" style="width:54px;"><p>'+offer['payout']+'</p></td>';
 			
 		//type
-		out += '<td class="td_type" style="width:41px;"><p>'+offer.offertype+'</p></td>';
+		out += '<td class="td_type" style="width:41px;"><p>'+offer['type']+'</p></td>';
 			
 		//vertical
-		out += '<td class="td_vertical" style="width:123px;"><p>'+offer['vertical']+'</p></td>';
+		out += '<td class="td_vertical" style="width:123px;"><p>'+offer['categoryTitle']+'</p></td>';
 			
 		//network
 		out += '<td class="td_network" colspan="2" style="width:120px;"><p class="icon';
-			out += offer['is_networkmember'] == 1 ? ' icon_nwmember' : '';
-		out += '">'+offer['networkname']+'</p></td>';
+			out += offer['isNetworkMember'] == 1 ? ' icon_nwmember' : '';
+		out += '">'+offer['networkName']+'</p></td>';
 			
 		out += '</tr>';
 		
@@ -434,6 +425,27 @@ $(document).ready(function() {
 		//	return JSON.parse(src);
 		return eval("(" + src + ")");
 	};
+	
+	function createCookie(name,value,days) {
+		if (days) {
+			var date = new Date();
+			date.setTime(date.getTime()+(days*24*60*60*1000));
+			var expires = "; expires="+date.toGMTString();
+		}
+		else var expires = "";
+		document.cookie = name+"="+value+expires+"; path=/";
+	}
+
+	function readCookie(name) {
+		var nameEQ = name + "=";
+		var ca = document.cookie.split(';');
+		for(var i=0;i < ca.length;i++) {
+			var c = ca[i];
+			while (c.charAt(0)==' ') c = c.substring(1,c.length);
+			if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+		}
+		return null;
+	}
 });
 </script>
 
