@@ -36,6 +36,8 @@ class ConstructAjaxOutput {
 		
 		$offerID = intval($query['params']['oid']);
 		
+		
+		
 		$sql = "SELECT
 					bevomedia_offers.*,
 					bevomedia_category.title as `categoryTitle`,
@@ -49,7 +51,7 @@ class ConstructAjaxOutput {
 					(bevomedia_category.id = bevomedia_offers.category__id) AND
 					(bevomedia_aff_network.id = bevomedia_offers.network__id) AND
 					(bevomedia_offers.id = {$offerID})
-				"; echo $sql;die;
+				"; //echo $sql;die;
 		$data = mysql_query($sql);
 		
 		while ($offer = mysql_fetch_object($data))
@@ -125,8 +127,7 @@ class ConstructAjaxOutput {
 			} else {
 				$offer->ratings = array();
 			}
-			
-			
+		
 			
 			
 			// $offer->id
@@ -142,12 +143,15 @@ class ConstructAjaxOutput {
 			
 		}
 		
-		$offer = true;
 		
-		if(!$offer)
-			$out['error'] = 'This offer seems to be invalid!';
-		else	$out['html'] = self::MakeOrowbig($offer);
 		
+		//if(!$offer)
+		//	$out['error'] = 'This offer seems to be invalid!';
+		//else	$out['resultarr'] = $offer;
+		//else	
+		$out['html'] = self::MakeOrowbig($offer);	
+		//$out['resultarr'] = $offer;
+		//var_dump($offer);die();
 		return $out;
 		
 	}//orowbig()
@@ -199,7 +203,7 @@ class ConstructAjaxOutput {
 			
 			foreach ($terms as $term)
 			{
-				if (trim($term)=='') continue;
+				//if (trim($term)=='') continue;
 				
 				$term = intval(trim($term));
 				
@@ -270,35 +274,15 @@ class ConstructAjaxOutput {
 			$offersArray[] = $offer;
 		}
 		
+		//format price
+		foreach($offersArray as $key => $offer) {
+			$offersArray[$key]->payout = !stristr($offer->payout, '$')
+				? '$'.number_format($offer->payout, 2)
+				: number_format($offer->payout, 2);
+		}		
 		
 		$out['resultarr'] = $offersArray;
 		return $out;
-		
-		
-		// print_r($data);
-		
-		// $offers_raw = 'DB FETCHED OBJECT HERE';
-		
-		// //$offerTEMP simulates the query results for 1 offer. We need these fields in ajax.
-		// //I can remap the raw fetched object later if necessary, no need for you to do that now. Just give me the raw DB obj to work with :)
-		// $offerTEMP = new stdClass;
-		// $offerTEMP->oid = 1000; //offer id
-		// $offerTEMP->saved2list = 1; //already saved in a list or not? 
-		// $offerTEMP->offername = 'Shields Deluxe Enhanced Pro Ultra Plus';
-		// $offerTEMP->dateadded = '12/12/2011';
-		// $offerTEMP->payout = '$12.50';
-		// $offerTEMP->type = 'Lead';
-		// $offerTEMP->vertical = 'Shields &amp; Daggers';
-		// $offerTEMP->is_networkmember = 1; //is this user a member of the network?
-		// $offerTEMP->networkname = 'CPA Staxx';
-		
-		// //TEMP inflate offerTEMP to get a gazillion results
-		// $offersTEMP = new stdClass;
-		// for($i=0; $i<=99; $i++)
-			// $offersTEMP->$i = $offerTEMP;
-		
-		// $out['resultarr'] = $offersTEMP;
-		// return $out;
 		
 	}//orowbig()
 	
@@ -308,79 +292,61 @@ class ConstructAjaxOutput {
 	  * constructs HTML for the offer details box
 	  */
 	private function MakeOrowbig($offer) {
-		if(!$offer)
+		/*if(!$offer)
 			$out = false;
-		else {
-			$out = <<<OROW
-<tr class="orowbig j_oid-1000 hide" data-oid="1000">
-	<td class="border">&nbsp;</td>
-	<td class="td_info" colspan="3">
-		<div class="td_inner">
-			<div class="floatleft">
-				<a class="ovault_othumb" href="#" title="Click to view large">
-					<img src="/Themes/BevoMedia/img_new/othumb_default.gif" alt="" /><!-- 245x125px -->
-					<span></span>
-				</a>
-				<a class="btn ovault_importoffer" href="#">Import this offer into my network</a>
-				<div class="clear"></div>
-			</div>
-			<div class="floatright">
-				<h3>Shield Deluxe</h3>
-				<small>Added 12/12/2011</small>
+		else {*/
+			$out = '<tr class="orowbig j_oid-'.$offer['id'].' hide" data-oid="'.$offer['id'].'">';
+				$out .= '<td class="border">&nbsp;</td><td class="td_info" colspan="3"><div class="td_inner">';
+				$out .= '<div class="floatleft"><a class="ovault_othumb" href="#" title="Click to view large">';
+					$out .= '<img src="/Themes/BevoMedia/img_new/othumb_default.gif" alt="" /><span></span>';
+				$out .= '</a>';
+				$out .= '<a class="btn ovault_importoffer" href="#">Import this offer into my network</a>';
+				$out .= '<div class="clear"></div></div>';
 				
-				<div class="otitle otitle_offerdesc"></div>
-				<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
-				<p>Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+				$out .= '<div class="floatright">';
+				$out .= '<h3>'.$offer['title'].'</h3>';
+				$out .= '<small>Added '.$offer['dateAdded'].'</small>';
 				
-				<div class="olink">
-					<input type="text" class="formtxt" readonly value="http://google.com/" />
-					<a class="btn ovault_visiticon" href="http://google.com/" title="Open link in a new tab" target="_blank">Visit</a>
-				</div>
-			</div>
-			<div class="clear"></div>
-		</div><!--close td_inner-->
-	</td>
-	<td class="td_nw" colspan="2">
-		<div class="td_inner">
-		
-		<div class="otitle otitle_network noborder"></div>
-		<div class="onwpic">
-			<img class="nwpic w120" src="/Themes/BevoMedia/img/networklogos/uni/1068.png" alt="" title="Dadingo" />
+				$out .= '<div class="otitle otitle_offerdesc"></div>';
+				$out .= '<p></p>';
+				
+				$out .= '<div class="olink">';
+					$out .= '<input type="text" class="formtxt" readonly value="http://google.com/" />';
+					$out .= '<a class="btn ovault_visiticon" href="http://google.com/" title="Open link in a new tab" target="_blank">Visit</a>';
+				$out .= '</div>';
+			$out .= '</div><div class="clear"></div></div><!--close td_inner-->';
+			$out .= '</td>';
 			
-			<p class="bordertop aligncenter">Publisher's Rating:<br />
-				<img src="/Themes/BevoMedia/img/star-on.gif" id="img_rating_top_month_1068_1" onmouseover="" onmouseout="" style="" align="absbottom" border="0" />
-				<img src="/Themes/BevoMedia/img/star-on.gif" id="img_rating_top_month_1068_2" onmouseover="" onmouseout="" style="" align="absbottom" border="0" />
-				<img src="/Themes/BevoMedia/img/star-on.gif" id="img_rating_top_month_1068_3" onmouseover="" onmouseout="" style="" align="absbottom" border="0" />
-				<img src="/Themes/BevoMedia/img/star-on.gif" id="img_rating_top_month_1068_4" onmouseover="" onmouseout="" style="" align="absbottom" border="0" />
-				<img src="/Themes/BevoMedia/img/star-on.gif" id="img_rating_top_month_1068_5" onmouseover="" onmouseout="" style="" align="absbottom" border="0" />				
-			</p><!--close publisher's rating-->
-		</div><!--close div.onwpic-->
+			$out .= '<td class="td_nw" colspan="2"><div class="td_inner"><div class="otitle otitle_network noborder"></div>';
+			$out .= '<div class="onwpic">';
+				$out .= '<img class="nwpic w120" src="/Themes/BevoMedia/img/networklogos/uni/1068.png" alt="" title="Dadingo" />';
+			
+			$out .= '<p class="bordertop aligncenter">Publisher\'s Rating:<br />';
+				$out .= '<img src="/Themes/BevoMedia/img/star-on.gif" id="img_rating_top_month_1068_1" onmouseover="" onmouseout="" style="" align="absbottom" border="0" /><img src="/Themes/BevoMedia/img/star-on.gif" id="img_rating_top_month_1068_2" onmouseover="" onmouseout="" style="" align="absbottom" border="0" /><img src="/Themes/BevoMedia/img/star-on.gif" id="img_rating_top_month_1068_3" onmouseover="" onmouseout="" style="" align="absbottom" border="0" /><img src="/Themes/BevoMedia/img/star-on.gif" id="img_rating_top_month_1068_4" onmouseover="" onmouseout="" style="" align="absbottom" border="0" /><img src="/Themes/BevoMedia/img/star-on.gif" id="img_rating_top_month_1068_5" onmouseover="" onmouseout="" style="" align="absbottom" border="0" />';
+			$out .= '</p><!--close publishers rating-->';
+		$out .= '</div><!--close div.onwpic-->';
 		
-		<p>You're already a member of this network!</p>
-		<div class="icon icon_ovault_nwmember_bigwhite"></div>
-		<a class="btn ovault_gotomystats_trans" href="/BevoMedia/Offers/MyStats.html">Go to my stats</a>
+		$out .= '<p>You\'re already a member of this network!</p>';
+		$out .= '<div class="icon icon_ovault_nwmember_bigwhite"></div>';
+		$out .= '<a class="btn ovault_gotomystats_trans" href="/BevoMedia/Offers/MyStats.html">Go to my stats</a>';
 		
-		</div><!--close td_inner-->
-	</td>
-	<td class="td_nwdesc" colspan="3">
-		<div class="td_inner">
+		$out .= '</div><!--close td_inner-->';
+	$out .= '</td>';
+	$out .= '<td class="td_nwdesc" colspan="3">';
+		$out .= '<div class="td_inner">';
 
-		<div class="otitle otitle_networkdesc"></div>
-		<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
-		<p>Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+		$out .= '<div class="otitle otitle_networkdesc"></div>';
+		$out .= '<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>';
 		
-		<div class="otitle otitle_latestnwreviews noborder"></div>
-		<ul class="ovault_boxlist hastitle">
-			<li>not a fan</li>
-			<li>famous network, tons of offers</li>
-			<li>The amount of help and solid advice they give out is awesome</li>
-		</ul>
-		</div><!--close td_inner-->
-	</td>
-	<!--<td class="tail">&nbsp;</td>-->
-</tr><!--close .orowbig-->
-OROW;
-		}//endif $oid
+		$out .= '<div class="otitle otitle_latestnwreviews noborder"></div>';
+			$out .= '<ul class="ovault_boxlist hastitle"><li>not a fan</li><li>famous network, tons of offers</li><li>The amount of help and solid advice they give out is awesome</li></ul>';
+		$out .= '</div><!--close td_inner-->';
+	$out .= '</td>';
+	$out .= '<!--<td class="tail">&nbsp;</td>-->';
+$out .= '</tr><!--close .orowbig-->';
+
+		/*}//endif $oid
+		*/
 		
 		return $out;
 	}//makeOrowbig()
