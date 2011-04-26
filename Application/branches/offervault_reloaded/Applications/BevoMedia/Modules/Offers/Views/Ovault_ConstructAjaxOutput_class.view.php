@@ -54,7 +54,7 @@ class ConstructAjaxOutput {
 		$data = mysql_query($sql);
 		
 		while ($offer = mysql_fetch_object($data))
-		{
+		{ 
 			$sql = "SELECT 
 						id
 					FROM 
@@ -139,6 +139,8 @@ class ConstructAjaxOutput {
 			// $offer->networkName = $offerTEMP->networkname
 			// $offer->userRating
 			// $offer->ratings
+			
+			break;
 			
 		}
 		
@@ -294,7 +296,7 @@ class ConstructAjaxOutput {
 		/*if(!$offer)
 			$out = false;
 		else {*/
-			$out = '<tr class="orowbig j_oid-'.$offer['id'].' hide" data-oid="'.$offer['id'].'">';
+			$out = '<tr class="orowbig j_oid-'.$offer->id.' hide" data-oid="'.$offer->id.'">';
 				$out .= '<td class="border">&nbsp;</td><td class="td_info" colspan="3"><div class="td_inner">';
 				$out .= '<div class="floatleft"><a class="ovault_othumb" href="#" title="Click to view large">';
 					$out .= '<img src="/Themes/BevoMedia/img_new/othumb_default.gif" alt="" /><span></span>';
@@ -303,8 +305,8 @@ class ConstructAjaxOutput {
 				$out .= '<div class="clear"></div></div>';
 				
 				$out .= '<div class="floatright">';
-				$out .= '<h3>'.$offer['title'].'</h3>';
-				$out .= '<small>Added '.$offer['dateAdded'].'</small>';
+				$out .= '<h3>'.$offer->title.'</h3>';
+				$out .= '<small>Added '.$offer->dateAdded.'</small>';
 				
 				$out .= '<div class="otitle otitle_offerdesc"></div>';
 				$out .= '<p></p>';
