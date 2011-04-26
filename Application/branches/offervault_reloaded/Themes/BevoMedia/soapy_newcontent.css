@@ -968,16 +968,18 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 	.ovault_olay .olaycont { width:96%; padding:10px; border:1px solid #ccc; background:#333;
 			-moz-border-radius:8px; -webkit-border-radius:8px; border-radius:8px; 
 			-moz-box-shadow:#808080 0 0 5px; -webkit-box-shadow:#808080 0 0 5px; box-shadow:#808080 0 0 5px; }
-	.ovault_olay .olaytopflag { width:27px; height:19px; position:absolute; top:-5px; background:url(img_new/ovault_olaytopflag.png) no-repeat; }
-	.ovault_olay a.btn.ovault_olay_close { position:absolute; top:16px; right:10px; }
+	.ovault_olay .olaytopflag { width:27px; height:19px; position:absolute; top:-5px; background:url(img_new/ovault_olaytopflag.png) no-repeat; cursor:pointer;}
+	.ovault_olay .olaytopflag_big { padding:4px; position:absolute; top:-21px; color:#2E3192; font-size:.8em; cursor:pointer;
+			background:url(img_new/ovault_olaytopflag_big.gif) repeat-x;
+			-moz-border-radius-topright:3px; -webkit-border-top-right-radius:3px; border-top-right-radius:3px;
+			-moz-border-radius-topleft:3px; -webkit-border-top-left-radius:3px; border-top-left-radius:3px; }
+			
+	.ovault_olay a.ovault_olay_close { position:absolute; top:16px; right:10px; }
 
-            /*single olays*/
-	.ovault_olay#olay_networks { width:542px; top:100px; right:37px; }
-                #olay_networks .olaytopflag { right:52px }
-
-        	#olay_networks.simple { top:80px; right:38px; }/*TEMP - remove along with simple*/
-	
+        
 		.ovault_olay .olaycont > p { color:#FFE87A; text-align:center; }
+                .ovault_olay .olaycont > p.small { margin:0 0 8px; font-size:.9em; line-height:1em; }
+                	.ovault_olay .olaycont p span.icon { margin:0 5px -2px 0; display:inline-block; }
 		
 		.ovault_olay .olaybox { padding:10px; margin:0 10px 0 0; float:left; border:1px solid #808080; background:#4d4d4d; 
 			-moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px;  }
@@ -985,38 +987,81 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 			.ovault_olay .olaybox.col1 { width:150px; }
 			.ovault_olay .olaybox.col2 { width:315px; }
 			
-			.ovault_olay .olayboxtitle { height:17px; margin:-10px -10px 0; padding:3px 0 0 10px; background-color:#1A1A1A; background-repeat:no-repeat; background-position:10px 6px; 
+			.ovault_olay .olayboxtitle { height:17px; margin:-10px -10px 0; padding:3px 0 0 10px; background-color:#1A1A1A; background-repeat:no-repeat; background-position:10px 6px; overflow:hidden; 
 -moz-border-radius-topleft:5px; -webkit-border-top-left-radius:5px; border-top-left-radius:5px;
 -moz-border-radius-topright:5px; -webkit-border-top-right-radius:5px; border-top-right-radius:5px; }
 				.ovault_olay .olayboxtitle.allnetworks { background-image:url(img_new/ovault_olaytitle_allnetworks.gif); }
 				.ovault_olay .olayboxtitle.mynetworks { background-image:url(img_new/ovault_olaytitle_mynetworks.gif); }
+				.ovault_olay .olayboxtitle.myofferlists { background-image:url(img_new/ovault_olaytitle_myofferlists.gif); }
+				
 			.ovault_olay .olayboxstripe { height:18px; margin:0 -10px 10px; padding:5px 0 0 9px; background:#666; overflow:hidden; }
 				.ovault_olay .olayboxstripe a.btn { margin:0 5px 0 0; float:left; }
 				
-		
+		.ovault_olay .olayfeat p { margin:5px 0; font-size:.9em; line-height:1em; color:#999; }
+		.ovault_olay .olayfeat h3 { margin:0; font-size:; line-height:1em; letter-spacing:-.05em; color:#999; }
+		.ovault_olay .olayfeat .hilite { padding:5px; background:#1A1A1A; }
+			.ovault_olay .olayfeat.floatright { padding-right:10px; text-align:right; }
+			.ovault_olay .olayfeat.floatright .hilite { padding-right:10px; margin:3px -10px 0 0;
+					-moz-border-radius-topleft:3px; -webkit-border-top-left-radius:3px; border-top-left-radius:3px;
+					-moz-border-radius-bottomleft:3px; -webkit-border-bottom-left-radius:3px; border-bottom-left-radius:3px; }
 
-		/*olay_selelist*/
-		ul.olay_selelist { margin:0 -5px; padding:0; list-style:none; overflow:hidden; }
-			.col1 ul.olay_selelist { width:150px; }
-			.col2 ul.olay_selelist { width:330px; }
+
+	/*olay_selelist*/
+	ul.olay_selelist { margin:0 -5px; padding:0; list-style:none; overflow:hidden; }
+		.col1 ul.olay_selelist { width:150px; }
+		.col2 ul.olay_selelist { width:330px; }
+	
+		.olay_selelist li a { width:130px; padding:4px 5px 4px 18px; margin:0 5px 2px; float:left; display:block; font-size:.9em; text-align:left; text-decoration:none;	
+				background:url(img_new/icon_olay_selelist_checkgray.png) no-repeat 0 -500px; color:#ccc; line-height:1em; 
+				-moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }
+		.olay_selelist li a.active { background-color:#000; background-position:5px 6px; }
+		.olay_selelist li a:hover { background-color:#333; color:#fff; }
 		
-			.olay_selelist li a { width:130px; padding:4px 5px 4px 18px; margin:0 5px 2px; float:left; display:block; font-size:.9em; text-align:left; text-decoration:none;	
-					background:url(img_new/icon_olay_selelist_checkgray.png) no-repeat 0 -500px; color:#ccc; line-height:1em; 
-					-moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }
-			.olay_selelist li a.active { background-color:#000; background-position:5px 6px; }
-			.olay_selelist li a:hover { background-color:#333; color:#fff; }
+	/*ovault_darktable*/
+	.olaybox table.odarktable { margin:0 -10px -10px; }
+	table.odarktable td { padding:3px 4px; text-align:center; vertical-align:middle; background:#4d4d4d; }
+		table.odarktable tr.alt td { background:#666; }
+	
+	table.odarktable thead td { font-size:8px; color:#000; font-family:Verdana, Arial, sans-serif; text-transform:uppercase; background:#666; }
+		table.odarktable thead td.use { color:#F7B51E; background:#333; }
 		
+	table.odarktable tr:hover td.no,
+	table.odarktable tr:hover td.name,
+	table.odarktable tr:hover td.use { background:#000 !important; cursor:pointer; }
+	table.odarktable tr:hover td.use a.btn { background-position:left bottom; }
+	
+	table.odarktable td.no { color:#b2b2b2; vertical-align:top; }
+	table.odarktable td.name { width:220px; color:#fff; text-align:left; }
+		table.odarktable td.name span { display:block; color:#b2b2b2; font-size:8px; }	
+	table.odarktable td.use { background:#333 !important; }
+	table.odarktable td.view {}
+	table.odarktable td.download {}
+	table.odarktable td.delete {}
+	
+	 /*single olays*/
+            	/*olay_networks*/
+	.ovault_olay#olay_networks { width:542px; top:100px; right:37px; }
+                #olay_networks .olaytopflag { right:52px }
+
+        	#olay_networks.simple { top:80px; right:38px; }/*TEMP - remove along with simple*/
+				
+		/*olay_savedlists*/
+	.ovault_olay#olay_savedlists { width:500px; top:149px; right:60px; }
+		#olay_savedlists .olaytopflag_big { width:151px; right:20px; }
+		
+		#olay_savedlists .olaybox { width:364px; margin-bottom:10px; }
+			#olay_savedlists .olaybox.nomarginbutt { margin-bottom:0; }
+		#olay_savedlists .olayfeat { width:84px; margin:0 -10px 0 0; float:right; }
+
+                        #olay_savedlists .olaybox a.btn { float:left; margin:0 5px 0 0;  }
+		
+			#olay_savedlists .olaybox .olayboxtitle a.btn { margin:1px 3px 0 0; float:right; }
 
 /*offers 110120*/
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 	#offmain_searchform { float:left; }
 	table.floatleft { display:inline !important; }
 }
-
-
-
-
-
 
 
 

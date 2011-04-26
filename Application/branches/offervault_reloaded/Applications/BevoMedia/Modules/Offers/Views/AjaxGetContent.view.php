@@ -40,14 +40,16 @@ if($_GET && isset($_GET['get']) && in_array($_GET['get'], $allowed_gets)) {
 			foreach($required_keys as $key) {
 				$f = str_replace(array('\'','"'), '', strip_tags(trim($_GET[$key])));
 				
-				//clean up empty/comma
+				//clean up empty/comma/dupe
 				if($key == 'include_networks') {
 					$terms = explode(',', $f);
+					$goodterms = array();
 					foreach($terms as $term) {
 						if(trim($term) != '')
-							$goodterms[] = trim($term);
+							$goodterms[] = trim(intval($term));
 					}
-					$f = implode(',', $goodterms);
+					$goodterms = array_unique($goodterms);
+					$f = implode(',',$goodterms);
 				}
 				
 				if($f != '' || !empty($f))

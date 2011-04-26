@@ -378,6 +378,10 @@ a.btn.ovault_add2list_select { width:13px; height:24px; background:url(img_new/b
 a.btn.ovault_olay_close { width:12px; height:12px; background:url(img_new/btn_ovault_olay_close.png) no-repeat; }
 a.btn.ovault_smallyell_all { width:36px; height:13px; background:url(img_new/btn_ovault_smallyell_all.png) no-repeat; }
 a.btn.ovault_smallyell_none { width:43px; height:13px; background:url(img_new/btn_ovault_smallyell_none.png) no-repeat; }
+a.btn.ovault_smallyell_deleteall { width:66px; height:13px; background:url(img_new/btn_ovault_smallyell_deleteall.png) no-repeat; }
+
+a.btn.ovault_yell_createnewlist { width:107px; height:22px; background:url(img_new/btn_ovault_yell_createnewlist.png) no-repeat; }
+a.btn.ovault_yell_gotolistpage { width:139px; height:22px; background:url(img_new/btn_ovault_yell_gotolistpage.png) no-repeat; }
 
 .icon_ovault_added2list { width:20px; height:16px; background:url(img_new/icon_ovault_added2list.png) no-repeat; }
 p.icon_nwmember { padding-left:20px; padding-bottom:3px; display:inline; background:url(img_new/icon_ovault_nwmember.png) no-repeat left top; }
@@ -386,6 +390,11 @@ p.icon_nwmember { padding-left:20px; padding-bottom:3px; display:inline; backgro
 .icon.icon_ovault_ootm_tabletop { width:205px; height:53px; background:url(img_new/icon_ovault_ootm_tabletop.png) no-repeat; }
 .icon.icon_ovault_bevoalsorecommends { width:236px; height:10px; background:url(img_new/icon_ovault_bevoalsorecommends.gif) no-repeat; }
 .icon.icon_ovault_hotnewestoffers { width:219px; height:11px; background:url(img_new/icon_ovault_hotnewestoffers.gif) no-repeat; }
+
+.icon_ovault_savelist_use { width:12px; height:12px; background:url(img_new/icon_ovault_savelist_use.png) no-repeat; }
+.icon_ovault_savelist_view { width:13px; height:12px; background:url(img_new/icon_ovault_savelist_view.png) no-repeat; }
+.icon_ovault_savelist_csv { width:31px; height:11px; background:url(img_new/icon_ovault_savelist_csv.png) no-repeat; }
+.icon_ovault_savelist_delete { width:10px; height:10px; background:url(img_new/icon_ovault_savelist_delete.png) no-repeat; }
 	
 a.btn.ovault_importoffer { width:177px; height:43px; background:url(img_new/btn_ovault_importoffer.png) no-repeat; }
 a.btn.ovault_visiticon { width:18px; height:19px; background:url(img_new/btn_ovault_visiticon.png) no-repeat; }
