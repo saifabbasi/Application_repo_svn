@@ -96,7 +96,7 @@
 					
 					<input type="hidden" id="osearch_type" name="type" value="lead" />
 					<input type="hidden" id="osearch_include_mysaved" name="include_mysaved" value="1" />
-					<input type="hidden" id="osearch_include_networks" name="include_networks" value="<?php /* 1000,1002,1004,1006,1008,1010*/?>" />
+					<input type="hidden" id="osearch_include_networks" name="include_networks" value="<?php foreach($mynetworks as $network) { echo $network->id.',';} ?>" />
 					
 					<div class="clear"></div>
 				</div><!--close obox upper-->
@@ -113,7 +113,7 @@
 				</div><!--close obox countries-->
 				
 				<div class="obox networks">
-					<div class="number j_showolay" id="number_networks" data-olay="olay_networks">0</div>
+					<div class="number j_showolay" id="number_networks" data-olay="olay_networks"><?php echo count($mynetworks); ?></div>
 					<div class="clear"></div>
 				</div><!--close obox include-->
 				<div class="clear"></div>
@@ -135,7 +135,7 @@
 			</div>
 		</div>
 		<div class="save">
-			<div class="selebtn" href="#">My Offers (2 Feb 2011)<span class="down"></span></div>
+			<div class="selebtn j_showolay" href="#" data-olay="olay_savedlists">My Offers (2 Feb 2011)<span class="down"></span></div>
 			<a class="btn ovault_saveallpage" href="#">Save All Of This Page</a>
 		</div>
 	</div><!--close butt-->
@@ -156,7 +156,7 @@
 				</div>
 				<ul class="olay_selelist j_olay_allnetworkslist">
 					<?php	foreach($allnetworks as $network) {
-							echo '<li><a href="#" data-hiddenfield="include_networks" data-value="'.$network->id.'" data-number="number_networks">'.$network->title.'</a></li>';
+							echo '<li><a class="j_nwid-'.$network->id.'" href="#" data-hiddenfield="include_networks" data-value="'.$network->id.'" data-number="number_networks">'.$network->title.' ('.$network->id.')</a></li>';
 					}
 					?>
 				</ul>
@@ -169,7 +169,7 @@
 				</div>
 				<ul class="olay_selelist j_olay_mynetworklist">
 					<?php	foreach($mynetworks as $network) {
-							echo '<li><a href="#" data-hiddenfield="include_networks" data-value="'.$network->id.'" data-number="number_networks">'.$network->title.'</a></li>';
+							echo '<li><a class="j_nwid-'.$network->id.' active" href="#" data-hiddenfield="include_networks" data-value="'.$network->id.'" data-number="number_networks">'.$network->title.' ('.$network->id.')</a></li>';
 					}
 					?>
 				</ul>
@@ -177,6 +177,104 @@
 			<div class="clear"></div>
 		</div><!--close olaycont-->
 	
-		<div class="olaytopflag"></div>
+		<div class="olaytopflag ovault_olay_close"></div>
 	</div><!--close #olay_networks-->
+	
+	<!-- olay_savedlists -->
+	<div id="olay_savedlists" class="ovault_olay">
+		<div class="olaytop"></div>
+		
+		<div class="olaycont">
+			<a class="btn ovault_olay_close" href="#">Close</a>
+			<p>Manage your Offer Lists here.</p>
+			
+			<p class="small"><span class="icon icon_ovault_savelist_use"></span>Click on an existing list to make it the default when you click <em>Save</em> on any offer</p>
+			<p class="small"><span class="icon icon_ovault_savelist_view"></span>View, review, and manage offers that you've added to a list</p>
+			<p class="small"><span class="icon icon_ovault_savelist_csv"></span>Quickly download a list with all offers in it as a CSV</p>
+			<p class="small"><span class="icon icon_ovault_savelist_delete"></span>Delete a list</p>
+			
+			<div class="olaybox">
+				<a class="btn ovault_yell_createnewlist" href="#">Create New List</a>
+				<a class="btn ovault_yell_gotolistpage" href="/BevoMedia/Offers/MySavedLists.html">Go to the List Management Page</a>
+			</div><!--close olaybox-->
+			<div class="clear"></div>
+			
+			<div class="olaybox nomarginbutt">
+				<div class="olayboxtitle myofferlists">
+					<a class="btn ovault_smallyell_deleteall" href="#">Delete All Lists</a>
+				</div>
+				
+				<table cellspacing="0" cellpadding="0" id="ovault_olay_savelists" class="odarktable">
+					<thead>
+						<tr>
+							<td class="no">&nbsp;</td>
+							<td class="name">Name</td>
+							<td class="use">Use</td>
+							<td class="view">View</td>
+							<td class="download">Download</td>
+							<td class="delete">Delete</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="j_list-1000">
+							<td class="no">1.</td>
+							<td class="name">My Offers<span>Created: Jan 12, 2011 - Last edit: Feb 1, 2011</span></td>
+							<td class="use"><a class="btn icon_ovault_savelist_use" href="#">Use</a></td>
+							<td class="view"><a class="btn icon_ovault_savelist_view" href="#">View</a></td>
+							<td class="download"><a class="btn icon_ovault_savelist_csv" href="#">CSV</a></td>
+							<td class="delete"><a class="btn icon_ovault_savelist_delete" href="#">Delete</a></td>
+						</tr>
+						<tr class="j_list-1001 alt">
+							<td class="no">2.</td>
+							<td class="name">My Offers<span>Created: Jan 12, 2011 - Last edit: Feb 1, 2011</span></td>
+							<td class="use"><a class="btn icon_ovault_savelist_use" href="#">Use</a></td>
+							<td class="view"><a class="btn icon_ovault_savelist_view" href="#">View</a></td>
+							<td class="download"><a class="btn icon_ovault_savelist_csv" href="#">CSV</a></td>
+							<td class="delete"><a class="btn icon_ovault_savelist_delete" href="#">Delete</a></td>
+						</tr>
+						<tr class="j_list-1002">
+							<td class="no">3.</td>
+							<td class="name">My Offers<span>Created: Jan 12, 2011 - Last edit: Feb 1, 2011</span></td>
+							<td class="use"><a class="btn icon_ovault_savelist_use" href="#">Use</a></td>
+							<td class="view"><a class="btn icon_ovault_savelist_view" href="#">View</a></td>
+							<td class="download"><a class="btn icon_ovault_savelist_csv" href="#">CSV</a></td>
+							<td class="delete"><a class="btn icon_ovault_savelist_delete" href="#">Delete</a></td>
+						</tr>
+						<tr class="j_list-1003 alt">
+							<td class="no">4.</td>
+							<td class="name">My Offers<span>Created: Jan 12, 2011 - Last edit: Feb 1, 2011</span></td>
+							<td class="use"><a class="btn icon_ovault_savelist_use" href="#">Use</a></td>
+							<td class="view"><a class="btn icon_ovault_savelist_view" href="#">View</a></td>
+							<td class="download"><a class="btn icon_ovault_savelist_csv" href="#">CSV</a></td>
+							<td class="delete"><a class="btn icon_ovault_savelist_delete" href="#">Delete</a></td>
+						</tr>
+						<tr class="j_list-1004">
+							<td class="no">5.</td>
+							<td class="name">My Offers<span>Created: Jan 12, 2011 - Last edit: Feb 1, 2011</span></td>
+							<td class="use"><a class="btn icon_ovault_savelist_use" href="#">Use</a></td>
+							<td class="view"><a class="btn icon_ovault_savelist_view" href="#">View</a></td>
+							<td class="download"><a class="btn icon_ovault_savelist_csv" href="#">CSV</a></td>
+							<td class="delete"><a class="btn icon_ovault_savelist_delete" href="#">Delete</a></td>
+						</tr>
+					</tbody>
+				</table>				
+			</div><!--close olaybox-->
+			
+			<div class="olayfeat floatright">
+				<p>Overall, you have</p>
+				<div class="hilite">
+					<h3>12</h3>
+					<p>Lists</p>
+				</div>
+				<p>and a total of</p>
+				<div class="hilite">
+					<h3>8341</h3>
+					<p>Saved Offers</p>
+				</div>
+			</div><!--close olayfeat-->
+			<div class="clear"></div>
+		</div><!--close olaycont-->
+	
+		<div class="olaytopflag_big ovault_olay_close">My Offers (2 Feb 2011)</div>
+	</div><!--close #olay_savedlists-->
 </div><!--close #odial-->

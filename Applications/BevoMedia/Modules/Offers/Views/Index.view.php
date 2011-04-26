@@ -111,6 +111,7 @@ $(document).ready(function() {
 	var	ajaxGet = 'AjaxGetContent.html',
 		cache = [],
 		cookName = 'lastOfferSearch',
+		cook = readCookie(cookName),
 		
 		//current
 		currentOid; //the current offer id that is being fetched for orowbig
@@ -118,6 +119,104 @@ $(document).ready(function() {
 	cache.offerdetails = []; //index = the offer ID
 	cache.searchresults = []; //index = the actual search string
 	
+	/*initial*/
+	if(cook) {
+		$.ajax({
+			type: 'GET',
+			url: ajaxGet+'?get=searchresults&'+cook,
+			success: function(r) {
+				r = $.parseJSON(r);
+				
+				if(r.error) {
+					ajaxMessage(r.error);
+				} else {			
+					var target = $('#j_otablecont');
+					
+					//cache.searchresults[r.searchstring] = s; //REPLACE WITH THE BELOW
+					//window.location.hash = s; //REPLACE WITH THE BELOW
+					
+					cache.searchresults[r.searchstring] = r.resultarr; //use sanitized search string from script as an index
+					window.location.hash = r.searchstring;
+					
+					target.html(''); //remove old content
+					for(var i in r.resultarr) { //add to dom
+						target.append(addOfferTableRow(r.resultarr[i]));
+					}
+					
+					//populate dial
+					//search=diet&type=lead&include_networks=1028,1028,1028,1028,1028
+					//var params = cook.split('&');
+					
+					var params = {};
+					$.each(r.searchstring.split('&'), function (i, value) {
+						value = value.split('=');
+						value1 = value[1].replace(/^A-Za-z0-9-_\+\,\% /g,'');
+						value1 = value1.replace(/\%2C/g, ',')
+						params[value[0]] = value1.replace(/\+/g, ' ');
+					});
+					
+
+					if(params['search'] && params['search'] != '') {
+						$('#osearch').val(params['search']);	
+					}
+					
+					//networks
+					if(params['include_networks'] && params['inclde_networks'] != '') {
+						$('#osearch_include_networks').val(params['include_networks']);
+						var tmp = params['include_networks'].split(',');
+						
+						tmp = unique(tmp); //filter out dupes
+						
+						console.log('tmp retrieved from cook after load: '+tmp.length+': '+tmp)
+						
+						var nwcount = 0;
+						
+						//first deactivate all
+						$('#olay_networks ul.j_olay_allnetworkslist li a, #olay_networks ul.j_olay_mynetworklist li a').removeClass('active');
+						//then activate the right ones
+						$.each(tmp, function(i, value) {
+							$('#olay_networks ul.j_olay_allnetworkslist li a, #olay_networks ul.j_olay_mynetworklist li a').each(function() {
+								if($(this).hasClass('j_nwid-'+value)) {
+									console.log('yes for: '+$(this).html());
+									nwcount++;
+									$(this).addClass("active areyoukiddingme");
+									//odialNumberUpdate($(this).data('number')); //dont use this - overwrite instead!
+								}
+							});
+						});
+						//update number
+						$('#number_networks').html(nwcount);
+					}
+					//type
+					if(params['type'] && params['type'] != '') {
+						tmp = params['type'].split(',');
+						
+						if(tmp.length == 2) {
+							$('#osearchform .ocheck_lead').addClass('active');
+							$('#osearchform .ocheck_sale').addClass('active');
+							$('#osearch_type').val('lead,sale');
+						} else if(tmp[0] == 'lead') {
+							$('#osearchform .ocheck_lead').addClass('active');
+							$('#osearchform .ocheck_sale').removeClass('active');
+							$('#osearch_type').val('lead');
+						} else if($tmp[0] == 'sale') {
+							$('#osearchform .ocheck_lead').removeClass('active');
+							$('#osearchform .ocheck_sale').addClass('active');
+							$('#osearch_type').val('sale');
+						}
+					}
+					//mysaved
+					if(params['include_mysaved'] && params['include_mysaved'] != '') {
+						$('#osearchform .ocheck_mysaved').addClass('active');
+						$('#osearch_include_mysaved').val('1');
+					}
+				}//endif ajax-noerror
+			},
+			error: function(r) {
+				ajaxError(r);
+			}
+		});
+	}//endif cook / INITIAL
 	
 	//orow expand/collapse
 	$('#j_otablecont .orow').live('click', function() {
@@ -185,7 +284,7 @@ $(document).ready(function() {
 		if(type == '')
 			error.push('Please select at least one conversion type!');
 		
-		if(include_networks == '')
+		if(include_networks == '' || include_networks == 0)
 			error.push('You must include at least one network!');
 		
 		//errors?
@@ -195,6 +294,9 @@ $(document).ready(function() {
 		else {
 			//construct string
 			var s = 'get=searchresults&search='+search+'&type='+type+'&include_mysaved='+include_mysaved+'&include_networks='+include_networks;
+			
+			//close any olays
+			$('#odial .ovault_olay').fadeOut(300).removeClass('active');
 			
 			$.ajax({
 				type: 'GET',
@@ -215,7 +317,19 @@ $(document).ready(function() {
 						
 						//set cookie
 						createCookie(cookName,r.searchstring,365);
-
+						
+						/* */
+						var params = {};
+						$.each(r.searchstring.split('&'), function (i, value) {
+							value = value.split('=');
+							value1 = value[1].replace(/^A-Za-z0-9-_\+\,\% /g,'');
+							value1 = value1.replace(/\%2C/g, ',')
+							params[value[0]] = value1.replace(/\+/g, ' ');
+						});
+						var tmp = params['include_networks'].split(',');
+						console.log('tmp saved to cook after search: '+tmp.length+': '+tmp);
+						/* */
+						
 						target.html(''); //remove old content
 						for(var i in r.resultarr) { //add to dom
 							target.append(addOfferTableRow(r.resultarr[i]));
@@ -260,17 +374,21 @@ $(document).ready(function() {
 		return false;
 	})//a.ocheck
 	
-	//olay show
-	$('#odial .j_showolay').click(function() {
+	/*olay*/ //show
+	$('#odial .j_showolay').live('click', function() {
 		var target = $('#'+$(this).data('olay'));
 		
 		if(target.hasClass('active'))
 			target.fadeOut(300).removeClass('active');
-		else	target.fadeIn(300).addClass('active');
+		else {
+			//close others
+			$('.ovault_olay.active').fadeOut(300).removeClass('active');
+			target.fadeIn(300).addClass('active');
+		}
 	})
 	
 	//olay close
-	$('#odial .ovault_olay a.ovault_olay_close').click(function() {
+	$('#odial .ovault_olay .ovault_olay_close').click(function() {
 		$(this).parents('.ovault_olay').fadeOut(300).removeClass('active');
 		return false;
 	})
@@ -282,7 +400,7 @@ $(document).ready(function() {
 			v = $(this).data('value');
 		
 		if($(this).hasClass('active')) { //deselect
-			odialNumberUpdate(num, true);			
+			odialNumberUpdate(num, true);
 			odialHiddenFieldUpdate(field, v, 'remove');
 			$(this).removeClass('active');
 			
@@ -296,7 +414,7 @@ $(document).ready(function() {
 	})
 	
 	//olay_selelist all/none
-	$('#odial a.j_olay_selelist').click(function() {
+	$('#odial a.j_olay_selelist').live('click', function() {
 		var 	ul = $('#odial ul.'+$(this).data('ul')),
 			field = $(this).data('hiddenfield'),
 			action = $(this).data('action'),
@@ -313,14 +431,14 @@ $(document).ready(function() {
 		} else { //remove all
 			$('li a.active', ul).each(function() {
 				values.push($(this).data('value'));
-				odialNumberUpdate(num,true);
+				odialNumberUpdate(num, true);
 				$(this).removeClass('active');
 			})
 		}
 		
-		odialHiddenFieldUpdate(field, values, action)
+		odialHiddenFieldUpdate(field, values, action);
 		
-		return false;		
+		return false;
 	})	
 	
 	/*
@@ -358,12 +476,15 @@ $(document).ready(function() {
 			else	hiddenfield.val(currval.replace(value, ''));
 			
 		} else if(action == 'removeall' && value.length > 0) {
-			for(i=0; i<=value.length-1; i++)
-				hiddenfield.val(currval.replace(value[i], ''));
+			for(i=0; i<=value.length-1; i++) {
+				currval = currval.replace(value[i], '');
+				hiddenfield.val(currval);
+			}
 			
 		} else if(action == 'addall' && value.length > 0) {
+			var tmp;
 			for(i=0; i<=value.length-1; i++)
-				tmp = ','+value[i];
+				tmp += ','+value[i];
 			
 			hiddenfield.val(currval+tmp);
 		
@@ -446,6 +567,25 @@ $(document).ready(function() {
 		}
 		return null;
 	}
+	
+	var unique = function(origArr) {  
+		var newArr = [],  
+		origLen = origArr.length,  
+		found,  
+		x, y;
+	
+		for ( x = 0; x < origLen; x++ ) {  
+			found = undefined;  
+			for ( y = 0; y < newArr.length; y++ ) {  
+				if ( origArr[x] === newArr[y] ) {  
+					found = true;  
+					break;  
+				}  
+			}  
+			if ( !found) newArr.push( origArr[x] );  
+		}  
+		return newArr;  
+	}; 
 });
 </script>
 

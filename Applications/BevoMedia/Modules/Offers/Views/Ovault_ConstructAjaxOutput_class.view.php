@@ -36,8 +36,7 @@ class ConstructAjaxOutput {
 		
 		$offerID = intval($query['params']['oid']);
 		
-		
-		
+				
 		$sql = "SELECT
 					bevomedia_offers.*,
 					bevomedia_category.title as `categoryTitle`,
@@ -247,7 +246,7 @@ class ConstructAjaxOutput {
 						(bevomedia_user_aff_network.user__id = {$_SESSION['User']['ID']})
 					";
 			$isMemberOfNetwork = mysql_query($sql);
-			$offerTEMP->isNetworkMember = (mysql_num_rows($isMemberOfNetwork))?1:0;
+			$offer->isNetworkMember = (mysql_num_rows($isMemberOfNetwork))?1:0;
 			
 			
 			// $offer->id
@@ -277,8 +276,8 @@ class ConstructAjaxOutput {
 		//format price
 		foreach($offersArray as $key => $offer) {
 			$offersArray[$key]->payout = !stristr($offer->payout, '$')
-				? '$'.number_format($offer->payout, 2)
-				: number_format($offer->payout, 2);
+				? '$'.number_format(intval($offer->payout), 2)
+				: number_format(intval($offer->payout), 2);
 		}		
 		
 		$out['resultarr'] = $offersArray;
