@@ -227,7 +227,7 @@ $(document).ready(function() {
 				}//endif ajax-noerror
 			},
 			error: function(r) {
-				ajaxError(r);
+				ajaxMessage(r);
 			}
 		});
 	}//endif cook / INITIAL
@@ -273,7 +273,7 @@ $(document).ready(function() {
 					},
 					error: function(r) {
 						m = ['Something went wrong, please try again.']
-						ajaxError(m);
+						ajaxMessage(m);
 					}
 				});
 			}//endif in cache
@@ -455,17 +455,21 @@ $(document).ready(function() {
 	
 	*/
 	
-	/*ajaxMessage*/ //m should be an array
+	/*ajaxMessage*/
 	function ajaxMessage(m) {
-		for(i=0; i<=m.length-1; i++)
-			alert(m[i]);
+		if(m.constructor.toString().indexOf("Array") == -1)
+			alert(m);
+		else {
+			for(i=0; i<=m.length-1; i++)
+				alert(m[i]);
+		}
 	}//ajaxMessage()
 	
 	function doSearch(s) {
 		
 		var target = $('#j_otablecont');
 		
-		if(cache.searchresults[s]) {
+		if(cache.searchresults[s]) { //dupe code - same as below. maybe outsource to func later
 			target.html(''); //remove old content
 			for(var i in r.resultarr) { //add to dom
 				target.append(addOfferTableRow(r.resultarr[i]));
@@ -529,7 +533,7 @@ $(document).ready(function() {
 					}
 				},
 				error: function(r) {
-					ajaxError(r);
+					ajaxMessage(r);
 				}
 			});
 		}//endif cached or not
