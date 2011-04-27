@@ -118,6 +118,8 @@ $(document).ready(function() {
 		
 	cache.offerdetails = []; //index = the offer ID
 	cache.searchresults = []; //index = the actual search string
+	cache.current_searchstring = false; //the current search string, set after ajax success
+	
 	
 	/*initial*/
 	if(cook) {
@@ -143,6 +145,9 @@ $(document).ready(function() {
 						target.append(addOfferTableRow(r.resultarr[i]));
 					}
 					
+					$('#opagi_bg .totalresults').fadeIn(500);
+					$('#opagi .totalresults').html(r.totalresults).fadeIn(400);
+					
 					//populate dial
 					//search=diet&type=lead&include_networks=1028,1028,1028,1028,1028
 					//var params = cook.split('&');
@@ -167,8 +172,6 @@ $(document).ready(function() {
 						
 						tmp = unique(tmp); //filter out dupes
 						
-						console.log('tmp retrieved from cook after load: '+tmp.length+': '+tmp)
-						
 						var nwcount = 0;
 						
 						//first deactivate all
@@ -177,10 +180,8 @@ $(document).ready(function() {
 						$.each(tmp, function(i, value) {
 							$('#olay_networks ul.j_olay_allnetworkslist li a, #olay_networks ul.j_olay_mynetworklist li a').each(function() {
 								if($(this).hasClass('j_nwid-'+value)) {
-									console.log('yes for: '+$(this).html());
 									nwcount++;
-									$(this).addClass("active areyoukiddingme");
-									//odialNumberUpdate($(this).data('number')); //dont use this - overwrite instead!
+									$(this).addClass('active');
 								}
 							});
 						});
@@ -205,11 +206,24 @@ $(document).ready(function() {
 							$('#osearch_type').val('sale');
 						}
 					}
+					
 					//mysaved
 					if(params['include_mysaved'] && params['include_mysaved'] != '') {
 						$('#osearchform .ocheck_mysaved').addClass('active');
 						$('#osearch_include_mysaved').val('1');
 					}
+					
+					//numresults
+					if(params['numresults'] && params['numresults'] != '') {
+						$('#osearch_numresults').val(params['numresults']);
+						$('#numresults_sele .showolay_simplenext').html(params['numresults']+'<span class="down"></span>');
+						$('#numresults_sele .olaysimplenext > *').each(function() {
+							if($(this).hasClass('numresults-'+params['numresults']))
+								$(this).addClass('active');
+							else	$(this).removeClass('active');
+						});
+					}
+					
 				}//endif ajax-noerror
 			},
 			error: function(r) {
@@ -268,14 +282,14 @@ $(document).ready(function() {
 	
 	/*search dial*/
 	//submit
-	$('#osearchform').live('submit', function() {
-		//e.preventDefault();
-		
+	$('#osearchform').live('submit', function() {		
 		var 	error = [],
 			search = $('#osearch').val(),
 			type = $('#osearch_type').val(),
 			include_mysaved = $('#osearch_include_mysaved').val(),
-			include_networks = $('#osearch_include_networks').val();
+			include_networks = $('#osearch_include_networks').val(),
+			numresults = $('#osearch_numresults').val(),
+			page = $('#osearch_page').val();
 		
 		//check options
 		if((search == $('#osearch').prev().html()) || (search == ''))
@@ -293,58 +307,34 @@ $(document).ready(function() {
 		
 		else {
 			//construct string
-			var s = 'get=searchresults&search='+search+'&type='+type+'&include_mysaved='+include_mysaved+'&include_networks='+include_networks;
+			var s = 'get=searchresults&search='+search+'&type='+type+'&include_mysaved='+include_mysaved+'&include_networks='+include_networks+'&numresults='+numresults+'&page='+page;
 			
 			//close any olays
 			$('#odial .ovault_olay').fadeOut(300).removeClass('active');
 			
-			$.ajax({
-				type: 'GET',
-				url: ajaxGet+'?'+s,
-				success: function(r) {
-					r = $.parseJSON(r);
-					
-					if(r.error) {
-						ajaxMessage(r.error);
-					} else {						
-						var target = $('#j_otablecont');
-						
-						//cache.searchresults[r.searchstring] = s; //REPLACE WITH THE BELOW
-						//window.location.hash = s; //REPLACE WITH THE BELOW
-						
-						cache.searchresults[r.searchstring] = r.resultarr; //use sanitized search string from script as an index
-						window.location.hash = r.searchstring;
-						
-						//set cookie
-						createCookie(cookName,r.searchstring,365);
-						
-						/* */
-						var params = {};
-						$.each(r.searchstring.split('&'), function (i, value) {
-							value = value.split('=');
-							value1 = value[1].replace(/^A-Za-z0-9-_\+\,\% /g,'');
-							value1 = value1.replace(/\%2C/g, ',')
-							params[value[0]] = value1.replace(/\+/g, ' ');
-						});
-						var tmp = params['include_networks'].split(',');
-						console.log('tmp saved to cook after search: '+tmp.length+': '+tmp);
-						/* */
-						
-						target.html(''); //remove old content
-						for(var i in r.resultarr) { //add to dom
-							target.append(addOfferTableRow(r.resultarr[i]));
-						}
-					}
-				},
-				error: function(r) {
-					ajaxError(r);
-				}
+			//hide pagination and totalresults
+			$('#opagi_bg .totalresults').fadeOut(200);
+			$('#opagi .totalresults').fadeOut(100, function() {
+				$(this).html('');
 			});
+			
+			doSearch(s);
+			
 		}//endif errors
 		
 		return false;
 		
 	})//#osearchform submit
+	
+	//paginate
+	$('#opagi .numbers a:not(.active)').live('click', function() {
+		s = cache.current_searchstring + '&newpage='+$(this).data('page'); //newpage overrides page
+		
+		//alert('paginate s: '+s);
+		doSearch(s);
+		
+		return false;
+	});
 	
 	//input label
 	$('input#osearch').live('focus', function() {
@@ -386,6 +376,24 @@ $(document).ready(function() {
 			target.fadeIn(300).addClass('active');
 		}
 	})
+	
+	//show olay_simplenext
+	$('#numresults_sele .showolay_simplenext').live('click', function() {
+		$(this).next().fadeIn(100);
+	});
+	
+	//olaysimple
+	$('#numresults_sele .olaysimplenext > *').live('click', function() {
+		var val = $(this).data('value');
+		$(this).parent().prev().html(val+'<span class="down"></span>');
+		$('#osearch_'+$(this).data('hiddenfield')).val(val);
+		
+		$(this).parent().find('a.active').removeClass('active');
+		$(this).addClass('active');
+		$(this).parent().fadeOut(300);
+		
+		return false;
+	});
 	
 	//olay close
 	$('#odial .ovault_olay .ovault_olay_close').click(function() {
@@ -453,12 +461,79 @@ $(document).ready(function() {
 			alert(m[i]);
 	}//ajaxMessage()
 	
-	/*ajaxSuccess*/
-	function ajaxSuccess(r) {
-		r = $.parseJSON(r);
+	function doSearch(s) {
 		
+		var target = $('#j_otablecont');
 		
-	}//ajaxSuccess()
+		if(cache.searchresults[s]) {
+			target.html(''); //remove old content
+			for(var i in r.resultarr) { //add to dom
+				target.append(addOfferTableRow(r.resultarr[i]));
+			}
+			
+			//total results
+			$('#opagi_bg .totalresults').fadeIn(500);
+			$('#opagi .totalresults').html(r.totalresults).fadeIn(400);
+			
+			//pagination
+			if(r.pagination) {
+				$('#opagi_bg .numbers').fadeIn(400, function() {
+					$('#opagi .numbers').html(r.pagination).fadeIn(300);
+				});
+			} else {
+				$('#opagi .numbers').fadeOut(400, function() {
+					$(this).html('');
+				});
+				$('#opagi_bg .numbers').fadeOut(300);
+			}
+		
+		} else {
+		
+			$.ajax({
+				type: 'GET',
+				url: ajaxGet+'?'+s,
+				success: function(r) {
+					r = $.parseJSON(r);
+					
+					if(r.error) {
+						ajaxMessage(r.error);
+						
+					} else {						
+						cache.searchresults[r.searchstring] = r.resultarr;
+						cache.current_searchstring = r.searchstring;
+						window.location.hash = r.searchstring;
+												
+						//set cookie
+						createCookie(cookName,r.searchstring,365);
+						
+						target.html(''); //remove old content
+						for(var i in r.resultarr) { //add to dom
+							target.append(addOfferTableRow(r.resultarr[i]));
+						}
+						
+						//total results
+						$('#opagi_bg .totalresults').fadeIn(500);
+						$('#opagi .totalresults').html(r.totalresults).fadeIn(400);
+						
+						//pagination
+						if(r.pagination) {
+							$('#opagi_bg .numbers').fadeIn(400, function() {
+								$('#opagi .numbers').html(r.pagination).fadeIn(300);
+							});
+						} else {
+							$('#opagi .numbers').fadeOut(400, function() {
+								$(this).html('');
+							});
+							$('#opagi_bg .numbers').fadeOut(300);
+						}
+					}
+				},
+				error: function(r) {
+					ajaxError(r);
+				}
+			});
+		}//endif cached or not
+	}//doSearch()
 	
 	/*odialHiddenFieldUpdate*/
 	//hiddenfield = 2nd part of the ID of the hidden field, after #osearch_
@@ -519,7 +594,7 @@ $(document).ready(function() {
 			out += '<a class="btn ovault_add2list_select" href="#" data-oid="'+offer['id']+'" title="Select a list to add this offer to...">Select</a></td>';
 			
 		//offername
-		out += '<td class="td_offername" style="width:465px;"><p>'+offer['title']+'<span>'+offer['dateAdded']+'</span></p></td>';
+		out += '<td class="td_offername" style="width:465px;"><p>'+offer['title']+'<span>Added '+offer['dateAdded']+'</span></p></td>';
 			
 		//payout
 		out += '<td class="td_payout" style="width:54px;"><p>'+offer['payout']+'</p></td>';

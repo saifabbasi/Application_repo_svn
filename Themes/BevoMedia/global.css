@@ -383,6 +383,9 @@ a.btn.ovault_smallyell_deleteall { width:66px; height:13px; background:url(img_n
 a.btn.ovault_yell_createnewlist { width:107px; height:22px; background:url(img_new/btn_ovault_yell_createnewlist.png) no-repeat; }
 a.btn.ovault_yell_gotolistpage { width:139px; height:22px; background:url(img_new/btn_ovault_yell_gotolistpage.png) no-repeat; }
 
+a.btn.ovault_opagi_prev { width:55px; height:55px; background:url(img_new/btn_ovault_odial_pagi_prev.png) no-repeat; }
+a.btn.ovault_opagi_next { width:55px; height:55px; background:url(img_new/btn_ovault_odial_pagi_next.png) no-repeat; }
+
 .icon_ovault_added2list { width:20px; height:16px; background:url(img_new/icon_ovault_added2list.png) no-repeat; }
 p.icon_nwmember { padding-left:20px; padding-bottom:3px; display:inline; background:url(img_new/icon_ovault_nwmember.png) no-repeat left top; }
 	#ovault .btable tr.orow.expanded td.td_network p.icon_nwmember { background:url(img_new/icon_ovault_nwmember_white.png) no-repeat; }
@@ -401,7 +404,7 @@ a.btn.ovault_visiticon { width:18px; height:19px; background:url(img_new/btn_ova
 a.btn.ovault_gotomystats_trans { width:104px; height:23px; background:url(img_new/btn_ovault_gotomystats_trans.png) no-repeat; }
 
 		/*otitle*/
-.otitle { width:95%; height:15px; margin:0 0 8px; border-bottom:1px solid #b2b2b2; position:relative; left:-5px; }
+.otitle { width:95%; height:15px; margin:0 0 4px; border-bottom:1px solid #b2b2b2; position:relative; left:-5px; }
 	.otitle.noborder { margin-bottom:0; border:none; }
 	
 	.otitle.otitle_offerdesc { background:url(img_new/otitle_offerdesc.png) no-repeat; }

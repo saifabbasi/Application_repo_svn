@@ -34,8 +34,7 @@ class ConstructAjaxOutput {
 		//$query['params']['oid'] (the offer ID)
 		//no need to parse anything after fetching - just fetch the offer object
 		
-		$offerID = intval($query['params']['oid']);
-		
+		$offerID = intval($query['params']['oid']);		
 				
 		$sql = "SELECT
 					bevomedia_offers.*,
@@ -51,6 +50,7 @@ class ConstructAjaxOutput {
 					(bevomedia_aff_network.id = bevomedia_offers.network__id) AND
 					(bevomedia_offers.id = {$offerID})
 				"; //echo $sql;die;
+		
 		$data = mysql_query($sql);
 		
 		while ($offer = mysql_fetch_object($data))
@@ -111,7 +111,8 @@ class ConstructAjaxOutput {
 						bevomedia_user_aff_network_rating
 					WHERE
 						(bevomedia_user_aff_network_rating.network__id = {$offer->network__id}) AND
-						(bevomedia_user_aff_network_rating.approved = 1)
+						(bevomedia_user_aff_network_rating.approved = 1) AND
+						(bevomedia_user_aff_network_rating.userComment != '')
 					ORDER BY 
 						bevomedia_user_aff_network_rating.id DESC
 					LIMIT 3
@@ -135,10 +136,13 @@ class ConstructAjaxOutput {
 			// $offer->payout = $offerTEMP->payout
 			// $offer->type = $offerTEMP->offerType
 			// $offer->categoryTitle = $offerTEMP->vertical
+			// $offer->network__id
 			// $offer->isNetworkMember = $offerTEMP->is_networkmember
 			// $offer->networkName = $offerTEMP->networkname
+			// $offer->networkDescription
 			// $offer->userRating
 			// $offer->ratings
+			// $offer->detail
 			
 			break;
 			
@@ -150,9 +154,11 @@ class ConstructAjaxOutput {
 		//	$out['error'] = 'This offer seems to be invalid!';
 		//else	$out['resultarr'] = $offer;
 		//else	
-		$out['html'] = self::MakeOrowbig($offer);	
+		
 		//$out['resultarr'] = $offer;
-		//var_dump($offer);die();
+		
+		$out['html'] = self::MakeOrowbig($offer);
+		//$out['html'] = '<pre>'.print_r($offer,true).'</pre>';
 		return $out;
 		
 	}//orowbig()
@@ -172,9 +178,9 @@ class ConstructAjaxOutput {
 		//$query['params']['type'] ?? how are we going to get this
 		//$query['params']['include_mysaved'] how are we going to save the offers in this table?
 		
-		
-		
+		$out = array();		
 		$searchAdd = '';
+		
 		if (isset($query['params']['search'])) {
 			
 			$terms = explode(' ', $query['params']['search']);
@@ -217,10 +223,18 @@ class ConstructAjaxOutput {
 				$networksSearchAdd = '';
 			}
 		}
+				
+		//limit, range
+		if(!isset($query['params']['page'])) //do this here - not required on the front
+			$query['params']['page'] = 1;
+		
+		$numresults = isset($query['params']['numresults']) && $query['params']['numresults'] ? $query['params']['numresults'] : 100;
+		$numfrom = $query['params']['page'] > 1 ? ($query['params']['page'] - 1) * $numresults : 0;
+			
+		$limitAdd = " LIMIT $numfrom, $numresults";
 		
 		
-		
-		$sql = "SELECT
+		$sql = "SELECT SQL_CALC_FOUND_ROWS
 					bevomedia_offers.*,
 					bevomedia_category.title as `categoryTitle`,
 					bevomedia_aff_network.title as `networkName`
@@ -233,8 +247,18 @@ class ConstructAjaxOutput {
 					(bevomedia_aff_network.id = bevomedia_offers.network__id)
 					{$searchAdd}
 					{$networksSearchAdd}
+					{$limitAdd}
 				"; 
+		
+		$out['query'] = $sql;
+		
 		$data = mysql_query($sql);
+		
+		//get total results
+		$sql = "SELECT FOUND_ROWS() AS `found_rows`";
+		$results = mysql_query($sql);
+		$results = mysql_fetch_object($results);
+		$out['totalresults'] = $results->found_rows;
 		
 		$offersArray = array();
 		while ($offer = mysql_fetch_object($data))
@@ -275,19 +299,154 @@ class ConstructAjaxOutput {
 			$offersArray[] = $offer;
 		}
 		
-		//format price
+		//format a few things
 		foreach($offersArray as $key => $offer) {
+			//special chars in name
+			//$offersArray[$key]->title = htmlentities($offer->title, ENT_QUOTES, 'UTF-8'); //turns errors into null values
+			//$offersArray[$key]->title = str_replace('£','&pound;', $offer->title); //doesnt work either...
+			
+			//payout
 			$offersArray[$key]->payout = !stristr($offer->payout, '$')
 				? '$'.number_format(intval($offer->payout), 2)
 				: number_format(intval($offer->payout), 2);
-		}		
+				
+			//date
+			$offersArray[$key]->dateAdded = date('F j, Y', strtotime($offer->dateAdded));
+		}
+		
+		//pagination
+		$out['pagination'] = self::MakePagination($out['totalresults'], $numresults, $query['params']['page']);
 		
 		$out['resultarr'] = $offersArray;
+		
 		return $out;
 		
 	}//orowbig()
 	
 	/*private methods*/
+	
+	/** MakePagination()
+	  * constructs HTML
+	  */
+	private function MakePagination($totalresults=0, $numresults=100, $currentpage=1) {
+		if($totalresults > $numresults) {
+			$totalpages = ceil($totalresults/$numresults);
+			
+			//pattern: 
+			//	we have 14 slots (besides first and last)
+			//	if there is enough room, we always try to place the current page in the 7th slot (not counting First)
+			//
+			//	we always show 4 single increments/decrements on each side of the current page, that makes 7 slots. 14-8 = 6 remaining slots min.
+			//		(if currentpage has less than 4 singles left on either side, there are more remaining slots)
+			//	after the singles, we increment by 10 for each following slot. E.g. if the last "single" slot on the right side was 14, it's 24, 34, 44, 54, 64, etc. Same for decrements.
+			
+			//start with currentpage
+			$o = array(); //array with values = page numbers. fill with more than 14 slots; slice and remap to a.class 2 thru 15 later.
+			
+			if($currentpage > 1 && $currentpage < $totalpages) //if currentpage is somewhere in-between first and last
+				$o[] = $currentpage;
+			
+			//singles left
+			if($currentpage > 1) {
+				for($i=$currentpage-1; $i>=$currentpage-4; $i--) {
+					if($i > 1) {
+						$o[] = $i;
+					}
+				}
+			}
+			
+			//singles right
+			if($currentpage < $totalpages) {
+				for($i=$currentpage+1; $i<=$currentpage+4; $i++) {
+					if($i < $totalpages) {
+						$o[] = $i;
+					}
+				}
+			}
+			
+			//fill right
+			$remainingSlots = 14-count($o); //can be anywhere between 5 and 9
+			$smallestExistingSlot = min($o);
+			$largestExistingSlot = max($o);
+			
+			if($largestExistingSlot < $totalpages) {
+				$next = $largestExistingSlot;
+				
+				for($i=1; $i<=14; $i++) {
+					
+					if($totalpages-$largestExistingSlot >= $remainingSlots*10) //if we have slots to fill and increments of 10 are possible
+						$nextIncrement = 10;
+					else 	$nextIncrement = 1; //else fill with single increments
+					
+					$next = $next+$nextIncrement;
+					
+					if($next < $totalpages) {
+						$o[] = $next;
+					}
+				}
+			}			
+			
+			//same for left
+			if($smallestExistingSlot > 1) {
+				$next = $smallestExistingSlot;
+				
+				for($i=1; $i<=14; $i++) {
+					if($smallestExistingSlot-$remainingSlots*10 > 1) //if we have slots to fill and 10 increments of 10 are possible
+						$nextIncrement = 10;
+					else 	$nextIncrement = 1; //else fill with single increments
+					
+					$next = $next-$nextIncrement;
+					
+					if($next > 1) {
+						$o[] = $next;
+					}
+				}
+			}
+			
+			//now sort
+			sort($o);
+			$o = array_unique($o);
+			
+			$slotsLeft = array_search($currentpage, $o);
+			$slotsRight = count($o)-$slotsLeft-1; //minus one for the current page
+			
+			//get the lowest slot on the left that we can use so that we ideally have 6 on left and 7 on right of current
+			$offset = $slotsLeft >= 6 ? $slotsLeft-6 : 0; //max. 6 slots on the left, otherwise we start at the first one
+			
+			$final = array_slice($o, $offset, 14);
+			
+			//finally build the markup
+			$out = '';
+			for($i=0; $i<=count($final)-1; $i++) {
+				$num = $i+2;
+				$out .= '<a class="n'.$num;
+					$out .= $final[$i] == $currentpage ? ' active' : '';
+				$out .= '" href="#" data-page="'.$final[$i].'" title="Page '.$final[$i].'">'.$final[$i].'</a>';
+			}
+			
+			//first and last
+			$first = '<a class="first';
+				$first .= $currentpage == 1 ? ' active' : '';
+				$first .= '" href="#" data-page="1" title="Page 1">First</a>';			
+			
+			$last = '<a class="';
+				if(count($final) == 14)
+					$last .= 'last';
+				else {
+					$number = count($final)+2;
+					$last .= 'n'.$number;
+				}
+				//$last .= count($final) == 14 ? 'last' : 'n'.count($final)+2;
+				$last .= $currentpage == $totalpages ? ' active' : '';
+				$last .= '" href="#" data-page="'.$totalpages.'" title="Page '.$totalpages.'">Last</a>';
+				
+			$out = $first.$out.$last;
+		
+		} else	$out = false;
+		
+		return $out;
+	
+	}//MakePagination()
 	
 	/** MakeOrowbig()
 	  * constructs HTML for the offer details box
@@ -298,49 +457,91 @@ class ConstructAjaxOutput {
 		else {*/
 			$out = '<tr class="orowbig j_oid-'.$offer->id.' hide" data-oid="'.$offer->id.'">';
 				$out .= '<td class="border">&nbsp;</td><td class="td_info" colspan="3"><div class="td_inner">';
-				$out .= '<div class="floatleft"><a class="ovault_othumb" href="#" title="Click to view large">';
-					$out .= '<img src="/Themes/BevoMedia/img_new/othumb_default.gif" alt="" /><span></span>';
-				$out .= '</a>';
-				$out .= '<a class="btn ovault_importoffer" href="#">Import this offer into my network</a>';
+				$out .= '<div class="floatleft">';
+				
+				//have preview URL?
+				if(property_exists($offer, 'previewUrl') && $offer->previewUrl && $offer->previewUrl != '') {
+					$out .= '<a class="ovault_othumb" href="'.$offer->previewUrl.'" title="Preview offer in a new tab" target="_blank">';
+						$out .= '<img src="/Themes/BevoMedia/img_new/othumb_default.gif" alt="" /><span></span>';
+					$out .= '</a>';
+					
+				} else {
+					$out .= '<div class="ovault_othumb">';
+						$out .= '<img src="/Themes/BevoMedia/img_new/othumb_default.gif" alt="" />';
+					$out .= '</div>';				
+				}
+				
+				//cake import
+				if(property_exists($offer, 'importUrl') && $offer->importUrl && $offer->importUrl != '') {
+					$out .= '<a class="btn ovault_importoffer" href="#">Import this offer into my network</a>';
+				}
+				
 				$out .= '<div class="clear"></div></div>';
 				
 				$out .= '<div class="floatright">';
 				$out .= '<h3>'.$offer->title.'</h3>';
-				$out .= '<small>Added '.$offer->dateAdded.'</small>';
+				$out .= '<small>Added '.date('F j, Y', strtotime($offer->dateAdded)).'</small>';
 				
 				$out .= '<div class="otitle otitle_offerdesc"></div>';
-				$out .= '<p></p>';
+				$out .= '<p>'.$offer->detail.'</p>';
 				
-				$out .= '<div class="olink">';
-					$out .= '<input type="text" class="formtxt" readonly value="http://google.com/" />';
-					$out .= '<a class="btn ovault_visiticon" href="http://google.com/" title="Open link in a new tab" target="_blank">Visit</a>';
-				$out .= '</div>';
+				//olink
+				if(property_exists($offer, 'previewUrl') && $offer->previewUrl && $offer->previewUrl != '') {
+					$out .= '<div class="olink">';
+						$out .= '<input type="text" class="formtxt" readonly value="'.$offer->previewUrl.'" />';
+						$out .= '<a class="btn ovault_visiticon" href="'.$offer->previewUrl.'" title="Preview offer in a new tab" target="_blank">Visit</a>';
+					$out .= '</div>';
+				}
+				
 			$out .= '</div><div class="clear"></div></div><!--close td_inner-->';
 			$out .= '</td>';
 			
 			$out .= '<td class="td_nw" colspan="2"><div class="td_inner"><div class="otitle otitle_network noborder"></div>';
 			$out .= '<div class="onwpic">';
-				$out .= '<img class="nwpic w120" src="/Themes/BevoMedia/img/networklogos/uni/1068.png" alt="" title="Dadingo" />';
+				$out .= '<img class="nwpic w120" src="/Themes/BevoMedia/img/networklogos/uni/'.$offer->network__id.'.png" alt="" title="'.$offer->networkName.'" />';
 			
-			$out .= '<p class="bordertop aligncenter">Publisher\'s Rating:<br />';
-				$out .= '<img src="/Themes/BevoMedia/img/star-on.gif" id="img_rating_top_month_1068_1" onmouseover="" onmouseout="" style="" align="absbottom" border="0" /><img src="/Themes/BevoMedia/img/star-on.gif" id="img_rating_top_month_1068_2" onmouseover="" onmouseout="" style="" align="absbottom" border="0" /><img src="/Themes/BevoMedia/img/star-on.gif" id="img_rating_top_month_1068_3" onmouseover="" onmouseout="" style="" align="absbottom" border="0" /><img src="/Themes/BevoMedia/img/star-on.gif" id="img_rating_top_month_1068_4" onmouseover="" onmouseout="" style="" align="absbottom" border="0" /><img src="/Themes/BevoMedia/img/star-on.gif" id="img_rating_top_month_1068_5" onmouseover="" onmouseout="" style="" align="absbottom" border="0" />';
+			//rating stars (just show, dont allow to rate)
+			$out .= '<p class="bordertop aligncenter">Publisher\'s Rating: '.$offer->userRating.'<br />';
+			for($i=1; $i<=5; $i++) {
+				$ratingstate = $offer->userRating >= $i ? 'on' : 'off'; 		
+				$out .= '<img src="/Themes/BevoMedia/img/star-'.$ratingstate.'.gif" align="absbottom" />';
+			}
 			$out .= '</p><!--close publishers rating-->';
+			
 		$out .= '</div><!--close div.onwpic-->';
 		
-		$out .= '<p>You\'re already a member of this network!</p>';
-		$out .= '<div class="icon icon_ovault_nwmember_bigwhite"></div>';
-		$out .= '<a class="btn ovault_gotomystats_trans" href="/BevoMedia/Offers/MyStats.html">Go to my stats</a>';
+		//is member of nw or not
+		if($offer->isNetworkMember == 1) {
+			$out .= '<p>You\'re already a member of this network!</p>';
+			$out .= '<div class="icon icon_ovault_nwmember_bigwhite"></div>';
+			$out .= '<a class="btn ovault_gotomystats_trans" href="/BevoMedia/Offers/MyStats.html#ADD_CORRECT_LINK_LATERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR">Go to my stats</a>';
+		
+		} else {
+			$out .= '<p>You\'re not a member of this network yet! Become one now:</p>';
+			$out .= '<a class="btn nw_applyadd" href="/BevoMedia/Publisher/ApplyAdd.html?network='.$offer->network__id.'" rel="shadowbox;width=640;height=480;player=iframe">Apply to join this network</a>';		
+		}
 		
 		$out .= '</div><!--close td_inner-->';
 	$out .= '</td>';
 	$out .= '<td class="td_nwdesc" colspan="3">';
 		$out .= '<div class="td_inner">';
 
-		$out .= '<div class="otitle otitle_networkdesc"></div>';
-		$out .= '<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>';
+		//offer description
+		if(property_exists($offer, 'networkDescription') && $offer->networkDescription && $offer->networkDescription != '') {
+			$out .= '<div class="otitle otitle_networkdesc"></div>';
+			$out .= '<p>'.$offer->networkDescription.'</p>';
+		}
 		
-		$out .= '<div class="otitle otitle_latestnwreviews noborder"></div>';
-			$out .= '<ul class="ovault_boxlist hastitle"><li>not a fan</li><li>famous network, tons of offers</li><li>The amount of help and solid advice they give out is awesome</li></ul>';
+		//reviews
+		if(property_exists($offer, 'ratings') && is_array($offer->ratings) && !empty($offer->ratings) && $offer->ratings != '') {
+			$out .= '<div class="otitle otitle_latestnwreviews noborder"></div>';
+			$out .= '<ul class="ovault_boxlist hastitle">';
+				foreach($offer->ratings as $review) {
+					$out .= $review->userComment != '' ? '<li>'.$review->userComment.'</li>' : '';
+				}
+			$out .= '</ul>';
+		}
+		
 		$out .= '</div><!--close td_inner-->';
 	$out .= '</td>';
 	$out .= '<!--<td class="tail">&nbsp;</td>-->';

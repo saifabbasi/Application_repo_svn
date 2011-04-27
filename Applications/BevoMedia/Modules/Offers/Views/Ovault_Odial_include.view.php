@@ -97,6 +97,8 @@
 					<input type="hidden" id="osearch_type" name="type" value="lead" />
 					<input type="hidden" id="osearch_include_mysaved" name="include_mysaved" value="1" />
 					<input type="hidden" id="osearch_include_networks" name="include_networks" value="<?php foreach($mynetworks as $network) { echo $network->id.',';} ?>" />
+					<input type="hidden" id="osearch_numresults" name="numresults" value="100" />
+					<input type="hidden" id="osearch_page" name="page" value="1" />
 					
 					<div class="clear"></div>
 				</div><!--close obox upper-->
@@ -125,20 +127,28 @@
 		
 	</div><!--close top.simple-->
 	<div class="butt">
-		<div class="rows">
-			<div class="selebtn" href="#">200<span class="down"></span></div>
-			<div class="selebtn hide">
-				<a href="#" data-value="25">25</a>
-				<a href="#" data-value="50">50</a>
-				<a href="#" data-value="100">100</a>
-				<a class="active" href="#" data-value="200">200</a>
+		<div class="rows" id="numresults_sele">
+			<div class="selebtn showolay_simplenext" href="#">100<span class="down"></span></div>
+			<div class="selebtn hide olaysimplenext">
+				<a class="numresults-25" href="#" data-value="25" data-hiddenfield="numresults">25</a>
+				<a class="numresults-50" href="#" data-value="50" data-hiddenfield="numresults">50</a>
+				<a class="numresults-100 active" href="#" data-value="100" data-hiddenfield="numresults">100</a>
+				<a class="numresults-200" href="#" data-value="200" data-hiddenfield="numresults">200</a>
 			</div>
 		</div>
 		<div class="save">
 			<div class="selebtn j_showolay" href="#" data-olay="olay_savedlists">My Offers (2 Feb 2011)<span class="down"></span></div>
 			<a class="btn ovault_saveallpage" href="#">Save All Of This Page</a>
 		</div>
-	</div><!--close butt-->
+	</div><!--close butt-->		
+	
+	<?php  /*
+		*
+		*
+		* OLAYS
+		*
+		*
+		*/ ?>
 	
 	<!-- olay_networks -->
 	<div id="olay_networks" class="ovault_olay simple"><?php /*ODIAL TOP SIMPLE: when we switch to the normal/enhanced dial, also remove the class "simple" from this!*/ ?>
@@ -277,4 +287,38 @@
 	
 		<div class="olaytopflag_big ovault_olay_close">My Offers (2 Feb 2011)</div>
 	</div><!--close #olay_savedlists-->
+	
+	<!-- #opagi -->
+	<div id="opagi">
+		<div class="numbers">
+			<?php /*
+			<a class="first" href="#">First</a>
+			<a class="n2" href="#">2</a>
+			<a class="n3" href="#">3</a>
+			<a class="n4" href="#">4</a>
+			<a class="n5" href="#">5</a>
+			<a class="n6" href="#">6</a>
+			<a class="n7" href="#">7</a>
+			<a class="n8" href="#">8</a>
+			<a class="n9" href="#">9</a>
+			<a class="n10" href="#">10</a>
+			<a class="n11" href="#">11</a>
+			<a class="n12" href="#">12</a>
+			<a class="n13" href="#">13</a>
+			<a class="n14" href="#">14</a>
+			<a class="n15" href="#">15</a>
+			<a class="last" href="#">Last</a>
+			*/ ?>
+		</div>
+		
+		<div class="totalresults hide"></div>
+		
+		<a class="btn ovault_opagi_prev" href="#">Previous Page</a>
+		<a class="btn ovault_opagi_next" href="#">Next Page</a>
+	</div><!--close #opagi-->
 </div><!--close #odial-->
+		
+<div id="opagi_bg">
+	<div class="numbers"></div>
+	<div class="totalresults"></div>
+</div>

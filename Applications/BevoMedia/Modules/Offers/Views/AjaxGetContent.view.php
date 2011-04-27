@@ -37,10 +37,10 @@ if($_GET && isset($_GET['get']) && in_array($_GET['get'], $allowed_gets)) {
 		case 'searchresults' :
 			$required_keys = array('search','type','include_networks');
 			
-			foreach($required_keys as $key) {
+			foreach($_GET as $key => $value) {
+				
 				$f = str_replace(array('\'','"'), '', strip_tags(trim($_GET[$key])));
 				
-				//clean up empty/comma/dupe
 				if($key == 'include_networks') {
 					$terms = explode(',', $f);
 					$goodterms = array();
@@ -50,12 +50,28 @@ if($_GET && isset($_GET['get']) && in_array($_GET['get'], $allowed_gets)) {
 					}
 					$goodterms = array_unique($goodterms);
 					$f = implode(',',$goodterms);
+			
+				} elseif($key == 'numresults' || $key == 'page' || $key == 'newpage') {
+					$tmp = intval($_GET[$key]); 
+					$f = $tmp > 0 ? $tmp : '';
+				
 				}
 				
 				if($f != '' || !empty($f))
 					$query['params'][$key] = $f;
-				else	$error = 'You have either entered an invalid search term, or a required option is missing. Please try again!'; //only 1 error for all
+				
+				elseif(in_array($key, $required_keys)) {
+					$error = 'You have either entered an invalid search term, or a required option is missing. Please try again!';
+					break;
+				}
 			}
+			
+			//newpage overrides/resets page
+			if(array_key_exists('newpage', $query['params']) && $query['params']['newpage'] != '') {
+				$query['params']['page'] = $query['params']['newpage'];
+				unset($query['params']['newpage']);
+			}
+			
 		break;
 		
 	}//end switch
@@ -84,6 +100,7 @@ if(count($out) == 0) {
 } else {
 	//construct sanitized search string and add it
 	$out['searchstring'] = http_build_query($query['params']);
+	$out['get_raw'] = '<pre>'.print_r($_GET, true).'</pre>';
 	
 	/*if($query['get'] == 'orowbig') {
 		//echo '<pre>';
