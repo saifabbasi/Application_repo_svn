@@ -192,11 +192,12 @@ class ConstructAjaxOutput {
 				
 				$term = trim($term);
 				
-				$searchAdd .= " (bevomedia_offers.title LIKE '%{$term}%') AND ";
+				$searchAdd .= " (bevomedia_offers.title LIKE '%{$term}%') OR ";
+				$searchAdd .= " (bevomedia_offers.detail LIKE '%{$term}%') OR ";
 			}
 			
 			if (strlen($searchAdd)>1) {
-				$searchAdd = ' AND ('.rtrim($searchAdd, 'AND ').' )';
+				$searchAdd = ' AND ('.rtrim($searchAdd, 'OR ').' )';
 			} else {
 				$searchAdd = '';
 			}
@@ -239,8 +240,8 @@ class ConstructAjaxOutput {
 					bevomedia_category.title as `categoryTitle`,
 					bevomedia_aff_network.title as `networkName`
 				FROM
-					bevomedia_offers,
-					bevomedia_category,
+					bevomedia_offers
+					LEFT JOIN bevomedia_category ON (bevomedia_category.id = bevomedia_offers.category__id),
 					bevomedia_aff_network
 				WHERE
 					(bevomedia_category.id = bevomedia_offers.category__id) AND
