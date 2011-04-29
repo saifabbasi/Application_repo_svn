@@ -147,7 +147,7 @@ abstract class DirectTrackAbstract Extends NetworksAbstract {
 	{
 		$XmlData = $this->GetOfferInfo('');
 		
-		$Xml = simplexml_load_string($XmlData);
+		$Xml = @simplexml_load_string($XmlData);
 		if ($Xml===FALSE)
 		{
 			return false;
@@ -169,12 +169,19 @@ abstract class DirectTrackAbstract Extends NetworksAbstract {
 			$Result['StartDate'] = (string)$Item->start_date;
 			$Result['Url'] = (string)$Item->url;
 			$Result['Payout'] = '0';
+			$Result['OfferType'] = 'Lead';
 			foreach ($Item->payout as $Payout)
 			{
 				foreach ($Payout as $Price)
 				{
 					$Result['Payout'] = (string)$Price;
+					
+					if (strstr($Result['Payout'], '%')) {
+						$Result['OfferType'] = 'Sale';
+					}
+					
 					$Result['Payout'] = trim(str_replace('$', '', $Result['Payout']));
+					$Result['Payout'] = trim(str_replace('%', '', $Result['Payout']));
 				}
 			}
 			$Result['Expiration'] = (string)$Item->expiration->date;
@@ -220,7 +227,7 @@ abstract class DirectTrackAbstract Extends NetworksAbstract {
 		$results = $this->DoSoapRequest('campaignInfo', $args);
 		if($results !== false)
 		{
-			$results = htmlspecialchars_decode($results);
+			$results = ($results);
 			return $results;
 		}
 		else
@@ -293,6 +300,14 @@ abstract class DirectTrackAbstract Extends NetworksAbstract {
 			$OfferObj->payout = $Result['Payout'];
 			$OfferObj->countries = $Result['Countries'];
 			$OfferObj->category = $Result['Categories'];
+			
+			if (strstr($Result['Payout'], '%')) {
+				$OfferObj->offerType = 'Sale';
+			}
+			
+			$OfferObj->offerType = $Result['OfferType'];
+			$OfferObj->imageUrl = '';			
+			$OfferObj->dateAdded = $Result['StartDate'];
 			
 			$Output->addOfferObject($OfferObj);
 		}

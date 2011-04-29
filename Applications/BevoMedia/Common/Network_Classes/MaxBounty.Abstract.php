@@ -152,11 +152,16 @@ abstract class MaxBountyAbstract Extends NetworksAbstract {
 			$LaunchDate = date('Y-m-d', strtotime($Row['LAUNCH_DATE']));
 			$Description = $Row['DESCRIPTION'];
 			$PreviewURL = $Row['PREVIEW_URL'];
+			$OfferType = 'Lead';
 			if(isset($Row['RATE']))
 			{
-				$Payout = $Row['RATE'];
+				if (strstr($Row['RATE'], '%')) {
+					$OfferType = 'Sale';
+				}
+				$Payout = str_replace('$', '', $Row['RATE']);
+				$Payout = substr($Payout, 0, strpos($Payout, '/'));
 			}else{
-				$Payout = NULL;
+				$Payout = 0.00;
 			}
 			
 			$OfferObj = new Offer();
@@ -167,6 +172,12 @@ abstract class MaxBountyAbstract Extends NetworksAbstract {
 			$OfferObj->previewUrl = $PreviewURL;
 			$OfferObj->payout = $Payout;
 			$OfferObj->countries = $Countries;
+			
+			
+			
+			$OfferObj->imageUrl = '';
+			$OfferObj->offerType = $OfferType;
+			$OfferObj->dateAdded = date('Y-m-d');
 			
 			$Output->addOfferObject($OfferObj);
 		}

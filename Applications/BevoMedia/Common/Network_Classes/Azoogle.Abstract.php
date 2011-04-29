@@ -135,6 +135,124 @@ abstract class AzoogleAbstract Extends NetworksAbstract {
 	{
 		$Output = new OfferEnvelope();
 		
+		
+		$this->publisherId = '37376';
+		$this->publisherLogin = 'ryan@bevomedia.com';
+		$this->publisherPassword = 'yoyoyo1025';
+		$this->login();
+		
+		
+		$args = array(
+			'login_hash'		=> $this->loginHash,
+			'publisher_id'		=> $this->publisherId
+		);
+				
+
+		$Results = $this->DoSoapRequest('listOffers', $args);		
+		
+		$Results = array_reverse($Results);
+		
+		foreach ($Results as $Key => $OfferID) 
+		{
+			echo $Key.' '.count($Results)."\n";
+			
+			$args = array(
+				'login_hash'		=> $this->loginHash,
+				'publisher_id'		=> $this->publisherId,
+				'offer_id'			=> $OfferID,
+			); 
+			$Offer = $this->DoSoapRequest('offerDetails', $args);	
+			$Offer = $Offer[0];
+			print_r($Offer);
+			if (isset($Offer['open_date'])) {
+				if (strtotime($Offer['open_date'])<strtotime("-1 year")) {
+					break;
+				}
+			}
+			
+			if ($Offer['title']=='') continue;
+			
+			$Countries = array();
+			foreach ($Offer['accepts'] as $Country) 
+			{
+				$Countries[] = $Country['name'];
+			}
+			
+			
+			$Categories = array();
+			foreach ($Offer['categories'] as $Category) 
+			{
+				$Categories[] = $Category;
+			}
+			
+			
+			$OfferObj = new Offer();
+			$OfferObj->offerId = $Offer['offer_id'];
+			$OfferObj->name = $Offer['title'];
+			$OfferObj->description = $Offer['description'];
+			$OfferObj->countries = $Countries;
+			$OfferObj->category = $Categories;
+			$OfferObj->payout = $Offer['amount'];
+			
+			$OfferObj->offerType = 'Lead';
+			if (strstr($OfferObj->payout, '%')) {
+				$OfferObj->offerType = 'Sale';
+			}
+			
+			$OfferObj->previewUrl = '';
+			$OfferObj->imageUrl = '';			
+			$OfferObj->dateAdded = $Offer['open_date'];
+			
+			
+			$Output->addOfferObject($OfferObj);
+		}
+		
+		return $Output;
+		
+		
+		
+		
+die;
+		
+		$url = 'https://login.azoogleads.com/rss.php?login=ryan@bevomedia.com&passhash=3a3f9ced1a39b4babe7b18d766db70b5';
+		$Data = file_get_contents($url);
+		
+		$Xml = new SimpleXMLElement($Data);
+		foreach ($Xml->channel->item as $Offer)
+		{
+			print_r($Offer);die;
+			$OfferID = (string)$Offer->attributes()->offerId;
+			$Category = array((string)$Offer->attributes()->category);
+			//$Categories[] = $Category;
+			$Title = (string)$Offer->attributes()->offerName;
+			$Detail = (string)$Offer->OfferTagLine;
+			$StartDate = (string)$Offer->OpenDate;
+			$ExpireDate = (string)$Offer->ExpiryDate;
+			$Payout = (string)$Offer->OfferBounty;
+			$TrackUrl	= $this->offerTrackingCodesUrl.$OfferID;
+			$Countries = array();
+			foreach ($Offer->TrafficRestriction->Country as $Country)
+			{
+				$Countries[] = (string)$Country;
+			}
+			
+			$OfferObj = new Offer();
+			$OfferObj->offerId = $OfferID;
+			$OfferObj->name = $Title;
+			$OfferObj->category = $Category;
+			$OfferObj->description = $Detail;
+			$OfferObj->openDate = $StartDate;
+			$OfferObj->expireDate = $ExpireDate;
+			$OfferObj->payout = $Payout;
+			$OfferObj->trackUrl = $TrackUrl;
+			$OfferObj->countries = $Countries;
+			
+			$Output->addOfferObject($OfferObj);
+		}
+		
+		
+		
+		
 		$CurlOptions = array(
 			//'CURLOPT_URL'=>'http://reports.azoogleads.com/offer_xml/offer_xmlv2.xml',
 			'CURLOPT_HEADER'=>false,
@@ -146,7 +264,11 @@ abstract class AzoogleAbstract Extends NetworksAbstract {
 			'CURLOPT_USERAGENT'=>'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.7) Gecko/20070914 Firefox/2.0.0.7',
 			'CURLOPT_USERPWD'=>$this->offersUsername.':'.$this->offersPassword
 		);
-
+$this->login();
+		$url = 'https://login.azoogleads.com/rss.php?login=ryan@bevomedia.com&passhash='.$this->loginHash;echo $url;die;
+		$data = file_get_contents($url);
+		echo $data;die;
+		
 		$Data = $this->curlIt('http://reports.azoogleads.com/offer_xml/offer_xmlv2.xml', $CurlOptions);
 		$Xml = new SimpleXMLElement($Data);
 		foreach ($Xml->OfferList->Offer as $Offer)

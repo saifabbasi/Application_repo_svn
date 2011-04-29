@@ -221,7 +221,12 @@ abstract class CakeMarketingAbstract Extends NetworksAbstract {
 			$OfferObj->description = $description;
 			$OfferObj->previewUrl = $url;
 			$OfferObj->imageUrl = $thumbnailImageUrl;
-			$OfferObj->offerType = $offerType;
+			
+			$OfferObj->offerType = 'Lead';
+			if (strstr($payout, '%')) {
+				$OfferObj->offerType = 'Sale';
+			}
+			
 			$OfferObj->payout = str_replace('$', '', $payout);
 			$OfferObj->dateAdded = date('Y-m-d');
 			$OfferObj->countries = $countries;

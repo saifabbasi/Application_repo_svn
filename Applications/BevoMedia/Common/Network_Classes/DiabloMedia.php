@@ -220,6 +220,16 @@ class DiabloMedia Extends NetworksAbstract {
 			$OfferObj->type = $Offer->type;
 			$OfferObj->ecpc = $Offer->epc;
 			
+			$OfferObj->offerType = 'Lead';
+			if (strstr($Offer->payout, '%')) {
+				$OfferObj->offerType = 'Sale';
+			}
+			
+			$OfferObj->previewUrl = 'http://www.dmclix.com/c/'.$Offer->id.'/53981?sid=';
+			$OfferObj->imageUrl = '';			
+			$OfferObj->dateAdded = date('Y-m-d');
+			
+			
 			$Output->addOfferObject($OfferObj);
 		}
 		return $Output;

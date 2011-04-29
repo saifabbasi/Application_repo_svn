@@ -276,6 +276,15 @@ abstract class NeverBlueAbstract Extends NetworksAbstract {
 			$OfferObj->category = (string)$Action->primaryCategory;
 			$OfferObj->subcategory = (string)$Action->secondaryCategory;
 			
+			$OfferObj->offerType = 'Lead';
+			if (strstr($Payout, '%')) {
+				$OfferObj->offerType = 'Sale';
+			}
+			
+			$OfferObj->previewUrl = $Row->redirectLink;
+			$OfferObj->imageUrl = '';			
+			$OfferObj->dateAdded = $LaunchDate;
+			
 			$Output->addOfferObject($OfferObj);
 		}
 		
