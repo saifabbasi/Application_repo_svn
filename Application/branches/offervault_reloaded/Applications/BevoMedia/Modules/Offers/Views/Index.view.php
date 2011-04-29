@@ -88,6 +88,78 @@ e.checked = false;
 
 */ ?>
 
+<?php	//savelists
+	//read db to find out if user already has list(s) or not
+	//then read cookie to find out which one was the last one (if any)
+	//set $OfferSaveList to list ID or "new" if no list exists yet. echo it for the js var currentSaveList.
+	
+	global $ovaultSavelist;
+	$ovaultSavelist = array('cookie'=>'__bevoOLSL');	
+	
+	$sql = "CREATE TABLE IF NOT EXISTS bevomedia_user_offer_savelists(
+			id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+			user__id INT(10),
+			created TIMESTAMP DEFAULT NOW(),
+			updated TIMESTAMP DEFAULT NOW(),
+			name VARCHAR(255),
+			offers_array LONGTEXT
+			) TYPE=MyISAM
+	";
+	
+	function OvaultSaveListIni() {
+		global $ovaultSavelist;
+		
+		$out = false;
+		
+		$sql = "SELECT 
+				*
+			FROM 
+				bevomedia_user_offer_savelists
+			WHERE 
+				(bevomedia_user_offer_savelists.user__id = {$_SESSION['User']['ID']})
+			ORDER BY
+				id
+			";
+		$raw = mysql_query($sql);
+		
+		if(mysql_num_rows($raw) == 0) {
+			$out = 'new';
+			
+		} else {
+			$last = false;
+			
+			//check cook
+			if(isset($_COOKIE[$ovaultSavelist['cookie']]) && is_numeric($_COOKIE[$ovaultSavelist['cookie']])) {
+				$last = intval(trim($_COOKIE[$ovaultSavelist['cookie']]));
+			}
+			
+			$ovaultSavelist['lists'] = array();
+			while($obj = mysql_fetch_object($raw)) {
+				
+				if($last && $obj->id == $last)
+					$out = $last;
+				
+				$ovaultSavelist['lists'][$obj->id] = $obj; //make the id the key
+			}
+			
+			if(!empty($ovaultSavelist['lists']) && (!$last || !isset($ovaultSavelist['lists'][$last]))) {//if we have lists but no cookie exists, use the last updated one and setcookie
+				$item = end($ovaultSavelist['lists']); //just use the last list in line
+				$out = $item->id;
+			}
+			
+			if($out)
+				setcookie($ovaultSavelist['cookie'], $out, time()+60*60*24*30*12, '/'); //1y
+		}
+		
+		$out = $out ? $out : 'new';
+		
+		return $out;
+	}//OfferSaveListIni
+	
+	$ovaultSavelist['current'] = OvaultSaveListIni();
+	
+?>
+
 <?php /* ##################################################### OUTPUT ############### */ ?>
 <div id="pagemenu">
 	<ul>
@@ -109,128 +181,83 @@ e.checked = false;
 $(document).ready(function() {
 	/*offer vault*/
 	var	ajaxGet = 'AjaxGetContent.html',
+		ajaxPut = 'AjaxPutContent.html',
 		cache = [],
-		cookName = 'lastOfferSearch',
-		cook = readCookie(cookName),
+		
+		cook_LastSearch = '__bevoOLSearch',
+		cook_LastSaveList = '<?php echo $ovaultSavelist['cookie']; ?>',
+		
+		cookSearch = soap_cookRead(cook_LastSearch),
 		
 		//current
-		currentOid; //the current offer id that is being fetched for orowbig
+		currentOid, //the current offer id that is being fetched for orowbig
+		currentSaveList = '<?php echo $ovaultSavelist['current']; ?>'; //if "new", no list exists yet and a new one will be created automatically when they save2list.
 		
 	cache.offerdetails = []; //index = the offer ID
 	cache.searchresults = []; //index = the actual search string
 	cache.current_searchstring = false; //the current search string, set after ajax success
 	
+	//position
+	window.onscroll = function() {
+		if(document.documentElement.scrollTop > 215 || self.pageYOffset > 215)
+			$('#odial, #opagi_bg').addClass('fix');
+		else if(document.documentElement.scrollTop < 215 || self.pageYOffset < 215)
+			$('#odial, #opagi_bg').removeClass('fix');
+	}
 	
-	/*initial*/
-	if(cook) {
-		$.ajax({
-			type: 'GET',
-			url: ajaxGet+'?get=searchresults&'+cook,
-			success: function(r) {
-				r = $.parseJSON(r);
+	/*general*/
+	//expand
+	$('#ovault .j_expand, #odial .j_expand').live('click', function() {
+		var	target = $('#'+$(this).data('target')),
+			closeclass = $('.'+$(this).data('closelcass')+'.active');
+		
+		if(target.hasClass('active')) {
+			target.fadeOut(300, function() {
+				$('.hide',target).hide().removeClass('active'); //close possible children
+			}).removeClass('active');
 				
-				if(r.error) {
-					ajaxMessage(r.error);
-				} else {			
-					var target = $('#j_otablecont');
-					
-					//cache.searchresults[r.searchstring] = s; //REPLACE WITH THE BELOW
-					//window.location.hash = s; //REPLACE WITH THE BELOW
-					
-					cache.searchresults[r.searchstring] = r.resultarr; //use sanitized search string from script as an index
-					window.location.hash = r.searchstring;
-					
-					target.html(''); //remove old content
-					for(var i in r.resultarr) { //add to dom
-						target.append(addOfferTableRow(r.resultarr[i]));
-					}
-					
-					$('#opagi_bg .totalresults').fadeIn(500);
-					$('#opagi .totalresults').html(r.totalresults).fadeIn(400);
-					
-					//populate dial
-					//search=diet&type=lead&include_networks=1028,1028,1028,1028,1028
-					//var params = cook.split('&');
-					
-					var params = {};
-					$.each(r.searchstring.split('&'), function (i, value) {
-						value = value.split('=');
-						value1 = value[1].replace(/^A-Za-z0-9-_\+\,\% /g,'');
-						value1 = value1.replace(/\%2C/g, ',')
-						params[value[0]] = value1.replace(/\+/g, ' ');
-					});
-					
-
-					if(params['search'] && params['search'] != '') {
-						$('#osearch').val(params['search']);	
-					}
-					
-					//networks
-					if(params['include_networks'] && params['inclde_networks'] != '') {
-						$('#osearch_include_networks').val(params['include_networks']);
-						var tmp = params['include_networks'].split(',');
-						
-						tmp = unique(tmp); //filter out dupes
-						
-						var nwcount = 0;
-						
-						//first deactivate all
-						$('#olay_networks ul.j_olay_allnetworkslist li a, #olay_networks ul.j_olay_mynetworklist li a').removeClass('active');
-						//then activate the right ones
-						$.each(tmp, function(i, value) {
-							$('#olay_networks ul.j_olay_allnetworkslist li a, #olay_networks ul.j_olay_mynetworklist li a').each(function() {
-								if($(this).hasClass('j_nwid-'+value)) {
-									nwcount++;
-									$(this).addClass('active');
-								}
-							});
-						});
-						//update number
-						$('#number_networks').html(nwcount);
-					}
-					//type
-					if(params['type'] && params['type'] != '') {
-						tmp = params['type'].split(',');
-						
-						if(tmp.length == 2) {
-							$('#osearchform .ocheck_lead').addClass('active');
-							$('#osearchform .ocheck_sale').addClass('active');
-							$('#osearch_type').val('lead,sale');
-						} else if(tmp[0] == 'lead') {
-							$('#osearchform .ocheck_lead').addClass('active');
-							$('#osearchform .ocheck_sale').removeClass('active');
-							$('#osearch_type').val('lead');
-						} else if($tmp[0] == 'sale') {
-							$('#osearchform .ocheck_lead').removeClass('active');
-							$('#osearchform .ocheck_sale').addClass('active');
-							$('#osearch_type').val('sale');
-						}
-					}
-					
-					//mysaved
-					if(params['include_mysaved'] && params['include_mysaved'] != '') {
-						$('#osearchform .ocheck_mysaved').addClass('active');
-						$('#osearch_include_mysaved').val('1');
-					}
-					
-					//numresults
-					if(params['numresults'] && params['numresults'] != '') {
-						$('#osearch_numresults').val(params['numresults']);
-						$('#numresults_sele .showolay_simplenext').html(params['numresults']+'<span class="down"></span>');
-						$('#numresults_sele .olaysimplenext > *').each(function() {
-							if($(this).hasClass('numresults-'+params['numresults']))
-								$(this).addClass('active');
-							else	$(this).removeClass('active');
-						});
-					}
-					
-				}//endif ajax-noerror
-			},
-			error: function(r) {
-				ajaxMessage(r);
-			}
-		});
-	}//endif cook / INITIAL
+		} else {
+			//close others
+			closeclass.fadeOut(300).removeClass('active');
+			target.fadeIn(300).addClass('active');
+		}
+		return false;
+	})
+	
+	// close
+	$('#ovault .j_close, #odial .j_close').click(function() {
+		var target = $('#'+$(this).data('target'));
+		
+		target.fadeOut(300, function() {
+			$('.hide', target).hide().removeClass('active');
+		}).removeClass('active');
+		
+		return false;
+	})
+	
+	//input label
+	$('#ovault input.formtxt, #odial input.formtxt').live('focus', function() {
+		if($(this).val() == $(this).prev().html())
+			$(this).val('');
+		
+	}).live('blur', function() {
+		if($(this).val() == '')
+			$(this).val($(this).prev().html());
+	
+	})
+	
+	/*cook, back*/
+	if(cookSearch) {
+		doSearch(cookSearch, true);
+	}
+	
+	/*setInterval(function()	{
+		if(window.location.hash != cache.current_searchstring) {
+			//cache.searchresults[r.searchstring]
+			alert('hash changed');
+			cache.current_searchstring = window.location.hash;
+		}
+	}, 100);*/
 	
 	//orow expand/collapse
 	$('#j_otablecont .orow').live('click', function() {
@@ -282,7 +309,7 @@ $(document).ready(function() {
 	
 	/*search dial*/
 	//submit
-	$('#osearchform').live('submit', function() {		
+	$('#osearchform').live('submit', function() {			
 		var 	error = [],
 			search = $('#osearch').val(),
 			type = $('#osearch_type').val(),
@@ -327,7 +354,7 @@ $(document).ready(function() {
 	})//#osearchform submit
 	
 	//paginate
-	$('#opagi .numbers a:not(.active)').live('click', function() {
+	$('#opagi .numbers a.j_num:not(.active), #opagi .numbers a.j_prevnext').live('click', function() {
 		s = cache.current_searchstring + '&newpage='+$(this).data('page'); //newpage overrides page
 		
 		//alert('paginate s: '+s);
@@ -335,17 +362,6 @@ $(document).ready(function() {
 		
 		return false;
 	});
-	
-	//input label
-	$('input#osearch').live('focus', function() {
-		if($(this).val() == $(this).prev().html())
-			$(this).val('');
-		
-	}).live('blur', function() {
-		if($(this).val() == '')
-			$(this).val($(this).prev().html());
-	
-	})//input#osearch label
 	
 	//checkbox change
 	$('#odial a.ocheck').live('click', function() {
@@ -364,19 +380,7 @@ $(document).ready(function() {
 		return false;
 	})//a.ocheck
 	
-	/*olay*/ //show
-	$('#odial .j_showolay').live('click', function() {
-		var target = $('#'+$(this).data('olay'));
-		
-		if(target.hasClass('active'))
-			target.fadeOut(300).removeClass('active');
-		else {
-			//close others
-			$('.ovault_olay.active').fadeOut(300).removeClass('active');
-			target.fadeIn(300).addClass('active');
-		}
-	})
-	
+	/*olay*/
 	//show olay_simplenext
 	$('#numresults_sele .showolay_simplenext').live('click', function() {
 		$(this).next().fadeIn(100);
@@ -394,12 +398,6 @@ $(document).ready(function() {
 		
 		return false;
 	});
-	
-	//olay close
-	$('#odial .ovault_olay .ovault_olay_close').click(function() {
-		$(this).parents('.ovault_olay').fadeOut(300).removeClass('active');
-		return false;
-	})
 	
 	//olay_selelist items
 	$('#odial ul.olay_selelist li a').live('click', function() {
@@ -447,7 +445,26 @@ $(document).ready(function() {
 		odialHiddenFieldUpdate(field, values, action);
 		
 		return false;
-	})	
+	})
+
+	/*save2list*/
+	//save to list
+	$('.orow a.ovault_add2list').live('click', function() {
+		var oid = parseInt($(this).data('oid'));		
+		doSave2List(currentSaveList, oid);				
+	});
+	
+	//create new list
+	$('#ovault_createnewlistform').live('submit',function() {
+		var field = $('#ovault_newlistname');
+		
+		if(field.val() == field.prev().html() || field.val() == '')
+			ajaxMessage('Please enter a name for your list!');
+		else	doCreateNewList(field.val());
+		
+		return false;
+	});
+	
 	
 	/*
 	
@@ -465,11 +482,62 @@ $(document).ready(function() {
 		}
 	}//ajaxMessage()
 	
-	function doSearch(s) {
+	/*doSave2List*/
+	function doSave2List(list, oid) {
+		$.ajax({
+			type: 'GET',
+			url: ajaxPut+'?put=save2list&list='+list+'&oid='+oid,
+			success: function(r) {
+				
+				r = $.parseJSON(r);
+				
+				ajaxMessage(r);
+			},
+			error: function(r) {
+				ajaxMessage('Could not save offer, please try again!');
+			}
+		});
+	}//doSave2List()
+	
+	/*doCreateNewList*/
+	function doCreateNewList(name) {
+		$.ajax({
+			type: 'GET',
+			url: ajaxPut+'?put=createnewlist&newlistname='+name,
+			success: function(r) {
+				
+				r = $.parseJSON(r);
+				
+				if(r.error)
+					ajaxMessage(r.error);
+				
+				else {
+					addSavelistDarkTableRow(r.listid, name); //add new list to table
+					makeSavelistDefault(r.listid, name); //make this the default
+					
+					$('#ovault_createnewlistform.hide').fadeOut(200).removeClass('active');
+					$('#ovault_newlistname').val('');
+					
+					ajaxMessage(r.message);
+				}
+			},
+			error: function(r) {
+				ajaxMessage('An error occured. Please try again!');
+			}
+		});
+	}//doCreateNewList()
+	
+	/*doSearch*/ //updateDial bool set to true only if calling from cook or hash
+	function doSearch(s, updateDial) {
 		
 		var target = $('#j_otablecont');
 		
 		if(cache.searchresults[s]) { //dupe code - same as below. maybe outsource to func later
+			/*
+			
+			make this work laterrrrrrrrrrrrr
+			
+			*/
 			target.html(''); //remove old content
 			for(var i in r.resultarr) { //add to dom
 				target.append(addOfferTableRow(r.resultarr[i]));
@@ -508,7 +576,7 @@ $(document).ready(function() {
 						window.location.hash = r.searchstring;
 												
 						//set cookie
-						createCookie(cookName,r.searchstring,365);
+						soap_cookCreate(cook_LastSearch,r.searchstring,365);
 						
 						target.html(''); //remove old content
 						for(var i in r.resultarr) { //add to dom
@@ -530,6 +598,9 @@ $(document).ready(function() {
 							});
 							$('#opagi_bg .numbers').fadeOut(300);
 						}
+						
+						if(updateDial)
+							updateDialByHash(r.searchstring);
 					}
 				},
 				error: function(r) {
@@ -538,6 +609,85 @@ $(document).ready(function() {
 			});
 		}//endif cached or not
 	}//doSearch()
+	
+	/*updateDialByHash*/ //takes r.searchstring, updates everything in the dial. Use after cook or hash.
+	function updateDialByHash(searchstring) {
+		//populate dial
+		//search=diet&type=lead&include_networks=1028,1028,1028,1028,1028
+		//var params = cook.split('&');
+		
+		var params = {};
+		$.each(searchstring.split('&'), function (i, value) {
+			value = value.split('=');
+			value1 = value[1].replace(/^A-Za-z0-9-_\+\,\% /g,'');
+			value1 = value1.replace(/\%2C/g, ',')
+			params[value[0]] = value1.replace(/\+/g, ' ');
+		});
+		
+
+		if(params['search'] && params['search'] != '') {
+			$('#osearch').val(params['search']);	
+		}
+		
+		//networks
+		if(params['include_networks'] && params['inclde_networks'] != '') {
+			$('#osearch_include_networks').val(params['include_networks']);
+			var tmp = params['include_networks'].split(',');
+			
+			tmp = unique(tmp); //filter out dupes
+			
+			var nwcount = 0;
+			
+			//first deactivate all
+			$('#olay_networks ul.j_olay_allnetworkslist li a, #olay_networks ul.j_olay_mynetworklist li a').removeClass('active');
+			//then activate the right ones
+			$.each(tmp, function(i, value) {
+				$('#olay_networks ul.j_olay_allnetworkslist li a, #olay_networks ul.j_olay_mynetworklist li a').each(function() {
+					if($(this).hasClass('j_nwid-'+value)) {
+						nwcount++;
+						$(this).addClass('active');
+					}
+				});
+			});
+			//update number
+			$('#number_networks').html(nwcount);
+		}
+		//type
+		if(params['type'] && params['type'] != '') {
+			tmp = params['type'].split(',');
+			
+			if(tmp.length == 2) {
+				$('#osearchform .ocheck_lead').addClass('active');
+				$('#osearchform .ocheck_sale').addClass('active');
+				$('#osearch_type').val('lead,sale');
+			} else if(tmp[0] == 'lead') {
+				$('#osearchform .ocheck_lead').addClass('active');
+				$('#osearchform .ocheck_sale').removeClass('active');
+				$('#osearch_type').val('lead');
+			} else if($tmp[0] == 'sale') {
+				$('#osearchform .ocheck_lead').removeClass('active');
+				$('#osearchform .ocheck_sale').addClass('active');
+				$('#osearch_type').val('sale');
+			}
+		}
+		
+		//mysaved
+		if(params['include_mysaved'] && params['include_mysaved'] != '') {
+			$('#osearchform .ocheck_mysaved').addClass('active');
+			$('#osearch_include_mysaved').val('1');
+		}
+		
+		//numresults
+		if(params['numresults'] && params['numresults'] != '') {
+			$('#osearch_numresults').val(params['numresults']);
+			$('#numresults_sele .showolay_simplenext').html(params['numresults']+'<span class="down"></span>');
+			$('#numresults_sele .olaysimplenext > *').each(function() {
+				if($(this).hasClass('numresults-'+params['numresults']))
+					$(this).addClass('active');
+				else	$(this).removeClass('active');
+			});
+		}
+	}//updateDialByHash()
 	
 	/*odialHiddenFieldUpdate*/
 	//hiddenfield = 2nd part of the ID of the hidden field, after #osearch_
@@ -581,6 +731,20 @@ $(document).ready(function() {
 		else	$('#'+id).html(parseInt($('#'+id).html())+1);			
 	}//odialNumberUpdate()
 	
+	/*makeSavelistDefault*/ //plugs in the passed list as the default
+	function makeSavelistDefault(listid, name) {
+		
+		currentSaveList = listid;
+		soap_cookCreate(cook_LastSaveList,listid,365);
+		
+		var 	today = getToday(),
+			nicename = name+' ('+today+')';
+		
+		$('#odial .save .selebtn').html(nicename+'<span class="down"></span>');
+		$('#olay_savedlists .olaytopflag_big').html(nicename);
+	
+	}//makeSavelistDefault()
+	
 	/*addOfferTableRow*/ //adds 1 row. passed var must be an object from AjaxGetContent, usually r.resultarr[i]
 	function addOfferTableRow(offer) {
 		var out;
@@ -618,6 +782,47 @@ $(document).ready(function() {
 		
 		return out;
 	}//addOfferTableRow
+	
+	/*addSavelistDarkTableRow*/ //adds a newly created savelist to the .odarktable
+	function addSavelistDarkTableRow(listid, name) {
+		
+		var 	parent = $('#ovault_olay_savelists tbody'),
+			listnum = $('tr', parent).length,
+			/*
+			
+			SOMEHOW this doesnt recognize js-added rows... and it omits the 1st html+= and messes everything up. Maybe count the rows on page load and keep in a var?
+			
+			*/
+			thisnum = listnum+1,
+			today = getToday(),
+			html = '',
+			before = '',
+			after = '';
+			
+		html += '<tr class="j_list-'.listid;
+		html += listnum % 2 ? '' : ' alt';
+		html += ' hide">';
+		
+		html += '<td class="no">'+thisnum+'.</td><td class="name">'+name+'<span>Created: '+today+'</span></td>';
+		html += '<td class="use"><a class="btn icon_ovault_savelist_use" href="#">Use</a></td><td class="view"><a class="btn icon_ovault_savelist_view" href="#">View</a></td><td class="download"><a class="btn icon_ovault_savelist_csv" href="#">CSV</a></td><td class="delete"><a class="btn icon_ovault_savelist_delete" href="#">Delete</a></td></tr>';
+		
+		//if this is their first list ever, we also have to build the table, and the parent changes
+		if(currentSaveList == 'new') {
+			parent = $('#olay_savedlists .olaycont');
+			before = '<div class="olaybox nomarginbutt"><div class="olayboxtitle myofferlists"><a class="btn ovault_smallyell_deleteall" href="#">Delete All Lists</a></div><table cellspacing="0" cellpadding="0" id="ovault_olay_savelists" class="odarktable"><thead><tr><td class="no">&nbsp;</td><td class="name">Name</td><td class="use">Use</td><td class="view">View</td><td class="download">Download</td><td class="delete">Delete</td></tr></thead><tbody>';
+			after = '</tbody></table></div><div class="clear"></div>';
+		}
+		
+		$(before+html+after).appendTo(parent).fadeIn(500, function() {
+			if(currentSaveList == 'new') { //also show the normal box heading
+				$('#olay_savedlists .j_olay_savedlists_nolists').slideUp(200, function() {
+					$('#olay_savedlists .j_olay_savedlists_havelists').slideDown(400).removeClass('hide');
+				}).addClass('hide');				
+			}
+		}).removeClass('hide');
+		
+		
+	}//addSavelistDarkTableRow()
 
 	/*json*/
 	$.parseJSON = function(src) {
@@ -626,6 +831,18 @@ $(document).ready(function() {
 		return eval("(" + src + ")");
 	};
 	
+	/*today*/
+	function getToday() {
+		var	months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],			
+			currentTime = new Date(),
+			month = months[currentTime.getMonth()],
+			day = currentTime.getDate(),
+			today = month+' '+day;
+		
+		return today;
+	}
+	
+	/*kitchen*
 	function createCookie(name,value,days) {
 		if (days) {
 			var date = new Date();
@@ -645,7 +862,7 @@ $(document).ready(function() {
 			if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
 		}
 		return null;
-	}
+	}*/
 	
 	var unique = function(origArr) {  
 		var newArr = [],  

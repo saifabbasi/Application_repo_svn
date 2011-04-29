@@ -178,7 +178,7 @@ class ConstructAjaxOutput {
 		//$query['params']['type'] ?? how are we going to get this
 		//$query['params']['include_mysaved'] how are we going to save the offers in this table?
 		
-		$out = array();		
+		$out = array();	
 		$searchAdd = '';
 		
 		if (isset($query['params']['search'])) {
@@ -367,8 +367,8 @@ class ConstructAjaxOutput {
 			
 			//fill right
 			$remainingSlots = 14-count($o); //can be anywhere between 5 and 9
-			$smallestExistingSlot = min($o);
-			$largestExistingSlot = max($o);
+			$smallestExistingSlot = !empty($o) ? min($o) : 1;
+			$largestExistingSlot = !empty($o) ? max($o) : 1;
 			
 			if($largestExistingSlot < $totalpages) {
 				$next = $largestExistingSlot;
@@ -420,17 +420,17 @@ class ConstructAjaxOutput {
 			$out = '';
 			for($i=0; $i<=count($final)-1; $i++) {
 				$num = $i+2;
-				$out .= '<a class="n'.$num;
+				$out .= '<a class="j_num n'.$num;
 					$out .= $final[$i] == $currentpage ? ' active' : '';
 				$out .= '" href="#" data-page="'.$final[$i].'" title="Page '.$final[$i].'">'.$final[$i].'</a>';
 			}
 			
 			//first and last
-			$first = '<a class="first';
+			$first = '<a class="j_num first';
 				$first .= $currentpage == 1 ? ' active' : '';
 				$first .= '" href="#" data-page="1" title="Page 1">First</a>';			
 			
-			$last = '<a class="';
+			$last = '<a class="j_num ';
 				if(count($final) == 14)
 					$last .= 'last';
 				else {
@@ -441,7 +441,17 @@ class ConstructAjaxOutput {
 				$last .= $currentpage == $totalpages ? ' active' : '';
 				$last .= '" href="#" data-page="'.$totalpages.'" title="Page '.$totalpages.'">Last</a>';
 				
-			$out = $first.$out.$last;
+			//prev and next
+			$prevnext = '';
+			$prev = $currentpage-1;
+			$next = $currentpage+1;
+			
+			if($currentpage > 1) //prev
+				$prevnext .= '<a class="btn j_prevnext ovault_opagi_prev" href="#" data-page="'.$prev.'" title="Page '.$prev.'">Previous Page</a>';
+			if($next <= $totalpages) //next
+				$prevnext .= '<a class="btn j_prevnext ovault_opagi_next" href="#" data-page="'.$next.'" title="Page '.$next.'">Next Page</a>';
+				
+			$out = $first.$out.$last.$prevnext;
 		
 		} else	$out = false;
 		

@@ -25,7 +25,7 @@ $error = false;
 /*start script*/
 if($_GET && isset($_GET['get']) && in_array($_GET['get'], $allowed_gets)) {
 	
-	$query['get'] = htmlspecialchars(trim($_GET['get']));
+	$query['get'] = str_replace(array('\'','"'),'',htmlspecialchars(trim($_GET['get'])));
 
 	switch($query['get']) {
 		case 'orowbig' : //tr.orowbig for offer details
