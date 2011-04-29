@@ -178,6 +178,14 @@ class PeerFly Extends NetworksAbstract {
 			$OfferObj->ecpc = $Offer->epc;
 			$OfferObj->openDate = $Offer->pubDate;
 			
+			$OfferObj->offerType = 'Lead';
+			if (strstr($Offer->payout, '%')) {
+				$OfferObj->offerType = 'Sale';
+			}
+			
+			$OfferObj->imageUrl = '';			
+			$OfferObj->dateAdded = date('Y-m-d', strtotime($Offer->pubDate));
+			
 			$Output->addOfferObject($OfferObj);
 		}
 		return $Output;

@@ -1,6 +1,6 @@
 <?php 
 
-require_once('DirectTrack.Abstract.php');
+require_once('CakeMarketing.Abstract.php');
 
 /**
  * Rextopia.php
@@ -12,33 +12,45 @@ require_once('DirectTrack.Abstract.php');
  * @author RCS
  * @version 0.1.2
  */
-class Rextopia Extends DirectTrackAbstract {
+class Rextopia Extends CakeMarketingAbstract {
 	/**
 	 * @access protected
 	 * @var string $apiUrl
 	 */
-	protected $apiUrl = 'http://affiliates.copeac.com/api/soap_affiliate.php';
+	protected $apiUrl = 'http://login.rextopia.com/affiliates/api/1/reports.asmx/Clicks';
 	
 	/**
 	 * @access protected
-	 * @var string $offersUsername
+	 * @var string $apiUrlConversions
 	 */
-	protected $offersUsername = 'CD11827';
+	protected $apiUrlConversions = 'http://login.rextopia.com/affiliates/api/1/reports.asmx/Conversions';
 	
 	/**
 	 * @access protected
-	 * @var string $offersPassword
+	 * @var string $offersUrl
 	 */
-	protected $offersPassword = 'yoyoyo1025';
+	protected $offersUrl = 'http://login.rextopia.com/affiliates/api/1/offers.asmx/OfferFeed';
 	
 	/**
 	 * @access protected
-	 * @var string $apiClient
+	 * @var string $loginUrl
 	 */
-	protected $apiClient = 'rextopia';
+	protected $loginUrl = 'http://login.rextopia.com/login.php';
 	
 	/**
-	 * Copeac class constructor.
+	 * @access protected
+	 * @var string $offersAffiliateId
+	 */
+	protected $offersAffiliateId = '11827';
+	
+	/**
+	 * @access protected
+	 * @var string $offersApiKey
+	 */
+	protected $offersApiKey = 'G9B7bjcaQ0Y';
+	
+	/**
+	 * Convert2Media class constructor.
 	 *
 	 */
 	Public Function __construct()

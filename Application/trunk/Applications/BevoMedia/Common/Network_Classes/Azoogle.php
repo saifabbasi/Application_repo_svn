@@ -29,13 +29,13 @@ class Azoogle Extends AzoogleAbstract {
 	 * @access protected
 	 * @var string $offersUsername
 	 */
-	protected $offersUsername = 'bevo';
+	protected $offersUsername = 'ryan@bevomedia.com';
 	
 	/**
 	 * @access protected
 	 * @var string $offersPassword
 	 */
-	protected $offersPassword = 'offerList145';
+	protected $offersPassword = 'yoyoyo1025';
 	
 	/**
 	 * Azoogle class constructor.

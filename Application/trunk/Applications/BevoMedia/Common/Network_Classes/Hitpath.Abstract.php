@@ -217,9 +217,21 @@ abstract class HitpathAbstract Extends NetworksAbstract {
 				$OfferObj = new Offer();
 				$OfferObj->offerId = $OfferID;
 				$OfferObj->name = $Offer['Title'];
-				$OfferObj->description = $this->parseOfferDesc($OfferID);
+				$info = $this->parseOfferDescAndPreviewUrl($OfferID);
+				
+				$OfferObj->description = $info[0];
+				$OfferObj->previewUrl = $info[1];
+				
+				$OfferObj->offerType = 'Lead';			
+				if (strstr($Offer['Payout'], '%')) {
+					$OfferObj->offerType = 'Sale';					
+				}
+				
 				$OfferObj->payout = str_replace('$', '', $Offer['Payout']);
 				$Output->addOfferObject($OfferObj);
+				
+				$OfferObj->imageUrl = '';
+				$OfferObj->dateAdded = date('Y-m-d');
 			}
 
 			$Offset += 20;
@@ -255,7 +267,7 @@ abstract class HitpathAbstract Extends NetworksAbstract {
 		$LoginPage = $this->curlIt($this->loginUrl, $arrParams);
 	}
 	
-	private function parseOfferDesc($intInOfferID)
+	private function parseOfferDescAndPreviewUrl($intInOfferID)
 	{
 		global $OffersURL;
 		
@@ -276,11 +288,22 @@ abstract class HitpathAbstract Extends NetworksAbstract {
 		$offerDesc = $objHTML->find('td.campdesc');
 		$strOfferDesc = @trim($offerDesc[0]->plaintext);
 		
+		
+//		$offerPreviewUrl = $objHTML->find('input[value=Preview]');
+
+		$previewUrl = '';
+		
+//			$previewUrl = $offerPreviewUrl[0]->href;
+			$urlInfo = parse_url($this->offersUrl);
+			$previewUrl = $urlInfo['scheme'].'://'.$urlInfo['host'].'/rd/r.php?sid='.$intInOfferID.'&pub=451866&c1=';
+		
+		
+		
 		$objHTML->clear();
 		unset($objHTML);
 		unset($offerDesc);
 		
-		return $strOfferDesc;
+		return array($strOfferDesc, $previewUrl);
 	}
 
 	
