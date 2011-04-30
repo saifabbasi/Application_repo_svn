@@ -279,8 +279,12 @@ class ConstructAjaxOutput {
 					{$searchAdd}
 					{$networksSearchAdd}
 					{$savelistAdd}
+				ORDER BY 
+					bevomedia_offers.payout DESC
 					{$limitAdd}
-				";
+					
+				";		
+		//die($sql);
 				
 		$data = mysql_query($sql);
 		
