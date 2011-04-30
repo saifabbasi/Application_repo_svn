@@ -1,4 +1,4 @@
-<?php
+<?php /* OLD CODE
 //*************************************************************************************************
 
 require_once(PATH . "Legacy.Abstraction.class.php");
@@ -83,8 +83,10 @@ e.checked = false;
 </script>
 	
 <?= @$info ?>
-
-<?php /* ##################################################### OUTPUT ############### */ ?>
+ */ ?>
+ 
+<?php include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.php'; ?>
+ 
 <div id="pagemenu">
 	<ul>
 		<li><a class="active" href="/BevoMedia/Offers/BestPerformers.html">Best Performing Offers<span></span></a></li>
@@ -95,10 +97,10 @@ e.checked = false;
 <?php echo $this->PageDesc->ShowDesc($this->PageHelper, false, false, false, 'ovault'); //disable toggle, custom css class
 ?>
 
-<?php include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Odial.include.php'; ?>
+<?php 	$hideOdialExtras = true; //show only the search
+	include 'Applications/BevoMedia/Modules/Offers/Views/Ovault_Odial_include.view.php'; ?>
 
 <div class="pagecontent" id="ovault">
-
 	<div class="icon icon_ovault_ootm_tabletop"></div>
 	<table width="100%" cellspacing="0" cellpadding="3" border="0" class="btable" id="ootm">
 	
@@ -228,7 +230,6 @@ e.checked = false;
 
 	<div class="icon icon_ovault_hotnewestoffers"></div>	
 
-	<?php include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Pagecontent.include.php'; ?>
 </div><!--close pagecontent#ovault-->
 
 

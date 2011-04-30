@@ -869,6 +869,24 @@ Class PageHelper {
 	{
 		return array('EMAIL', 'KEYWORD', 'WEB', 'OTHER');
 	}
+	
+	/**
+	 * Truncate a string to a certain length of characters and append an extension like "..." if it was actually truncated, else return untouched
+	 *
+	 * @param $str string that has to be truncated
+	 * @param $length int length of characters before $str gets cut off
+	 * @param $ext string extension that will be appended if $str gets cut off
+	 * @return string
+	 */
+	 Public Function TruncTxt($str='', $length=20, $ext='...') {
+		if($str != '') {
+			$out = substr($str, 0, $length);
+			if(strlen($out) < strlen($str))
+				$out .= $ext;
+			
+			return $out;
+		}
+	}//TruncTxt()
 }
 
 

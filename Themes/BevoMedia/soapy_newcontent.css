@@ -876,7 +876,7 @@ h2.imagetitle.interested { width:147px; height:22px; background:url(img/imagetit
 
 
 	/*pagecontent - table*/
-#ovault .btable tr.orow {}
+#ovault .btable tr.orow { position:relative; }
 #ovault .btable tr.orow td { vertical-align:middle; }
 #ovault .btable tr.orow td.td_saved2list,
 #ovault .btable tr.orow td.td_savelist,
@@ -886,14 +886,14 @@ h2.imagetitle.interested { width:147px; height:22px; background:url(img/imagetit
 #ovault .btable tr.orow td.td_vertical,
 #ovault .btable tr.orow td.td_network { padding:4px 5px; }
 
-/*#ovault .btable td.td_saved2list { width:15px !important; }
-#ovault .btable td.td_savelist { width:40px !important; border-left:none; }
+#ovault .btable td.td_saved2list { width:15px; }
+#ovault .btable td.td_savelist { width:40px; border-left:none; }
 #ovault .btable td.td_offername { width:465px; }
-#ovault .btable td.td_payout { width:54px !important; text-align:center; }
-#ovault .btable td.td_type { width:41px !important; text-align:center; }
-#ovault .btable td.td_vertical { width:123px !important; text-align:center; }
-#ovault .btable td.td_network { width:120px !important; text-align:center; }
-        #ovault .btable tr.orow td.td_network { border-right:1px solid #ABE2F5 !important; }*/
+#ovault .btable td.td_payout { width:54px; text-align:center; }
+#ovault .btable td.td_type { width:41px; text-align:center; }
+#ovault .btable td.td_vertical { width:123px; text-align:center; }
+#ovault .btable td.td_network { width:120px; text-align:center; }
+        #ovault .btable tr.orow td.td_network { border-right:1px solid #ABE2F5 !important; }
 #ovault .btable td.td_savelist { border-left:none; }
 #ovault .btable td.td_payout,
 #ovault .btable td.td_type,
@@ -919,8 +919,11 @@ h2.imagetitle.interested { width:147px; height:22px; background:url(img/imagetit
 	#ovault .btable td.td_savelist a.btn.ovault_add2list_select { margin:0; float:left; display:none; }
         	#ovault .btable tr:hover td.td_savelist a.btn.ovault_add2list,
 	        #ovault .btable tr.expanded td.td_savelist a.btn.ovault_add2list,
+	        #ovault .btable tr.selectpersist td.td_savelist a.btn.ovault_add2list,
+	        
         	#ovault .btable tr:hover td.td_savelist a.btn.ovault_add2list_select,
-            	#ovault .btable tr.expanded td.td_savelist a.btn.ovault_add2list_select { display:block; }
+            	#ovault .btable tr.expanded td.td_savelist a.btn.ovault_add2list_select,
+            	#ovault .btable tr.selectpersist td.td_savelist a.btn.ovault_add2list_select { display:block; }
 	
 	
 	#ovault .btable td.td_offername p { color:#000; }
@@ -929,9 +932,12 @@ h2.imagetitle.interested { width:147px; height:22px; background:url(img/imagetit
 	#ovault .btable td.td_type p { font-size:.9em; color:#808080; }
 	#ovault .btable td.td_vertical p { font-size:.9em; color:#808080; }
 	#ovault .btable td.td_network p { font-size:.9em; color:#808080; }
+
+	#ovault .btable td.td_savelist .olay_container { position:absolute; }	
+	#ovault .btable td.td_savelist .olay_container #olay_savedlists_select { position:relative; top:25px; left:-14px; display:block !important; }
 	
 	/*orow.expanded*/
-	#ovault .btable tr.orow.expanded td { border-top:5px solid #333; }
+	#ovault .btable tr.orow.expanded td { border-top:3px solid #F8CD43; }
 	#ovault .btable tr.orow.expanded td.td_payout { background:url(img_new/orow_exp_bg_dark.gif) repeat-y; }
                 #ovault .btable tr.orow.expanded td.td_payout p { color:#fff; }  
 	#ovault .btable tr.orow.expanded td.td_type { background:url(img_new/orow_exp_bg_darkgray.gif) repeat-y; border-left:none; }
@@ -943,7 +949,7 @@ h2.imagetitle.interested { width:147px; height:22px; background:url(img/imagetit
 	
 	/*orowbig*/
 	#ovault .btable tr.orowbig.hide { display:none; }
-        #ovault .btable tr.orowbig td { border-top:none; border-bottom:5px solid #333; vertical-align:top; }
+        #ovault .btable tr.orowbig td { border-top:none; border-bottom:3px solid #F8CD43; vertical-align:top; }
         #ovault .btable tr.orowbig td .td_inner { padding:5px; }
 
 	#ovault .btable tr.orowbig td.td_info { background:url(img_new/orow_exp_bg_lite.gif) repeat-y; }
@@ -1063,24 +1069,31 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 		
 	/*ovault_darktable*/
 	.olaybox table.odarktable { margin:0 -10px -10px; }
-	table.odarktable td { padding:3px 4px; text-align:center; vertical-align:middle; background:#4d4d4d; }
-		table.odarktable tr.alt td { background:#666; }
+	table.odarktable td { padding:3px 4px; text-align:center; vertical-align:middle; background:#4d4d4d !important; border:none !important; }
+		table.odarktable tr.alt td { background:#666 !important; }
 	
-	table.odarktable thead td { font-size:8px; color:#000; font-family:Verdana, Arial, sans-serif; text-transform:uppercase; background:#666; }
-		table.odarktable thead td.use { color:#F7B51E; background:#333; }
+	table.odarktable thead td { font-size:8px; color:#000; font-family:Verdana, Arial, sans-serif; text-transform:uppercase; background:#666 !important; }
 		
-	table.odarktable tr:hover td.no,
-	table.odarktable tr:hover td.name,
-	table.odarktable tr:hover td.use { background:#000 !important; cursor:pointer; }
-	table.odarktable tr:hover td.use a.btn { background-position:left bottom; }
+		table.odarktable tbody td.name { text-align:left; }
+		table.odarktable thead td.use { color:#F7B51E; background:#333 !important; }
+		
+		table.odarktable tbody td a.btn { float:none !important; margin:0 auto !important; }
+	
+	table.odarktable tbody tr:hover td.no,
+	table.odarktable tbody tr:hover td.name,
+	table.odarktable tbody tr:hover td.use { background:#000 !important; cursor:pointer; }
+	table.odarktable tbody tr:hover td.use a.btn { background-position:left bottom; }
 	
 	table.odarktable td.no { color:#b2b2b2; vertical-align:top; }
 	table.odarktable td.name { width:220px; color:#fff; text-align:left; }
 		table.odarktable td.name span { display:block; color:#b2b2b2; font-size:8px; }	
-	table.odarktable td.use { background:#333 !important; }
-	table.odarktable td.view {}
-	table.odarktable td.download {}
-	table.odarktable td.delete {}
+	table.odarktable tbody td.use { background:#333 !important; }
+	table.odarktable td.view:hover,
+	table.odarktable td.download:hover,
+	table.odarktable td.delete:hover { cursor:pointer; }
+	table.odarktable td.view:hover a,
+	table.odarktable td.download:hover a,
+	table.odarktable td.delete:hover a { background-position:left bottom; }
 	
 	 /*single olays*/
             	/*olay_networks*/
@@ -1103,14 +1116,25 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 			
 		form#ovault_createnewlistform { margin:25px 0 0 -5px; position:relative; }
 			#ovault_createnewlistform input.formtxt { width:200px; }
-			#ovault_createnewlistform input.btn.ovault_createicon { margin:3px 0 0 -5px; float:left; }
-			#ovault_createnewlistform a.btn.ovault_olay_close { top:10px; right:auto; left:275px; }
+			#ovault_createnewlistform input.btn.ovault_savenewlist { margin:5px 0 0 -8px; float:left; }
+			#ovault_createnewlistform a.btn.ovault_olay_close { top:9px; right:auto; left:275px; }
+
+                /*ovault_olay_savelists_select*/
+        .ovault_olay#olay_savedlists_select { width:280px; }
+                #olay_savedlists_select .olaytop { width:290px; margin-left:4px; }
+                #olay_savedlists_select .olaycont a.ovault_olay_close { top:10px; right:-15px; }
+                #olay_savedlists_select .olaybox { margin:0 !important; }
+                table.odarktable#ovault_olay_savelists_select {}
+                #olay_savedlists_select .olaytopflag { width:18px; height:54px; top:-26px; left:24px; right:auto; background:url(img_new/ovault_olaytopflag_orow_select.png) no-repeat; }
 
 /*offers 110120*/
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 	#offmain_searchform { float:left; }
 	table.floatleft { display:inline !important; }
 }
+
+
+
 
 
 

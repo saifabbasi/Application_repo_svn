@@ -178,9 +178,10 @@ class ConstructAjaxOutput {
 		//$query['params']['type'] ?? how are we going to get this
 		//$query['params']['include_mysaved'] how are we going to save the offers in this table?
 		
+		$userid = $_SESSION['User']['ID'];
 		$out = array();	
-		$searchAdd = '';
 		
+		$searchAdd = '';
 		if (isset($query['params']['search'])) {
 			
 			$terms = explode(' ', $query['params']['search']);
@@ -224,6 +225,35 @@ class ConstructAjaxOutput {
 				$networksSearchAdd = '';
 			}
 		}
+		
+		
+		
+		/*
+		
+		it would be better to integrate this into the main query with a join instead of running a 2nd query...
+		
+		*/
+		$savelistAdd = '';		
+		
+		if(!isset($query['params']['include_mysaved']) || $query['params']['include_mysaved'] == 0) {
+			
+			$savedoffers = array();
+			
+			$sql = "SELECT offers.offer__id
+				FROM bevomedia_user_offerlists_offers AS offers
+					LEFT JOIN bevomedia_user_offerlists AS lists
+						ON offers.list__id = lists.id
+				WHERE lists.user__id = {$userid}
+			";
+			
+			$raw = mysql_query($sql);
+			while($saved = mysql_fetch_object($raw)) {
+				$savedoffers[] = $saved->offer__id;
+			}
+			
+			if(!empty($savedoffers))
+				$savelistAdd = " AND (bevomedia_offers.id NOT IN (".implode(', ', $savedoffers).")) ";
+		}
 				
 		//limit, range
 		if(!isset($query['params']['page'])) //do this here - not required on the front
@@ -248,18 +278,17 @@ class ConstructAjaxOutput {
 					(bevomedia_aff_network.id = bevomedia_offers.network__id)
 					{$searchAdd}
 					{$networksSearchAdd}
+					{$savelistAdd}
 					{$limitAdd}
-				"; 
-		
-		$out['query'] = $sql;
-		
+				";
+				
 		$data = mysql_query($sql);
 		
 		//get total results
-		$sql = "SELECT FOUND_ROWS() AS `found_rows`";
-		$results = mysql_query($sql);
-		$results = mysql_fetch_object($results);
-		$out['totalresults'] = $results->found_rows;
+		$sqlcount = "SELECT FOUND_ROWS() AS `found_rows`";
+		$countresults = mysql_query($sqlcount);
+		$countresults = mysql_fetch_object($countresults);
+		$out['totalresults'] = $countresults->found_rows;
 		
 		$offersArray = array();
 		while ($offer = mysql_fetch_object($data))
@@ -275,6 +304,25 @@ class ConstructAjaxOutput {
 			$isMemberOfNetwork = mysql_query($sql);
 			$offer->isNetworkMember = (mysql_num_rows($isMemberOfNetwork))?1:0;
 			
+			//check if offer is in an offer list already
+			if(isset($query['params']['include_mysaved']) && $query['params']['include_mysaved'] == 1) {
+				
+				$savedoffers = array();
+				
+				$sql = "SELECT offers.offer__id
+					FROM bevomedia_user_offerlists_offers AS offers
+						LEFT JOIN bevomedia_user_offerlists AS lists
+							ON offers.list__id = lists.id
+					WHERE offers.offer__id = {$offer->id}
+						AND lists.user__id = {$userid}
+					LIMIT 1
+				";
+				
+				$offerIsSaved = mysql_query($sql);
+				$offer->saved2list = (mysql_num_rows($offerIsSaved)) ? 1 : 0;
+			}
+			
+			$offersArray[] = $offer;
 			
 			// $offer->id
 			// $offer->title = $offerTEMP->offername
@@ -297,7 +345,6 @@ class ConstructAjaxOutput {
 			// $offerTEMP->is_networkmember = 1; //is this user a member of the network?
 			// $offerTEMP->networkname = 'CPA Staxx';
 			
-			$offersArray[] = $offer;
 		}
 		
 		//format a few things
@@ -340,6 +387,28 @@ class ConstructAjaxOutput {
 			//	we always show 4 single increments/decrements on each side of the current page, that makes 7 slots. 14-8 = 6 remaining slots min.
 			//		(if currentpage has less than 4 singles left on either side, there are more remaining slots)
 			//	after the singles, we increment by 10 for each following slot. E.g. if the last "single" slot on the right side was 14, it's 24, 34, 44, 54, 64, etc. Same for decrements.
+			
+			/*
+			<a class="first" href="#">First</a>
+			<a class="n2" href="#">2</a>
+			<a class="n3" href="#">3</a>
+			<a class="n4" href="#">4</a>
+			<a class="n5" href="#">5</a>
+			<a class="n6" href="#">6</a>
+			<a class="n7" href="#">7</a>
+			<a class="n8" href="#">8</a>
+			<a class="n9" href="#">9</a>
+			<a class="n10" href="#">10</a>
+			<a class="n11" href="#">11</a>
+			<a class="n12" href="#">12</a>
+			<a class="n13" href="#">13</a>
+			<a class="n14" href="#">14</a>
+			<a class="n15" href="#">15</a>
+			<a class="last" href="#">Last</a>
+			
+			<a class="btn j_prevnext ovault_opagi_prev" href="#">Previous Page</a>
+			<a class="btn j_prevnext ovault_opagi_next" href="#">Next Page</a>
+			*/
 			
 			//start with currentpage
 			$o = array(); //array with values = page numbers. fill with more than 14 slots; slice and remap to a.class 2 thru 15 later.

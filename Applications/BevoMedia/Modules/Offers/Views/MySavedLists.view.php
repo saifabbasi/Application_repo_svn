@@ -1,90 +1,46 @@
-<?php
-//*************************************************************************************************
-
-require_once(PATH . "Legacy.Abstraction.class.php");
-
-		global $userId;
-		$userId = $this->User->id;
-//*************************************************************************************************
-
-		$isOffersPage		= true;
-		$showOffersPanes	= true;
-
-//*************************************************************************************************
-
-		//$arrModels		= array('CPA', 'CPM', 'CPC');
-		$arrModels		= array('CPA');
+<?php include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.php'; 
+	
+	//build markup
+	$ovaultSavelist['lefttable'] = '';	
+	if(isset($ovaultSavelist['lists']) && is_array($ovaultSavelist['lists']) && !empty($ovaultSavelist['lists'])) {
+		$listcount = 0;
+		$offerz = 0;
+					
+		foreach($ovaultSavelist['lists'] as $list) {
+						
+			$listcount++;
+						
+			//format date
+			if(date('Y') == date('Y', strtotime($list->created)))
+				$listdate = 'M j';
+			else	$listdate = 'M j, Y';
+			
+			//re-used values
+			$truncname = $this->PageHelper->TruncTxt($list->name,27);
+			$nicedate = date($listdate, strtotime($list->created));
+			
+			//build output
+			$ovaultSavelist['lefttable'] .= '<tr class="j_list-'.$list->id.'" data-listid="'.$list->id.'" data-listname="'.$list->name.'">
+				<td class="hhl">&nbsp;</td>
+				<td class="oleft">
+					<span class="no">'.$listcount.'</span>
+					<h3>'.$truncname.'</h3>
+					<span class="created">Created: '.$nicedate.'</span>
+					<div class="offercount">'.$list->num_offers.'</div>
+				</td>
+				<td class="hhr">&nbsp;</td>';
 		
-//*************************************************************************************************
-
-		$today = date('Y-m-d');
+			//count offers in all lists
+			$offerz = $list->num_offers ? $offerz + $list->num_offers : $offerz;
+			
+		} //endforeach lists
+					
+		$ovaultSavelist['stats'] = array('lists'=>$listcount, 'offers'=>$offerz);
 		
-		$arrNetworks = array();
-		$res = LegacyAbstraction::executeQuery("SELECT N.ID, N.TITLE, N.MODEL, S.IMPRESSIONS, S.CLICKS, S.CONVERSIONS, S.REVENUE FROM bevomedia_aff_network N LEFT OUTER JOIN bevomedia_user_aff_network_stats S ON S.user__id = '".$userId."' AND S.network__id = N.ID AND S.statDate = '".$today."' WHERE ISVALID = 'Y' ORDER BY N.MODEL, N.TITLE");
-		while ( $row = LegacyAbstraction::getRow($res) )
-			$arrNetworks[] = $row;
-		LegacyAbstraction::free($res);
+					
+	}//endif isset lists
 
-//*************************************************************************************************
-
-		$arrNetsJoined = array();
-		$res = LegacyAbstraction::executeQuery("SELECT N.MODEL, N.ID, N.TITLE, UAN.STATUS FROM bevomedia_aff_network N, bevomedia_user_aff_network UAN WHERE UAN.user__id = '".$userId."' AND UAN.STATUS = '".APP_STATUS_ACCEPTED."' AND UAN.network__id = N.ID AND N.ISVALID = 'Y' ORDER BY N.MODEL, N.TITLE");
-		while ( $row = LegacyAbstraction::getRow($res) )
-		{
-			$row['ISUSER']	= false;
-
-			$arrNetsJoined[] = $row;
-		}
-		LegacyAbstraction::free($res);
-
-//*************************************************************************************************
-
-		// Call template
-
-//*************************************************************************************************
 ?>
-	
-	<script language="JavaScript" src="<?=SCRIPT_ROOT?>style/publisher-offers.js.php?sriptRoot=<?=SCRIPT_ROOT?>&langFolder=<?=$langFolder?>"></script>
-<script language="javascript">
-function check(){
-var e = document.getElementById("nwAll");
-e.checked = false;
-var e = document.getElementById("nwMy");
-e.checked = false;
-}
-function un_check(){
-  for (var i = 0; i < document.frm.elements.length; i++) {
-    var e = document.frm.elements[i];
-    if ((e.id != 'nwAll' && e.id != 'ttAll'&&e.id != 'ttWeb'&&e.id != 'ttSrh'&&e.id != 'ttEml'&&e.id != 'ttInc') && (e.type == 'checkbox')) {
-e.checked = false;
-    }
-  }
-}
-function un_check_my(){
-  for (var i = 0; i < document.frm.elements.length; i++) {
-    var e = document.frm.elements[i];
-    if ((e.id != 'nwMy' && e.id != 'ttMy'&&e.id != 'ttWeb'&&e.id != 'ttSrh'&&e.id != 'ttEml'&&e.id != 'ttInc') && (e.type == 'checkbox')) {
-e.checked = false;
-    }
-  }
-}
-function check1(){
-var e = document.getElementById("ttAll");
-e.checked = false;
-}
-function un_check1(){
-  for (var i = 0; i < document.frm.elements.length; i++) {
-    var e = document.frm.elements[i];
-    if (e.id == 'ttWeb'||e.id == 'ttSrh' || e.id == 'ttEml' || e.id == 'ttInc') {
-e.checked = false;
-    }
-  }
-}
-</script>
-	
-<?= @$info ?>
-
-<?php /* ##################################################### OUTPUT ############### */ ?>
 <div id="pagemenu">
 	<ul>
 		<li><a href="/BevoMedia/Offers/BestPerformers.html">Best Performing Offers<span></span></a></li>
@@ -94,143 +50,65 @@ e.checked = false;
 </div>
 <?php echo $this->PageDesc->ShowDesc($this->PageHelper, false, false, false, 'ovault'); //disable toggle, custom css class
 ?>
+<?php 	$hideOdialExtras = true;
+	include 'Applications/BevoMedia/Modules/Offers/Views/Ovault_Odial_include.view.php'; ?>
 
-				<form method=get action="Search.html" name="frm" class="appform" id="offmain_searchform">
-				<table class="btable wide2x3" cellspacing="0" cellpadding="5">
-					<tr class="table_header">
-						<td class="hhl"></td>
-						<td colspan="2" style="text-align: center;">
-						</td>
-						<td class="hhr"></td>
-					</tr>
-                    <tr>
-                    <td class="border">&nbsp;</td>
-                    
-                    <td colspan="2" width="222"><span><center><img src="<?=SCRIPT_ROOT?>img/pagedesc_bevovault.png" border=0 alt=""></center></span></td>
-                    <td class="tail">&nbsp;</td>
-                    </tr>
-					<tr>
-						<td class="border">&nbsp;</td>
-						<td>Search: </td>
-						<td>
-							<input class="formtxt" type="text" size="30" name="title" class="effect">
-						</td>
-						<td class="tail">&nbsp;</td>
-					</tr>
-					<tr valign="top">
-						<td class="border">&nbsp;</td>
-						<td>Network: </td>
-						<td>
-							<input class="formcheck" type="checkbox" id="nwAll" name="network[]" value="" checked onclick="un_check()">All Networks
-							<input class="formcheck" type="checkbox" id="nwMy" name="network[]" value="-1" onclick="un_check_my()">My Networks
-<?
-				$count = 0;
-				$idArray = '';
-				foreach ( $arrNetsJoined as $network )
-				{
-					if ( $network['STATUS'] != APP_STATUS_ACCEPTED || $network['MODEL'] != 'CPA' )
-						continue;
-
-					$idArray .= ', "'.$network['ID'].'"';
-						echo '<br>';
-?>
-							<input type="checkbox" id="nw<?=$network['ID']?>" name="network[]" value="<?=$network['ID']?>" onclick="check()"><label style="display: inline-block" for="nw<?=$network['ID']?>"><?=$network['TITLE']?></label>
-<?
-				}
-?>
-							<script language="JavaScript">
-							<!--
-							var nwIds = new Array(<?=substr($idArray, 2)?>);
-							//-->
-							</script>
-						</td>
-						<td class="tail">&nbsp;</td>
-					</tr>
-
-					<tr valign="top">
-						<td class="border">&nbsp;</td>
-						<td colspan="2"  style="text-align: right; padding-top: 2px;">
-							<input class="formsubmit off_search baseeffect search" type="submit" value="Search" />
-							<?php /* this looks like it could confuse people
-							<input type="reset" value="Default" class="baseeffect default" style="color: white"> */ ?>
-						</td>
-						<td class="tail">&nbsp;</td>
-					</tr>
-
-					<tr class="table_footer">
-						<td class="hhl"></td>
-						<td colspan="2">&nbsp;</td>
-						<td class="hhr"></td>
-					</tr>
-				</table>
-				</form>
-				<table class="btable floatleft" cellspacing="0" cellpadding="5" border="0" style="float: left; width: 270px;">
-					<tr class="table_header_small">
-						<td class="hhls" style="border: none;"></td>
-						<td style="border: none;" colspan="2">&nbsp;</td>
-						<td class="hhrs" style="border: none;"></td>
-					</tr>
-			<?
-				$count = 0;
-				foreach ( $arrModels as $model )
-				{
-			?>
-					<tr>
-						<td class="border">&nbsp;</td>
-						<td colspan="2"><span><?=$model?></span></td>
-						<td class="tail">&nbsp;</td>
-					</tr>
-			<?
-					foreach ( $arrNetsJoined as $network )
-					{
-						if ( $model != $network['MODEL'] )
-							continue;
-						$count++;
-			?>
-					<tr>
-						<td class="border">&nbsp;</td>
-						<td style="width: 140px;"><span><?=$network['TITLE']?></span></td>
-						<td style="width:130px;">
-                        <input class="statsBut formsubmit off_stats" type="submit" onclick="location.href='Stats.html?network=<?=$network['ID']?>'">
-						<? if ( $network['MODEL'] == 'CPA' ) { ?>
-							<input class="offersBut formsubmit off_offers" type="submit" onclick="location.href='Search.html?network[]=<?=$network['ID']?>'" />
-						<? } elseif ( $network['ISUSER'] ) { ?>
-							<input class="codesBut formsubmit off_codes" type="submit" value="" onclick="location.href='http://www.bevomedia.com/publisher-new-network-code.php?networkId=<?=$network['ID']?>'" />
-						<? } else { ?>
-							<input class="codesBut formsubmit off_codes" type="submit" value="" onclick="location.href='http://www.bevomedia.com/publisher-network-code.php?networkId=<?=$network['ID']?>'" />
-						<? } ?>
+<div class="pagecontent" id="ovault">
+	<div id="oleft">
+		<table width="100%" cellspacing="0" cellpadding="3" border="0" class="btable">
+			<thead>
+				<tr class="table_header">
+					<td class="hhl">&nbsp;</td>
+					<td class="oleft">My Offer Lists</td>
+					<td class="hhr">&nbsp;</td>
+				</tr>
+				<tr>
+					<td class="hhl">&nbsp;</td>
+					<td class="oleft">
+						<a class="btn ovault_yell_createnewlist j_expand" href="#" data-target="savelists_oleft_createnewlistform">Create New List</a>
 						
-                        </td>
-                        
-                        
-                        
-						<td class="tail">&nbsp;</td>
-					</tr>
-			<?
-					}
-				}
-			?>
+						<form method="post" action="" id="savelists_oleft_createnewlistform" class="hide">
+							<div class="row">
+								<label class="hide">Enter a name for your new list...</label>
+								<input type="text" class="formtxt" id="ovault_newlistname" name="newlistname" value="Enter a name for your new list..." />
+								<input type="submit" class="btn formsubmit ovault_savenewlist" value="Save" />
+							</div>
+							<a class="btn ovault_olay_close j_close" href="#" data-target="ovault_createnewlistform">Close</a>
+						</form>
+					</td>
+					<td class="hhr">&nbsp;</td>
+				</tr>
+			</thead>
 			
-			<?php if($count == 0):?>
+			<tbody>
+				<?php echo $ovaultSavelist['lefttable']; ?>
+			</tbody>
 			
-					<tr>
-						<td class="border">&nbsp;</td>
-						<td colspan="2">
-							<center>
-								<a class="tbtn" href="/BevoMedia/Publisher/Index.html">
-    		                    	You do not currently have any networks installed. Please click here to install them.
-								</a>
-							</center>
-                        </td>
-                        
-                        
-                        
-						<td class="tail">&nbsp;</td>
-					</tr>
-			<?php endif?>
-					<tr class="table_footer">
-						<td class="hhl"></td>
-						<td colspan="2">&nbsp;</td>
-						<td class="hhr"></td>
-					</tr>
-				</table>
+			<tfoot>
+				<tr class="table_footer">
+					<td class="hhl"></td>
+					<td style="border-left: none;"></td>
+					<td class="hhr"></td>
+				</tr>
+			</tfoot>
+		</table><!--close outer .btable-->
+		<div class="footstats">
+			<div class="hilite">
+				<p>You have</p>
+				<h3 class="j_savelists_listnum"><?php echo $ovaultSavelist['stats']['lists'] ?></h3>
+				<p>List<?php if($ovaultSavelist['stats']['lists'] != 1) echo 's'; ?></p>
+			</div>
+			<div class="hilite j_hideKidsOnListDelete">
+				<p>and a total of</p>
+				<h3><?php echo $ovaultSavelist['stats']['offers']; ?></h3>
+				<p>Offer<?php if($ovaultSavelist['stats']['offers'] != 1) echo 's'; ?></p>
+			</div>
+		</div>
+		<a class="btn ovault_smallgray_deleteall" href="#">Delete All Lists</a>
+		
+	</div><!--close #oleft-->
+	<div id="oright">
+	
+	</div><!--close #oright-->
+	<div class="clear"></div>	
+</div><!--close .pagecontent#ovault-->
