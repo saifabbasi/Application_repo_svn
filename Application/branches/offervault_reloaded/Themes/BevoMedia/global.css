@@ -376,6 +376,7 @@ a.btn.ovault_add2list_select { width:13px; height:24px; background:url(img_new/b
         a.btn.ovault_add2list_select.active { background-position:right bottom !important; }
         
 a.btn.ovault_olay_close { width:12px; height:12px; background:url(img_new/btn_ovault_olay_close.png) no-repeat; }
+a.btn.ovault_olay_close_gray { width:10px; height:10px; background:url(img_new/btn_ovault_olay_close_gray.png) no-repeat; }
 a.btn.ovault_smallyell_all { width:36px; height:13px; background:url(img_new/btn_ovault_smallyell_all.png) no-repeat; }
 a.btn.ovault_smallyell_none { width:43px; height:13px; background:url(img_new/btn_ovault_smallyell_none.png) no-repeat; }
 a.btn.ovault_smallyell_deleteall { width:66px; height:13px; background:url(img_new/btn_ovault_smallyell_deleteall.png) no-repeat; }
@@ -384,6 +385,8 @@ a.btn.ovault_smallgray_deleteall { width:66px; height:13px; background:url(img_n
 a.btn.ovault_yell_createnewlist { width:107px; height:22px; background:url(img_new/btn_ovault_yell_createnewlist.png) no-repeat; }
 a.btn.ovault_yell_gotolistpage { width:139px; height:22px; background:url(img_new/btn_ovault_yell_gotolistpage.png) no-repeat; }
 .btn.ovault_savenewlist { width:48px; height:19px; background:url(img_new/btn_ovault_savenewlist.png) no-repeat; }
+.btn.ovault_savenewlist:hover,
+.btn.ovault_savenewlist:focus { background-position:left bottom; }
 
 a.btn.ovault_opagi_prev { width:55px; height:55px; background:url(img_new/btn_ovault_odial_pagi_prev.png) no-repeat; }
 a.btn.ovault_opagi_next { width:55px; height:55px; background:url(img_new/btn_ovault_odial_pagi_next.png) no-repeat; }
