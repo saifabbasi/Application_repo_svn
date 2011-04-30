@@ -51,7 +51,7 @@ if($_GET && isset($_GET['get']) && in_array($_GET['get'], $allowed_gets)) {
 					$goodterms = array_unique($goodterms);
 					$f = implode(',',$goodterms);
 			
-				} elseif($key == 'numresults' || $key == 'page' || $key == 'newpage') {
+				} elseif($key == 'numresults' || $key == 'page' || $key == 'newpage' || $key == 'include_mysaved') {
 					$tmp = intval($_GET[$key]); 
 					$f = $tmp > 0 ? $tmp : '';
 				

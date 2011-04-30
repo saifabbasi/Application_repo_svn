@@ -1,4 +1,7 @@
 <?	global $ovaultSavelist;
+
+	if(!isset($hideOdialExtras))
+		$hideOdialExtras = false;
 		
 	//networks
 	function isUserRegisteredOnNetwork($networkID)
@@ -36,7 +39,7 @@
 		$ovaultSavelist['currentname'] = 'New List';
 	
 	} else {
-		$ovaultSavelist['currentname'] = $ovaultSavelist['lists'][$ovaultSavelist['current']]->name .' ('.date('M j', strtotime($ovaultSavelist['lists'][$ovaultSavelist['current']]->created)).')';
+		$ovaultSavelist['currentname'] = $this->PageHelper->TruncTxt($ovaultSavelist['lists'][$ovaultSavelist['current']]->name);
 	}
 	
 ?>
@@ -137,21 +140,33 @@
 		</form>
 		
 	</div><!--close top.simple-->
-	<div class="butt">
-		<div class="rows" id="numresults_sele">
-			<div class="selebtn showolay_simplenext" href="#">100<span class="down"></span></div>
-			<div class="selebtn hide olaysimplenext">
-				<a class="numresults-25" href="#" data-value="25" data-hiddenfield="numresults">25</a>
-				<a class="numresults-50" href="#" data-value="50" data-hiddenfield="numresults">50</a>
-				<a class="numresults-100 active" href="#" data-value="100" data-hiddenfield="numresults">100</a>
-				<a class="numresults-200" href="#" data-value="200" data-hiddenfield="numresults">200</a>
+	
+	<?php if(!$hideOdialExtras) : ?>
+	
+		<div class="butt">
+			<div class="rows" id="numresults_sele">
+				<div class="selebtn showolay_simplenext" href="#">100<span class="down"></span></div>
+				<div class="selebtn hide olaysimplenext">
+					<a class="numresults-25" href="#" data-value="25" data-hiddenfield="numresults">25</a>
+					<a class="numresults-50" href="#" data-value="50" data-hiddenfield="numresults">50</a>
+					<a class="numresults-100 active" href="#" data-value="100" data-hiddenfield="numresults">100</a>
+					<a class="numresults-200" href="#" data-value="200" data-hiddenfield="numresults">200</a>
+				</div>
 			</div>
-		</div>
-		<div class="save">
-			<div class="selebtn j_expand" data-target="olay_savedlists" data-closeclass="ovault_olay"><?php echo $ovaultSavelist['currentname']; ?><span class="down"></span></div>
-			<a class="btn ovault_saveallpage" href="#">Save All Of This Page</a>
-		</div>
-	</div><!--close butt-->		
+			<div class="save">
+				<div class="selebtn j_expand" data-target="olay_savedlists" data-closeclass="ovault_olay"><?php echo $ovaultSavelist['currentname']; ?><span class="down"></span></div>
+				<?php /*
+				
+				LATERRRRRRRRRRRRRR
+				
+				<a class="btn ovault_saveallpage" href="#">Save All Of This Page</a>
+				
+				*/ ?>
+			</div>
+		</div><!--close butt-->
+	
+	<?php endif; //hideodialextras
+	?>		
 	
 	<?php  /*
 		*
@@ -201,6 +216,8 @@
 		<div class="olaytopflag j_close" data-target="olay_networks"></div>
 	</div><!--close #olay_networks-->
 	
+	<?php if(!$hideOdialExtras) : ?>
+	
 	<!-- olay_savedlists -->
 	<div id="olay_savedlists" class="ovault_olay">
 		<div class="olaytop"></div>
@@ -209,7 +226,9 @@
 			<a class="btn ovault_olay_close j_close" data-target="olay_savedlists" href="#">Close</a>
 			<p>Manage your Offer Lists here.</p>
 			
-			<?php	$ovaultSavelist['dialtable'] = '';			
+			<?php	$ovaultSavelist['dialtable'] = '';
+				$ovaultSavelist['selecttable'] = '';	
+			
 			if(isset($ovaultSavelist['lists']) && is_array($ovaultSavelist['lists']) && !empty($ovaultSavelist['lists'])) {
 					$listcount = 0;
 					$offerz = 0;
@@ -223,13 +242,17 @@
 							$listdate = 'M j';
 						else	$listdate = 'M j, Y';
 						
+						//re-used values
+						$truncname = $this->PageHelper->TruncTxt($list->name,27);
+						$nicedate = date($listdate, strtotime($list->created));
+						
 						//build output
 						$ovaultSavelist['dialtable'] .= '<tr class="j_list-'.$list->id;
 						$ovaultSavelist['dialtable'] .= $listcount % 2 ? '' : ' alt';
-						$ovaultSavelist['dialtable'] .= '">
+						$ovaultSavelist['dialtable'] .= '" data-listid="'.$list->id.'" data-listname="'.$list->name.'">
 							<td class="no">'.$listcount.'.</td>
-							<td class="name">'.$list->name.'<span>Created: '.date($listdate, strtotime($list->created)); 
-						$ovaultSavelist['dialtable'] .= strtotime($list->updated) ? ' - Last edit: '.date($listdate, strtotime($list->created)) : '';
+							<td class="name">'.$truncname.'<span>Created: '.$nicedate; 
+						//$ovaultSavelist['dialtable'] .= strtotime($list->updated) ? ' - Last edit: '.date($listdate, strtotime($list->created)) : ''; //scratch for now
 						$ovaultSavelist['dialtable'] .= '</span></td>
 							<td class="use"><a class="btn icon_ovault_savelist_use" href="#">Use</a></td>
 							<td class="view"><a class="btn icon_ovault_savelist_view" href="#">View</a></td>
@@ -237,10 +260,19 @@
 							<td class="delete"><a class="btn icon_ovault_savelist_delete" href="#">Delete</a></td>
 						</tr>';
 						
-						//count offerz in list (for stats)
-						$offerzarr = unserialize($list->offers_array);
-						if($offerzarr)
-							$offerz = $offerz + count($offerzarr);
+						//build select olay output: simpler list (list gets updated by js on list create/delete)
+						$ovaultSavelist['selecttable'] .= '<tr title="Select this list" class="j_list-'.$list->id;
+						$ovaultSavelist['selecttable'] .= $listcount % 2 ? '' : ' alt';
+						$ovaultSavelist['selecttable'] .= '" data-listid="'.$list->id.'" data-listname="'.$list->name.'">
+							<td class="no">'.$listcount.'.</td>
+							<td class="name">'.$truncname;
+						//$ovaultSavelist['selecttable'] .= '<span>Created: '.$nicedate.'</span>'; //scrap this - keep list simple
+						$ovaultSavelist['selecttable'] .= '</td>
+							<td class="use"><a class="btn icon_ovault_savelist_use" href="#">Use</a></td>
+						</tr>';
+						
+						//count offers in all lists
+						$offerz = $list->num_offers ? $offerz + $list->num_offers : $offerz;
 						
 					} //endforeach lists
 					
@@ -257,7 +289,7 @@
 			</div>
 			<div class="j_olay_savedlists_nolists<?php if($ovaultSavelist['dialtable'] != '') echo ' hide'; ?>">				
 				<p class="small">Welcome to the Bevo Offer Lists!</p>												
-				<p class="small"><strong>Offer Lists</strong> make it easy for you to save offers you are considering for a campaign. Use the yellow button to the left of any offer to add that offer to your lists. You can create as many lists as you like, and add as many offers as you like to any of them.</p>				
+				<p class="small"><strong>Offer Lists</strong> make it easy for you to save offers you are considering for a campaign. Use the yellow button to the left of any offer to add that offer to your lists. You can add as many offers as you like to any of your lists.</p>				
 				<p class="small"><strong>Your Default List</strong> is the list you want to quicksave an offer to. This way, you don't have to select a list first, but you just click the button once and it's saved. Once you have created one or more lists, you will be able to set your Default List in this menu by clicking the "Use" button.</p>				
 				<p class="small">Lists you create are always private. No one, will ever be able to see how many lists you have or which offers you have saved.</p>				
 				<p class="small"><a href="#" class="j_expand" data-target="ovault_createnewlistform">Create your first Offer List now</a></p>
@@ -271,7 +303,7 @@
 					<div class="row">
 						<label class="hide">Enter a name for your new list...</label>
 						<input type="text" class="formtxt" id="ovault_newlistname" name="newlistname" value="Enter a name for your new list..." />
-						<input type="submit" class="btn ovault_createicon" value="Create" />
+						<input type="submit" class="btn formsubmit ovault_savenewlist" value="Save" />
 					</div>
 					<a class="btn ovault_olay_close j_close" href="#" data-target="ovault_createnewlistform">Close</a>
 				</form>
@@ -279,7 +311,7 @@
 			<div class="clear"></div>
 			
 			<?php if($ovaultSavelist['dialtable'] != '') : ?>
-				<div class="olaybox nomarginbutt">
+				<div class="olaybox nomarginbutt j_olisttable">
 					<div class="olayboxtitle myofferlists">
 						<a class="btn ovault_smallyell_deleteall" href="#">Delete All Lists</a>
 					</div>
@@ -301,14 +333,14 @@
 			
 				<?php if(is_array($ovaultSavelist['stats']) && !empty($ovaultSavelist['stats'])) { ?>
 					
-					<div class="olayfeat floatright">
+					<div class="olayfeat floatright j_oliststats">
 						<p>Overall, you have</p>
 						<div class="hilite">
-							<h3><?php echo $ovaultSavelist['stats']['lists']?></h3>
+							<h3 class="j_savelists_listnum"><?php echo $ovaultSavelist['stats']['lists'] ?></h3>
 							<p>List<?php if($ovaultSavelist['stats']['lists'] != 1) echo 's'; ?></p>
 						</div>
-						<p>and a total of</p>
-						<div class="hilite">
+						<p class="j_hideonListDelete">and a total of</p>
+						<div class="hilite j_hideonListDelete">
 							<h3><?php echo $ovaultSavelist['stats']['offers']; ?></h3>
 							<p>Saved Offer<?php if($ovaultSavelist['stats']['offers'] != 1) echo 's'; ?></p>
 						</div>
@@ -326,35 +358,53 @@
 	
 	<!-- #opagi -->
 	<div id="opagi">
-		<div class="numbers">
-			<?php /*
-			<a class="first" href="#">First</a>
-			<a class="n2" href="#">2</a>
-			<a class="n3" href="#">3</a>
-			<a class="n4" href="#">4</a>
-			<a class="n5" href="#">5</a>
-			<a class="n6" href="#">6</a>
-			<a class="n7" href="#">7</a>
-			<a class="n8" href="#">8</a>
-			<a class="n9" href="#">9</a>
-			<a class="n10" href="#">10</a>
-			<a class="n11" href="#">11</a>
-			<a class="n12" href="#">12</a>
-			<a class="n13" href="#">13</a>
-			<a class="n14" href="#">14</a>
-			<a class="n15" href="#">15</a>
-			<a class="last" href="#">Last</a>
-			
-			<a class="btn j_prevnext ovault_opagi_prev" href="#">Previous Page</a>
-			<a class="btn j_prevnext ovault_opagi_next" href="#">Next Page</a>
-			*/ ?>
-		</div>
-		
+		<div class="numbers"></div>		
 		<div class="totalresults hide"></div>
 	</div><!--close #opagi-->
+	
+	<?php endif; //hideodialextras
+	?>
+	
 </div><!--close #odial-->
-		
+
+<?php if(!$hideOdialExtras) : ?>
+
 <div id="opagi_bg">
 	<div class="numbers"></div>
 	<div class="totalresults"></div>
 </div>
+
+<div id="j_olay_savedlists_select_wrap" class="hide">
+	<div id="olay_savedlists_select" class="ovault_olay hide">
+		<div class="olaytop"></div>
+		<div class="olaycont">
+			<a class="btn ovault_olay_close j_close j_orowSelect" href="#" data-target="olay_savedlists_select" title="Cancel"></a>
+			<p class="small" title=" ">Select an existing list<br />
+			to add this offer to:</p>
+			
+			<?php /* LATERRRRRRRRRRRRR allow to create new lists from this place as well!
+			<div class="olaybox">
+				<a class="btn ovault_yell_createnewlist j_expand" href="#" data-target="ovault_createnewlistform">Create New List</a>
+			</div>
+			*/?>
+			<div class="olaybox nomarginbutt j_olisttable">
+				<div class="olayboxtitle myofferlists" title=" "></div>
+				<table cellspacing="0" cellpadding="0" id="ovault_olay_savelists_select" class="odarktable">
+					<thead>
+						<tr>
+							<td class="no">&nbsp;</td>
+							<td class="name">Name</td>
+							<td class="use">Use</td>
+						</tr>
+					</thead>
+					<tbody><?php if($ovaultSavelist['selecttable'] != '') echo $ovaultSavelist['selecttable']; ?></tbody>
+				</table>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="olaytopflag j_close j_orowSelect" data-target="olay_savedlists_select" title="Cancel"></div>
+	</div><!--close olay_savedlists_select-->
+</div><!--close #j_olay_savedlists_select_wrap-->
+
+<?php endif; //hideodialextras
+?>

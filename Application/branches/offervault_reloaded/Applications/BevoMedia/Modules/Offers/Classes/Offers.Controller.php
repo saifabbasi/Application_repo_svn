@@ -185,8 +185,7 @@
 			$Row = $this->db->fetchRow($Sql, $_GET['ID']);
 			$this->NetworkName = $Row->NetworkName;
 			$this->AffNetworkID = $Row->AffNetworkID; 
-		}
-		
+		}		
 	}
 
 ?>

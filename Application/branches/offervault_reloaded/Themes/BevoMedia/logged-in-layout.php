@@ -551,11 +551,6 @@ if(userTimezoneOffset == false)
 	<div class="content">
 		<?=$this->{'Instance/ViewContent'};?>
 		<div class="clear"></div>
-		<?php
-			echo '<pre>';
-			var_dump($this->PageHelper);
-			echo '</pre>';
-		?>
 	</div><!--close content-->
 	<div class="containerbutt"></div>
 	
