@@ -765,6 +765,7 @@ h2.imagetitle.interested { width:147px; height:22px; background:url(img/imagetit
 
 #pagedesc.ovault { z-index:40; }
 #ovault.pagecontent { margin-top:60px; position:relative; z-index:40; }
+#ovault.pagecontent.secondarypage { margin-top:10px; }
 #odial { z-index:100; }
 #opagi_bg { z-index:90; }
 #opagi { z-index:110; }
@@ -1046,9 +1047,8 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 			.ovault_olay .olayboxstripe { height:18px; margin:0 -10px 10px; padding:5px 0 0 9px; background:#666; overflow:hidden; }
 				.ovault_olay .olayboxstripe a.btn { margin:0 5px 0 0; float:left; }
 				
-		.ovault_olay .olayfeat p { margin:5px 0; font-size:.9em; line-height:1em; color:#999; }
-		.ovault_olay .olayfeat h3 { margin:0; font-size:; line-height:1em; letter-spacing:-.05em; color:#999; }
-		.ovault_olay .olayfeat p { text-align:right; }
+		.ovault_olay .olayfeat p { margin:5px 0; font-size:.9em; line-height:1em; color:#999; text-align:right; }
+		.ovault_olay .olayfeat h3 { margin:0; line-height:1em; letter-spacing:-.05em; color:#999; }
 		.ovault_olay .olayfeat .hilite { padding:5px; background:#1A1A1A; }
 			.ovault_olay .olayfeat.floatright { padding-right:10px; text-align:right; }
 			.ovault_olay .olayfeat.floatright .hilite { padding-right:10px; margin:3px -10px 0 0;
@@ -1127,14 +1127,92 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
                 table.odarktable#ovault_olay_savelists_select {}
                 #olay_savedlists_select .olaytopflag { width:18px; height:54px; top:-26px; left:24px; right:auto; background:url(img_new/ovault_olaytopflag_orow_select.png) no-repeat; }
 
+/*ovault - other pages global*/
+#ovault #oleft { width:200px; margin:0 20px 0 0; float:left; display:inline; }
+#ovault #oright { width:740px; height:200px; float:left; display:inline; }
+
+	/*oleft*/
+	#oleft .btable tr td.td_oleft,
+	#oleft .btable tr td.hhr { border-left:none; }
+	#oleft .btable tr td.hhr { border-right:1px solid #ABE2F5; }
+        #oleft .btable tr.table_header td.hhr,
+        #oleft .btable tr.table_footer td.hhr{ border-right:none; }
+
+	#oleft table.btable tr.oleftrow td.td_oleft { padding:10px 0; vertical-align:middle; cursor:pointer; }
+	#oleft .btable .oleftrow:hover td,
+	#oleft .btable .oleftrow.active td { background:#E3E6F5; }
+	
+		#oleft .btable .oleftrow td.td_oleft .connector { width:21px; height:65px; margin:-47px 0 0 191px; position:absolute; background:url(img_new/ovault_oleftrow_connector.png) no-repeat; }
+		#oleft .btable .oleftrow.active td.td_oleft .connector { display:block; }
+		
+		#oleft .btable .oleftrow .td_oleft h3 { margin:0; font-size:1.2em; line-height:1em; }
+			#oleft .btable .oleftrow .td_oleft h3 .no { margin:0; color:#b2b2b2; }
+		#oleft .btable .oleftrow .td_oleft .created { display:block; color:#b2b2b2; font-size:.8em; }
+		#oleft .btable .oleftrow .td_oleft .offercount { padding:1px 5px; margin:-28px 0 0 171px; font-size:1.2em; text-align:right; line-height:1em; 
+					color:#fff; background:#ccc; position:absolute;  
+					-moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }
+	
+		#oleft .btable thead td a.btn.ovault_yell_createnewlist { margin:5px auto 10px; }
+
+		#oleft .btable .td_oleft form { margin:-5px 0 5px 0; position:relative; }		
+		#oleft .btable .td_oleft input.formtxt { width:167px; margin:0 2px 0 -5px; float:none; }
+		#oleft .btable .td_oleft input.btn { margin:4px 5px 5px 0; float:right; }
+		#oleft .btable .td_oleft form a.btn.ovault_olay_close_gray { position:absolute; top:8px; right:-12px; }
+	
+	#ovault .footfeat { margin:-2px 0 5px 5px; }		
+	#ovault .footfeat .hilite { padding:5px; margin:0 0 0 5px; float:left; text-align:right; background:#CEE2EC;
+				-moz-border-radius-bottomright:3px; -webkit-border-bottom-right-radius:3px; border-bottom-right-radius:3px;
+				-moz-border-radius-bottomleft:3px; -webkit-border-bottom-left-radius:3px; border-bottom-left-radius:3px; }
+
+      	#ovault .footfeat .hilite.first { width:56px; }
+      	#ovault .footfeat .hilite.second { width:80px; }
+				
+		#ovault .footfeat .hilite p { margin:5px 0; font-size:.9em; line-height:1em; color:#999; }
+			#ovault .footfeat .hilite p.dark { color:#333; }
+		#ovault .footfeat .hilite h3 { margin:0; font-size:2.9em; line-height:.8em; letter-spacing:-.05em; color:#333; }
+					
+	#ovault a.btn.ovault_smallgray_deleteall { margin:0 0 0 10px; }
+
+	/*oright*/
+	#oright .tabs { width:740px; height:22px;  padding:1px 0 0; margin:7px 0 -3px; position:relative; top:-7px;}
+	
+		/*tabs like pagemenu*/
+		#oright .tabs ul { list-style:none; }
+		#oright .tabs > ul > li { float:left; display:inline; margin:0 5px 0 0; position:relative; font-size:.9em; }
+		#oright .tabs > ul > li.label { color:#A8E0FF; }
+		#oright .tabs ul li a { padding:2px 20px 6px 26px; text-decoration:none; display:block; position:relative; background:url(img_new/pagemenu_a.png) no-repeat 0 100px; outline:none; text-shadow:#000 0 -1px 1px; }
+		#oright .tabs ul li a span { width:8px; height:26px; position:absolute; top:0; right:-8px; background:url(img_new/pagemenu_a.png) no-repeat right 50px; }
+		
+			#oright .tabs ul li a:hover { color:#fff; }
+			#oright .tabs ul li a.active { font-weight:bold; background-position:left top; text-shadow:#fff 0 1px 0px; }
+			#oright .tabs ul li a.active span { background-position:right top; }
+			#oright .tabs ul li a.active:hover { pointer-events:none; cursor:default; }
+			
+		#oright .content { width:720px; padding:10px/*REMOVE PADDING FROM TABLE LATER*/; border:1px solid #CEE2EC; 	
+				background:#F4FCFF url(img_new/ovault_oright_content.gif) repeat-x;
+				-moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px; }
+
+			/*conttop*/
+			#oright .content .conttop {}
+				#oright .conttop .top { margin:0 10px 0 0; float:left; display:inline; }
+				#oright .conttop .top1 { width:20px; }
+				#oright .conttop .top2 { width:435px;  }
+				#oright .conttop .top3 { width:120px; }
+				
+					#oright .conttop .top2 input.formtxt { width:400px; padding:8px 10px; margin:0 0 5px; font-size:18px; }
+					#oright .conttop .top2 a.btn.ovault_savenewlist { float:left; position:relative; top:-34px; left:365px; }
+					#oright .conttop .top2 p { line-height:1.1em; color:#666; }
+                                        #oright .conttop .top2 img { margin:0 0 0 -2px; }
+
+        				#oright .conttop .footfeat { margin-top:-10px; }
+					
+					
+			
 /*offers 110120*/
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 	#offmain_searchform { float:left; }
 	table.floatleft { display:inline !important; }
 }
-
-
-
 
 
 

@@ -92,9 +92,9 @@
 		
 		$out = $out ? $out : 'new';
 		
-		if(is_array($js) && !empty($js)) {
+		if(isset($js) && is_array($js) && !empty($js)) {
 			$ovaultSavelist['js_obj'] = json_encode($js);
-		}
+		} else	$ovaultSavelist['js_obj'] = '';
 		
 		return $out;
 	}//OfferSaveListIni
@@ -128,8 +128,10 @@
 		//current
 		ovault_currentOid, //the current offer id that is being fetched for orowbig
 		ovault_currentAdd2listSelectOid = false; //the current offer id that will get added to the selected list on ovault_add2list_select click in offer rows
-		
-	ovault_allSavelists = (<?php echo $ovaultSavelist['js_obj']; ?>);	
+	
+	ovault_savelisttmp = '<?php echo $ovaultSavelist['js_obj']; ?>';
+	if(ovault_savelisttmp != '')
+		ovault_allSavelists = (ovault_savelisttmp);	
 		
 	ovault_cache.offerdetails = []; //index = the offer ID
 	ovault_cache.searchresults = []; //index = the actual search string

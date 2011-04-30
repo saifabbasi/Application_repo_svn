@@ -291,7 +291,7 @@
 				<p class="small">Welcome to the Bevo Offer Lists!</p>												
 				<p class="small"><strong>Offer Lists</strong> make it easy for you to save offers you are considering for a campaign. Use the yellow button to the left of any offer to add that offer to your lists. You can add as many offers as you like to any of your lists.</p>				
 				<p class="small"><strong>Your Default List</strong> is the list you want to quicksave an offer to. This way, you don't have to select a list first, but you just click the button once and it's saved. Once you have created one or more lists, you will be able to set your Default List in this menu by clicking the "Use" button.</p>				
-				<p class="small">Lists you create are always private. No one, will ever be able to see how many lists you have or which offers you have saved.</p>				
+				<p class="small">Lists you create are always private. No one will ever be able to see how many lists you have or which offers you have saved.</p>				
 				<p class="small"><a href="#" class="j_expand" data-target="ovault_createnewlistform">Create your first Offer List now</a></p>
 			</div>	
 			
