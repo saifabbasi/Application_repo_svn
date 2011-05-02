@@ -54,8 +54,8 @@ function doSave2List(listid, oid, is_select) {
 	});
 }//doSave2List()
 
-/*doDeleteList*/
-function doDeleteList(listid) {
+/*doDeleteListSearch*/
+function doDeleteListSearch(listid) {
 	$.ajax({
 		type: 'GET',
 		url: ovault_ajaxPut+'?put=deletelist&list='+listid,
@@ -117,6 +117,69 @@ function doDeleteList(listid) {
 	});
 }//doDeleteList
 
+/*doDeleteListMysaved*/
+function doDeleteListMysaved(listid) {
+	$.ajax({
+		type: 'GET',
+		url: ovault_ajaxPut+'?put=deletelist&list='+listid,
+		success: function(r) {				
+			r = $.parseJSON(r);
+			
+			if(r.error)
+				ajaxMessage(r.error);
+			
+			else {
+				//remove from js obj
+				delete ovault_allSavelists['n'+listid];
+				
+				removeSavelistDarkTableRow(listid); //remove list from table
+				rebuildSelecttable();
+				
+				//if the deleted list was default
+				if(ovault_currentSavelist == listid) {
+					var	item = $('#ovault_olay_savelists tbody tr'),
+						last = item.last();
+					
+					setTimeout(function() { //wait until row has been deleted
+						if(item.length > 0){
+							makeSavelistDefault(last.data('listid'), last.data('listname'));	
+						
+						} else {
+							makeSavelistDefault('new', 'New List');
+						}
+					}, 500);		
+				}
+
+				ovault_existSavelistNum--; //decrease existing number of savelists
+				
+				//update stats: adjust list number, hide offer number until next page load
+				var h3 = $('#olay_savedlists .j_oliststats h3.j_savelists_listnum'); 
+				listnum = parseInt(h3.html())-1;
+				h3.html(listnum);
+				
+				$('#olay_savedlists .j_oliststats .j_hideonListDelete').fadeOut(500).remove();
+				$('<p class="hide">Offer stats will be updated the next time you refresh the page.</p>')
+					.appendTo($('#olay_savedlists .j_oliststats')).fadeIn(500).removeClass('hide');
+
+				//update table row count and alt class by going through each and counting from scratch
+				var rownum = 1;
+				$('#ovault_olay_savelists tbody tr').each(function() {
+					if(rownum % 2 == 0)
+						$(this).addClass('alt');
+					else	$(this).removeClass('alt');
+					$('td.no', this).html(rownum+'.');
+					rownum++;
+				});
+				
+				ajaxMessage(r.message);
+			}
+		},
+		error: function(r) {
+			ajaxMessage('An error occured. Please try again!');
+		}
+	});
+}//doDeleteListMysaved
+
 /*doCreateNewList*/
 function doCreateNewList(name) {
 	$.ajax({
@@ -129,23 +192,50 @@ function doCreateNewList(name) {
 				ajaxMessage(r.error);
 			
 			else {
-				//add to js obj
-				ovault_allSavelists['n'+r.listid] = {
-					id: r.listid,
-					name: name
-				};
+				ovault_existSavelistNum++;
+				var statnumber;
+					
+				if(location.pathname == ovault_searchPage) {				
+					ovault_allSavelists['n'+r.listid] = { //add to js obj
+						id: r.listid,
+						name: name
+					};					
+					addSavelistDarkTableRow(r.listid, name); //add new list to table
+					rebuildSelecttable(); //rebuild the select table too
+					
+					$('#ovault_createnewlistform.hide').fadeOut(200).removeClass('active');
+					$('#ovault_newlistname').val('');
+
+					statnumber = $('#olay_savedlists .olayfeat h3.j_savelists_listnum'); 										
+					
+				} else if(location.pathname == ovault_mysavedPage) {
+					
+					addSavelistOleftRow(r.listid, name);
+					makeSavelistDefault(r.listid, name);
+
+					var listdata = {
+						listid: r.listid,
+						name: name,
+						listcount: ovault_existSavelistNum,
+						num_offers: 0,
+						created: getToday()
+					};
+					
+					rebuildSavelistOrowrightContent('nooffers', listdata);
+					
+					/*
+					//replace content
+					var newhtml = $('#j_oright_defaults_bodytop').html();
+					newhtml += $('#j_oright_defaults_tablecont_nooffers').html();
+					newhtml += $('j_#oright_defaults_tablebutt').html();
+					$('#oright').html(newhtml);
+					*/
+					
+					statnumber = $('#oleft .footfeat h3.j_savelists_listnum'); 
+					
+				}//endif page
 				
-				addSavelistDarkTableRow(r.listid, name); //add new list to table
-				rebuildSelecttable(); //rebuild the select table too
-				ovault_existSavelistNum++; //increase existing number of savelists 
-									
-				//update stats
-				var h3 = $('#olay_savedlists .olayfeat h3.j_savelists_listnum'); 
-				listnum = parseInt(h3.html())+1;
-				h3.html(listnum);					
-				
-				$('#ovault_createnewlistform.hide').fadeOut(200).removeClass('active');
-				$('#ovault_newlistname').val('');
+				statnumber.html(ovault_existSavelistNum); //update stats
 				
 				ajaxMessage(r.message);
 				makeSavelistDefault(r.listid, name); //make this the default
@@ -409,36 +499,51 @@ function makeSavelistDefault(listid, name) {
 	
 	ovault_currentSavelist = listid;
 	soap_cookCreate(ovault_cook_LastSaveList,listid,365);
-	
+		
 	name = soap_truncTxt(name);
 	
-	$('#odial .save .selebtn').html(name+'<span class="down"></span>');
-	$('#olay_savedlists .olaytopflag_big').html(name);
+	if(location.pathname == ovault_searchPage) { //on search page only
+		$('#odial .save .selebtn').html(name+'<span class="down"></span>');
+		$('#olay_savedlists .olaytopflag_big').html(name);
+		
+		if(listid != 'new') //if we didnt just delete the last list
+			ajaxMessage('The <em>'+name+'</em> list is now the default!',1);
 	
-	if(listid != 'new')
-		ajaxMessage('The <em>'+name+'</em> list is now the default!',1);
+	} else if(location.pathname == ovault_mysavedPage) {
+		$('#oleft tbody tr.active').removeClass('active');
+		$('#oleft tbody tr.j_list-'+listid).addClass('active');
+	}
 
 }//makeSavelistDefault()
 
-/*addOfferTableRow*/ //adds 1 row. passed var must be an object from ovault_ajaxGetContent, usually r.resultarr[i]
-function addOfferTableRow(offer) {
-	var out;
-	out += '<tr class="orow j_oid-'+offer['id']+'" data-oid="'+offer['id']+'" title="Click to expand or collapse this offer">';
+/*addOfferTableRow*/
+//adds 1 row. passed var must be an object from ovault_ajaxGetContent, usually r.resultarr[i]
+//oright bool if true, formats row for Mysavedlists.html
+function addOfferTableRow(offer, oright) {
+	
+	
+	
+	var out = '';
+	out += '<tr class="orow';
+		out += oright ? ' j_oright' : '';
+	out += ' j_oid-'+offer['id']+'" data-oid="'+offer['id']+'" title="Click to expand or collapse this offer">';
 	out += '<td class="border">&nbsp;</td>';
 	
-	//saved2list
-	//out += '<td class="td_saved2list" style="width:15px;">';
-	out += '<td class="td_saved2list">';
-		out += '<div class="icon icon_ovault_added2list';
-		out += offer['saved2list'] == 1 ? '' : ' hide';
-		out += '" title="You have already saved this offer"></div>';
-	out += '</td>';
-	
-	//savelist
-	//out += '<td class="td_savelist" style="width:40px;">';
-	out += '<td class="td_savelist">';
-		out += '<a class="btn ovault_add2list j_orowSelect" href="#" data-oid="'+offer['id']+'" title="Add this offer to the active list">Add</a>';
-		out += '<a class="btn ovault_add2list_select j_orowSelect" href="#" data-oid="'+offer['id']+'" title="Select a list to add this offer to...">Select</a><div class="olay_container"></div></td>';
+	if(!oright) {
+		//saved2list
+		//out += '<td class="td_saved2list" style="width:15px;">';
+		out += '<td class="td_saved2list">';
+			out += '<div class="icon icon_ovault_added2list';
+			out += offer['saved2list'] == 1 ? '' : ' hide';
+			out += '" title="You have already saved this offer"></div>';
+		out += '</td>';
+		
+		//savelist
+		//out += '<td class="td_savelist" style="width:40px;">';
+		out += '<td class="td_savelist">';
+			out += '<a class="btn ovault_add2list j_orowSelect" href="#" data-oid="'+offer['id']+'" title="Add this offer to the active list">Add</a>';
+			out += '<a class="btn ovault_add2list_select j_orowSelect" href="#" data-oid="'+offer['id']+'" title="Select a list to add this offer to...">Select</a><div class="olay_container"></div></td>';
+	}
 		
 	//offername
 	//out += '<td class="td_offername" style="width:465px;"><p>'+offer['title']+'<span>Added '+offer['dateAdded']+'</span></p></td>';
@@ -458,9 +563,16 @@ function addOfferTableRow(offer) {
 		
 	//network
 	//out += '<td class="td_network" colspan="2" style="width:120px;"><p class="icon';
-	out += '<td class="td_network" colspan="2"><p class="icon';
+	out += '<td class="td_network" colspan="';
+		out += oright ? '' : '2';
+	out += '"><p class="icon';
 		out += offer['isNetworkMember'] == 1 ? ' icon_nwmember' : '';
 	out += '">'+offer['networkName']+'</p></td>';
+	
+	if(oright) {
+		out += '<td class="td_delete"><a class="btn ovault_olay_close_gray" href="#">Delete this offer from list</a>';
+		out += '<td class="tail">&nbsp;</td>';
+	}
 		
 	out += '</tr>';
 	
@@ -471,8 +583,8 @@ function addOfferTableRow(offer) {
 function addSavelistDarkTableRow(listid, name) {
 	
 	var 	parent = $('#ovault_olay_savelists tbody'),
-		listnum = parseInt($('tr', parent).length),
-		thisnum = listnum+1,
+		//listnum = parseInt($('tr', parent).length),
+		//thisnum = listnum+1,
 		thislist = $('#ovault_olay_savelists tbody tr.j_list-'+listid), //the created node, for unhiding below
 		today = getToday(),
 		html = '',
@@ -480,10 +592,10 @@ function addSavelistDarkTableRow(listid, name) {
 		after = '';
 		
 	html += '<tr class="j_list-'+listid;
-	html += listnum % 2 == 0 ? '' : ' alt';
+	html += ovault_existSavelistNum % 2 == 0 ? ' alt' : '';
 	html += '" data-listid="'+listid+'" data-listname="'+name+'">';
 	
-	html += '<td class="no">'+thisnum+'.</td><td class="name">'+soap_truncTxt(name,27)+'<span>Created: '+today+'</span></td>';
+	html += '<td class="no">'+ovault_existSavelistNum+'.</td><td class="name">'+soap_truncTxt(name,27)+'<span>Created: '+today+'</span></td>';
 	html += '<td class="use"><a class="btn icon_ovault_savelist_use" href="#">Use</a></td><td class="view"><a class="btn icon_ovault_savelist_view" href="#">View</a></td><td class="download"><a class="btn icon_ovault_savelist_csv" href="#">CSV</a></td><td class="delete"><a class="btn icon_ovault_savelist_delete" href="#">Delete</a></td></tr>';
 	
 	//if this is their first list ever, we also have to build the table, and the parent changes
@@ -530,6 +642,71 @@ function rebuildSelecttable() {
 	});
 }//rebuildSelecttable()
 
+/*addSavelistOleftRow*/
+function addSavelistOleftRow(listid, name) {
+	var	parent = $('#oleft tbody'),
+		thislist = $('#oleft tbody tr.j_list-'+listid), //the created node, for unhiding below
+		today = getToday(),
+		html = '';
+		
+	html += '<tr class="oleftrow j_list-'+listid+'" data-listid="'+listid+'" data-listname="'+name+'" data-listcount="'+ovault_existSavelistNum+'">';
+		html += '<td class="hhl">&nbsp;</td>';
+		html += '<td class="td_oleft">';
+			html += '<h3><span class="no">'+ovault_existSavelistNum+'</span> '+soap_truncTxt(name,27)+'</h3>';
+			html += '<span class="created">Created: '+today+'</span>';
+			html += '<div class="offercount">0</div>';
+			html += '<div class="connector hide"></div>';
+		html += '</td><td class="hhr">&nbsp;</td></tr>';
+		
+	//if this is the first list, need to first remove existing content
+	if(ovault_existSavelistNum == 1) { //var has been increased before calling func
+		parent.html('');
+	}
+	
+	parent.append(html);
+	
+}//addSavelistOleftRow
+
+/*rebuildSavelistOrowrightContent*/ //listdata obj of all list metadata (optional)
+function rebuildSavelistOrowrightContent(resultarr, listdata) {
+	var	target = $('#oright'),
+		html = $('#j_oright_defaults_body').html();
+
+	target.html(html);					
+	$('table.btable', target).attr('id', 'j_otable'); //add table id
+	
+	var table = $('#j_otable tbody');
+	
+	if(resultarr == 'nooffers' || !resultarr[0]) {
+		//have to do this here
+		nooffers = '<tr class="message"><td class="border">&nbsp;</td><td colspan="6" style="padding:25px 0;text-align:center;">';
+		nooffers += 'You can start adding offers to this list! To find new offers, use the Bevo Search Sphere at the top. Then use the yellow button to the left of every offer in the search results to add that offer to your list.';
+		nooffers += '</td><td class="tail">&nbsp;</td></tr>';
+		table.append(nooffers);
+		
+	} else {
+		for(var i in resultarr) { //add to dom
+			table.append(addOfferTableRow(resultarr[i],1));
+		}
+	}
+	
+	//fill in header
+	$('#oright .content .conttop .top1 p').html(listdata.listcount+'.');
+	$('#oright .content .conttop .top2 h2').html(listdata.name);
+	$('#oright .content .conttop .top2 .subsmall').html(listdata.created);
+	$('#oright .content .conttop .top2 form input.formtxt.renamelistname').val(listdata.name);
+	$('#oright .content .conttop .top2 form input.renamelistid').val(listdata.listid);
+	$('#oright .content .conttop .top3 .footfeat .hilite.second h3').html(listdata.num_offers);
+	
+	adjustSavelistOrightHeight();
+	
+}//rebuildSavelistOrowrightContent
+
+/*adjustSavelistOrightHeight*/ //call after any ajax
+function adjustSavelistOrightHeight() {
+	var oleft_height = $('#oleft').outerHeight(false) - 130;
+	$('#oright .content').css({minHeight:oleft_height});
+}//adjustSavelistOrightHeight
 
 /*json*/
 $.parseJSON = function(src) {

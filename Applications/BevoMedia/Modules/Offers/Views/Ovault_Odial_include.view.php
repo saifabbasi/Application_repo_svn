@@ -302,7 +302,7 @@
 				<form method="post" action="" id="ovault_createnewlistform" class="hide">
 					<div class="row">
 						<label class="hide">Enter a name for your new list...</label>
-						<input type="text" class="formtxt" id="ovault_newlistname" name="newlistname" value="Enter a name for your new list..." />
+						<input type="text" class="formtxt ovault_newlistname" id="ovault_newlistname" name="newlistname" value="Enter a name for your new list..." />
 						<input type="submit" class="btn formsubmit ovault_savenewlist" value="Save" />
 					</div>
 					<a class="btn ovault_olay_close j_close" href="#" data-target="ovault_createnewlistform">Close</a>

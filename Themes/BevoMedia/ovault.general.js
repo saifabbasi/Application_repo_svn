@@ -83,7 +83,8 @@ $(document).ready(function() {
 		//check if the click happened on a select list item or btn
 		if(!ovault_orow_ignoreClick) {
 			var 	thisrow = $(this);
-				ovault_currentOid = $(this).data('oid'); //the network ID to fetch
+				ovault_currentOid = $(this).data('oid'),
+				addquery = $(this).hasClass('j_oright') ? '&is_oright=1' : ''; //if this is in #oright (also for cache index)
 		
 			if(thisrow.hasClass('expanded')) { //collapse
 				thisrow.removeClass('expanded');
@@ -94,14 +95,14 @@ $(document).ready(function() {
 			} else { //expand
 				
 				//check if in ovault_cache already
-				if(ovault_cache.offerdetails[ovault_currentOid]) {
-					thisrow.addClass('expanded').after(ovault_cache.offerdetails[ovault_currentOid]);
+				if(ovault_cache.offerdetails[ovault_currentOid+addquery]) {
+					thisrow.addClass('expanded').after(ovault_cache.offerdetails[ovault_currentOid+addquery]);
 					$('#j_otable tbody .orowbig.j_oid-'+ovault_currentOid).slideDown(400);
-				
+					
 				} else {
 					$.ajax({
 						type: 'GET',
-						url: ovault_ajaxGet+'?get=orowbig&oid='+ovault_currentOid,
+						url: ovault_ajaxGet+'?get=orowbig&oid='+ovault_currentOid+addquery,
 						success: function(r) {
 							r = $.parseJSON(r);
 							
@@ -113,7 +114,7 @@ $(document).ready(function() {
 								ajaxMessage(r);
 							} else {
 								//add to ovault_cache
-								ovault_cache.offerdetails[ovault_currentOid] = r.html;
+								ovault_cache.offerdetails[ovault_currentOid+addquery] = r.html;
 								//add to dom
 								thisrow.addClass('expanded').after(r.html);
 								$('#j_otable tbody .orowbig.j_oid-'+ovault_currentOid).fadeIn(400);
@@ -263,4 +264,64 @@ $(document).ready(function() {
 		
 		return false;
 	})
+	
+	/*savelists*/
+	//create new list
+	$('#ovault_createnewlistform, #savelists_oleft_createnewlistform, #ovault_newlistname_intabform').live('submit',function() {
+			
+		if(parseInt(ovault_existSavelistNum) < parseInt(ovault_maxSavelists)) {
+			var 	field = $('input.ovault_newlistname', this),
+				val = field.val().replace(/[^A-z0-9-_.,:\s]/g,'');
+			
+			if(val == field.prev().html() || val == '' || val.length < 3 || val.length > 55)
+				ajaxMessage('Please enter a valid name for your list! List names should be between 3 and 55 characters long and may not contain any exotic characters.',1);
+			
+			else 	doCreateNewList(val);
+		
+		} else {			
+			var msg = 'Sorry, but you can\'t have more than '+ovault_maxSavelists+' Offer Lists at the same time. You can delete old lists to make room for new ones.';
+			ajaxMessage(msg, true);
+		}
+		
+		return false;
+	});
+	
+	//delete list
+	$('#ovault_olay_savelists tbody tr td.delete, #ovault_olay_savelists tbody tr td.delete a').live('click', function() {
+		var	parent = $(this).parents('tr'),
+			listid = parent.data('listid'),
+			listname = parent.data('listname');
+		
+		if(confirm("Are you sure you want to delete the\n\n*** "+listname+" ***\n\nOffer List?")) {
+			doDeleteListSearch(listid);
+		}
+		
+		return false;
+	});
+	
+	//delete all
+	$('#olay_savedlists a.ovault_smallyell_deleteall').live('click', function() {
+		if(confirm("Are you sure you want to delete ALL your Offer Lists now?")) {
+			$.ajax({
+				type: 'GET',
+				url: ovault_ajaxPut+'?put=deletealllists',
+				success: function(r) {					
+					r = $.parseJSON(r);					
+					if(r.error)
+						ajaxMessage(r.error);					
+					else {
+						//remove html markup
+						$('#olay_savedlists .j_olisttable, #olay_savedlists .j_oliststats').fadeOut(1000).remove();						
+						makeSavelistDefault('new', 'New List');						
+						ovault_existSavelistNum = 0;					
+						ajaxMessage(r.message);
+					}
+				},
+				error: function(r) {
+					ajaxMessage('An error occured. Please try again!');
+				}
+			});
+		}//endif confirm
+		return false;
+	});//delete all lists
 });

@@ -382,6 +382,9 @@ a.btn.ovault_smallyell_none { width:43px; height:13px; background:url(img_new/bt
 a.btn.ovault_smallyell_deleteall { width:66px; height:13px; background:url(img_new/btn_ovault_smallyell_deleteall.png) no-repeat; }
 a.btn.ovault_smallgray_deleteall { width:66px; height:13px; background:url(img_new/btn_ovault_smallgray_deleteall.png) no-repeat; }
 
+a.btn.ovault_transgray_rename { width:50px; height:14px; background:url(img_new/btn_ovault_transgray_rename.png) no-repeat; }
+a.btn.ovault_transgray_delete { width:34px; height:23px; background:url(img_new/btn_ovault_transgray_delete.png) no-repeat; }
+
 a.btn.ovault_yell_createnewlist { width:107px; height:22px; background:url(img_new/btn_ovault_yell_createnewlist.png) no-repeat; }
 a.btn.ovault_yell_gotolistpage { width:139px; height:22px; background:url(img_new/btn_ovault_yell_gotolistpage.png) no-repeat; }
 .btn.ovault_savenewlist { width:48px; height:19px; background:url(img_new/btn_ovault_savenewlist.png) no-repeat; }

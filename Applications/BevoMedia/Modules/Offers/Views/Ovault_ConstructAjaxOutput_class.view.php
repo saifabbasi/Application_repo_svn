@@ -104,29 +104,34 @@ class ConstructAjaxOutput {
 			}
 			
 			
+			//if not the slim version (like on the mysavedlists page), get user comments
+			$offer->is_oright = false;
+			if(!isset($query['params']['is_oright']) || $query['params']['is_oright'] != 1) {
 			
-			$sql = "SELECT
-						*
-					FROM
-						bevomedia_user_aff_network_rating
-					WHERE
-						(bevomedia_user_aff_network_rating.network__id = {$offer->network__id}) AND
-						(bevomedia_user_aff_network_rating.approved = 1) AND
-						(bevomedia_user_aff_network_rating.userComment != '')
-					ORDER BY 
-						bevomedia_user_aff_network_rating.id DESC
-					LIMIT 3
-					";
-			$ratings = mysql_query($sql);
-			
-			if (mysql_num_rows($ratings)>0) {
+				$sql = "SELECT
+							*
+						FROM
+							bevomedia_user_aff_network_rating
+						WHERE
+							(bevomedia_user_aff_network_rating.network__id = {$offer->network__id}) AND
+							(bevomedia_user_aff_network_rating.approved = 1) AND
+							(bevomedia_user_aff_network_rating.userComment != '')
+						ORDER BY 
+							bevomedia_user_aff_network_rating.id DESC
+						LIMIT 3
+						";
+				$ratings = mysql_query($sql);
+				
 				$offer->ratings = array();
-				while ($rating = mysql_fetch_object($ratings)) {
-					$offer->ratings[] = $rating;
-				}
+				if(mysql_num_rows($ratings)>0) {
+					while ($rating = mysql_fetch_object($ratings)) {
+						$offer->ratings[] = $rating;
+					}
+				} 
 			} else {
-				$offer->ratings = array();
-			}
+				$offer->is_oright = true;
+				
+			}//endif is_oright
 		
 			
 			
@@ -373,7 +378,78 @@ class ConstructAjaxOutput {
 		
 		return $out;
 		
-	}//orowbig()
+	}//searchresults()
+	
+	public function savelistoffers($query=false) {
+		$out = array();
+		
+		$sql = "SELECT	offers.id,
+				offers.title,
+				offers.detail,
+				offers.payout,
+				offers.offerType AS type,
+				offers.dateAdded,
+				offers.network__id AS network__id,
+				
+				networks.title AS networkName,				
+				category.title AS categoryTitle
+				
+			FROM 	bevomedia_offers AS offers
+				
+				LEFT JOIN bevomedia_aff_network AS networks
+					ON networks.id = offers.network__id
+					
+				LEFT JOIN bevomedia_category  AS category
+					ON category.id = offers.category__id
+				
+				LEFT JOIN bevomedia_user_offerlists_offers AS listoffers
+					ON offers.id = listoffers.offer__id
+				
+				LEFT JOIN bevomedia_user_offerlists AS lists
+					ON listoffers.list__id = lists.id
+				
+			WHERE	lists.id = {$query['params']['listid']}
+				AND lists.user__id = {$_SESSION['User']['ID']}
+				
+			GROUP BY offers.id
+			ORDER BY offers.payout
+		";
+		
+		$raw = mysql_query($sql);
+		
+		$offersArray = array();
+		if(mysql_num_rows($raw) > 0) {
+			while($offer = mysql_fetch_object($raw)) {				
+				
+				$sql = "SELECT 
+							id
+						FROM 
+							bevomedia_user_aff_network 
+						WHERE 
+							(bevomedia_user_aff_network.network__id = {$offer->network__id}) AND
+							(bevomedia_user_aff_network.user__id = {$_SESSION['User']['ID']})
+						";
+				$isMemberOfNetwork = mysql_query($sql);
+				$offer->isNetworkMember = (mysql_num_rows($isMemberOfNetwork)) ? 1 : 0;
+				
+				$offer->dateAdded_nice = date('M j, Y', strtotime($offer->dateAdded));				
+				$offer->payout = !stristr($offer->payout, '$')
+					? '$'.number_format(intval($offer->payout), 2)
+					: number_format(intval($offer->payout), 2);
+				
+				$offersArray[] = $offer;
+			}
+			
+			$out['resultarr'] = $offersArray;
+			
+		}	
+		
+		$out['resultarr'] = $offersArray;
+					
+		return $out;
+		
+	}//savelistoffers()
+	
 	
 	/*private methods*/
 	
@@ -540,7 +616,10 @@ class ConstructAjaxOutput {
 			$out = false;
 		else {*/
 			$out = '<tr class="orowbig j_oid-'.$offer->id.' hide" data-oid="'.$offer->id.'">';
-				$out .= '<td class="border">&nbsp;</td><td class="td_info" colspan="3"><div class="td_inner">';
+				$out .= '<td class="border">&nbsp;</td>';
+				$out .= '<td class="td_info" colspan="';
+					$out .= $offer->is_oright ? '4' : '3'; //if oright, we have a slightly different layout
+				$out .= '"><div class="td_inner">';
 				$out .= '<div class="floatleft">';
 				
 				//have preview URL?
@@ -573,14 +652,16 @@ class ConstructAjaxOutput {
 				if(property_exists($offer, 'previewUrl') && $offer->previewUrl && $offer->previewUrl != '') {
 					$out .= '<div class="olink">';
 						$out .= '<input type="text" class="formtxt" readonly value="'.$offer->previewUrl.'" />';
-						$out .= '<a class="btn ovault_visiticon" href="'.$offer->previewUrl.'" title="Preview offer in a new tab" target="_blank">Visit</a>';
+						//$out .= '<a class="btn ovault_visiticon" href="'.$offer->previewUrl.'" title="Preview offer in a new tab" target="_blank">Visit</a>'; //dont need this after all
 					$out .= '</div>';
 				}
 				
 			$out .= '</div><div class="clear"></div></div><!--close td_inner-->';
 			$out .= '</td>';
 			
-			$out .= '<td class="td_nw" colspan="2"><div class="td_inner"><div class="otitle otitle_network noborder"></div>';
+			$out .= '<td class="td_nw" colspan="';
+				$out .= $offer->is_oright ? '3' : '2'; //if oright, 3 cols
+			$out .= '"><div class="td_inner"><div class="otitle otitle_network noborder"></div>';
 			$out .= '<div class="onwpic">';
 				$out .= '<img class="nwpic w120" src="/Themes/BevoMedia/img/networklogos/uni/'.$offer->network__id.'.png" alt="" title="'.$offer->networkName.'" />';
 			
@@ -607,27 +688,33 @@ class ConstructAjaxOutput {
 		
 		$out .= '</div><!--close td_inner-->';
 	$out .= '</td>';
-	$out .= '<td class="td_nwdesc" colspan="3">';
-		$out .= '<div class="td_inner">';
-
-		//offer description
-		if(property_exists($offer, 'networkDescription') && $offer->networkDescription && $offer->networkDescription != '') {
-			$out .= '<div class="otitle otitle_networkdesc"></div>';
-			$out .= '<p>'.$offer->networkDescription.'</p>';
-		}
-		
-		//reviews
-		if(property_exists($offer, 'ratings') && is_array($offer->ratings) && !empty($offer->ratings) && $offer->ratings != '') {
-			$out .= '<div class="otitle otitle_latestnwreviews noborder"></div>';
-			$out .= '<ul class="ovault_boxlist hastitle">';
-				foreach($offer->ratings as $review) {
-					$out .= $review->userComment != '' ? '<li>'.$review->userComment.'</li>' : '';
-				}
-			$out .= '</ul>';
-		}
-		
-		$out .= '</div><!--close td_inner-->';
-	$out .= '</td>';
+	
+	if(!$offer->is_oright) { //only in search results
+	
+		$out .= '<td class="td_nwdesc" colspan="3">';
+			$out .= '<div class="td_inner">';
+	
+			//offer description
+			if(property_exists($offer, 'networkDescription') && $offer->networkDescription && $offer->networkDescription != '') {
+				$out .= '<div class="otitle otitle_networkdesc"></div>';
+				$out .= '<p>'.$offer->networkDescription.'</p>';
+			}
+			
+			//reviews
+			if(property_exists($offer, 'ratings') && is_array($offer->ratings) && !empty($offer->ratings) && $offer->ratings != '') {
+				$out .= '<div class="otitle otitle_latestnwreviews noborder"></div>';
+				$out .= '<ul class="ovault_boxlist hastitle">';
+					foreach($offer->ratings as $review) {
+						$out .= $review->userComment != '' ? '<li>'.$review->userComment.'</li>' : '';
+					}
+				$out .= '</ul>';
+			}
+			
+			$out .= '</div><!--close td_inner-->';
+		$out .= '</td>';
+	
+	}
+	
 	$out .= '<!--<td class="tail">&nbsp;</td>-->';
 $out .= '</tr><!--close .orowbig-->';
 
