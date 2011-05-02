@@ -17,7 +17,7 @@
 
 /*set statics*/
 //array of the allowed GET['page'] params. param is added in ajax: it's a token for the API's page name.
-$allowed_gets = array('orowbig', 'searchresults');
+$allowed_gets = array('orowbig', 'searchresults','savelistoffers');
 $query = array();
 $out = array();
 $error = false;
@@ -32,6 +32,9 @@ if($_GET && isset($_GET['get']) && in_array($_GET['get'], $allowed_gets)) {
 			if(isset($_GET['oid']) && !empty($_GET['oid']) && is_numeric($_GET['oid']))
 				$query['params']['oid'] = intval(trim($_GET['oid']));
 			else	$error = 'The offer you have requested doesn\'t seem to exist. Please try again!';
+			
+			if(isset($_GET['is_oright']) && is_numeric($_GET['is_oright']) && $_GET['is_oright'] == 1)
+				$query['params']['is_oright'] = 1;
 		break;
 		
 		case 'searchresults' :
@@ -72,6 +75,12 @@ if($_GET && isset($_GET['get']) && in_array($_GET['get'], $allowed_gets)) {
 				unset($query['params']['newpage']);
 			}
 			
+		break;
+		case 'savelistoffers' :
+			if(isset($_GET['list']) && is_numeric($_GET['list'])) {
+				$query['params']['listid'] = intval(trim($_GET['list']));
+				
+			} else	$error = 'This list seems to be invalid. Try refreshing the page, and if the error persists, please let us know!';
 		break;
 		
 	}//end switch

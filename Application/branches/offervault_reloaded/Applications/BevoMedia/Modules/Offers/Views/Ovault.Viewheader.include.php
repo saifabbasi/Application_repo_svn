@@ -119,6 +119,8 @@
 		ovault_ajaxGet = 'ajaxGetContent.html',
 		ovault_ajaxPut = 'ajaxPutContent.html',
 		ovault_searchPage = '/BevoMedia/Offers/Index.html',
+		ovault_mysavedPage = '/BevoMedia/Offers/MySavedLists.html',
+		
 		ovault_cache = [],
 		
 		ovault_cook_LastSearch = '__bevoOLSearch',		

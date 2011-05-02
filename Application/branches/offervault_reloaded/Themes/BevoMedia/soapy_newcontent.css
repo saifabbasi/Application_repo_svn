@@ -901,6 +901,8 @@ h2.imagetitle.interested { width:147px; height:22px; background:url(img/imagetit
 #ovault .btable td.td_vertical,
 #ovault .btable td.td_network { text-align:center; }
         #ovault .btable tr.orow td.td_network { border-right:1px solid #ABE2F5 !important; }
+        #ovault #oright .btable tr.orow td.td_network { border-right:none !important; }
+#ovault .btable tr.orow td.td_delete { width:30px; }
         
 
 	#ovault .btable td a.tcol { padding-left:8px; text-decoration:none; color:#1D569B; }
@@ -925,6 +927,7 @@ h2.imagetitle.interested { width:147px; height:22px; background:url(img/imagetit
         	#ovault .btable tr:hover td.td_savelist a.btn.ovault_add2list_select,
             	#ovault .btable tr.expanded td.td_savelist a.btn.ovault_add2list_select,
             	#ovault .btable tr.selectpersist td.td_savelist a.btn.ovault_add2list_select { display:block; }
+                #ovault .btable tr.orow td.td_delete a.btn { float:none !important; margin:0 auto;}
 	
 	
 	#ovault .btable td.td_offername p { color:#000; }
@@ -959,6 +962,9 @@ h2.imagetitle.interested { width:147px; height:22px; background:url(img/imagetit
                 #ovault .btable tr.orowbig td.td_nw .td_inner { width:113px; }
 	#ovault .btable tr.orowbig td.td_nwdesc { background:url(img_new/orow_exp_bg_dark.gif) repeat-y right top; border-left:none; }
                 #ovault .btable tr.orowbig td.td_nwdesc .td_inner { width:245px; }
+
+                #ovault #oright .btable tr.orowbig td.td_info .td_inner { width:560px; }
+                #ovault #oright .btable tr.orowbig td.td_nw .td_inner { width:120px; margin:0 10px;}
 
 	
 		#ovault tr.orowbig td.td_info h3 { margin:0; font-size:1.6em; color:#333; }
@@ -1129,7 +1135,7 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 
 /*ovault - other pages global*/
 #ovault #oleft { width:200px; margin:0 20px 0 0; float:left; display:inline; }
-#ovault #oright { width:740px; height:200px; float:left; display:inline; }
+#ovault #oright { width:740px; float:left; display:inline; }
 
 	/*oleft*/
 	#oleft .btable tr td.td_oleft,
@@ -1197,14 +1203,25 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 				#oright .conttop .top { margin:0 10px 0 0; float:left; display:inline; }
 				#oright .conttop .top1 { width:20px; }
 				#oright .conttop .top2 { width:435px;  }
-				#oright .conttop .top3 { width:120px; }
-				
+				#oright .conttop .top3 { width:150px; }
+				#oright .conttop .top4 { width:100px; margin-right:-20px; }
+
+                                        #oright .conttop .top1 p { margin:8px 0 0; font-size:1.8em; line-height:1em; color:#999; }
+					#oright .conttop .top2 h2 { margin:4px 10px 0 0; float:left; font-size:2.2em; line-height:1em; }			
+                                        #oright .conttop .top2 .subsmall { font-size:.8em; color:#999; }	
 					#oright .conttop .top2 input.formtxt { width:400px; padding:8px 10px; margin:0 0 5px; font-size:18px; }
-					#oright .conttop .top2 a.btn.ovault_savenewlist { float:left; position:relative; top:-34px; left:365px; }
 					#oright .conttop .top2 p { line-height:1.1em; color:#666; }
                                         #oright .conttop .top2 img { margin:0 0 0 -2px; }
 
+					#oright .conttop .top2 a.btn.ovault_savenewlist { float:left; position:relative; top:-34px; left:365px; }
+					#oright .conttop .top2 a.btn.ovault_transgray_rename { margin:11px 0 0; float:left; }
+
         				#oright .conttop .footfeat { margin-top:-10px; }
+
+        				#oright .conttop .top3 .footfeat { float:right; }
+        				#oright .conttop .top3 a.btn { margin:10px 0 0; float:right; }
+
+        				#oright .conttop .top4 a.tbtn { display:block; float:left; margin:10px 0 0; }
 					
 					
 			
@@ -1213,7 +1230,6 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 	#offmain_searchform { float:left; }
 	table.floatleft { display:inline !important; }
 }
-
 
 
 
