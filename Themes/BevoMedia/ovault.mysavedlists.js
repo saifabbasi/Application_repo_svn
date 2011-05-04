@@ -22,7 +22,7 @@ $(document).ready(function() {
 	//delete offer from list
 	$('#j_otable tr.orow.j_oright td.td_delete, #j_otable tr.orow.j_oright td.td_delete a').live('click', function() {
 		ovault_orow_ignoreClick = true;		
-		var 	oid = $(this).parents('tr.orow').data('oid');			
+		var oid = $(this).parents('tr.orow').data('oid');			
 		doSavelistDeleteOffer(oid, ovault_currentSavelist);		
 		return false;
 			

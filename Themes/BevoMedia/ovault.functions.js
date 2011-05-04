@@ -263,7 +263,8 @@ function doSavelistDeleteOffer(oid, listid) {
 				$('#oright #j_otable tbody tr.orowbig.j_oid-'+oid).fadeOut(500, function() {
 					$(this).remove();
 				});
-				$('#oright #j_otable tbody tr.orow.j_oright.j_oid-'+oid).fadeOut(500, function() {
+				
+				$('#oright #j_otable tbody tr.orow.j_oid-'+oid).fadeOut(500, function() {
 					$(this).remove();
 				});
 				
@@ -755,6 +756,9 @@ function rebuildSavelistOrowrightContent(resultarr, listdata) {
 			$('#oright .content .conttop .top2 a.btn.ovault_transgray_rename').data('target','ovault_mysaved_renamelistform-'+listdata.listid);			
 			$('#oright .content .conttop .top3 a.btn.ovault_transgray_delete').data('listid',listdata.listid).data('listname',listdata.name);
 			
+			//if we have at least 1 offer
+			if(listdata.num_offers >= 1)
+				$('#oright .conttop .top4').append('<a class="tbtn" href="?ExportTo=CSV">Export to CSV</a><div class="clear"></div>');			
 		}
 		
 	} //endif nolists

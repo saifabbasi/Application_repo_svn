@@ -387,6 +387,7 @@ a.btn.ovault_transgray_delete { width:34px; height:23px; background:url(img_new/
 
 a.btn.ovault_yell_createnewlist { width:107px; height:22px; background:url(img_new/btn_ovault_yell_createnewlist.png) no-repeat; }
 a.btn.ovault_yell_gotolistpage { width:139px; height:22px; background:url(img_new/btn_ovault_yell_gotolistpage.png) no-repeat; }
+a.btn.ovault_yell_addnetworks { width:99px; height:22px; background:url(img_new/btn_ovault_yell_addnetworks.png) no-repeat; }
 .btn.ovault_savenewlist { width:48px; height:19px; background:url(img_new/btn_ovault_savenewlist.png) no-repeat; }
 .btn.ovault_savenewlist:hover,
 .btn.ovault_savenewlist:focus { background-position:left bottom; }

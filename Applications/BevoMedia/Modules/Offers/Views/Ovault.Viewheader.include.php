@@ -8,7 +8,7 @@
 	//set $OfferSaveList to list ID or "new" if no list exists yet. echo it for the js var currentSaveList.
 	
 	global $ovaultSavelist;
-	$ovaultSavelist = array('cookie'=>'__bevoOLSL');	
+	$ovaultSavelist = array('cookie'=>'__bevoOLSL');
 	
 	$TEMP = "CREATE TABLE IF NOT EXISTS bevomedia_user_offerlists(
 			id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
