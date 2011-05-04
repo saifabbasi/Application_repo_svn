@@ -79,6 +79,7 @@
 				offers.offerType AS type,
 				offers.dateAdded,
 				offers.network__id AS network__id,
+				offers.previewUrl,
 				
 				networks.title AS networkName,				
 				category.title AS categoryTitle
@@ -97,12 +98,15 @@
 				LEFT JOIN bevomedia_user_offerlists AS lists
 					ON listoffers.list__id = lists.id
 				
-			WHERE	lists.id = {$ovaultSavelist['current']}
-				AND lists.user__id = {$_SESSION['User']['ID']}
+			WHERE	lists.id = {$ovaultSavelist['current']} AND
+				lists.user__id = {$_SESSION['User']['ID']} AND
+				offers.archived = 0
 				
 			GROUP BY offers.id
 			ORDER BY offers.payout
 		";
+		
+		//QUERY above: previewUrl only used in CSV export!
 		
 		$raw = mysql_query($sql);
 		
@@ -134,6 +138,37 @@
 		}
 	
 	}//endif isset current
+	
+	//CSV export
+	if(isset($_GET['ExportTo']) && $_GET['ExportTo'] == 'CSV' && isset($ovaultSavelist['righttable']->offers) && count($ovaultSavelist['righttable']->offers) > 0) {
+		
+		$csv_filename = 'Bevo-Offer-Savelist-'.str_replace(' ', '_', $ovaultSavelist['righttable']->name).'.csv';
+		$csv_listname = $ovaultSavelist['righttable']->name;
+		
+		header("Content-type: application/octet-stream");
+		header("Content-Disposition: attachment; filename=$csv_filename");
+		header("Pragma: no-cache");
+		header("Expires: 0");
+	
+		print '"Bevo SaveList","Offer Name","Preview URL","Your Affiliate Link","Date Added","Payout","Type","Vertical","Network"' . "\r\n";
+		
+		foreach($ovaultSavelist['righttable']->offers as $offer) {
+			print "\"$csv_listname\",";
+			print "\"$offer->title\",";
+			print "\"$offer->previewUrl\",";
+			print isset($offer->affLink) ? "\"$offer->affLink\"," : "\"\","; //edit this later when we have the afflink field!
+			print "\"$offer->dateAdded_nice\",";
+			print "\"$offer->payout\",";
+			print "\"$offer->type\",";
+			print "\"$offer->categoryTitle\",";
+			print "\"$offer->networkName\"";
+			print "\r\n";
+			
+			//$roi = ($row['cost'] == 0) ? 0 : $row['profit'] / $row['cost'] * 100;
+			//print "\"$row[date]\",\"$row[revenue]\",\"$row[cost]\",\"$row[profit]\",\"$roi\"\r\n";
+		}
+		exit;
+	}
 	
 	/*html content*/ //we need to echo all of the following in hidden wrappers, to allow the JS to use it, and one of the following will be echoed on pageload
 	$ovaultSavelist['oright_defaults'] = array();
@@ -217,7 +252,6 @@
 					<div class="clear"></div>
 				</div>
 				<div class="top top4">
-					<a class="tbtn" href="#">Export to CSV</a>
 				</div>
 				<div class="clear"></div>
 			</div><!--close conttop-->
@@ -372,10 +406,16 @@
 					<a class="btn ovault_transgray_delete" href="#" data-listid="<?php echo $ovaultSavelist['righttable']->id; ?>" data-listname="<?php echo $ovaultSavelist['righttable']->name; ?>">Delete this list</a>
 					<div class="clear"></div>
 				</div>
-				<div class="top top4">
-					<a class="tbtn" href="#">Export to CSV</a>
-					<div class="clear"></div>
-				</div>
+				
+				<?php if(isset($ovaultSavelist['righttable']->offers) && !empty($ovaultSavelist['righttable']->offers)) { ?>
+				
+					<div class="top top4">
+						<a class="tbtn" href="?ExportTo=CSV">Export to CSV</a>
+						<div class="clear"></div>
+					</div>
+				
+				<?php } ?>
+				
 				<div class="clear"></div>
 			</div><!--close conttop-->
 			

@@ -184,7 +184,7 @@
 			<a class="btn ovault_olay_close j_close" href="#" data-target="olay_networks">Close</a>
 			<p>Select Networks you want to include in the search:</p>
 			
-			<div class="olaybox col2">
+			<div class="olaybox col3">
 				<div class="olayboxtitle allnetworks"></div>
 				<div class="olayboxstripe">
 					<a class="btn ovault_smallyell_all j_olay_selelist" href="#" data-hiddenfield="include_networks" data-ul="j_olay_allnetworkslist" data-action="addall" data-number="number_networks">All</a>

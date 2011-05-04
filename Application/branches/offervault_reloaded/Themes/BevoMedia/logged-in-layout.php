@@ -371,8 +371,10 @@ if(userTimezoneOffset == false)
 			<div id="offersmenu">
 				<a class="btn offersmenu_networks<?php echo(($this->PageHelper->Area == 'MyNetworks' && $this->PageHelper->Function == 'Index')
 									|| $this->PageHelper->Function == 'Reviews')?' active':''?>" href="/BevoMedia/Publisher/Index.html">Networks</a>
-				<a class="btn offersmenu_offervault<?php echo($this->PageHelper->Area == 'Offers')?' active':''?>" href="/BevoMedia/Offers/BestPerformers.html">Offers</a>
-				<a class="btn offersmenu_stats<?php echo($this->PageHelper->Function == 'SelfHostedLogin')?' active':''?>" href="/BevoMedia/Offers/MyStats.html">My Network Stats</a>
+				<a class="btn offersmenu_offervault<?php echo($this->PageHelper->Function == 'BestPerformers'
+									|| ($this->PageHelper->Area == 'Offers' && $this->PageHelper->Function == 'Index') 
+									|| $this->PageHelper->Function == 'MySavedLists')?' active':''?>" href="/BevoMedia/Offers/BestPerformers.html">Offers</a>
+				<a class="btn offersmenu_stats<?php echo($this->PageHelper->Function == 'MyStats')?' active':''?>" href="/BevoMedia/Offers/MyStats.html">My Network Stats</a>
 			</div>
 			<!--<div id="setupmenu">
 				<a class="btn setupmenu_networks<?php echo(($this->PageHelper->Area == 'MyNetworks' && $this->PageHelper->Function == 'Index')
@@ -550,7 +552,7 @@ if(userTimezoneOffset == false)
 	
 	<div class="content">
 		<?=$this->{'Instance/ViewContent'};?>
-		<div class="clear"></div>
+		<div class="clear"></div>		
 	</div><!--close content-->
 	<div class="containerbutt"></div>
 	

@@ -1066,6 +1066,7 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 	ul.olay_selelist { margin:0 -5px; padding:0; list-style:none; overflow:hidden; }
 		.col1 ul.olay_selelist { width:150px; }
 		.col2 ul.olay_selelist { width:330px; }
+		.col3 ul.olay_selelist { width:490px; }
 	
 		.olay_selelist li a { width:130px; padding:4px 5px 4px 18px; margin:0 5px 2px; float:left; display:block; font-size:.9em; text-align:left; text-decoration:none;	
 				background:url(img_new/icon_olay_selelist_checkgray.png) no-repeat 0 -500px; color:#ccc; line-height:1em; 
@@ -1103,8 +1104,10 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 	
 	 /*single olays*/
             	/*olay_networks*/
-	.ovault_olay#olay_networks { width:542px; top:100px; right:37px; }
+	.ovault_olay#olay_networks { width:715px; top:100px; right:37px; }
+                #olay_networks .olaytop { width:708px; }
                 #olay_networks .olaytopflag { right:52px }
+                #olay_networks a.ovault_olay_close { right:20px }
 
         	#olay_networks.simple { top:80px; right:38px; }/*TEMP - remove along with simple*/
 				
@@ -1142,13 +1145,16 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 	#oleft .btable tr td.hhr { border-left:none; }
 	#oleft .btable tr td.hhr { border-right:1px solid #ABE2F5; }
         #oleft .btable tr.table_header td.hhr,
-        #oleft .btable tr.table_footer td.hhr{ border-right:none; }
+        #oleft .btable tr.table_footer td.hhr { border-right:none; }
+        
+        #oleft .btable tr.table_header td { text-shadow:#fff 0 1px 0px; }
 
 	#oleft table.btable tr.oleftrow td.td_oleft { padding:10px 0; vertical-align:middle; cursor:pointer; }
 	#oleft .btable .oleftrow:hover td,
 	#oleft .btable .oleftrow.active td { background:#E3E6F5; }
 	
 		#oleft .btable .oleftrow td.td_oleft .connector { width:21px; height:65px; margin:-47px 0 0 191px; position:absolute; background:url(img_new/ovault_oleftrow_connector.png) no-repeat; }
+                        #oleft .btable .td_oleft.nwlogo .connector { margin-top:-56px !important; }
 		#oleft .btable .oleftrow.active td.td_oleft .connector { display:block; }
 		
 		#oleft .btable .oleftrow .td_oleft h3 { margin:0; font-size:1.2em; line-height:1em; }
@@ -1158,13 +1164,16 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 					color:#fff; background:#ccc;  float:right;
 					-moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }
 	
-		#oleft .btable thead td a.btn.ovault_yell_createnewlist { margin:5px auto 10px; }
+		#oleft .btable thead td a.btn { margin:5px auto 10px; }
 
 		#oleft .btable .td_oleft form { margin:-5px 0 5px 0; position:relative; }		
 		#oleft .btable .td_oleft input.formtxt { width:151px; padding-left:16px; margin:0 0 0 0; float:none; }
 		#oleft .btable .td_oleft input.btn { margin:3px 0 8px 0; float:right; }
 		#oleft .btable .td_oleft form a.btn.ovault_olay_close_gray { position:absolute; top:8px; left:4px; }
-	
+
+                #oleft .btable .td_oleft.nwlogo { padding:0 !important; height:48px; text-align:center; }	
+                #oleft .btable .td_oleft.nwlogo img { margin:0; max-height:48px; height:auto !important; height:48px; }
+
 	#ovault .footfeat { margin:-2px 0 5px 5px; }		
 	#ovault .footfeat .hilite { padding:5px; margin:0 0 0 5px; float:left; text-align:right; background:#CEE2EC;
 				-moz-border-radius-bottomright:3px; -webkit-border-bottom-right-radius:3px; border-bottom-right-radius:3px;
@@ -1186,12 +1195,11 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 		#oright .tabs ul { list-style:none; }
 		#oright .tabs > ul > li { float:left; display:inline; margin:0 5px 0 0; position:relative; font-size:.9em; }
 		#oright .tabs > ul > li.label { color:#A8E0FF; }
-		#oright .tabs ul li a { padding:2px 20px 6px 26px; text-decoration:none; display:block; position:relative; background:url(img_new/pagemenu_a.png) no-repeat 0 100px; outline:none; text-shadow:#000 0 -1px 1px; }
-		#oright .tabs ul li a span { width:8px; height:26px; position:absolute; top:0; right:-8px; background:url(img_new/pagemenu_a.png) no-repeat right 50px; }
+		#oright .tabs ul li a { padding:2px 20px 6px 26px; text-decoration:none; display:block; position:relative; color:#999; background:url(img_new/pagemenu_a.png) no-repeat left top; outline:none; }
+		#oright .tabs ul li a span { width:8px; height:26px; position:absolute; top:0; right:-8px; background:url(img_new/pagemenu_a.png) no-repeat right top; }
 		
-			#oright .tabs ul li a:hover { color:#fff; }
-			#oright .tabs ul li a.active { font-weight:bold; background-position:left top; text-shadow:#fff 0 1px 0px; }
-			#oright .tabs ul li a.active span { background-position:right top; }
+			#oright .tabs ul li a:hover { color:#004A80; }
+			#oright .tabs ul li a.active { font-weight:bold; color:#004A80; text-shadow:#fff 0 1px 0px; }
 			#oright .tabs ul li a.active:hover { pointer-events:none; cursor:default; }
 			
 		#oright .content { width:720px; padding:10px/*REMOVE PADDING FROM TABLE LATER*/; border:1px solid #CEE2EC; 	
@@ -1201,13 +1209,14 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 			/*conttop*/
 			#oright .content .conttop {}
 				#oright .conttop .top { margin:0 10px 0 0; float:left; display:inline; }
+				#oright .conttop .topfull { margin:0; float:none; display:block; }
 				#oright .conttop .top1 { width:20px; }
 				#oright .conttop .top2 { width:435px;  }
 				#oright .conttop .top3 { width:150px; }
 				#oright .conttop .top4 { width:100px; margin-right:-20px; }
 
                                         #oright .conttop .top1 p { margin:8px 0 0; font-size:1.8em; line-height:1em; color:#999; }
-					#oright .conttop .top2 h2 { margin:4px 10px 0 0; float:left; font-size:2em; line-height:1em; letter-spacing:-.08em; }			
+					#oright .conttop .top h2 { margin:4px 10px 0 0; float:left; font-size:2em; line-height:1em; letter-spacing:-.08em; }			
                                         #oright .conttop .top2 .subsmall { font-size:.8em; color:#999; }	
 					#oright .conttop .top2 input.formtxt { width:400px; padding:8px 10px; margin:0 0 5px; font-size:18px; }
 					#oright .conttop .top2 p { line-height:1.1em; color:#666; }
@@ -1227,6 +1236,8 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
         				#oright .conttop .top3 a.btn { margin:10px 0 0; float:right; }
 
         				#oright .conttop .top4 a.tbtn { display:block; float:left; margin:10px 0 0; }
+        				
+        				#oright .conttop .topfull form.dateform { float:right; }
 					
 					
 			
@@ -1235,9 +1246,5 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 	#offmain_searchform { float:left; }
 	table.floatleft { display:inline !important; }
 }
-
-
-
-
 
 
