@@ -52,7 +52,7 @@
 			</div>
 		
 		</td>
-		<td style="border: 0px;"><?=$Review->userComment?></td>
+		<td style="border: 0px;"><?=$Review->userComment?><br /><div style="height: 5px;"></div></td>
 		<td class="tail" style="border-top: 0px;">&nbsp;</td>
 	</tr>
 <?	
