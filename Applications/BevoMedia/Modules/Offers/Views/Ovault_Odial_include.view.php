@@ -257,7 +257,7 @@
 							<td class="use"><a class="btn icon_ovault_savelist_use" href="#">Use</a></td>
 							<td class="view"><a class="btn icon_ovault_savelist_view" href="#">View</a></td>
 							<td class="download"><a class="btn icon_ovault_savelist_csv" href="#">CSV</a></td>
-							<td class="delete"><a class="btn icon_ovault_savelist_delete" href="#">Delete</a></td>
+							<td class="delete" data-listid="'.$list->id.'" data-listname="'.$list->name.'"><a class="btn icon_ovault_savelist_delete" href="#" data-listid="'.$list->id.'" data-listname="'.$list->name.'">Delete</a></td>
 						</tr>';
 						
 						//build select olay output: simpler list (list gets updated by js on list create/delete)
@@ -339,12 +339,14 @@
 							<h3 class="j_savelists_listnum"><?php echo $ovaultSavelist['stats']['lists'] ?></h3>
 							<p>List<?php if($ovaultSavelist['stats']['lists'] != 1) echo 's'; ?></p>
 						</div>
-						<p class="j_hideonListDelete">and a total of</p>
-						<div class="hilite j_hideonListDelete">
-							<h3><?php echo $ovaultSavelist['stats']['offers']; ?></h3>
-							<p>Saved Offer<?php if($ovaultSavelist['stats']['offers'] != 1) echo 's'; ?></p>
+						<div class="j_updateOnListDelete">
+							<p>and a total of</p>
+							<div class="hilite">
+								<h3><?php echo $ovaultSavelist['stats']['offers']; ?></h3>
+								<p>Saved Offer<?php if($ovaultSavelist['stats']['offers'] != 1) echo 's'; ?></p>
+							</div>
 						</div>
-					</div>
+					</div><!--close olayfeat-->
 				
 				<?php } //endif stats
 			endif; //listout
