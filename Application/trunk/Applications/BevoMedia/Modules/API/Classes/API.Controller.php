@@ -406,4 +406,79 @@ Campaigns you have created may take up to 15-20 minutes to appear in your PPC Ac
 		Zend_Registry::set('Instance/LayoutType', 'blank-layout');
 		echo '<pre>';
 	}
+	
+	Public Function ListNetworks()
+	{
+		if(!isset($_GET['apiKey']))
+		{
+			echo json_encode(array('error' => 'Invalid API key'));
+			exit;
+		}
+		
+		$apiKey = mysql_real_escape_string(@$_GET['apiKey']);
+		$finduserId = mysql_query("select id, created from bevomedia_user where apiKey='$apiKey'");
+		if(mysql_num_rows($finduserId) == 0)
+		{
+			echo Zend_Json::encode(array('error' => 'No such user'));
+			exit;
+		}
+  
+  
+		$Sql = "SELECT
+					id,
+					title
+				FROM
+					bevomedia_aff_network
+				WHERE
+					isValid = 'Y'
+				ORDER BY
+					id
+				";
+		$Data = $this->_db->fetchAll($Sql);
+		echo Zend_Json::encode($Data);
+		die;
+	}
+	
+	Public Function ListOffers()
+	{
+		if(!isset($_GET['apiKey']))
+		{
+			echo json_encode(array('error' => 'Invalid API key'));
+			exit;
+		}
+		
+		$apiKey = mysql_real_escape_string(@$_GET['apiKey']);
+		$finduserId = mysql_query("select id, created from bevomedia_user where apiKey='$apiKey'");
+		if(mysql_num_rows($finduserId) == 0)
+		{
+			echo Zend_Json::encode(array('error' => 'No such user'));
+			exit;
+		}
+  
+		if (!isset($_GET['NetworkID']) || (intval($_GET['NetworkID'])==0)) 
+		{
+			echo Zend_Json::encode(array('error' => 'Invalid Network ID'));
+			exit;
+		}
+  
+		$Sql = "SELECT
+					offer__id as `offerId`,
+					title,
+					detail,
+					payout,
+					dateAdded,
+					imageUrl,
+					offerType,
+					previewUrl
+				FROM
+					bevomedia_offers
+				WHERE
+					(archived = 0)
+				ORDER BY
+					title
+				";
+		$Data = $this->_db->fetchAll($Sql);
+		echo Zend_Json::encode($Data);
+		die;
+	}
 }
