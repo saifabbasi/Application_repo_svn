@@ -1154,16 +1154,16 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 		#oleft .btable .oleftrow .td_oleft h3 { margin:0; font-size:1.2em; line-height:1em; }
 			#oleft .btable .oleftrow .td_oleft h3 .no { margin:0; color:#b2b2b2; }
 		#oleft .btable .oleftrow .td_oleft .created { display:block; color:#b2b2b2; font-size:.8em; }
-		#oleft .btable .oleftrow .td_oleft .offercount { padding:1px 5px; margin:-28px 0 0 171px; font-size:1.2em; text-align:right; line-height:1em; 
-					color:#fff; background:#ccc; position:absolute;  
+		#oleft .btable .oleftrow .td_oleft .offercount { padding:1px 5px; margin:-28px 0 0 150px; font-size:1.2em; text-align:right; line-height:1em; 
+					color:#fff; background:#ccc;  float:right;
 					-moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }
 	
 		#oleft .btable thead td a.btn.ovault_yell_createnewlist { margin:5px auto 10px; }
 
 		#oleft .btable .td_oleft form { margin:-5px 0 5px 0; position:relative; }		
-		#oleft .btable .td_oleft input.formtxt { width:167px; margin:0 2px 0 -5px; float:none; }
-		#oleft .btable .td_oleft input.btn { margin:4px 5px 5px 0; float:right; }
-		#oleft .btable .td_oleft form a.btn.ovault_olay_close_gray { position:absolute; top:8px; right:-12px; }
+		#oleft .btable .td_oleft input.formtxt { width:151px; padding-left:16px; margin:0 0 0 0; float:none; }
+		#oleft .btable .td_oleft input.btn { margin:3px 0 8px 0; float:right; }
+		#oleft .btable .td_oleft form a.btn.ovault_olay_close_gray { position:absolute; top:8px; left:4px; }
 	
 	#ovault .footfeat { margin:-2px 0 5px 5px; }		
 	#ovault .footfeat .hilite { padding:5px; margin:0 0 0 5px; float:left; text-align:right; background:#CEE2EC;
@@ -1207,14 +1207,19 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 				#oright .conttop .top4 { width:100px; margin-right:-20px; }
 
                                         #oright .conttop .top1 p { margin:8px 0 0; font-size:1.8em; line-height:1em; color:#999; }
-					#oright .conttop .top2 h2 { margin:4px 10px 0 0; float:left; font-size:2.2em; line-height:1em; }			
+					#oright .conttop .top2 h2 { margin:4px 10px 0 0; float:left; font-size:2em; line-height:1em; letter-spacing:-.08em; }			
                                         #oright .conttop .top2 .subsmall { font-size:.8em; color:#999; }	
 					#oright .conttop .top2 input.formtxt { width:400px; padding:8px 10px; margin:0 0 5px; font-size:18px; }
 					#oright .conttop .top2 p { line-height:1.1em; color:#666; }
                                         #oright .conttop .top2 img { margin:0 0 0 -2px; }
 
-					#oright .conttop .top2 a.btn.ovault_savenewlist { float:left; position:relative; top:-34px; left:365px; }
+					#oright .conttop .top2 .btn.ovault_savenewlist { float:left; position:relative; top:-34px; left:370px; }
 					#oright .conttop .top2 a.btn.ovault_transgray_rename { margin:11px 0 0; float:left; }
+					
+					#oright .conttop .top2 form.ovault_mysaved_renamelistform { position:absolute; }
+					#oright .conttop .top2 form.ovault_mysaved_renamelistform input.formtxt { padding-left:20px; }
+					#oright .conttop .top2 form.ovault_mysaved_renamelistform input.btn { position:absolute; top:10px; left:auto; right:5px !important; }
+					#oright .conttop .top2 form.ovault_mysaved_renamelistform a.ovault_olay_close_gray { position:absolute; top:16px; left:5px; }					
 
         				#oright .conttop .footfeat { margin-top:-10px; }
 
@@ -1230,6 +1235,9 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 	#offmain_searchform { float:left; }
 	table.floatleft { display:inline !important; }
 }
+
+
+
 
 
 

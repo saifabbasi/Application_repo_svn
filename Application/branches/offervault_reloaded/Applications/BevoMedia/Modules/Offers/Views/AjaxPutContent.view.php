@@ -7,7 +7,7 @@
 
 
 /*set statics*/
-$allowed_puts = array('save2list','createnewlist','deletelist','deletealllists');
+$allowed_puts = array('save2list','createnewlist','deletelist','deletealllists','deletesavelistoffer','renamelist');
 $query = array();
 $out = array();
 $error = false;
@@ -32,7 +32,7 @@ if($_GET && isset($_GET['put']) && in_array($_GET['put'], $allowed_puts)) {
 				
 				if(strlen($val) < 3 || strlen($val) > 55)
 					$error = 'Sorry, but your list name has to be at least 3 characters short and can not be longer than 55 characters! Please try again.';
-				else	$query['params']['newlistname'] = $val;					
+				else	$query['params']['newlistname'] = $val;
 			
 			} else	$error = 'It seems that you haven\t specified a name for your list. Enter a name and try again!';
 		break;
@@ -44,6 +44,28 @@ if($_GET && isset($_GET['put']) && in_array($_GET['put'], $allowed_puts)) {
 		break;
 		case 'deletealllists' :
 			$query['params']['dummy'] = 1;
+		break;
+		case 'deletesavelistoffer' :
+			foreach(array('oid','listid') as $k) {
+				if(isset($_GET[$k]) && is_numeric($_GET[$k]) && $_GET[$k] != 0)
+					$query['params'][$k] = intval(trim($_GET[$k]));
+				else	$error = 'The offer you want to remove from the list doesn\'t seem to exist in the list, or invalid list selected. Please refresh the page and try again, and let us know if the error persists!';
+			}
+			
+		break;
+		case 'renamelist' :
+			if(isset($_GET['listid']) && is_numeric($_GET['listid']) && $_GET['listid'] != 0)
+				$query['params']['listid'] = intval(trim($_GET['listid']));
+			else	$error = 'This list seems to be invalid, please refresh the page and try again.';
+			
+			if(isset($_GET['newlistname']) && $_GET['newlistname'] != '') {
+				$val = preg_replace('/[^A-z0-9-_\.\,:\s]/','',trim($_GET['newlistname']));
+				
+				if(strlen($val) < 3 || strlen($val) > 55)
+					$error = 'Sorry, but your list name has to be at least 3 characters short and can not be longer than 55 characters! Please try again.';
+				else	$query['params']['newlistname'] = $val;
+			
+			} else	$error = 'It seems that you haven\t specified a name for your list. Enter a name and try again!';
 		break;
 		
 	}//end switch

@@ -267,7 +267,7 @@ $(document).ready(function() {
 	
 	/*savelists*/
 	//create new list
-	$('#ovault_createnewlistform, #savelists_oleft_createnewlistform, #ovault_newlistname_intabform').live('submit',function() {
+	$('#ovault_createnewlistform, #savelists_oleft_createnewlistform, #savelists_oright_newlistname').live('submit',function() {
 			
 		if(parseInt(ovault_existSavelistNum) < parseInt(ovault_maxSavelists)) {
 			var 	field = $('input.ovault_newlistname', this),
@@ -287,20 +287,19 @@ $(document).ready(function() {
 	});
 	
 	//delete list
-	$('#ovault_olay_savelists tbody tr td.delete, #ovault_olay_savelists tbody tr td.delete a').live('click', function() {
-		var	parent = $(this).parents('tr'),
-			listid = parent.data('listid'),
-			listname = parent.data('listname');
+	$('#ovault_olay_savelists tbody tr td.delete, #ovault_olay_savelists tbody tr td.delete a, #oright .content .top3 a.ovault_transgray_delete').live('click', function() {
+		var	listid = $(this).data('listid')
+			listname = $(this).data('listname');
 		
 		if(confirm("Are you sure you want to delete the\n\n*** "+listname+" ***\n\nOffer List?")) {
-			doDeleteListSearch(listid);
+			doDeleteList(listid);
 		}
 		
 		return false;
 	});
 	
 	//delete all
-	$('#olay_savedlists a.ovault_smallyell_deleteall').live('click', function() {
+	$('#olay_savedlists a.ovault_smallyell_deleteall, #oleft a.ovault_smallgray_deleteall').live('click', function() {
 		if(confirm("Are you sure you want to delete ALL your Offer Lists now?")) {
 			$.ajax({
 				type: 'GET',
@@ -308,12 +307,34 @@ $(document).ready(function() {
 				success: function(r) {					
 					r = $.parseJSON(r);					
 					if(r.error)
-						ajaxMessage(r.error);					
+						ajaxMessage(r.error,1);					
 					else {
-						//remove html markup
-						$('#olay_savedlists .j_olisttable, #olay_savedlists .j_oliststats').fadeOut(1000).remove();						
-						makeSavelistDefault('new', 'New List');						
-						ovault_existSavelistNum = 0;					
+						ovault_existSavelistNum = 0;
+						
+						if(location.pathname == ovault_searchPage) {
+							//remove html markup
+							$('#olay_savedlists .j_olisttable, #olay_savedlists .j_oliststats').fadeOut(1000).remove();						
+							
+						} else if(location.pathname == ovault_mysavedPage) {
+							//oleft
+							$('#oleft tbody tr.oleftrow').each(function() {
+								$(this).fadeOut(300, function() {
+									$(this).remove();
+								}).delay(300);
+							});
+							
+							var html = '<tr class="oleftrow disabled j_list-new active"><td class="hhl">&nbsp;</td><td class="td_oleft"><p class="center">You haven\'t created any Offer Lists yet. Why not <a class="j_expand" href="#" data-target="savelists_oleft_createnewlistform">create one now?</a></p><div class="connector hide"></div></td><td class="hhr">&nbsp;</td></tr>';
+					
+							$('#oleft tbody').append(html);
+							
+							//update stats
+							$('#oleft .footfeat .hilite h3').html('0');
+							
+							//oright
+							rebuildSavelistOrowrightContent('nolists');
+						}
+						
+						makeSavelistDefault('new', 'New List');											
 						ajaxMessage(r.message);
 					}
 				},

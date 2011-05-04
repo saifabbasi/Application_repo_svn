@@ -148,10 +148,10 @@
 			<div class="conttop">
 				<div class="top top1">&nbsp;</div>
 				<div class="top top2">
-					<label class="hide">Give your first list a name!</label>
-					<form method="post" action="ovault_newlistname_intabform">
-						<input type="text" class="formtxt ovault_newlistname" id="" name="newlistname" value="Give your first list a name!" />
-						<input class="btn formsubmit ovault_savenewlist" value="Create" />
+					<form method="post" action="" id="savelists_oright_newlistname">
+						<label class="hide">Give your first list a name!</label>
+						<input type="text" class="formtxt ovault_newlistname" name="newlistname" value="Give your first list a name!" />
+						<input type="submit" class="btn formsubmit ovault_savenewlist" value="Create" />
 					</form>					
 					<div class="clear"></div>
 					
@@ -190,15 +190,14 @@
 				<div class="top top1"><p></p></div>
 				<div class="top top2">
 					<h2></h2>
-					<a class="btn ovault_transgray_rename j_expand" data-targetclass="ovault_mysaved_renamelistform" href="#">Rename</a>
+					<a class="btn ovault_transgray_rename j_expand" href="#">Rename</a>
 					
 					<form method="post" action="" class="ovault_mysaved_renamelistform hide">
 						<div class="row">
-							<input type="text" class="formtxt renamelistname" name="renamelistname" value="" />
-							<input type="hidden" class="renamelistid" name="listid" value="" />
+							<input type="text" class="formtxt ovault_renamelistname" name="renamelistname" value="" />
 							<input type="submit" class="btn formsubmit ovault_savenewlist" value="Save" />
 						</div>
-						<a class="btn ovault_olay_close j_close" href="#" data-targetclass="ovault_mysaved_renamelistform">Close</a>
+						<a class="btn ovault_olay_close_gray j_close" href="#" data-targetclass="ovault_mysaved_renamelistform">Close</a>
 					</form>
 					
 					<div class="clear"></div>
@@ -292,7 +291,7 @@
 							<div class="row">
 								<label class="hide">Enter a name for your new list...</label>
 								<input type="text" class="formtxt ovault_newlistname" id="" name="newlistname" value="Enter a name for your new list..." />
-								<input type="submit" class="btn formsubmit ovault_savenewlist" value="Save" />
+								<input type="submit" class="btn formsubmit ovault_savenewlist" value="Create" />
 							</div>
 							<a class="btn ovault_olay_close_gray j_close" href="#" data-target="savelists_oleft_createnewlistform">Close</a>
 						</form>
@@ -319,7 +318,7 @@
 				<h3 class="j_savelists_listnum"><?php echo $ovaultSavelist['stats']['lists'] ?></h3>
 				<p class="dark">List<?php if($ovaultSavelist['stats']['lists'] != 1) echo 's'; ?></p>
 			</div>
-			<div class="hilite second j_hideKidsOnListDelete">
+			<div class="hilite second j_updateOnListDelete">
 				<p>and</p>
 				<h3><?php echo $ovaultSavelist['stats']['offers']; ?></h3>
 				<p class="dark">Offer<?php if($ovaultSavelist['stats']['offers'] != 1) echo 's'; ?></p>
@@ -346,15 +345,14 @@
 				<div class="top top1"><p><?php echo $ovaultSavelist['righttable']->listcount; ?>.</p></div>
 				<div class="top top2">
 					<h2><?php echo $ovaultSavelist['righttable']->name; ?></h2>
-					<a class="btn ovault_transgray_rename j_expand" data-targetclass="ovault_mysaved_renamelistform" href="#">Rename</a>
+					<a class="btn ovault_transgray_rename j_expand" data-target="ovault_mysaved_renamelistform-<?php echo $ovaultSavelist['righttable']->id; ?>" href="#">Rename</a>
 					
-					<form method="post" action="" class="ovault_mysaved_renamelistform hide">
+					<form method="post" action="" class="ovault_mysaved_renamelistform hide" id="ovault_mysaved_renamelistform-<?php echo $ovaultSavelist['righttable']->id; ?>" data-listid="<?php echo $ovaultSavelist['righttable']->id; ?>" data-listname="<?php echo $ovaultSavelist['righttable']->name; ?>">
 						<div class="row">
-							<input type="text" class="formtxt renamelistname" name="renamelistname" value="<?php echo $ovaultSavelist['righttable']->name; ?>" />
-							<input type="hidden" class="renamelistid" name="renamelistid" value="<?php echo $ovaultSavelist['righttable']->id; ?>" />
+							<input type="text" class="formtxt ovault_renamelistname" name="renamelistname" value="<?php echo $ovaultSavelist['righttable']->name; ?>" />
 							<input type="submit" class="btn formsubmit ovault_savenewlist" value="Save" />
 						</div>
-						<a class="btn ovault_olay_close j_close" href="#" data-targetclass="ovault_mysaved_renamelistform">Close</a>
+						<a class="btn ovault_olay_close_gray j_close" href="#" data-target="ovault_mysaved_renamelistform-<?php echo $ovaultSavelist['righttable']->id; ?>">Close</a>
 					</form>
 					
 					<div class="clear"></div>
@@ -371,7 +369,7 @@
 						</div>						
 						<div class="clear"></div>
 					</div>
-					<a class="btn ovault_transgray_delete" href="#">Delete this list</a>
+					<a class="btn ovault_transgray_delete" href="#" data-listid="<?php echo $ovaultSavelist['righttable']->id; ?>" data-listname="<?php echo $ovaultSavelist['righttable']->name; ?>">Delete this list</a>
 					<div class="clear"></div>
 				</div>
 				<div class="top top4">
@@ -390,7 +388,7 @@
 					
 					$out = '';
 					foreach($ovaultSavelist['righttable']->offers as $offer) {
-						$out .= '<tr class="orow j_oright j_oid-'.$offer->id.'" data-oid="'.$offer->id.'" title="Click to expand or collapse this offer">';
+						$out .= '<tr class="orow j_oright j_oid-'.$offer->id.'" data-oid="'.$offer->id.'" data-listid="'.$ovaultSavelist['righttable']->id.'" title="Click to expand or collapse this offer">';
 						
 						$out .= '<td class="border">&nbsp;</td>';
 						$out .= '<td class="td_offername"><p>'.$offer->title.'<span>Added '.$offer->dateAdded_nice.'</span></p></td>';
@@ -400,7 +398,9 @@
 						
 						$out .= '<td class="td_network"><p class="icon'.$offer->isNetworkMember.'">'.$offer->networkName.'</p></td>';
 						
-						$out .= '<td class="td_delete"><a class="btn ovault_olay_close_gray" href="#">Delete this offer from list</a>';
+						$out .= '<td class="td_delete" title="Delete this offer from the list">
+								<a class="btn ovault_olay_close_gray" href="#" title="Delete this offer from the list">Delete this offer from list</a>
+							</td>';
 						$out .= '<td class="tail">&nbsp;</td>';
 						
 						$out .= '</tr>';

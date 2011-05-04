@@ -167,4 +167,63 @@ class ParseAjaxInput {
 		return $out;
 		
 	}//deletelist()
+	
+	public function deletesavelistoffer($query=false) {
+	
+		$oid = $query['params']['oid'];
+		$listid = $query['params']['listid'];
+		$userid = $_SESSION['User']['ID'];
+		
+		$sql = "DELETE	offers
+			
+			FROM	bevomedia_user_offerlists_offers AS offers
+			
+			LEFT JOIN
+				bevomedia_user_offerlists AS lists
+				ON offers.list__id = lists.id
+				
+			WHERE	lists.id = {$listid} AND
+				lists.user__id = {$userid} AND
+				offers.offer__id = {$oid}
+		";
+			
+		$result = mysql_query($sql);
+	
+		if(mysql_affected_rows() == 1)
+			$out['message'] = 'Offer removed from list.';
+		else	$out['error'] = 'The offer could not be deleted, please try again and contact us if the error persists.';
+		
+		return $out;
+		
+	}//deletesavelistoffer()
+	
+	public function renamelist($query=false) {
+	
+		$listid = $query['params']['listid'];
+		$newlistname = $query['params']['newlistname'];
+		$userid = $_SESSION['User']['ID'];
+		
+		$sql = "UPDATE	bevomedia_user_offerlists
+			
+			SET	name = '$newlistname'
+			
+			WHERE	id = $listid AND
+				user__id = $userid
+				
+			LIMIT 1
+		";
+			
+			//die($sql);
+			
+		$result = mysql_query($sql);
+	
+		if(mysql_affected_rows() == 1) {
+			$out['message'] = 'List renamed to <em>'.$newlistname.'</em>';
+			$out['newlistname'] = $newlistname;
+			
+		} else	$out['error'] = 'The list could not be renamed, please refresh the page and try again!';
+		
+		return $out;
+		
+	}//deletesavelistoffer()
 }
