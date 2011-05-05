@@ -496,7 +496,7 @@ Class UserController extends ClassComponent
 		Zend_Registry::set('Instance/LayoutType', 'main-layout');
 		
 		$Token = Zend_Registry::get('Instance/URI_Token');
-		print_r($Token);
+		
 		if (isset($Token[4]) && (strlen($Token[4])==32)) 
 		{
 			if (isset($Token[5]) && ($Token[5]=='s'))
