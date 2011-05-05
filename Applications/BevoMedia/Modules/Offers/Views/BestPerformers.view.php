@@ -129,7 +129,7 @@
 				LEFT JOIN bevomedia_user_offerlists AS lists
 					ON offers.list__id = lists.id
 			WHERE lists.user__id = {$_SESSION['User']['ID']}
-				AND offers.offer__id = $latest->offer__id
+				AND offers.offer__id = $latest->id
 		";
 		$savelistLatest = mysql_query($sql);
 		$latest->saved2list = mysql_num_rows($savelistLatest) ? 1 : 0;
@@ -296,14 +296,14 @@ include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.p
 		
 		<tbody>	
 			<?php foreach($offers as $o) { ?>
-				<tr class="orow j_oid-<?php echo $o->offer__id; ?>" data-oid="<?php echo $o->offer__id; ?>" title="Click to expand or collapse this offer">
+				<tr class="orow j_oid-<?php echo $o->id; ?>" data-oid="<?php echo $o->id; ?>" title="Click to expand or collapse this offer">
 					<td class="border">&nbsp;</td>
 					<td class="td_saved2list">
 						<div class="icon icon_ovault_added2list<?php if(!$o->saved2list) echo ' hide'; ?>" title="You have already saved this offer"></div>
 					</td>
 					<td class="td_savelist">
-						<a class="btn ovault_add2list j_orowSelect" href="#" data-oid="<?php echo $o->offer__id; ?>" title="Add this offer to the active list">Add</a>
-						<a class="btn ovault_add2list_select j_orowSelect" href="#" data-oid="<?php echo $o->offer__id; ?>" title="Select a list to add this offer to...">Select</a>
+						<a class="btn ovault_add2list j_orowSelect" href="#" data-oid="<?php echo $o->id; ?>" title="Add this offer to the active list">Add</a>
+						<a class="btn ovault_add2list_select j_orowSelect" href="#" data-oid="<?php echo $o->id; ?>" title="Select a list to add this offer to...">Select</a>
 						<div class="olay_container"></div>
 					</td>
 					<td class="td_offername">

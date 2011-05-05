@@ -130,6 +130,18 @@ $(document).ready(function() {
 		}//endif ignoreClick
 	})//orow expand/collapse
 	
+	//add/apply shadowbox
+	$('.orowbig a.btn.nw_applyadd').live('click', function() {
+		Shadowbox.open({
+			content: $(this).attr('href'),
+			player: 'iframe',
+			title: 'Apply/Add this Network',
+			width: 640,
+			height: 480
+		});
+		return false;
+	});
+	
 	/*odial*/
 	//submit
 	$('#osearchform').live('submit', function() {			

@@ -19,10 +19,12 @@
 	}
 
 	$sql = "SELECT
-				*
-			FROM
-				bevomedia_aff_network
-			";
+			*
+		FROM
+			bevomedia_aff_network
+		WHERE	model = 'CPA'
+			AND isValid = 'Y'
+	";
 	$networksData = mysql_query($sql);
 	
 	$allnetworks = array();

@@ -40,7 +40,8 @@ class ConstructAjaxOutput {
 					bevomedia_offers.*,
 					bevomedia_category.title as `categoryTitle`,
 					bevomedia_aff_network.title as `networkName`,
-					bevomedia_aff_network.detail as `networkDescription`
+					bevomedia_aff_network.detail as `networkDescription`,
+					bevomedia_aff_network.offerUrl as `affUrl`
 				FROM
 					bevomedia_offers,
 					bevomedia_category,
@@ -55,6 +56,7 @@ class ConstructAjaxOutput {
 		
 		while ($offer = mysql_fetch_object($data))
 		{ 
+			
 			$sql = "SELECT 
 						id
 					FROM 
@@ -132,6 +134,18 @@ class ConstructAjaxOutput {
 				$offer->is_oright = true;
 				
 			}//endif is_oright
+			
+			//aff link
+			/*
+			if($offer->isNetworkMember == 1 && $offer->affUrl) {
+				
+				TODOoooooooooooooooooooooooo
+				
+				bevomedia_user_aff_network.loginId
+				$offer->affUrl = str_replace('{$OfferID}','',$offer->affUrl);
+				$offer->affUrl = str_replace('{$AffiliateID}','',$offer->affUrl);
+			}
+			*/
 		
 			
 			
@@ -642,8 +656,8 @@ class ConstructAjaxOutput {
 				//have preview URL?
 				//if(property_exists($offer, 'previewUrl') && $offer->previewUrl && $offer->previewUrl != '') {
 					$out .= '<a class="ovault_othumb" href="'.$offer->previewUrl.'" title="Preview offer in a new tab" target="_blank">';
-						$out .= '<img src="/Themes/BevoMedia/img_new/othumb_default.gif" alt="" /><span></span>';
-					$out .= '</a>';
+					$out .= $offer->imageUrl ? '<img src="'.$offer->imageUrl.'" alt="" />' : '<img src="/Themes/BevoMedia/img_new/othumb_default.gif" alt="" />';
+					$out .= '<span></span></a>';
 					
 				/*} else {
 					$out .= '<div class="ovault_othumb">';
@@ -700,7 +714,8 @@ class ConstructAjaxOutput {
 		
 		} else {
 			$out .= '<p>You\'re not a member of this network yet! Become one now:</p>';
-			$out .= '<a class="btn nw_applyadd" href="/BevoMedia/Publisher/ApplyAdd.html?network='.$offer->network__id.'" rel="shadowbox;width=640;height=480;player=iframe">Apply to join this network</a>';		
+			//$out .= '<a class="btn nw_applyadd" href="/BevoMedia/Publisher/ApplyAdd.html?network='.$offer->network__id.'" rel="shadowbox;width=640;height=480;player=iframe">Apply to join this network</a>';
+			$out .= '<a class="btn nw_applyadd" href="/BevoMedia/Publisher/ApplyAdd.html?network='.$offer->network__id.'">Apply to join this network</a>';
 		}
 		
 		$out .= '</div><!--close td_inner-->';
