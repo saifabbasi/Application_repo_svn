@@ -464,15 +464,16 @@ input.formsubmit { display:block; text-indent:-9999px; outline:none; border:none
 		
 
 		/*flush, datetable*/
-	table.datetable { float:right; clear:both; }
-	table.datetable.floatleft { float:left !important; }
+	.datetable { float:right; clear:both; }
+	.datetable.floatleft { float:left !important; }
 	
 	input#datepicker,input#datepickerVS,
 	input.formtxt.flush { width:170px; padding:2px 5px; margin:-2px 0 0 0; font-size:.9em; -moz-border-radius-topright:0; -webkit-border-radius-topright:0; border-radius-topright:0; -moz-border-radius-bottomright:0; -webkit-border-radius-bottomright:0; border-radius-bottomright:0; }
 	
 		input.formtxt.flush.wide_number { width:80px; }
 	
-	.datetable input.formsubmit { width:47px; height:22px; background:url(img/formsubmit_formchangedate.png) no-repeat; }
+	.datetable input.formtxt#datepicker { padding:2px 5px; margin:0 !important; float:left; }
+	.datetable input.formsubmit { width:47px; height:22px; float:left; background:url(img/formsubmit_formchangedate.png) no-repeat; }
 	input.formsubmit.btn_go_flush { width:47px; height:22px; display:inline; position:relative; top:-3px; left:-4px; background:url(img/btn_go_flush.png) no-repeat; }
 	
 	
@@ -757,12 +758,6 @@ html>body #ieBar { display: none }
 	width: 131px; height:24px; background:url(img/btn_track_submit.png) no-repeat;
 	border: 0px; 
 }
-
-
-
-
-
-
 
 
 

@@ -1,7 +1,7 @@
 /* it's soapdesigned.com */
 $(document).ready(function() {		
 	
-	adjustSavelistOrightHeight();
+	adjustOrightHeight();
 	
 	//switch list view
 	$('#oleft tbody tr.oleftrow:not(.active)').live('click', function() {

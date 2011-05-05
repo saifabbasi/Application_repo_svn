@@ -1172,6 +1172,7 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 		#oleft .btable .td_oleft form a.btn.ovault_olay_close_gray { position:absolute; top:8px; left:4px; }
 
                 #oleft .btable .td_oleft.nwlogo { padding:0 !important; height:48px; text-align:center; }	
+                #oleft .btable .td_oleft.nwlogo a { width:171px; height:48px; display:block; overflow:hidden; }
                 #oleft .btable .td_oleft.nwlogo img { margin:0; max-height:48px; height:auto !important; height:48px; }
 
 	#ovault .footfeat { margin:-2px 0 5px 5px; }		
@@ -1209,7 +1210,7 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 			/*conttop*/
 			#oright .content .conttop {}
 				#oright .conttop .top { margin:0 10px 0 0; float:left; display:inline; }
-				#oright .conttop .topfull { margin:0; float:none; display:block; }
+				#oright .conttop .topfull { margin:0 0 15px; float:none; display:block; }
 				#oright .conttop .top1 { width:20px; }
 				#oright .conttop .top2 { width:435px;  }
 				#oright .conttop .top3 { width:150px; }
@@ -1237,7 +1238,7 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 
         				#oright .conttop .top4 a.tbtn { display:block; float:left; margin:10px 0 0; }
         				
-        				#oright .conttop .topfull form.dateform { float:right; }
+        				#oright .conttop .topfull .datetable { clear:none; }
 					
 					
 			
@@ -1246,5 +1247,7 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 	#offmain_searchform { float:left; }
 	table.floatleft { display:inline !important; }
 }
+
+
 
 

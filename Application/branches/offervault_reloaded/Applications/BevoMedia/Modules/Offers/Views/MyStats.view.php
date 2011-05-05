@@ -1,16 +1,60 @@
-<?php include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.php'; 
-
+<?php 
 	$myNws = array(
-		'cookie'=>'__bevoMyNwLast',
-		'cookie_from'=>'__bevoMyNwLastFrom',
-		'cookie_to'=>'__bevoMyNwLastTo'
+		'cookie_lastnw'=>'__bevoMyNwLast',	//network ID last viewed
+		'cookie_from'=>'__bevoMyNwLastFrom',	//date-from last selected
+		'cookie_to'=>'__bevoMyNwLastTo',	//date-to
+		'cookie_page' => '__bevoMyNwPage'	//last tab viewed (performance or subids)
 	);
 	
-	//set dates
-	$myNws['current_from'] = isset($_COOKIE[$myNws['cookie_from']]) ? date('Y-m-d', strtotime(trim($_COOKIE[$myNws['cookie_from']]))) : date('Y-m-d', time()-60*60*24); //yesterday 
-	$myNws['current_to'] = isset($_COOKIE[$myNws['cookie_to']]) ? date('Y-m-d', strtotime(trim($_COOKIE[$myNws['cookie_to']]))) : date('Y-m-d'); //today
+	require_once(PATH . "Legacy.Abstraction.class.php");
+	require_once(PATH.'inc_daterange.php');
 	
-	//fetch all user networks
+	/*get/set page (tab)*/
+	if(isset($_GET['page']) && !empty($_GET['page'])
+		&& ($_GET['page'] == 'performance' || $_GET['page'] == 'subids')) {
+	
+		$myNws['page'] = trim($_GET['page']);
+	
+	} elseif(isset($_COOKIE[$myNws['cookie_page']]) && !empty($_COOKIE[$myNws['cookie_page']])
+		&& ($_COOKIE[$myNws['cookie_page']] == 'performance' || $_COOKIE[$myNws['cookie_page']] == 'subids')) {
+	
+		$myNws['page'] = trim($_COOKIE[$myNws['cookie_page']]);
+	
+	} else	$myNws['page'] = 'performance';
+	
+	//set cookie
+	setcookie($myNws['cookie_page'], $myNws['page'], time()+60*60*24*30*12);//1y
+	
+	
+	/*get/set dates*/
+	if(isset($_GET['DateRange'])) {
+		$myNws['current_from'] = LegacyAbstraction::$strStartDateVal;
+		$myNws['current_to'] = LegacyAbstraction::$strEndDateVal;
+		$myNws['current_range'] = LegacyAbstraction::$strDateRangeVal;
+	} else {
+		$myNws['current_from'] = isset($_COOKIE[$myNws['cookie_from']]) ? date('Y-m-d', strtotime(trim($_COOKIE[$myNws['cookie_from']]))) : date('Y-m-d', time()-60*60*24); //yesterday 
+		$myNws['current_to'] = isset($_COOKIE[$myNws['cookie_to']]) ? date('Y-m-d', strtotime(trim($_COOKIE[$myNws['cookie_to']]))) : date('Y-m-d'); //today
+		$myNws['current_range'] = $myNws['current_from'].' - '.$myNws['current_to'];
+	}
+	
+	//set cookie
+	setcookie($myNws['cookie_from'], $myNws['current_from'], time()+60*60*24*30*12);//1y
+	setcookie($myNws['cookie_to'], $myNws['current_to'], time()+60*60*24*30*12);//1y
+	
+	/*get/set current network*/
+	if(isset($_GET['network']) && is_numeric($_GET['network']) && !empty($_GET['network']) && $_GET['network'] != 0) {
+		$myNws['current'] = intval(trim($_GET['network']));
+	
+	} elseif(isset($_COOKIE[$myNws['cookie_lastnw']]) && is_numeric($_COOKIE[$myNws['cookie_lastnw']]) && $_COOKIE[$myNws['cookie_lastnw']] != 0) {
+		$myNws['current'] = intval(trim($_COOKIE[$myNws['cookie_lastnw']]));
+		
+	} else	$myNws['current'] = 0;
+	
+	//set cookie
+	if($myNws['current'] != 0)
+		setcookie($myNws['cookie_lastnw'], $myNws['current'], time()+60*60*24*30*12);
+	
+	/*get all user networks*/
 	$sql = "SELECT 	networks.*
 		FROM	bevomedia_aff_network AS networks
 			LEFT JOIN bevomedia_user_aff_network AS usernetworks
@@ -25,20 +69,14 @@
 	$myNws['righttable'] = new stdClass();
 	$myNws['num_networks'] = mysql_num_rows($raw);
 	
-	if($myNws['num_networks'] > 0) {
-		
-		//get latest viewed network from cookie so that we can fetch the overview report for it
-		if(isset($_COOKIE[$myNws['cookie']]) && is_numeric($_COOKIE[$myNws['cookie']]) && $_COOKIE[$myNws['cookie']] != 0) {
-			$myNws['current'] = intval(trim($_COOKIE[$myNws['cookie']]));
-			
-		} else	$myNws['current'] = false;
-
-		
+	if($myNws['num_networks'] > 0) {		
 		while($nw = mysql_fetch_object($raw)) {
 			
-			//set current if not yet set
-			if(!$myNws['current'])
+			//set current network to the first one if not yet set
+			if($myNws['current'] == 0) {
 				$myNws['current'] = $nw->id; //set first one to current if none exists yet
+				setcookie($myNws['cookie'], $myNws['current'], time()+60*60*24*30*12);
+			}
 			
 			$myNws['networks'][] = $nw;
 			
@@ -48,7 +86,7 @@
 			$myNws['lefttable'] .= '" title="'.$nw->title.'">
 				<td class="hhl">&nbsp;</td>
 				<td class="td_oleft nwlogo">
-					<img class="nwpic w120" src="/Themes/BevoMedia/img/networklogos/uni/'.$nw->id.'.png" alt="" />
+					<a href="?network='.$nw->id.'"><img class="nwpic w120" src="/Themes/BevoMedia/img/networklogos/uni/'.$nw->id.'.png" alt="" /></a>
 					<div class="connector hide"></div>
 				</td>
 				<td class="hhr">&nbsp;</td></tr>';
@@ -59,50 +97,107 @@
 				$myNws['righttable']->nw = $nw;
 				
 				//fetch stats for last viewed network
-				$sql = "SELECT
-						subids.offer__id as offer_id,
-						offers.title AS offer_name,
-						SUM(subids.clicks) as clicks,
-						SUM(subids.conversions) AS conversions,
-						SUM(subids.revenue) as revenue
-					FROM
-						bevomedia_user_aff_network_subid AS subids
-						LEFT JOIN bevomedia_offers AS offers ON
-							subids.offer__id = offers.offer__id
-							AND subids.network__id = offers.network__id
-					WHERE
-						subids.user__id = {$_SESSION['User']['ID']}
-						AND subids.network__id = {$nw->id}
-						AND subids.statDate BETWEEN {$myNws['current_from']} AND {$myNws['current_to']}
-					GROUP BY
-						subids.offer__id,
-						offers.title
-				";
+				if($myNws['page'] == 'performance') {
+					
+					$sql = "SELECT
+							subids.offer__id as offer_id,
+							offers.title AS offer_name,
+							SUM(subids.clicks) as clicks,
+							SUM(subids.conversions) AS conversions,
+							SUM(subids.revenue) as revenue
+						FROM
+							bevomedia_user_aff_network_subid AS subids
+							LEFT JOIN bevomedia_offers AS offers ON
+								subids.offer__id = offers.offer__id
+								AND subids.network__id = offers.network__id
+						WHERE
+							subids.user__id = {$_SESSION['User']['ID']}
+							AND subids.network__id = {$nw->id}
+							AND subids.statDate BETWEEN {$myNws['current_from']} AND {$myNws['current_to']}
+						GROUP BY
+							subids.offer__id,
+							offers.title
+					";
+					
+				} elseif($myNws['page'] == 'subids') {
+					
+					$sql = "
+						SELECT
+							subids.subId AS sub_id,
+							offers.offer__id AS offer_id,
+							offers.title AS offer_name,
+							SUM(subids.clicks) as clicks,
+							SUM(subids.conversions) AS conversions,
+							SUM(subids.revenue) as revenue
+						FROM
+							bevomedia_user_aff_network_subid AS subids
+							LEFT JOIN bevomedia_offers AS offers ON
+								subids.offer__id = offers.offer__id
+								AND subids.network__id = offers.network__id
+						WHERE
+							subids.user__id = {$_SESSION['User']['ID']}
+							AND subids.network__id = {$nw->id}
+							AND subids.statDate BETWEEN {$myNws['current_from']} AND {$myNws['current_to']}
+						GROUP BY
+							subids.subId,
+							offers.offer__id,
+							offers.title
+						ORDER BY
+							offers.title
+					";
+				
+				}//endif page (sql)
 				
 				$det = mysql_query($sql);
 				
 				//build chart and table
-				$myNws['righttable']->chart = "<chart showBorder='0' bgAlpha='0,0' caption='Offers Overview' numberPrefix='$' formatNumberScale='0'>";
+				if($myNws['page'] == 'performance')
+					$myNws['righttable']->chart = "<chart showBorder='0' bgAlpha='0,0' caption='Offers Overview' numberPrefix='$' formatNumberScale='0'>";
+				
 				$myNws['righttable']->table = '';
 				
 				$clicks = 0;
 				$conversions = 0;
+				$righttablerows = 0;
+				$previousOffer = null;
 					
 				while($details = mysql_fetch_object($det)) {
-					//chart
+					$righttablerows++;
+					
 					$offer_name = htmlspecialchars_decode(empty($details->offer_name) ? 'Unknown' : preg_replace('/[^a-z0-9\s]/i', '', $details->offer_name));
-					$myNws['righttable']->chart .= "<set label='".htmlentities($offer_name)."' value='".$details->revenue."' />";
+					
+					//chart
+					if($myNws['page'] == 'performance')
+						$myNws['righttable']->chart .= "<set label='".htmlentities($offer_name)."' value='".$details->revenue."' />";
 					
 					//table
 					$clicks += $details->clicks;
 					$conversions += $details->conversions;
 					@$revenue += $details->revenue;
 					
+					if($myNws['page'] == 'subids' && $previousOffer != $details->offer_id) {
+						$myNws['righttable']->table .= '<tr>
+								<td class="border">&nbsp;</td>
+								<td colspan="6" class="STYLE4" style="border-left: none;">'.htmlentities($details->offer_name).'</td>
+								<td class="tail">&nbsp;</td>
+							</tr>';
+					}
+					
+					$previousOffer = $details->offer_id;
+					
 					$myNws['righttable']->table .= '<tr>
 						<td class="border">&nbsp;</td>
-						<td>'.htmlentities($offer_name).'(';
-					$myNws['righttable']->table .= @$details->offer_id ? $details->offer_id : 'No ID #';
-					$myNws['righttable']->table .= ')</td>';
+						<td>';
+						
+					if($myNws['page'] == 'performance') {
+						$myNws['righttable']->table .= htmlentities($offer_name).'(';
+						$myNws['righttable']->table .= @$details->offer_id ? $details->offer_id : 'No ID #';
+						$myNws['righttable']->table .= ')';						
+					} elseif($myNws['page'] == 'subids') {
+						$myNws['righttable']->table .= htmlentities($details->sub_id);
+					}						
+						
+					$myNws['righttable']->table .= '</td>';
 					$myNws['righttable']->table .= '<td class="number">'.number_format($details->clicks, 0).'</td>
 									<td class="number">'.number_format($details->conversions, 0).'</td>
 									<td class="number">';
@@ -114,13 +209,16 @@
 							$myNws['righttable']->table .= '</td>
 						<td class="tail">&nbsp;</td>
 					</tr>';
-				}
+					
+				} //endwhile details
 				
 				//chart butt
-				if(mysql_num_rows($det) == 0)
-					$myNws['righttable']->chart .= "<set label='".htmlentities(str_replace("'","",$myNws['current_from']))."' value='".number_format(0, 2, '.', '')."' />";
-				
-				$myNws['righttable']->chart .= "</chart>";
+				if($myNws['page'] == 'performance') {
+					if(mysql_num_rows($det) == 0)
+						$myNws['righttable']->chart .= "<set label='".htmlentities(str_replace("'","",$myNws['current_from']))."' value='".number_format(0, 2, '.', '')."' />";
+					
+					$myNws['righttable']->chart .= "</chart>";
+				}
 				
 				//table butt
 				$myNws['righttable']->table .= '<tr class="total">
@@ -133,15 +231,44 @@
 							<td class="number">$'.@number_format(($clicks != 0 ? $revenue / $clicks : 0), 2).'</td>
 							<td class="tail">&nbsp;</td>
 						</tr>';
+						
+				//thead
+				$myNws['righttable']->thead = '
+					<thead>
+						<tr class="table_header">
+							<td class="hhl">&nbsp;</td>
+							<td width="30%">';							
+				$myNws['righttable']->thead .= $myNws['page'] == 'performance' ? 'Offer' : 'Sub ID';				
+				$myNws['righttable']->thead .= '</td>
+							<td style="text-align: center;">Clicks</td>
+							<td style="text-align: center;">Conversions</td>
+							<td style="text-align: center;">Conv. Rate</td>
+							<td style="text-align: center;">Earnings</td>
+							<td style="text-align: center;">EPC</td>
+							<td class="hhr">&nbsp;</td>
+						</tr>
+					</thead>';
+				
+				//tfoot
+				$myNws['righttable']->tfoot = '
+					<tfoot>
+						<tr class="table_footer">
+							<td class="hhl">&nbsp;</td>
+							<td colspan="6">&nbsp;</td>
+							<td class="hhr">&nbsp;</td>
+						</tr>
+					</tfoot>';
 					
 			}//end current nw details
-			
-		}//endwhile network
-		
+		}//endwhile all networks
 	}//endif > 0 nws
 	
+	/*CSV*/
+	//LATERRRRRRRRRRRRRRRRRRRRR
+	
+	include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.php'; //this sends headers
 ?>
-<script language="JavaScript" src="<?=SCRIPT_ROOT?>style/publisher-offer-detail.js.php?sriptRoot=<?=SCRIPT_ROOT?>&langFolder=<?=$langFolder?>"></script>
+<script src="/Themes/BevoMedia/ovault.mystats.js" type="text/javascript"></script>
 
 <div id="pagemenu"></div>
 <?php echo $this->PageDesc->ShowDesc($this->PageHelper, false, false, false, 'ovault'); //disable toggle, custom css class
@@ -224,25 +351,21 @@
 		?>
 			<div class="tabs">
 				<ul>
-					<li><a class="active" href="#">Performance Report<span></span></a></li>
-					<li><a href="#">Sub ID Report<span></span></a></li>
+					<li><a<?php echo ($myNws['page'] == 'performance' ? ' class="active"' : ''); ?> href="?page=performance">Performance Report<span></span></a></li>
+					<li><a<?php echo ($myNws['page'] == 'subids' ? ' class="active"' : ''); ?> href="?page=subids">Sub ID Report<span></span></a></li>
 					<li><a href="#">Offers<span></span></a></li>
 				</ul>
 			</div><!--close tabs-->
 			<div class="content">
 				<div class="conttop">
 					<div class="top topfull">
-						<h2><?php echo $myNws['righttable']->nw->title; ?></h2>
+						<h2><?php echo $myNws['righttable']->nw->title; echo ($myNws['page'] == 'subids' ? ' SubID Report' : ''); ?></h2>
 						
-						<form method="get" action="" name="frmRange" class="dateform">
-						<input type="hidden" name="network" value="<?php echo $myNws['righttable']->nw->id ?>" />
-						<table align="right" cellspacing="0" cellpadding="0" class="datetable">
-						  <tr>
-						    <td><input class="formtxt" type="text" name="DateRange" id="datepicker" value="<?php echo LegacyAbstraction::$strDateRangeVal; ?>" /></td>
-							<td><input class="formsubmit" type="submit" /></td>
-						  </tr>
-						</table>
-						</form>
+						<form method="get" action="" name="frmRange" class="datetable">
+							<input type="hidden" name="network" value="<?php echo $myNws['righttable']->nw->id ?>" />
+							<input class="formtxt" type="text" name="DateRange" id="datepicker" value="<?php echo $myNws['current_range']; ?>" />
+							<input class="formsubmit" type="submit" />
+						  </form>
 						
 						<div class="clear"></div>						
 						
@@ -251,45 +374,34 @@
 					<div class="clear"></div>
 				</div><!--close conttop-->
 				
-				<div id="chartOverviewDiv" align="center"></div>
-				<script type="text/javascript">
-					//Instantiate the Chart
-					var chart_chartOverview = new FusionCharts("/Themes/BevoMedia/chart_swf/Column2D.swf", "chartOverview", "600", "380", "0", "0");
-					//Provide entire XML data using dataXML method
-					chart_chartOverview.setDataXML("<?php echo $myNws['righttable']->chart; ?>");
-					//Finally, render the chart.
-					chart_chartOverview.render('chartOverviewDiv');
-				</script>
+				<?php if($myNws['page'] == 'performance') { ?>
+					
+					<div id="chartOverviewDiv" align="center"></div>
+					<script type="text/javascript">
+						//Instantiate the Chart
+						var chart_chartOverview = new FusionCharts("/Themes/BevoMedia/chart_swf/Column2D.swf", "chartOverview", "600", "380", "0", "0");
+						//Provide entire XML data using dataXML method
+						chart_chartOverview.setDataXML("<?php echo $myNws['righttable']->chart; ?>");
+						//Finally, render the chart.
+						chart_chartOverview.render('chartOverviewDiv');
+					</script>
+					
+					
+					<h3><?php echo $myNws['righttable']->nw->title; ?> Offer Performance Report</h3>
 				
+				<?php } //endif performance page 
+				?>
 				
-				<h3><?php echo $myNws['righttable']->nw->title; ?> Offer Performance Report</h3>
-				
-				<table cellspacing="0" cellpadding="3" border="0" class="btable">
-					<thead>
-						<tr class="table_header">
-							<td class="hhl">&nbsp;</td>
-							<td width="30%">Offer</td>
-							<td style="text-align: center;">Clicks</td>
-							<td style="text-align: center;">Conversions</td>
-							<td style="text-align: center;">Conv. Rate</td>
-							<td style="text-align: center;">Earnings</td>
-							<td style="text-align: center;">EPC</td>
-							<td class="hhr">&nbsp;</td>
-						</tr>
-					</thead>
-					<tbody>
-						<?php echo $myNws['righttable']->table; ?>
-					</tbody>
-					<tfoot>
-						<tr class="table_footer">
-							<td class="hhl">&nbsp;</td>
-							<td colspan="6">&nbsp;</td>
-							<td class="hhr">&nbsp;</td>
-						</tr>
-					</tfoot>
-				</table>
-				
-				<a class="tbtn floatright" href="#">Export to CSV</a>
+					<table cellspacing="0" cellpadding="3" border="0" class="btable">
+						<?php echo $myNws['righttable']->thead.'<tbody>'.$myNws['righttable']->table.'</tbody>'.$myNws['righttable']->tfoot; ?>
+					</table>
+					
+				<?php if($righttablerows > 0) {
+					//echo '<a class="tbtn floatright" href="?network='.$myNws['righttable']->nw->id.'&DateRange='.$myNws['current_range'].'&page='.$myNws['page'].'&ExportTo=CSV">Export to CSV</a>';
+					echo '<a class="tbtn floatright" href="?ExportTo=CSV">Export to CSV</a>'; //should work without params since we use cookiezz
+				}
+				?>
+					
 				<div class="clear"></div>
 			</div><!--close content-->
 		
