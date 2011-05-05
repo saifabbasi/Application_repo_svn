@@ -763,12 +763,12 @@ function rebuildSavelistOrowrightContent(resultarr, listdata) {
 		
 	} //endif nolists
 	
-	adjustSavelistOrightHeight();
+	adjustOrightHeight();
 	
 }//rebuildSavelistOrowrightContent
 
-/*adjustSavelistOrightHeight*/ //call after any ajax
-function adjustSavelistOrightHeight() {
+/*adjustOrightHeight*/ //call on page load and after any ajax
+function adjustOrightHeight() {
 	var oleft_height = $('#oleft').outerHeight(false) - 130;
 	$('#oright .content').css({minHeight:oleft_height});
 }//adjustSavelistOrightHeight

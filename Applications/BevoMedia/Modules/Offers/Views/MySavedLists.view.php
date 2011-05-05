@@ -190,7 +190,10 @@
 					</form>					
 					<div class="clear"></div>
 					
-					<h2>Welcome to the Bevo Offer Lists!</h2>												
+					<h2>Welcome to the Bevo Offer Lists!</h2>
+					
+					<div class="clear"></div>
+					<br />
 					
 					<p><strong>Offer Lists</strong> make it easy for you to save offers you are considering for a campaign. Use the yellow button to the left of any offer to add that offer to your lists. You can add as many offers as you like to any of your lists.</p>				
 					
