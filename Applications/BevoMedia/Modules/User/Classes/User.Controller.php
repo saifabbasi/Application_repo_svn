@@ -496,10 +496,16 @@ Class UserController extends ClassComponent
 		Zend_Registry::set('Instance/LayoutType', 'main-layout');
 		
 		$Token = Zend_Registry::get('Instance/URI_Token');
-		
+		print_r($Token);
 		if (isset($Token[4]) && (strlen($Token[4])==32)) 
 		{
-			setcookie('BevoReferral', $Token[4], time()+365*24*60*60, '/');
+			if (isset($Token[5]) && ($Token[5]=='s'))
+			{
+				setcookie('BevoReferralS', $Token[4], time()+365*24*60*60, '/');
+			} else {
+				setcookie('BevoReferral', $Token[4], time()+365*24*60*60, '/');
+			}
+			
 			header('Location: /BevoMedia/User/Register.html');
 			die;
 		}
@@ -1133,12 +1139,14 @@ Class UserController extends ClassComponent
 	Public Function PayPPVSpyYearly()
 	{
 		$Product = $this->User->GetProduct(User::PRODUCT_PPVSPY_YEARLY);
+		$Price = $this->User->GetPPVSpyOneTimePrice();
 		
 		$Vault = new nmiCustomerVault();
 //		$Vault->setCvv('999');
 		$Vault->setCustomerVaultId($this->User->vaultID);
-		$Vault->charge($Product->Price);
+		$Vault->charge($Price);
 		$Result = $Vault->execute();
+		
 		
 		
 		switch($Result['response'])
@@ -1149,7 +1157,7 @@ Class UserController extends ClassComponent
 				$Array = array (
 								'UserID'		=> $this->User->id,
 								'ProductID'		=> $Product->ID,
-								'Price'			=> $Product->Price,
+								'Price'			=> $Price,
 								'Date'			=> date('Y-m-d H:i:s'),
 								'Paid' 			=> 1,
 								'PaidDate'		=> date('Y-m-d H:i:s'),

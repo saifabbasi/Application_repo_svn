@@ -71,7 +71,7 @@
 <div class="lpop lpop_pay">
 	<div class="lpop_title">
 		<h2>Bevo PPVSpy</h2>
-		<p>Get full access to Bevo PPVSpy for only $385 /month or a $999 one-time payment!</p>
+		<p>Get full access to Bevo PPVSpy for only $385 /month or a $<?=round($this->User->GetPPVSpyOneTimePrice());?> one-time payment!</p>
 	</div>
 	
 	<div class="lpop_content">
@@ -84,7 +84,7 @@
 					<p>You'll get immediate access to the app after cleared payment.</p>
 				</div>				
 				<div class="price">
-					<h3 id="payoption_price">$999 one-time</h3>
+					<h3 id="payoption_price">$<?=round($this->User->GetPPVSpyOneTimePrice());?> one-time</h3>
 					<div class="lpop_payoptions lpop_payoptions_ppvspy">
 						<p>Select Payment Option:</p>
 						<a class="btn j_payoption btn_lpop_payoption_monthone_monthly" href="#" rel="385" title="Click to switch to the monthly payment plan">Monthly Payment Plan</a>
@@ -246,7 +246,7 @@ $(document).ready(function() {
 			$('.btn_lpop_paynow').attr('href', '/BevoMedia/User/PayPPVSpyMonthly.html');
 			$('#CancelMonthly').css('display', '');
 		} else {
-			$('#payoption_price').html('$999 one-time');
+			$('#payoption_price').html('$<?=round($this->User->GetPPVSpyOneTimePrice());?> one-time');
 			$('.btn_lpop_paynow').attr('href', '/BevoMedia/User/PayPPVSpyYearly.html');
 			$('#CancelMonthly').css('display', 'none');
 		}
