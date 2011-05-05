@@ -55,11 +55,16 @@
 		setcookie($myNws['cookie_lastnw'], $myNws['current'], time()+60*60*24*30*12);
 	
 	/*get all user networks*/
-	$sql = "SELECT 	networks.*
+	$sql = "SELECT 	networks.*,
+			COUNT(offers.id) AS offercount
 		FROM	bevomedia_aff_network AS networks
+			LEFT JOIN bevomedia_offers AS offers
+				ON (offers.network__id = networks.id)
 			LEFT JOIN bevomedia_user_aff_network AS usernetworks
-				ON usernetworks.network__id = networks.id
+				ON (usernetworks.network__id = networks.id)
 		WHERE	usernetworks.user__id = {$_SESSION['User']['ID']}
+			AND offers.archived = 0
+		GROUP BY networks.id	
 		ORDER BY usernetworks.id
 	";
 	$raw = mysql_query($sql);
@@ -353,13 +358,15 @@
 				<ul>
 					<li><a<?php echo ($myNws['page'] == 'performance' ? ' class="active"' : ''); ?> href="?page=performance">Performance Report<span></span></a></li>
 					<li><a<?php echo ($myNws['page'] == 'subids' ? ' class="active"' : ''); ?> href="?page=subids">Sub ID Report<span></span></a></li>
-					<li><a href="#">Offers<span></span></a></li>
+					<?php if($myNws['righttable']->nw->offercount > 0)
+						echo '<li><a class="btn ovault_mystats_findallnwoffers" href="#" data-nwid="'.$myNws['righttable']->nw->id.'">Offers</a></li>';
+					?>
 				</ul>
 			</div><!--close tabs-->
 			<div class="content">
 				<div class="conttop">
 					<div class="top topfull">
-						<h2><?php echo $myNws['righttable']->nw->title; echo ($myNws['page'] == 'subids' ? ' SubID Report' : ''); ?></h2>
+						<h2><?php echo $myNws['righttable']->nw->title; echo ($myNws['page'] == 'subids' ? ' SubID Report' : ''); echo ' ('.$myNws['righttable']->nw->offercount.' Offers)'; ?></h2>
 						
 						<form method="get" action="" name="frmRange" class="datetable">
 							<input type="hidden" name="network" value="<?php echo $myNws['righttable']->nw->id ?>" />

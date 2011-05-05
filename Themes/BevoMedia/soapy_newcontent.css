@@ -1198,6 +1198,7 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 		#oright .tabs > ul > li.label { color:#A8E0FF; }
 		#oright .tabs ul li a { padding:2px 20px 6px 26px; text-decoration:none; display:block; position:relative; color:#999; background:url(img_new/pagemenu_a.png) no-repeat left top; outline:none; }
 		#oright .tabs ul li a span { width:8px; height:26px; position:absolute; top:0; right:-8px; background:url(img_new/pagemenu_a.png) no-repeat right top; }
+		#oright .tabs ul li a.btn { padding:0; top:1px;}
 		
 			#oright .tabs ul li a:hover { color:#004A80; }
 			#oright .tabs ul li a.active { font-weight:bold; color:#004A80; text-shadow:#fff 0 1px 0px; }
@@ -1239,15 +1240,11 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
         				#oright .conttop .top4 a.tbtn { display:block; float:left; margin:10px 0 0; }
         				
         				#oright .conttop .topfull .datetable { clear:none; }
-					
-					
-			
+						
 /*offers 110120*/
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 	#offmain_searchform { float:left; }
 	table.floatleft { display:inline !important; }
 }
-
-
 
 

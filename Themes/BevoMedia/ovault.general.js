@@ -61,7 +61,7 @@ $(document).ready(function() {
 	
 	})
 	
-	/*cook, back*/
+	/*ini*/
 	if(ovault_cookSearch) {
 		if(location.pathname == ovault_searchPage)
 			doSearch(ovault_cookSearch, true);

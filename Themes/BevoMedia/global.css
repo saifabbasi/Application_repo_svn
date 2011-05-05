@@ -412,6 +412,9 @@ a.btn.ovault_importoffer { width:177px; height:43px; background:url(img_new/btn_
 a.btn.ovault_visiticon { width:18px; height:19px; background:url(img_new/btn_ovault_visiticon.png) no-repeat; }
 a.btn.ovault_gotomystats_trans { width:104px; height:23px; background:url(img_new/btn_ovault_gotomystats_trans.png) no-repeat; }
 
+a.btn.ovault_mystats_findallnwoffers { width:129px; height:25px; background:url(img_new/btn_ovault_mystats_findallnwoffers.png) no-repeat !important; }
+	a.btn.ovault_mystats_findallnwoffers:hover { background-position:left bottom !important; }
+
 		/*otitle*/
 .otitle { width:95%; height:15px; margin:0 0 4px; border-bottom:1px solid #b2b2b2; position:relative; left:-5px; }
 	.otitle.noborder { margin-bottom:0; border:none; }
