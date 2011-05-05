@@ -238,7 +238,7 @@ Class PageHelper {
 			$PagePresets['Offers/MySavedLists/UniquePageName'] = 'offers_mysavedlists';
 			$PagePresets['Offers/MySavedLists/HeadingImage'] = 'pagedesc_mysavedlists.png';
 			$PagePresets['Offers/MySavedLists/Heading'] = 'My Saved Offer Lists';
-			$PagePresets['Offers/MySavedLists/SubHeading'] = 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.';
+			$PagePresets['Offers/MySavedLists/SubHeading'] = 'Offer Lists make it easy for you to save offers you are considering for a campaign. Use the yellow button to the left of any offer in the search results to add that offer to a list!';
 			
 			$PagePresets['Offers/MyStats/UniquePageName'] = 'offers_mystats';
 			$PagePresets['Offers/MyStats/HeadingImage'] = 'pagedesc_mynetworkstats.png';
