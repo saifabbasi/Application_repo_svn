@@ -473,11 +473,12 @@ Campaigns you have created may take up to 15-20 minutes to appear in your PPC Ac
 				FROM
 					bevomedia_offers
 				WHERE
-					(archived = 0)
+					(archived = 0) AND
+					(network__id = ?)
 				ORDER BY
 					title
 				";
-		$Data = $this->_db->fetchAll($Sql);
+		$Data = $this->_db->fetchAll($Sql, intval($_GET['NetworkID']));
 		echo Zend_Json::encode($Data);
 		die;
 	}
