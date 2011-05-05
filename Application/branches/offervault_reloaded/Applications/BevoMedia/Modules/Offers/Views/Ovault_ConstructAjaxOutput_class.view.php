@@ -85,7 +85,7 @@ class ConstructAjaxOutput {
 			}
 			
 			
-			
+			/* //isnt this the same as above? lol
 			$sql = "SELECT
 						rating
 					FROM
@@ -101,7 +101,7 @@ class ConstructAjaxOutput {
 				$offer->userRating = $userRating['rating'];
 			} else {
 				$offer->userRating = 0;
-			}
+			} */
 			
 			
 			//if not the slim version (like on the mysavedlists page), get user comments
@@ -187,31 +187,39 @@ class ConstructAjaxOutput {
 		$out = array();	
 		
 		$searchAdd = '';
-		if (isset($query['params']['search'])) {
+		if(isset($query['params']['search'])) {
 			
-			$terms = explode(' ', $query['params']['search']);
-			
-			
-			foreach ($terms as $term)
-			{
-				if (trim($term)=='') continue;
-				
-				$term = trim($term);
-				
-				$searchAdd .= " (bevomedia_offers.title LIKE '%{$term}%') OR ";
-				$searchAdd .= " (bevomedia_offers.detail LIKE '%{$term}%') OR ";
-			}
-			
-			if (strlen($searchAdd)>1) {
-				$searchAdd = ' AND ('.rtrim($searchAdd, 'OR ').' )';
-			} else {
+			//allow * only if 1 network is selected
+			if($query['params']['search'] == '*' && strstr(',', $query['params']['include_networks']) === false && is_numeric($query['params']['include_networks'])) {
+					
 				$searchAdd = '';
-			}
+				$out['message'] = 'Did you know? If you select only one network in the Bevo Search Sphere, you can use the * command to find all its offers.';
+				
+			} else {
+			
+				$terms = explode(' ', $query['params']['search']);			
+				
+				foreach ($terms as $term)
+				{
+					if (trim($term)=='') continue;
+					
+					$term = trim($term);
+					
+					$searchAdd .= " (bevomedia_offers.title LIKE '%{$term}%') OR ";
+					$searchAdd .= " (bevomedia_offers.detail LIKE '%{$term}%') OR ";
+				}
+				
+				if (strlen($searchAdd)>1) {
+					$searchAdd = ' AND ('.rtrim($searchAdd, 'OR ').' )';
+				} else {
+					$searchAdd = '';
+				}
+			}//endif *
 		}
 		
 		
 		$networksSearchAdd = '';
-		if (isset($query['params']['include_networks'])) {
+		if(isset($query['params']['include_networks'])) {
 			$terms = explode(',', $query['params']['include_networks']);
 			
 			
@@ -291,6 +299,8 @@ class ConstructAjaxOutput {
 					
 				";		
 		//die($sql);
+		
+		$out['sql'] = $sql;
 				
 		$data = mysql_query($sql);
 		
@@ -299,6 +309,12 @@ class ConstructAjaxOutput {
 		$countresults = mysql_query($sqlcount);
 		$countresults = mysql_fetch_object($countresults);
 		$out['totalresults'] = $countresults->found_rows;
+		
+		if($out['totalresults'] == 0)
+			$out['message'] = 'Nothing found for this query! Try widening your search terms, or include more networks.'; //overwrites any prev msgs
+		
+		elseif($out['totalresults'] > 300 && !isset($out['message'])) //only if we dont have a msg yet (only the case for search=* in 1 nw
+			$out['message'] = $out['totalresults'].' Offers were found for this query! If you want to narrow down the results, try adding more search terms, or select a fewer number of networks.';
 		
 		$offersArray = array();
 		while ($offer = mysql_fetch_object($data))
@@ -374,7 +390,6 @@ class ConstructAjaxOutput {
 		
 		//pagination
 		$out['pagination'] = self::MakePagination($out['totalresults'], $numresults, $query['params']['page']);
-		
 		$out['resultarr'] = $offersArray;
 		
 		return $out;
@@ -625,20 +640,20 @@ class ConstructAjaxOutput {
 				$out .= '<div class="floatleft">';
 				
 				//have preview URL?
-				if(property_exists($offer, 'previewUrl') && $offer->previewUrl && $offer->previewUrl != '') {
+				//if(property_exists($offer, 'previewUrl') && $offer->previewUrl && $offer->previewUrl != '') {
 					$out .= '<a class="ovault_othumb" href="'.$offer->previewUrl.'" title="Preview offer in a new tab" target="_blank">';
 						$out .= '<img src="/Themes/BevoMedia/img_new/othumb_default.gif" alt="" /><span></span>';
 					$out .= '</a>';
 					
-				} else {
+				/*} else {
 					$out .= '<div class="ovault_othumb">';
 						$out .= '<img src="/Themes/BevoMedia/img_new/othumb_default.gif" alt="" />';
 					$out .= '</div>';				
-				}
+				}*/
 				
 				//cake import
 				if(property_exists($offer, 'importUrl') && $offer->importUrl && $offer->importUrl != '') {
-					$out .= '<a class="btn ovault_importoffer" href="#">Import this offer into my network</a>';
+					$out .= '<a class="btn ovault_importoffer" href="'.$offer->importUrl.'">Import this offer into my network</a>';
 				}
 				
 				$out .= '<div class="clear"></div></div>';
@@ -651,12 +666,12 @@ class ConstructAjaxOutput {
 				$out .= '<p>'.$offer->detail.'</p>';
 				
 				//olink
-				if(property_exists($offer, 'previewUrl') && $offer->previewUrl && $offer->previewUrl != '') {
+				//if(property_exists($offer, 'previewUrl') && $offer->previewUrl && $offer->previewUrl != '') {
 					$out .= '<div class="olink">';
 						$out .= '<input type="text" class="formtxt" readonly value="'.$offer->previewUrl.'" />';
 						//$out .= '<a class="btn ovault_visiticon" href="'.$offer->previewUrl.'" title="Preview offer in a new tab" target="_blank">Visit</a>'; //dont need this after all
 					$out .= '</div>';
-				}
+				//}
 				
 			$out .= '</div><div class="clear"></div></div><!--close td_inner-->';
 			$out .= '</td>';
@@ -665,7 +680,7 @@ class ConstructAjaxOutput {
 				$out .= $offer->is_oright ? '3' : '2'; //if oright, 3 cols
 			$out .= '"><div class="td_inner"><div class="otitle otitle_network noborder"></div>';
 			$out .= '<div class="onwpic">';
-				$out .= '<img class="nwpic w120" src="/Themes/BevoMedia/img/networklogos/uni/'.$offer->network__id.'.png" alt="" title="'.$offer->networkName.'" />';
+				$out .= '<img class="nwpic w120" src="/Themes/BevoMedia/img/networklogos/uni/'.$offer->network__id.'.png" alt="'.$offer->networkName.'" />';
 			
 			//rating stars (just show, dont allow to rate)
 			$out .= '<p class="bordertop aligncenter">Publisher\'s Rating: '.$offer->userRating.'<br />';

@@ -103,20 +103,9 @@ if($_GET && isset($_GET['get']) && in_array($_GET['get'], $allowed_gets)) {
 if(count($out) == 0) {
 	$out['error'] = 'Oops, something went wrong! Please try again.';
 
-//} elseif(array_key_exists('html', $out)) {
-//	echo $out['html'];
-
 } else {
 	//construct sanitized search string and add it
 	$out['searchstring'] = http_build_query($query['params']);
-	$out['get_raw'] = '<pre>'.print_r($_GET, true).'</pre>';
-	
-	/*if($query['get'] == 'orowbig') {
-		//echo '<pre>';
-		var_dump($out['resultarr']);
-		//echo '</pre>';
-		die();
-	}*/
 	echo json_encode($out);
 }
 

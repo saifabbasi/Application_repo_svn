@@ -407,6 +407,12 @@ function doSearch(s, updateDial) {
 					
 					if(updateDial)
 						updateDialByHash(r.searchstring);
+					
+					//throw msg if exists
+					if(r.message)
+						ajaxMessage(r.message,1);
+					
+					ajaxMessage(r.sql, 1);
 				}
 			},
 			error: function(r) {
@@ -418,10 +424,7 @@ function doSearch(s, updateDial) {
 
 /*updateDialByHash*/ //takes r.searchstring, updates everything in the dial. Use after cook or hash.
 function updateDialByHash(searchstring) {
-	//populate dial
-	//search=diet&type=lead&include_networks=1028,1028,1028,1028,1028
-	//var params = cook.split('&');
-	
+	//populate dial	
 	var params = {};
 	$.each(searchstring.split('&'), function (i, value) {
 		value = value.split('=');
@@ -432,7 +435,7 @@ function updateDialByHash(searchstring) {
 	
 
 	if(params['search'] && params['search'] != '') {
-		$('#osearch').val(params['search']);	
+		$('#osearch').val(unescape(params['search']));	
 	}
 	
 	//networks
@@ -563,8 +566,6 @@ function makeSavelistDefault(listid, name) {
 //adds 1 row. passed var must be an object from ovault_ajaxGetContent, usually r.resultarr[i]
 //oright bool if true, formats row for Mysavedlists.html
 function addOfferTableRow(offer, oright) {
-	
-	
 	
 	var out = '';
 	out += '<tr class="orow';

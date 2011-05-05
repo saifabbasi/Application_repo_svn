@@ -243,7 +243,7 @@ Class PageHelper {
 			$PagePresets['Offers/MyStats/UniquePageName'] = 'offers_mystats';
 			$PagePresets['Offers/MyStats/HeadingImage'] = 'pagedesc_mynetworkstats.png';
 			$PagePresets['Offers/MyStats/Heading'] = 'My Network Stats';
-			$PagePresets['Offers/MyStats/SubHeading'] = 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.';
+			$PagePresets['Offers/MyStats/SubHeading'] = 'View your detailed statistics within your affiliate network. This page allows you to see which offers generated stats, and the SubIDs associated with your affiliate account.';
 			
 			/*
 			$PagePresets['Offers/Index/UniquePageName'] = 'offers_index';
