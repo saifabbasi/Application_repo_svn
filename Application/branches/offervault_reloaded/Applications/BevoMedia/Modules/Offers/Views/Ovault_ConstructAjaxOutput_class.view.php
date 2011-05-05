@@ -301,7 +301,6 @@ class ConstructAjaxOutput {
 					LEFT JOIN bevomedia_category ON (bevomedia_category.id = bevomedia_offers.category__id),
 					bevomedia_aff_network
 				WHERE
-					(bevomedia_category.id = bevomedia_offers.category__id) AND
 					(bevomedia_aff_network.id = bevomedia_offers.network__id) AND
 					bevomedia_offers.archived = 0
 					{$searchAdd}

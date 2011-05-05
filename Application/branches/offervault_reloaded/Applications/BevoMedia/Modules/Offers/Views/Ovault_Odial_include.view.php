@@ -7,13 +7,13 @@
 	function isUserRegisteredOnNetwork($networkID)
 	{
 		$sql = "SELECT 
-					id
-				FROM 
-					bevomedia_user_aff_network 
-				WHERE 
-					(bevomedia_user_aff_network.network__id = {$networkID}) AND
-					(bevomedia_user_aff_network.user__id = {$_SESSION['User']['ID']})
-				";
+				id
+			FROM 
+				bevomedia_user_aff_network 
+			WHERE 
+				(bevomedia_user_aff_network.network__id = {$networkID}) AND
+				(bevomedia_user_aff_network.user__id = {$_SESSION['User']['ID']})
+		";
 		$isMemberOfNetwork = mysql_query($sql);
 		return (mysql_num_rows($isMemberOfNetwork)==1);
 	}
@@ -24,6 +24,7 @@
 			bevomedia_aff_network
 		WHERE	model = 'CPA'
 			AND isValid = 'Y'
+		ORDER BY title
 	";
 	$networksData = mysql_query($sql);
 	
