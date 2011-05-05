@@ -65,7 +65,7 @@
 		WHERE	usernetworks.user__id = {$_SESSION['User']['ID']}
 			AND offers.archived = 0
 		GROUP BY networks.id	
-		ORDER BY usernetworks.id
+		ORDER BY networks.title
 	";
 	$raw = mysql_query($sql);
 	
