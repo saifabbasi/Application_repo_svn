@@ -80,7 +80,7 @@
 			//set current network to the first one if not yet set
 			if($myNws['current'] == 0) {
 				$myNws['current'] = $nw->id; //set first one to current if none exists yet
-				setcookie($myNws['cookie'], $myNws['current'], time()+60*60*24*30*12);
+				setcookie($myNws['cookie_lastnw'], $myNws['current'], time()+60*60*24*30*12);
 			}
 			
 			$myNws['networks'][] = $nw;
