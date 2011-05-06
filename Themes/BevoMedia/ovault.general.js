@@ -324,8 +324,14 @@ $(document).ready(function() {
 						ovault_existSavelistNum = 0;
 						
 						if(location.pathname == ovault_searchPage) {
+							
+							ovault_allSavelists = {}; //kill
+							
 							//remove html markup
-							$('#olay_savedlists .j_olisttable, #olay_savedlists .j_oliststats').fadeOut(1000).remove();						
+							$('#olay_savedlists .j_olisttable, #olay_savedlists .j_oliststats').fadeOut(1000).remove();
+							
+							updateOrowSelelistBtn();
+							rebuildSelecttable();
 							
 						} else if(location.pathname == ovault_mysavedPage) {
 							//oleft

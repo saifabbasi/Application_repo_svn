@@ -74,14 +74,18 @@
 				<td class="name">'.$truncname.'<span>Created: '.$nicedate; 
 			//$ovaultSavelist['dialtable'] .= strtotime($list->updated) ? ' - Last edit: '.date($listdate, strtotime($list->created)) : ''; //scratch for now
 			$ovaultSavelist['dialtable'] .= '</span></td>
-				<td class="use"><a class="btn icon_ovault_savelist_use" href="#">Use</a></td>
-				<td class="view"><a class="btn icon_ovault_savelist_view" href="#">View</a></td>
-				<td class="download"><a class="btn icon_ovault_savelist_csv" href="#">CSV</a></td>
-				<td class="delete" data-listid="'.$list->id.'" data-listname="'.$list->name.'"><a class="btn icon_ovault_savelist_delete" href="#" data-listid="'.$list->id.'" data-listname="'.$list->name.'">Delete</a></td>
+				<td class="use" title="Make this list the default"><a class="btn icon_ovault_savelist_use" href="#">Use</a></td>
+				<td class="view" title="View offers saved in this list" data-listid="'.$list->id.'" data-listname="'.$list->name.'">
+					<a class="btn icon_ovault_savelist_view" href="#" data-listid="'.$list->id.'" data-listname="'.$list->name.'">View</a>
+				</td>'; 
+				//<td class="download"><a class="btn icon_ovault_savelist_csv" href="#">CSV</a></td> //too big of an overhead to enable csv download on this page. scratched
+			$ovaultSavelist['dialtable'] .= '<td class="delete" data-listid="'.$list->id.'" data-listname="'.$list->name.'" title="Delete this list">
+					<a class="btn icon_ovault_savelist_delete" href="#" data-listid="'.$list->id.'" data-listname="'.$list->name.'">Delete</a>
+				</td>
 			</tr>';
 			
 			//build select olay output: simpler list (list gets updated by js on list create/delete)
-			$ovaultSavelist['selecttable'] .= '<tr title="Select this list" class="j_list-'.$list->id;
+			$ovaultSavelist['selecttable'] .= '<tr title="Make this list the default" class="j_list-'.$list->id;
 			$ovaultSavelist['selecttable'] .= $listcount % 2 ? '' : ' alt';
 			$ovaultSavelist['selecttable'] .= '" data-listid="'.$list->id.'" data-listname="'.$list->name.'">
 				<td class="no">'.$listcount.'.</td>
@@ -298,63 +302,67 @@
 				<p class="small"><a href="#" class="j_expand" data-target="ovault_createnewlistform">Create your first Offer List now</a></p>
 			</div>	
 			
-			<div class="olaybox">
-				<a class="btn ovault_yell_createnewlist j_expand" href="#" data-target="ovault_createnewlistform">Create New List</a>
-				<a class="btn ovault_yell_gotolistpage" href="/BevoMedia/Offers/MySavedLists.html">Go to the List Management Page</a>
-				
-				<form method="post" action="" id="ovault_createnewlistform" class="hide">
-					<div class="row">
-						<label class="hide">Enter a name for your new list...</label>
-						<input type="text" class="formtxt ovault_newlistname" id="ovault_newlistname" name="newlistname" value="Enter a name for your new list..." />
-						<input type="submit" class="btn formsubmit ovault_savenewlist" value="Save" />
-					</div>
-					<a class="btn ovault_olay_close j_close" href="#" data-target="ovault_createnewlistform">Close</a>
-				</form>
-			</div><!--close olaybox-->
-			<div class="clear"></div>
-			
-			<?php if($ovaultSavelist['dialtable'] != '') : ?>
-				<div class="olaybox nomarginbutt j_olisttable">
-					<div class="olayboxtitle myofferlists">
-						<a class="btn ovault_smallyell_deleteall" href="#">Delete All Lists</a>
-					</div>
+			<div class="floatleft">
+				<div class="olaybox">
+					<a class="btn ovault_yell_createnewlist j_expand" href="#" data-target="ovault_createnewlistform">Create New List</a>
+					<a class="btn ovault_yell_gotolistpage" href="/BevoMedia/Offers/MySavedLists.html">Go to the List Management Page</a>
 					
-					<table cellspacing="0" cellpadding="0" id="ovault_olay_savelists" class="odarktable">
-						<thead>
-							<tr>
-								<td class="no">&nbsp;</td>
-								<td class="name">Name</td>
-								<td class="use">Use</td>
-								<td class="view">View</td>
-								<td class="download">Download</td>
-								<td class="delete">Delete</td>
-							</tr>
-						</thead>
-						<tbody><?php echo $ovaultSavelist['dialtable']; ?></tbody>
-					</table>				
+					<form method="post" action="" id="ovault_createnewlistform" class="hide">
+						<div class="row">
+							<label class="hide">Enter a name for your new list...</label>
+							<input type="text" class="formtxt ovault_newlistname" id="ovault_newlistname" name="newlistname" value="Enter a name for your new list..." />
+							<input type="submit" class="btn formsubmit ovault_savenewlist" value="Save" />
+						</div>
+						<a class="btn ovault_olay_close_gray j_close" href="#" data-target="ovault_createnewlistform">Close</a>
+					</form>
 				</div><!--close olaybox-->
-			
-				<?php if(is_array($ovaultSavelist['stats']) && !empty($ovaultSavelist['stats'])) { ?>
-					
-					<div class="olayfeat floatright j_oliststats">
-						<p>Overall, you have</p>
-						<div class="hilite">
-							<h3 class="j_savelists_listnum"><?php echo $ovaultSavelist['stats']['lists'] ?></h3>
-							<p>List<?php if($ovaultSavelist['stats']['lists'] != 1) echo 's'; ?></p>
-						</div>
-						<div class="j_updateOnListDelete">
-							<p>and a total of</p>
-							<div class="hilite">
-								<h3><?php echo $ovaultSavelist['stats']['offers']; ?></h3>
-								<p>Saved Offer<?php if($ovaultSavelist['stats']['offers'] != 1) echo 's'; ?></p>
-							</div>
-						</div>
-					</div><!--close olayfeat-->
 				
-				<?php } //endif stats
-			endif; //listout
-			?>
-			
+				<?php if($ovaultSavelist['dialtable'] != '') : ?>
+					<div class="olaybox nomarginbutt j_olisttable">
+						<div class="olayboxtitle myofferlists">
+							<a class="btn ovault_smallyell_deleteall" href="#">Delete All Lists</a>
+						</div>
+						
+						<table cellspacing="0" cellpadding="0" id="ovault_olay_savelists" class="odarktable">
+							<thead>
+								<tr>
+									<td class="no">&nbsp;</td>
+									<td class="name">Name</td>
+									<td class="use">Use</td>
+									<td class="view">View</td>
+									<?php /*<td class="download">Download</td> //scratched */ ?>
+									<td class="delete">Delete</td>
+								</tr>
+							</thead>
+							<tbody><?php echo $ovaultSavelist['dialtable']; ?></tbody>
+						</table>				
+					</div><!--close olaybox-->
+				<?php endif; ?>
+				
+			</div><!--close floatleft-->
+			<div class="floatright">
+				<?php if($ovaultSavelist['dialtable'] != '' 
+					&& is_array($ovaultSavelist['stats']) 
+					&& !empty($ovaultSavelist['stats'])) { ?>
+						
+						<div class="olayfeat floatright j_oliststats">
+							<p>Overall, you have</p>
+							<div class="hilite">
+								<h3 class="j_savelists_listnum"><?php echo $ovaultSavelist['stats']['lists'] ?></h3>
+								<p>List<?php if($ovaultSavelist['stats']['lists'] != 1) echo 's'; ?></p>
+							</div>
+							<div class="j_updateOnListDelete">
+								<p>and a total of</p>
+								<div class="hilite">
+									<h3><?php echo $ovaultSavelist['stats']['offers']; ?></h3>
+									<p>Saved Offer<?php if($ovaultSavelist['stats']['offers'] != 1) echo 's'; ?></p>
+								</div>
+							</div>
+						</div><!--close olayfeat-->
+					
+					<?php } //endif stats
+					?>
+			</div><!--close floatright-->			
 			<div class="clear"></div>
 		</div><!--close olaycont-->
 	
@@ -396,7 +404,7 @@
 			</div>
 			*/?>
 			<div class="olaybox nomarginbutt j_olisttable">
-				<div class="olayboxtitle myofferlists" title=" "></div>
+				<div class="olayboxtitle myofferlists" title=""></div>
 				<table cellspacing="0" cellpadding="0" id="ovault_olay_savelists_select" class="odarktable">
 					<thead>
 						<tr>

@@ -20,9 +20,13 @@ if($_GET && isset($_GET['put']) && in_array($_GET['put'], $allowed_puts)) {
 	switch($query['put']) {
 		case 'save2list' :
 			foreach(array('list','oid') as $k) {
-				if(isset($_GET[$k]) && is_numeric($_GET[$k]) && $_GET[$k] != 0)
-					$query['params'][$k] = intval(trim($_GET[$k]));
-				else	$error = 'There seems to be an error with the offer or list you\'re trying to add. Please try again and let us know if the error persists!';
+				if(isset($_GET[$k])
+					&& (	(is_numeric($_GET[$k]) && $_GET[$k] != 0) 
+						|| ($k == 'list' && $_GET[$k] == 'new')
+					)
+				) {
+					$query['params'][$k] = trim($_GET[$k]);
+				} else	$error = 'There seems to be an error with the offer or list you\'re trying to add. Please try again and let us know if the error persists!';
 			}
 		break;
 		case 'createnewlist' :

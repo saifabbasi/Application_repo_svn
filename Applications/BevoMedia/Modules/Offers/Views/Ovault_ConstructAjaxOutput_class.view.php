@@ -312,8 +312,6 @@ class ConstructAjaxOutput {
 					
 				";		
 		//die($sql);
-		
-		$out['sql'] = $sql;
 				
 		$data = mysql_query($sql);
 		

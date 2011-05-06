@@ -928,6 +928,8 @@ h2.imagetitle.interested { width:147px; height:22px; background:url(img/imagetit
             	#ovault .btable tr.expanded td.td_savelist a.btn.ovault_add2list_select,
             	#ovault .btable tr.selectpersist td.td_savelist a.btn.ovault_add2list_select { display:block; }
                 #ovault .btable tr.orow td.td_delete a.btn { float:none !important; margin:0 auto;}
+                
+                #ovault .btable td.td_savelist a.btn.ovault_add2list_select.permahide { display:none !important; }
 	
 	
 	#ovault .btable td.td_offername p { color:#000; }
@@ -1036,6 +1038,8 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 		.ovault_olay .olaycont p { color:#FFE87A; text-align:center; }
                 .ovault_olay .olaycont p.small { margin:0 0 8px; font-size:.9em; line-height:1em; }
                 	.ovault_olay .olaycont p span.icon { margin:0 5px -2px 0; display:inline-block; }
+                	
+                .ovault_olay .olaycont a:hover { color:#ff0; }
 		
 		.ovault_olay .olaybox { padding:10px; margin:0 10px 0 0; float:left; border:1px solid #808080; background:#4d4d4d; 
 			-moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px;  }
@@ -1112,21 +1116,24 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
         	#olay_networks.simple { top:80px; right:38px; }/*TEMP - remove along with simple*/
 				
 		/*olay_savedlists*/
-	.ovault_olay#olay_savedlists { width:500px; top:149px; right:60px; }
+	.ovault_olay#olay_savedlists { width:450px; top:149px; right:60px; }
 		#olay_savedlists .olaytopflag_big { width:151px; right:20px; }
-		
-		#olay_savedlists .olaybox { width:364px; margin-bottom:10px; }
+
+                #olay_savedlists .floatleft { width:314px; display:inline; }
+                #olay_savedlists .floatright { width:84px; display:inline; }		
+
+		#olay_savedlists .olaybox { width:314px; margin-bottom:10px; }
 			#olay_savedlists .olaybox.nomarginbutt { margin-bottom:0; }
-		#olay_savedlists .olayfeat { width:84px; margin:0 -10px 0 0; float:right; }
+		#olay_savedlists .olayfeat { width:84px; margin:0 -10px 0 0; }
 
                         #olay_savedlists .olaybox a.btn { float:left; margin:0 5px 0 0;  }
 		
 			#olay_savedlists .olaybox .olayboxtitle a.btn { margin:1px 3px 0 0; float:right; }
 			
 		form#ovault_createnewlistform { margin:25px 0 0 -5px; position:relative; }
-			#ovault_createnewlistform input.formtxt { width:200px; }
-			#ovault_createnewlistform input.btn.ovault_savenewlist { margin:5px 0 0 -8px; float:left; }
-			#ovault_createnewlistform a.btn.ovault_olay_close { top:9px; right:auto; left:275px; }
+			#ovault_createnewlistform input.formtxt { width:178px; padding-left:18px; padding-right:55px; }
+			#ovault_createnewlistform input.btn.ovault_savenewlist { margin:6px 0 0 -60px; float:left; }
+			#ovault_createnewlistform a.btn.ovault_olay_close_gray { position:absolute; top:11px; right:auto; left:10px; }
 
                 /*ovault_olay_savelists_select*/
         .ovault_olay#olay_savedlists_select { width:280px; }
@@ -1169,7 +1176,7 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 		#oleft .btable .td_oleft form { margin:-5px 0 5px 0; position:relative; }		
 		#oleft .btable .td_oleft input.formtxt { width:151px; padding-left:16px; margin:0 0 0 0; float:none; }
 		#oleft .btable .td_oleft input.btn { margin:3px 0 8px 0; float:right; }
-		#oleft .btable .td_oleft form a.btn.ovault_olay_close_gray { position:absolute; top:8px; left:4px; }
+		#oleft .btable .td_oleft form a.btn.ovault_olay_close_gray { position:absolute; top:3px; left:9px; }
 
                 #oleft .btable .td_oleft.nwlogo { padding:0 !important; height:48px; text-align:center; }	
                 #oleft .btable .td_oleft.nwlogo a { width:171px; height:48px; display:block; overflow:hidden; }
@@ -1220,7 +1227,7 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
                                         #oright .conttop .top1 p { margin:8px 0 0; font-size:1.8em; line-height:1em; color:#999; }
 					#oright .conttop .top h2 { margin:4px 10px 0 0; float:left; font-size:2em; line-height:1em; letter-spacing:-.08em; }			
                                         #oright .conttop .top2 .subsmall { font-size:.8em; color:#999; }	
-					#oright .conttop .top2 input.formtxt { width:400px; padding:8px 10px; margin:0 0 5px; font-size:18px; }
+					#oright .conttop .top2 input.formtxt { width:350px; padding:8px 65px 8px 10px; margin:0 0 5px; font-size:18px; }
 					#oright .conttop .top2 p { line-height:1.1em; color:#666; }
                                         #oright .conttop .top2 img { margin:0 0 0 -2px; }
 
@@ -1246,5 +1253,6 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 	#offmain_searchform { float:left; }
 	table.floatleft { display:inline !important; }
 }
+
 
 
