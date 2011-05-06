@@ -7,9 +7,7 @@ $(document).ready(function() {
 	$('#opagi .numbers a.j_num:not(.active), #opagi .numbers a.j_prevnext').live('click', function() {
 		s = ovault_cache.current_searchstring + '&newpage='+$(this).data('page'); //newpage overrides page
 		
-		//alert('paginate s: '+s);
-		doSearch(s);
-		
+		doSearch(s);		
 		return false;
 	});
 
