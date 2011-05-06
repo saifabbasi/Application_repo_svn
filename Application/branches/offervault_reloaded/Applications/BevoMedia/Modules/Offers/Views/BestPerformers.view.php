@@ -165,7 +165,7 @@ include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.p
 	<div class="icon icon_ovault_ootm_tabletop"></div>
 	<table width="100%" cellspacing="0" cellpadding="3" border="0" class="btable" id="ootm">
 		<tbody>	
-		<tr class="orow expanded" title="Click to expand/collapse this offer">
+		<tr class="orow expanded j_oid-<?php echo $offer->id; ?>" title="Click to expand/collapse this offer">
 			<td class="border">&nbsp;</td>
 			<td class="td_saved2list">
 				<div class="icon icon_ovault_added2list<?php if(!$offer->saved2list) echo ' hide'; ?>" title="You have already saved this offer"></div>

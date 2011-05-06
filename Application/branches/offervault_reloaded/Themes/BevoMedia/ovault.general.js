@@ -106,10 +106,6 @@ $(document).ready(function() {
 						success: function(r) {
 							r = $.parseJSON(r);
 							
-							//$('#ovault').prepend(r);
-							
-							//alert(r.html);
-							
 							if(r.error) {
 								ajaxMessage(r);
 							} else {

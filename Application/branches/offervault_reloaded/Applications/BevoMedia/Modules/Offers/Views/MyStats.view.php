@@ -160,12 +160,16 @@
 					$myNws['righttable']->chart = "<chart showBorder='0' bgAlpha='0,0' caption='Offers Overview' numberPrefix='$' formatNumberScale='0'>";
 				
 				$myNws['righttable']->table = '';
+				$myNws['righttable']->csv = ''; //csv content
 				
-				$clicks = 0;
-				$conversions = 0;
+				$totalClicks = 0;
+				$totalConversions = 0;
+				$totalRevenue = 0;
+				
 				$righttablerows = 0;
 				$previousOffer = null;
 					
+				/*content loop*/
 				while($details = mysql_fetch_object($det)) {
 					$righttablerows++;
 					
@@ -176,9 +180,9 @@
 						$myNws['righttable']->chart .= "<set label='".htmlentities($offer_name)."' value='".$details->revenue."' />";
 					
 					//table
-					$clicks += $details->clicks;
-					$conversions += $details->conversions;
-					@$revenue += $details->revenue;
+					$totalClicks += $details->clicks;
+					$totalConversions += $details->conversions;
+					@$totalRevenue += $details->revenue;
 					
 					if($myNws['page'] == 'subids' && $previousOffer != $details->offer_id) {
 						$myNws['righttable']->table .= '<tr>
@@ -186,6 +190,8 @@
 								<td colspan="6" class="STYLE4" style="border-left: none;">'.htmlentities($details->offer_name).'</td>
 								<td class="tail">&nbsp;</td>
 							</tr>';
+							
+						$myNws['righttable']->csv = '"'.$details->offer_name.'","","","","",""'."\r\n";
 					}
 					
 					$previousOffer = $details->offer_id;
@@ -195,25 +201,39 @@
 						<td>';
 						
 					if($myNws['page'] == 'performance') {
-						$myNws['righttable']->table .= htmlentities($offer_name).'(';
-						$myNws['righttable']->table .= @$details->offer_id ? $details->offer_id : 'No ID #';
-						$myNws['righttable']->table .= ')';						
+						$myNws['righttable']->table .= htmlentities($offer_name);
+						$myNws['righttable']->table .= @$details->offer_id ? '(ID '.$details->offer_id.')' : '(No ID #)';
+						
+						$myNws['righttable']->csv .= '"'.$details->offer_name;
+						$myNws['righttable']->csv .= @$details->offer_id ? '(ID '.$details->offer_id.')' : '(No ID #)';
+						$myNws['righttable']->csv .= '",';
+						
 					} elseif($myNws['page'] == 'subids') {
 						$myNws['righttable']->table .= htmlentities($details->sub_id);
-					}						
 						
-					$myNws['righttable']->table .= '</td>';
-					$myNws['righttable']->table .= '<td class="number">'.number_format($details->clicks, 0).'</td>
-									<td class="number">'.number_format($details->conversions, 0).'</td>
-									<td class="number">';
-							$myNws['righttable']->table .= number_format(($details->clicks != 0 ? $details->conversions / $details->clicks : 0) * 100, 2).'%';
-							$myNws['righttable']->table .= '</td>
-									<td class="number">$'.number_format($details->revenue, 2).'</td>
-									<td class="number">$';
-							$myNws['righttable']->table .= number_format(($details->clicks != 0 ? $details->revenue / $details->clicks : 0), 2);
-							$myNws['righttable']->table .= '</td>
-						<td class="tail">&nbsp;</td>
-					</tr>';
+						$myNws['righttable']->csv .= '"'.$details->sub_id.'",';
+					}
+
+					$clicks = @number_format($details->clicks, 0);
+					$conversions = @number_format($details->conversions, 0);
+					$cvr = @number_format(($details->clicks != 0 ? $details->conversions / $details->clicks : 0) * 100, 2).'%';
+					$earnings = '$'.@number_format($details->revenue, 2);
+					$epc = '$'.@number_format(($details->clicks != 0 ? $details->revenue / $details->clicks : 0), 2);
+						
+					$myNws['righttable']->table .= '</td>
+									<td class="number">'.$clicks.'</td>
+									<td class="number">'.$conversions.'</td>
+									<td class="number">'.$cvr.'</td>
+									<td class="number">'.$earnings.'</td>
+									<td class="number">'.$epc.'</td>
+								<td class="tail">&nbsp;</td>
+								</tr>';
+								
+					$myNws['righttable']->csv .= '"'.$clicks.'",';
+					$myNws['righttable']->csv .= '"'.$conversions.'",';
+					$myNws['righttable']->csv .= '"'.$cvr.'",';
+					$myNws['righttable']->csv .= '"'.$earnings.'",';
+					$myNws['righttable']->csv .= '"'.$epc.'"'."\r\n";
 					
 				} //endwhile details
 				
@@ -225,17 +245,31 @@
 					$myNws['righttable']->chart .= "</chart>";
 				}
 				
+				$totalClicks = @number_format($totalClicks, 0);
+				$totalConversions = @number_format($totalConversions, 0);
+				$totalCVR = @number_format(($totalClicks != 0 ? $totalConversions / $totalClicks : 0) * 100, 2).'%';
+				$totalEarnings = '$'.@number_format($totalRevenue, 2);
+				$totalEPC = '$'.@number_format(($totalClicks != 0 ? $totalRevenue / $totalClicks : 0), 2);
+				
 				//table butt
 				$myNws['righttable']->table .= '<tr class="total">
 							<td class="border">&nbsp;</td>
 							<td>Total</td>
-							<td class="number">'.@number_format($clicks, 0).'</td>
-							<td class="number">'.@number_format($conversions, 0).'</td>
-							<td class="number">'.@number_format(($clicks != 0 ? $conversions / $clicks : 0) * 100, 2).'%</td>
-							<td class="number">$'.@number_format($revenue, 2).'</td>
-							<td class="number">$'.@number_format(($clicks != 0 ? $revenue / $clicks : 0), 2).'</td>
+							<td class="number">'.$totalClicks.'</td>
+							<td class="number">'.$totalConversions.'</td>
+							<td class="number">'.$totalCVR.'</td>
+							<td class="number">'.$totalEarnings.'</td>
+							<td class="number">'.$totalEPC.'</td>
 							<td class="tail">&nbsp;</td>
 						</tr>';
+						
+				$myNws['righttable']->csv .= '"Total",';
+				$myNws['righttable']->csv .= '"'.$totalClicks.'",';
+				$myNws['righttable']->csv .= '"'.$totalConversions.'",';
+				$myNws['righttable']->csv .= '"'.$totalCVR.'",';
+				$myNws['righttable']->csv .= '"'.$totalEarnings.'",';
+				$myNws['righttable']->csv .= '"'.$totalEPC.'",'."\r\n";
+				
 						
 				//thead
 				$myNws['righttable']->thead = '
@@ -253,7 +287,7 @@
 							<td class="hhr">&nbsp;</td>
 						</tr>
 					</thead>';
-				
+					
 				//tfoot
 				$myNws['righttable']->tfoot = '
 					<tfoot>
@@ -269,7 +303,30 @@
 	}//endif > 0 nws
 	
 	/*CSV*/
-	//LATERRRRRRRRRRRRRRRRRRRRR
+	if(isset($_GET['ExportTo']) && $_GET['ExportTo'] == 'CSV' && isset($righttablerows) && $righttablerows > 0) {
+		
+		$viewheaderCSV = false;
+		
+		$csv_filename = 'Bevo-Stats-'
+			.str_replace(' ', '.', $myNws['righttable']->nw->title)
+			.'-'.ucfirst($myNws['page'])
+			.'---'.str_replace(' ', '-', $myNws['current_range'])
+			.'.csv';
+			
+		header("Content-type: application/octet-stream");
+		header("Content-Disposition: attachment; filename=$csv_filename");
+		header("Pragma: no-cache");
+		header("Expires: 0");
+		
+		print '"Bevo '.ucfirst($myNws['page']).' Report for '
+			.$myNws['righttable']->nw->title.': '
+			.$myNws['current_range'].'","","","","",""' . "\r\n";
+			
+		print $myNws['page'] == 'performance' ? '"Offer Name",' : '"SubID",';
+		print '"Clicks","Conversions","Conversion Rate","Earnings","EPC"' . "\r\n";
+		print $myNws['righttable']->csv;
+		exit;
+	}//csv
 	
 	include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.php'; //this sends headers
 ?>
@@ -359,14 +416,14 @@
 					<li><a<?php echo ($myNws['page'] == 'performance' ? ' class="active"' : ''); ?> href="?page=performance">Performance Report<span></span></a></li>
 					<li><a<?php echo ($myNws['page'] == 'subids' ? ' class="active"' : ''); ?> href="?page=subids">Sub ID Report<span></span></a></li>
 					<?php if($myNws['righttable']->nw->offercount > 0)
-						echo '<li><a class="btn ovault_mystats_findallnwoffers" href="#" data-nwid="'.$myNws['righttable']->nw->id.'">Offers</a></li>';
+						echo '<li><a class="btn ovault_mystats_findallnwoffers" href="#" data-nwid="'.$myNws['righttable']->nw->id.'" title="View all '.$myNws['righttable']->nw->offercount.' offers on this network">Offers</a></li>';
 					?>
 				</ul>
 			</div><!--close tabs-->
 			<div class="content">
 				<div class="conttop">
 					<div class="top topfull">
-						<h2><?php echo $myNws['righttable']->nw->title; echo ($myNws['page'] == 'subids' ? ' SubID Report' : ''); echo ' ('.$myNws['righttable']->nw->offercount.' Offers)'; ?></h2>
+						<h2><?php echo $myNws['righttable']->nw->title; echo ($myNws['page'] == 'subids' ? ' SubID Report' : ''); ?></h2>
 						
 						<form method="get" action="" name="frmRange" class="datetable">
 							<input type="hidden" name="network" value="<?php echo $myNws['righttable']->nw->id ?>" />
@@ -403,10 +460,8 @@
 						<?php echo $myNws['righttable']->thead.'<tbody>'.$myNws['righttable']->table.'</tbody>'.$myNws['righttable']->tfoot; ?>
 					</table>
 					
-				<?php if($righttablerows > 0) {
-					//echo '<a class="tbtn floatright" href="?network='.$myNws['righttable']->nw->id.'&DateRange='.$myNws['current_range'].'&page='.$myNws['page'].'&ExportTo=CSV">Export to CSV</a>';
+				<?php if($righttablerows > 0) 
 					echo '<a class="tbtn floatright" href="?ExportTo=CSV">Export to CSV</a>'; //should work without params since we use cookiezz
-				}
 				?>
 					
 				<div class="clear"></div>

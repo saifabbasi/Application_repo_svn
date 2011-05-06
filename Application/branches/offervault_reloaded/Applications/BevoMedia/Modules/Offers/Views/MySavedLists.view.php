@@ -1,6 +1,10 @@
-<?php include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.php'; 
+<?php
+	if(isset($_GET['ExportTo']))
+		$viewheaderCSV = true;
 	
-	//build lists
+	include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.php';
+			
+	/*build lists*/
 	$ovaultSavelist['lefttable'] = '';	
 	if(isset($ovaultSavelist['lists']) && is_array($ovaultSavelist['lists']) && !empty($ovaultSavelist['lists'])) {
 		$listcount = 0;
@@ -58,7 +62,7 @@
 		
 	}//endif isset lists
 	
-	//build current list offers
+	/*build current list offers*/
 	$ovaultSavelist['righttable'] = '';
 	if($ovaultSavelist['current'] != 'new') {
 		
@@ -139,36 +143,33 @@
 	
 	}//endif isset current
 	
-	//CSV export
+	/*CSV*/
 	if(isset($_GET['ExportTo']) && $_GET['ExportTo'] == 'CSV' && isset($ovaultSavelist['righttable']->offers) && count($ovaultSavelist['righttable']->offers) > 0) {
 		
 		$csv_filename = 'Bevo-Offer-Savelist-'.str_replace(' ', '_', $ovaultSavelist['righttable']->name).'.csv';
-		$csv_listname = $ovaultSavelist['righttable']->name;
 		
 		header("Content-type: application/octet-stream");
 		header("Content-Disposition: attachment; filename=$csv_filename");
 		header("Pragma: no-cache");
 		header("Expires: 0");
+		
+		print '"My Bevo Offer SaveList: '.$ovaultSavelist['righttable']->name.' (File date: '.date('M j, Y').')","","","","","","",""' . "\r\n";
 	
-		print '"Bevo SaveList","Offer Name","Preview URL","Your Affiliate Link","Date Added","Payout","Type","Vertical","Network"' . "\r\n";
+		print '"Offer Name","Network","Payout","Preview URL","My Affiliate Link","Date Added","Type","Vertical"' . "\r\n";
 		
 		foreach($ovaultSavelist['righttable']->offers as $offer) {
-			print "\"$csv_listname\",";
 			print "\"$offer->title\",";
+			print "\"$offer->networkName\"";
+			print "\"$offer->payout\",";
 			print "\"$offer->previewUrl\",";
 			print isset($offer->affLink) ? "\"$offer->affLink\"," : "\"\","; //edit this later when we have the afflink field!
 			print "\"$offer->dateAdded_nice\",";
-			print "\"$offer->payout\",";
 			print "\"$offer->type\",";
 			print "\"$offer->categoryTitle\",";
-			print "\"$offer->networkName\"";
 			print "\r\n";
-			
-			//$roi = ($row['cost'] == 0) ? 0 : $row['profit'] / $row['cost'] * 100;
-			//print "\"$row[date]\",\"$row[revenue]\",\"$row[cost]\",\"$row[profit]\",\"$roi\"\r\n";
 		}
 		exit;
-	}
+	}//csv
 	
 	/*html content*/ //we need to echo all of the following in hidden wrappers, to allow the JS to use it, and one of the following will be echoed on pageload
 	$ovaultSavelist['oright_defaults'] = array();

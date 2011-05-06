@@ -54,7 +54,7 @@ function doSave2List(listid, oid, is_select) {
 					undoSave2listSelect();
 				
 				//add icon to orow
-				$('#ovault .orow.j_oid-'+oid+' td.td_saved2list .icon').fadeIn(500). removeClass('hide');
+				$('#ovault .orow.j_oid-'+oid+' td.td_saved2list .icon').fadeIn(500).removeClass('hide');
 			}
 		},
 		error: function(r) {
@@ -198,7 +198,7 @@ function doCreateNewList(name) {
 /*doCreateNewList_AjaxSuccess*/ //called by doCreateNewList() on ajax success. silent bool true if called by any other function, eg by doSave2List when a new list was created
 function doCreateNewList_AjaxSuccess(r, name, silent) {
 	ovault_existSavelistNum++;
-	var statnumber;
+	var statnumber = false;
 		
 	if(location.pathname == ovault_searchPage) {			
 		
@@ -244,7 +244,8 @@ function doCreateNewList_AjaxSuccess(r, name, silent) {
 		
 	}//endif page
 	
-	statnumber.html(ovault_existSavelistNum); //update stats
+	if(statnumber)
+		statnumber.html(ovault_existSavelistNum); //update stats
 	
 	if(!silent && r.message)
 		ajaxMessage(r.message);

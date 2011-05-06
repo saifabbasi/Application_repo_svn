@@ -707,7 +707,7 @@ class ConstructAjaxOutput {
 		if($offer->isNetworkMember == 1) {
 			$out .= '<p>You\'re already a member of this network!</p>';
 			$out .= '<div class="icon icon_ovault_nwmember_bigwhite"></div>';
-			$out .= '<a class="btn ovault_gotomystats_trans" href="/BevoMedia/Offers/MyStats.html#ADD_CORRECT_LINK_LATERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR">Go to my stats</a>';
+			$out .= '<a class="btn ovault_gotomystats_trans" href="/BevoMedia/Offers/MyStats.html?network='.$offer->network__id.'">Go to my stats</a>';
 		
 		} else {
 			$out .= '<p>You\'re not a member of this network yet! Become one now:</p>';

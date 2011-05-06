@@ -1,6 +1,9 @@
 <?php	/*
 	initial functions for the offervault. belongs in the header of every offervault view.
 	*/
+	
+	if(!isset($viewheaderCSV)) //set to true before including this file if it's a CSV pageload, so that no JS should be output
+		$viewheaderCSV = false;
 
 	//savelists
 	//read db to find out if user already has list(s) or not
@@ -102,9 +105,10 @@
 	$ovaultSavelist['current'] = OvaultSaveListIni();
 	//$ovaultSavelist['maxlists'] = $this->User->vaultID == 0 ? 1 : 10; //allowed number of lists: verfied users get more
 	$ovaultSavelist['maxlists'] = 10; //10 for all.
-	
-?>
 
+	
+	if(!$viewheaderCSV) :
+?>
 <link href="/Themes/BevoMedia/gritter.css" rel="stylesheet" type="text/css" />
 <script src="/Themes/BevoMedia/jquery.gritter.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -141,3 +145,7 @@
 </script>
 <script src="/Themes/BevoMedia/ovault.functions.js" type="text/javascript"></script>
 <script src="/Themes/BevoMedia/ovault.general.js" type="text/javascript"></script>
+
+<?php
+	endif; //$viewheaderCSV
+?>
