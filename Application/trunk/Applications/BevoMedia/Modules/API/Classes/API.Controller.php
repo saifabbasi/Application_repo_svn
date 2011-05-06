@@ -474,7 +474,8 @@ Campaigns you have created may take up to 15-20 minutes to appear in your PPC Ac
 					bevomedia_offers
 				WHERE
 					(archived = 0) AND
-					(network__id = ?)
+					(network__id = ?) AND
+					(previewUrl <> '')
 				ORDER BY
 					title
 				";
