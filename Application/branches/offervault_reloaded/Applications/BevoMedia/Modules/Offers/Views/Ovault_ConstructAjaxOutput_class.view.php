@@ -186,7 +186,6 @@ class ConstructAjaxOutput {
 		}
 		
 		
-		
 		//if(!$offer)
 		//	$out['error'] = 'This offer seems to be invalid!';
 		//else	$out['resultarr'] = $offer;
@@ -325,11 +324,10 @@ class ConstructAjaxOutput {
 					{$networksSearchAdd}
 					{$savelistAdd}
 				ORDER BY 
-					bevomedia_offers.id DESC
+					bevomedia_offers.payout DESC
 					{$limitAdd}
 					
 				";
-				//bevomedia_offers.payout DESC
 		//die($sql);
 				
 		$data = mysql_query($sql);
@@ -662,6 +660,7 @@ class ConstructAjaxOutput {
 		/*if(!$offer)
 			$out = false;
 		else {*/
+		
 			$out = '<tr class="orowbig j_oid-'.$offer->id.' hide" data-oid="'.$offer->id.'">';
 				$out .= '<td class="border">&nbsp;</td>';
 				$out .= '<td class="td_info" colspan="';
@@ -669,17 +668,22 @@ class ConstructAjaxOutput {
 				$out .= '"><div class="td_inner">';
 				$out .= '<div class="floatleft">';
 				
+				//have image url?
+				if(property_exists($offer, 'imageUrl') && $offer->imageUrl && $offer->imageUrl != '')
+					$imageTag = '<img src="'.$offer->imageUrl.'" alt="" />';
+				else	$imageTag = '<img src="/Themes/BevoMedia/img_new/othumb_default.gif" alt="" />';
+				
 				//have preview URL?
-				//if(property_exists($offer, 'previewUrl') && $offer->previewUrl && $offer->previewUrl != '') {
+				if(property_exists($offer, 'previewUrl') && $offer->previewUrl && $offer->previewUrl != '') {
 					$out .= '<a class="ovault_othumb" href="'.$offer->previewUrl.'" title="Preview offer in a new tab" target="_blank">';
-					$out .= $offer->imageUrl ? '<img src="'.$offer->imageUrl.'" alt="" />' : '<img src="/Themes/BevoMedia/img_new/othumb_default.gif" alt="" />';
+					$out .= $imageTag;
 					$out .= '<span></span></a>';
 					
-				/*} else {
+				} else {
 					$out .= '<div class="ovault_othumb">';
-						$out .= '<img src="/Themes/BevoMedia/img_new/othumb_default.gif" alt="" />';
+						$out .= $imageTag;
 					$out .= '</div>';				
-				}*/
+				}
 				
 				//cake import
 				if(property_exists($offer, 'importUrl') && $offer->importUrl && $offer->importUrl != '') {
