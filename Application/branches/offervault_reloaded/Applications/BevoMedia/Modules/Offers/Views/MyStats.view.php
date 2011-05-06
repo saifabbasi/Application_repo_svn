@@ -175,7 +175,7 @@
 						WHERE
 							subids.user__id = {$_SESSION['User']['ID']}
 							AND subids.network__id = {$nw->id}
-							AND subids.statDate BETWEEN {$myNws['current_from']} AND {$myNws['current_to']}
+							AND subids.statDate BETWEEN '{$myNws['current_from']}' AND '{$myNws['current_to']}'
 						GROUP BY
 							subids.subId,
 							offers.offer__id,
@@ -185,8 +185,6 @@
 					";
 				
 				}//endif page (sql)
-				
-				$myNws['sql'] = $sql;
 				
 				$det = mysql_query($sql);
 				
@@ -465,20 +463,7 @@
 							<input class="formtxt" type="text" name="DateRange" id="datepicker" value="<?php echo $myNws['datepicker_value']; ?>" />
 							<input class="formsubmit" type="submit" />
 						  </form>
-						  
-						  <div class="clear"></div>
-						  <?
-						  echo '<pre>';
-						  var_dump($myNws['current_from'].' - '.$myNws['current_to']);
-						  echo '</pre>';
-						  
-						  echo '<pre>';
-						  print_r($myNws['sql']);
-						  echo '</pre>';
-						  
-						  ?>
-						  
-						 <div class="clear"></div>						
+						  <div class="clear"></div>						
 						
 					</div><!--close top-->
 					

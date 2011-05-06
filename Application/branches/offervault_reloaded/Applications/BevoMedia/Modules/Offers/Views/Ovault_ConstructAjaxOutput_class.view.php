@@ -136,17 +136,50 @@ class ConstructAjaxOutput {
 			}//endif is_oright
 			
 			//aff link
-			/*
 			if($offer->isNetworkMember == 1 && $offer->affUrl) {
 				
-				TODOoooooooooooooooooooooooo
+				$offer->affId = false;
 				
-				bevomedia_user_aff_network.loginId
-				$offer->affUrl = str_replace('{$OfferID}','',$offer->affUrl);
-				$offer->affUrl = str_replace('{$AffiliateID}','',$offer->affUrl);
-			}
-			*/
-		
+				$sql = "SELECT 	userIdLabel,
+						otherIdLabel
+					FROM	bevomedia_aff_network 
+					WHERE	id = $offer->network__id
+					LIMIT 1
+				";
+				$labelresult = mysql_query($sql);
+				while($field = mysql_fetch_object($labelresult)) {
+					
+					$affField = false;
+					
+					if($field->userIdLabel == 'Affiliate ID' || $field->userIdLabel == 'Account ID')
+						$affField = 'loginId';
+					elseif($field->otherIdLabel == 'Affiliate ID' || $field->otherIdLabel == 'Account ID')
+						$affField = 'otherId';
+					
+					if($affField) {
+						$sql = "SELECT `$affField`
+							FROM	bevomedia_user_aff_network
+							WHERE	user__id = {$_SESSION['User']['ID']}
+							AND	network__id = {$offer->network__id}
+							LIMIT 	1
+						";
+						$affresult = mysql_query($sql);
+						if(mysql_num_rows($affresult) == 1) {
+							while($affId = mysql_fetch_object($affresult)) {
+								$offer->affId = $affId->$affField;
+							}
+						}
+					}
+				}//endwhile labelresult
+				
+				if($offer->affId) {
+					$offer->affUrl = str_replace('{$OfferID}', $offer->offer__id, $offer->affUrl);
+					$offer->affUrl = str_replace('{$AffiliateID}', $offer->affId, $offer->affUrl);
+				
+				} else {
+					$offer->affUrl = false;
+				}
+			}//endif affurl
 			
 			
 			// $offer->id
@@ -677,12 +710,12 @@ class ConstructAjaxOutput {
 				$out .= '<p>'.$offer->detail.'</p>';
 				
 				//olink
-				//if(property_exists($offer, 'previewUrl') && $offer->previewUrl && $offer->previewUrl != '') {
+				if(property_exists($offer, 'affUrl') && $offer->affUrl) {
 					$out .= '<div class="olink">';
-						$out .= '<input type="text" class="formtxt" readonly value="'.$offer->previewUrl.'" />';
-						//$out .= '<a class="btn ovault_visiticon" href="'.$offer->previewUrl.'" title="Preview offer in a new tab" target="_blank">Visit</a>'; //dont need this after all
+						$out .= '<input type="text" class="formtxt" readonly value="'.$offer->affUrl.'" />';
+						$out .= '<a class="btn ovault_visiticon" href="'.$offer->affUrl.'" title="Click to test your affiliate link (opens in new tab)" target="_blank">Visit</a>';
 					$out .= '</div>';
-				//}
+				}
 				
 			$out .= '</div><div class="clear"></div></div><!--close td_inner-->';
 			$out .= '</td>';
