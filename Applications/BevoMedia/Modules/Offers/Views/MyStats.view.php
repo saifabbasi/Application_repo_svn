@@ -6,8 +6,8 @@
 		'cookie_page' => '__bevoMyNwPage'	//last tab viewed (performance or subids)
 	);
 	
-	require_once(PATH . "Legacy.Abstraction.class.php");
-	require_once(PATH.'inc_daterange.php');
+	//require_once(PATH . "Legacy.Abstraction.class.php");
+	//require_once(PATH.'inc_daterange.php');
 	
 	/*get/set page (tab)*/
 	if(isset($_GET['page']) && !empty($_GET['page'])
@@ -28,18 +28,51 @@
 	
 	/*get/set dates*/
 	if(isset($_GET['DateRange'])) {
-		$myNws['current_from'] = LegacyAbstraction::$strStartDateVal;
-		$myNws['current_to'] = LegacyAbstraction::$strEndDateVal;
-		$myNws['current_range'] = LegacyAbstraction::$strDateRangeVal;
+		//need to rewrite input to db timestamp format: Y-m-d
+		
+		$dtmp = explode('-', $_GET['DateRange']);
+	
+		//if we have 6 values, its a date range like 2010-01-01 - 2011-01-01
+		if(count($dtmp) == 6) {
+			$myNws['current_from'] = date('Y-m-d', strtotime(trim($dtmp[0]).'-'.trim($dtmp[1]).'-'.trim($dtmp[2])));
+			$myNws['current_to'] = date('Y-m-d', strtotime(trim($dtmp[3]).'-'.trim($dtmp[4]).'-'.trim($dtmp[5])));
+		
+		//else it's LIKELY m/d/Y
+		} elseif(count($dtmp) == 2) {
+			$myNws['current_from'] = date('Y-m-d', strtotime(trim($dtmp[0])));
+			$myNws['current_to'] = date('Y-m-d', strtotime(trim($dtmp[1])));
+			
+		//else its a single date like 2010-01-01
+		} elseif(count($dtmp) == 3) {
+			$myNws['current_from'] = date('Y-m-d', strtotime(trim($dtmp[0]).'-'.trim($dtmp[1]).'-'.trim($dtmp[2])));
+			$myNws['current_to'] = $myNws['current_from'];
+			
+		//else its a single date like 01/01/2010
+		} elseif(count($dtmp) == 1) {
+			$myNws['current_from'] = date('Y-m-d', strtotime(trim($dtmp[0])));
+			$myNws['current_to'] = $myNws['current_from'];
+		}
+		
 	} else {
 		$myNws['current_from'] = isset($_COOKIE[$myNws['cookie_from']]) ? date('Y-m-d', strtotime(trim($_COOKIE[$myNws['cookie_from']]))) : date('Y-m-d', time()-60*60*24); //yesterday 
 		$myNws['current_to'] = isset($_COOKIE[$myNws['cookie_to']]) ? date('Y-m-d', strtotime(trim($_COOKIE[$myNws['cookie_to']]))) : date('Y-m-d'); //today
-		$myNws['current_range'] = $myNws['current_from'].' - '.$myNws['current_to'];
 	}
+	
+	if(!isset($myNws['current_from']))
+		$myNws['current_from'] = date('Y-m-d');
+	if(!isset($myNws['current_to']))
+		if(!isset($myNws['current_from']));
+	
+	$myNws['current_range'] = $myNws['current_from'].' - '.$myNws['current_to'];
 	
 	//set cookie
 	setcookie($myNws['cookie_from'], $myNws['current_from'], time()+60*60*24*30*12);//1y
 	setcookie($myNws['cookie_to'], $myNws['current_to'], time()+60*60*24*30*12);//1y
+	
+	//datepicker_value has a different format...
+	$myNws['datepicker_value'] = date('m/d/Y', strtotime($myNws['current_from']));
+	if($myNws['current_to'] != $myNws['current_from'])
+		$myNws['datepicker_value'] .= ' - '.date('m/d/Y', strtotime($myNws['current_to']));
 	
 	/*get/set current network*/
 	if(isset($_GET['network']) && is_numeric($_GET['network']) && !empty($_GET['network']) && $_GET['network'] != 0) {
@@ -118,7 +151,7 @@
 						WHERE
 							subids.user__id = {$_SESSION['User']['ID']}
 							AND subids.network__id = {$nw->id}
-							AND subids.statDate BETWEEN {$myNws['current_from']} AND {$myNws['current_to']}
+							AND subids.statDate BETWEEN '{$myNws['current_from']}' AND '{$myNws['current_to']}'
 						GROUP BY
 							subids.offer__id,
 							offers.title
@@ -152,6 +185,8 @@
 					";
 				
 				}//endif page (sql)
+				
+				$myNws['sql'] = $sql;
 				
 				$det = mysql_query($sql);
 				
@@ -427,11 +462,23 @@
 						
 						<form method="get" action="" name="frmRange" class="datetable">
 							<input type="hidden" name="network" value="<?php echo $myNws['righttable']->nw->id ?>" />
-							<input class="formtxt" type="text" name="DateRange" id="datepicker" value="<?php echo $myNws['current_range']; ?>" />
+							<input class="formtxt" type="text" name="DateRange" id="datepicker" value="<?php echo $myNws['datepicker_value']; ?>" />
 							<input class="formsubmit" type="submit" />
 						  </form>
-						
-						<div class="clear"></div>						
+						  
+						  <div class="clear"></div>
+						  <?
+						  echo '<pre>';
+						  var_dump($myNws['current_from'].' - '.$myNws['current_to']);
+						  echo '</pre>';
+						  
+						  echo '<pre>';
+						  print_r($myNws['sql']);
+						  echo '</pre>';
+						  
+						  ?>
+						  
+						 <div class="clear"></div>						
 						
 					</div><!--close top-->
 					
