@@ -38,7 +38,16 @@ function doSave2List(listid, oid, is_select) {
 				//get list name from js obj
 				if(ovault_allSavelists['n'+listid])
 					ajaxMessage('Offer added to the <em>'+ovault_allSavelists['n'+listid].name+'</em> list.')
-				else	ajaxMessage(r.message);	
+				
+				else if(r.newlist_created) { //if new list
+					msg = 'We have created a new Offer List for you, and the offer has been added to it!<br /><br />';
+					msg += 'You can manage your list(s) <a href="/BevoMedia/Offers/MySavedLists.html/">on this page</a>. For example, you can rename this list, as it has been auto-generated. The My Saved Lists page is where you can review any offers that you have added to your lists, as well as download them as a CSV file.';
+										
+					//add to obj, dom, and make default
+					doCreateNewList_AjaxSuccess(r.newlist_created, r.newlist_created.newlistname, 1); //3rd param silent = no msgs
+					
+					ajaxMessage(msg,1);
+				}
 				
 				//if this comes from select btn, close olay
 				if(is_select)										
@@ -49,7 +58,7 @@ function doSave2List(listid, oid, is_select) {
 			}
 		},
 		error: function(r) {
-			ajaxMessage('Could not save offer, please try again!');
+			ajaxMessage('Could not save offer, please try again!',1);
 		}
 	});
 }//doSave2List()
@@ -78,8 +87,9 @@ function doDeleteList(listid) {
 				if(location.pathname == ovault_searchPage) {				
 					delete ovault_allSavelists['n'+listid]; //remove from obj
 					
+					updateOrowSelelistBtn();
 					removeSavelistDarkTableRow(listid); //remove list from table
-					rebuildSelecttable();
+					rebuildSelecttable();					
 					
 					if(ovault_currentSavelist == listid) { //if the deleted list was default
 						otherlists = $('#ovault_olay_savelists tbody tr');
@@ -90,7 +100,7 @@ function doDeleteList(listid) {
 					updateOnListDelete = $('#olay_savedlists .j_oliststats .j_updateOnListDelete');					
 					updateRownum = $('#ovault_olay_savelists tbody tr');
 					updateRownumNumberField = 'td.no';
-				
+					
 				} else if(location.pathname == ovault_mysavedPage) {
 					removeSavelistOleftRow(listid);
 					
@@ -128,20 +138,23 @@ function doDeleteList(listid) {
 				} //endif page
 				
 				//make default
-				if(otherlists.length > 0) { //if we have other lists
-					setTimeout(function() { //wait until row has been deleted
-						makeSavelistDefault(lastlist.data('listid'), lastlist.data('listname'));	
-					}, 500);
-				} else {
-					makeSavelistDefault('new', 'New List');
+				if(otherlists) { //if we have otherlists, that means that the deleted list was default
+					if(otherlists.length > 0) { //if we have other lists
+						setTimeout(function() { //wait until row has been deleted
+							makeSavelistDefault(lastlist.data('listid'), lastlist.data('listname'));	
+						}, 500);
+					} else {
+						makeSavelistDefault('new', 'New List');
+					}
 				}
 				
 				//update table row count
 				var rownum = 1;
+				
 				updateRownum.each(function() {
-					if(rownum % 2 == 0)
-						$(this).addClass('alt');
-					else	$(this).removeClass('alt');
+					if(rownum % 2)
+						$(this).removeClass('alt');
+					else	$(this).addClass('alt');
 					$(updateRownumNumberField, this).html(rownum+'.');
 					rownum++;
 				});
@@ -170,58 +183,74 @@ function doCreateNewList(name) {
 			r = $.parseJSON(r);
 			
 			if(r.error)
-				ajaxMessage(r.error);
+				ajaxMessage(r.error,1);
 			
 			else {
-				ovault_existSavelistNum++;
-				var statnumber;
-					
-				if(location.pathname == ovault_searchPage) {
-					ovault_allSavelists['n'+r.listid] = { //add to js obj
-						id: r.listid,
-						name: name
-					};					
-					addSavelistDarkTableRow(r.listid, name); //add new list to table
-					rebuildSelecttable(); //rebuild the select table too
-					
-					$('#ovault_createnewlistform.hide').fadeOut(200).removeClass('active');
-					$('#ovault_newlistname').val('');
-
-					statnumber = $('#olay_savedlists .olayfeat h3.j_savelists_listnum'); 										
-					
-				} else if(location.pathname == ovault_mysavedPage) {
-					
-					addSavelistOleftRow(r.listid, name);
-					makeSavelistDefault(r.listid, name);
-					
-					//hide form in oleft
-					$('#savelists_oleft_createnewlistform').fadeOut(500).removeClass('active');
-					$('#savelists_oleft_createnewlistform input.formtxt.ovault_newlistname').val('');
-
-					var listdata = {
-						listid: r.listid,
-						name: name,
-						listcount: ovault_existSavelistNum,
-						num_offers: 0,
-						created: getToday()
-					};
-					
-					rebuildSavelistOrowrightContent('nooffers', listdata);
-										
-					statnumber = $('#oleft .footfeat h3.j_savelists_listnum'); 
-					
-				}//endif page
-				
-				statnumber.html(ovault_existSavelistNum); //update stats
-				ajaxMessage(r.message);
-				makeSavelistDefault(r.listid, name); //make this the default
+				doCreateNewList_AjaxSuccess(r, name);
 			}
 		},
 		error: function(r) {
-			ajaxMessage('An error occured. Please try again!');
+			ajaxMessage('An error occured. Please try again!',1);
 		}
 	});
 }//doCreateNewList()
+
+/*doCreateNewList_AjaxSuccess*/ //called by doCreateNewList() on ajax success. silent bool true if called by any other function, eg by doSave2List when a new list was created
+function doCreateNewList_AjaxSuccess(r, name, silent) {
+	ovault_existSavelistNum++;
+	var statnumber;
+		
+	if(location.pathname == ovault_searchPage) {			
+		
+		//add to js obj
+		ovault_allSavelists['n'+r.listid] = { 
+			id: r.listid,
+			name: name
+		};
+		
+		updateOrowSelelistBtn();
+		addSavelistDarkTableRow(r.listid, name); //add new list to table
+		rebuildSelecttable(); //rebuild the select table too
+		
+		$('#ovault_createnewlistform.hide').fadeOut(200, function() {
+			$('#ovault_newlistname').val('');
+			$('#olay_savedlists').fadeOut(600, function() {
+				$(this).removeClass('active');
+			})
+		}).removeClass('active');
+	
+		statnumber = $('#olay_savedlists .olayfeat h3.j_savelists_listnum'); 										
+		
+	} else if(location.pathname == ovault_mysavedPage) {
+		
+		addSavelistOleftRow(r.listid, name);
+		makeSavelistDefault(r.listid, name);
+		
+		//hide form in oleft
+		$('#savelists_oleft_createnewlistform').fadeOut(500).removeClass('active');
+		$('#savelists_oleft_createnewlistform input.formtxt.ovault_newlistname').val('');
+	
+		var listdata = {
+			listid: r.listid,
+			name: name,
+			listcount: ovault_existSavelistNum,
+			num_offers: 0,
+			created: getToday()
+		};
+		
+		rebuildSavelistOrowrightContent('nooffers', listdata);
+							
+		statnumber = $('#oleft .footfeat h3.j_savelists_listnum'); 
+		
+	}//endif page
+	
+	statnumber.html(ovault_existSavelistNum); //update stats
+	
+	if(!silent && r.message)
+		ajaxMessage(r.message);
+	
+	makeSavelistDefault(r.listid, name); //make this the default
+}//doCreateNewList_AjaxSuccess
 
 /*doSavelistFetchOffers*/ //dontDefault bool if true, dont makeSavelistDefault (use in doDeleteList when setting default separately)
 function doSavelistFetchOffers(listdata, dontDefault) {
@@ -405,14 +434,14 @@ function doSearch(s, updateDial) {
 						$('#opagi_bg .numbers').fadeOut(300);
 					}
 					
+					updateOrowSelelistBtn();
+					
 					if(updateDial)
 						updateDialByHash(r.searchstring);
 					
-					//throw msg if exists
-					if(r.message)
+					else if(r.message) //throw msg, but only if not called from cook or hash
 						ajaxMessage(r.message,1);
 					
-					ajaxMessage(r.sql, 1);
 				}
 			},
 			error: function(r) {
@@ -540,27 +569,47 @@ function odialNumberUpdate(id, subtract) {
 	else	$('#'+id).html(parseInt($('#'+id).html())+1);			
 }//odialNumberUpdate()
 
-/*makeSavelistDefault*/ //plugs in the passed list as the default
-function makeSavelistDefault(listid, name) {
+/*makeSavelistDefault*/ //plugs in the passed list as the default. 
+//redirect bool if true, no msgs are spawned and we redirect to the list management page
+function makeSavelistDefault(listid, name, redirect) {
+	
+	var 	newlistname = 'My First Savelist (auto-generated)', //static name of autogenerated list
+		newlistname_short = 'My First Savelist' //short version
 	
 	ovault_currentSavelist = listid;
 	soap_cookCreate(ovault_cook_LastSaveList,listid,365);
-		
-	name = soap_truncTxt(name);
 	
-	if(location.pathname == ovault_searchPage) { //on search page only
-		$('#odial .save .selebtn').html(name+'<span class="down"></span>');
-		$('#olay_savedlists .olaytopflag_big').html(name);
-		
-		if(listid != 'new') //if we didnt just delete the last list
-			ajaxMessage('The <em>'+name+'</em> list is now the default!',1);
+	name = name == newlistname ? newlistname_short : soap_truncTxt(name);
 	
-	} else if(location.pathname == ovault_mysavedPage) {
-		$('#oleft tbody tr.active').removeClass('active');
-		$('#oleft tbody tr.j_list-'+listid).addClass('active');
+	if(redirect) {
+		window.location = ovault_mysavedPage; //savelist loads from cookie
+	
+	} else {
+		if(location.pathname == ovault_searchPage) { //on search page only
+			$('#odial .save .selebtn').html(name+'<span class="down"></span>');
+			$('#olay_savedlists .olaytopflag_big').html(name);
+			
+			if(listid != 'new')
+				if(name != newlistname_short) //if we didnt just delete the last list, or spawn a long msg about the auto-generated new one
+					ajaxMessage('The <em>'+name+'</em> list is now the default!');
+		
+		} else if(location.pathname == ovault_mysavedPage) {
+			$('#oleft tbody tr.active').removeClass('active');
+			$('#oleft tbody tr.j_list-'+listid).addClass('active');
+		}
 	}
 
 }//makeSavelistDefault()
+
+/*updateOrowSelelistBtn*/ //shows or hides the orow sele btn. call after every search and after every list add/delete action, after setting ovault_existSavelistNum
+function updateOrowSelelistBtn() {
+	if(ovault_existSavelistNum <= 1) { //1 or no lists
+		$('#ovault .orow .td_savelist a.ovault_add2list_select').addClass('permahide');
+	
+	} else { //more than 1 list
+		$('#ovault .orow .td_savelist a.ovault_add2list_select').removeClass('permahide');
+	}	
+}//updateOrowSelelistBtn()
 
 /*addOfferTableRow*/
 //adds 1 row. passed var must be an object from ovault_ajaxGetContent, usually r.resultarr[i]
@@ -625,7 +674,7 @@ function addOfferTableRow(offer, oright) {
 
 /*addSavelistDarkTableRow*/ //adds a newly created savelist to the .odarktable
 function addSavelistDarkTableRow(listid, name) {
-	
+		
 	var 	parent = $('#ovault_olay_savelists tbody'),
 		today = getToday(),
 		html = '',
@@ -637,18 +686,18 @@ function addSavelistDarkTableRow(listid, name) {
 	html += '" data-listid="'+listid+'" data-listname="'+name+'">';
 	
 	html += '<td class="no">'+ovault_existSavelistNum+'.</td><td class="name">'+soap_truncTxt(name,27)+'<span>Created: '+today+'</span></td>';
-	html += '<td class="use"><a class="btn icon_ovault_savelist_use" href="#">Use</a></td><td class="view"><a class="btn icon_ovault_savelist_view" href="#">View</a></td><td class="download"><a class="btn icon_ovault_savelist_csv" href="#">CSV</a></td>';
+	html += '<td class="use"><a class="btn icon_ovault_savelist_use" href="#">Use</a></td><td class="view"><a class="btn icon_ovault_savelist_view" href="#">View</a></td>';
 	html += '<td class="delete" data-listid="'+listid+'" data-listname="'+name+'"><a class="btn icon_ovault_savelist_delete" href="#" data-listid="'+listid+'" data-listname="'+name+'">Delete</a></td></tr>';
 	
-	//if this is their first list ever, we also have to build the table, and the parent changes
-	if(ovault_currentSavelist == 'new') {
-		parent = $('#olay_savedlists .olaycont');
-		before = '<div class="olaybox nomarginbutt"><div class="olayboxtitle myofferlists"><a class="btn ovault_smallyell_deleteall" href="#">Delete All Lists</a></div><table cellspacing="0" cellpadding="0" id="ovault_olay_savelists" class="odarktable"><thead><tr><td class="no">&nbsp;</td><td class="name">Name</td><td class="use">Use</td><td class="view">View</td><td class="download">Download</td><td class="delete">Delete</td></tr></thead><tbody>';
+	//if this is their first list, we also have to build the table, and the parent changes
+	if(ovault_existSavelistNum == 1) {
+		parent = $('#olay_savedlists .olaycont .floatleft');
+		before = '<div class="olaybox nomarginbutt j_olisttable"><div class="olayboxtitle myofferlists"><a class="btn ovault_smallyell_deleteall" href="#">Delete All Lists</a></div><table cellspacing="0" cellpadding="0" id="ovault_olay_savelists" class="odarktable"><thead><tr><td class="no">&nbsp;</td><td class="name">Name</td><td class="use">Use</td><td class="view">View</td><td class="delete">Delete</td></tr></thead><tbody>';
 		after = '</tbody></table></div><div class="clear"></div>';
 	}
 	
 	$(before+html+after).appendTo(parent).fadeIn(500, function() {
-		if(ovault_currentSavelist == 'new') { //also show the normal box heading
+		if(ovault_existSavelistNum == 1) { //also show the normal box heading if new
 			$('#olay_savedlists .j_olay_savedlists_nolists').slideUp(200, function() {
 				$('#olay_savedlists .j_olay_savedlists_havelists').slideDown(400).removeClass('hide');
 			}).addClass('hide');				
@@ -658,7 +707,15 @@ function addSavelistDarkTableRow(listid, name) {
 
 /*removeSavelistDarkTableRow*/ //deletes a table row
 function removeSavelistDarkTableRow(listid) {
-	$('#ovault_olay_savelists tbody tr.j_list-'+listid).fadeOut('500').remove();
+	var table = '#ovault_olay_savelists';
+	$(table+' tbody tr.j_list-'+listid).fadeOut('500').remove().delay(100, function() {
+		if($(table+' tbody tr').length == 0) { //if this was the last row, we also have to remove the table
+			$('#olay_savedlists .j_olisttable').fadeOut(200, function() {
+				$(this).remove();
+			});
+		}	
+	});
+		
 	
 }//removeSavelistDarkTableRow
 
@@ -670,6 +727,7 @@ function rebuildSelecttable() {
 	var selecount = 1;
 	
 	$.each(ovault_allSavelists, function(i, list) {
+			
 		var r;
 		r += '<tr title="Select this list" class="j_list-'+list.id;			
 		r += selecount % 2 ? '' : ' alt';
@@ -682,6 +740,7 @@ function rebuildSelecttable() {
 		seletable.append(r);
 		selecount++;
 	});
+	
 }//rebuildSelecttable()
 
 /*addSavelistOleftRow*/

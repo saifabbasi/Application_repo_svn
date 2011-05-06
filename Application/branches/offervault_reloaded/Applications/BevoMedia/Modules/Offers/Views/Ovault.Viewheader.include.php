@@ -112,7 +112,7 @@
 		ovault_currentSavelist = '<?php echo $ovaultSavelist['current']; ?>', //if "new", no list exists yet and a new one will be created automatically when they save2list.
 		ovault_existSavelistNum = '<?php echo $ovaultSavelist['exist_num']?>',
 		ovault_maxSavelists = '<?php echo $ovaultSavelist['maxlists']?>',
-		ovault_allSavelists = {}, //raw js obj of existing lists. gets updated on create/delete. used for savelist select in offer rows.
+		ovault_allSavelists = [], //raw js obj of existing lists. gets updated on create/delete. used for savelist select in offer rows.
 		
 		ovault_orow_ignoreClick = false,
 		
@@ -133,7 +133,7 @@
 	
 	ovault_savelisttmp = '<?php echo $ovaultSavelist['js_obj']; ?>';
 	if(ovault_savelisttmp != '')
-		ovault_allSavelists = (ovault_savelisttmp);	
+		ovault_allSavelists = $.parseJSON(ovault_savelisttmp);	
 		
 	ovault_cache.offerdetails = []; //index = the offer ID
 	ovault_cache.searchresults = []; //index = the actual search string

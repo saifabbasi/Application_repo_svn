@@ -56,7 +56,7 @@ $(document).ready(function() {
 							ajaxMessage(r.error,1);
 						
 						else {
-							$('#oright .conttop .top2 h2').html(r.newlistname); //rename h2
+							$('#oright .conttop .top2 h2').html(r.newlistname);
 							
 							thisform.fadeOut(300, function() {//hide form
 								thisform.removeClass('active');

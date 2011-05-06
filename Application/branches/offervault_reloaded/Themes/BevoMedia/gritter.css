@@ -59,6 +59,7 @@
 line-height:1em;
 font-family:Arial, sans-serif;
 }
+.gritter-item a:hover { color:#ff0; }
 .gritter-close {
 	position:absolute;
 	top:5px;

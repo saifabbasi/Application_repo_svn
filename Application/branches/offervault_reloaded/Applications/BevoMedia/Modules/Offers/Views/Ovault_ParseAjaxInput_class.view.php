@@ -19,19 +19,37 @@ class ParseAjaxInput {
 		$oid = $query['params']['oid'];
 		$out = array();
 		
-		//check if offer already exists in this list
-		$sql = "SELECT COUNT(*)
-			FROM bevomedia_user_offerlists_offers
-			WHERE 	(list__id = {$listid}) AND
-				(offer__id = {$oid})		
-		";
-		$result = mysql_query($sql);
-		$num = mysql_fetch_row($result);
+		//if we have to create a new list automatically
+		if($listid == 'new') {
+			$arr = array('params' => array('newlistname' => 'My First Savelist (auto-generated)'));
+			$created = self::createnewlist($arr);
+			
+			//check for response
+			if(isset($created['error']))
+				$out['error'] = $created['error'];
+			
+			elseif(isset($created['listid'])) {
+				$listid = $created['listid']; //for adding the offer below
+				$out['newlist_created'] = array('listid' => $created['listid'], 'newlistname' => $arr['params']['newlistname']);//pass this on to js for notification
+			}
+			
+		} else { //if this is not a new list, check if offer already exists in this list
+			
+			$sql = "SELECT COUNT(*)
+				FROM bevomedia_user_offerlists_offers
+				WHERE 	(list__id = {$listid}) AND
+					(offer__id = {$oid})		
+			";
+			$result = mysql_query($sql);
+			$num = mysql_fetch_row($result);
+			
+			if($num[0] != 0)
+				$out['error'] = 'Offer is already in this list!';
+		}
 		
-		if($num[0] != 0)
-			$out['error'] = 'Offer is already in this list!';
-		
-		else {
+		//now add offer to list
+		if(!isset($out['error'])) {
+			
 			$sql = "INSERT INTO 
 					bevomedia_user_offerlists_offers(
 						offer__id,
@@ -68,23 +86,26 @@ class ParseAjaxInput {
 		*/
 		
 		$maxlists = 10;
-		
 		$out = array();
-		$listnum = '';
 
-		//get no. of offers in list
+		//get list names to check for dupes
 		$sql = "SELECT 
-				COUNT(*)
+				name
 			FROM 
 				bevomedia_user_offerlists 
 			WHERE 
-				(bevomedia_user_offerlists.user__id = {$userid})
+				(user__id = {$userid})
 			";					
-		$result = mysql_query($sql);
-		$listnum = mysql_fetch_row($result);
-		$listnum = $listnum[0];
-				
-		if($listnum < $maxlists) {
+		$raw = mysql_query($sql);
+		while($names = mysql_fetch_object($raw)) {
+			//check for dupes
+			if($names->name == $newname) {
+				$out['error'] = 'You already have a list with this name!';
+				break;
+			}
+		}
+		
+		if(!isset($out['error']) && mysql_num_rows($raw) < $maxlists) {
 			$sql = "INSERT INTO 
 					bevomedia_user_offerlists(
 						user__id,
@@ -104,7 +125,7 @@ class ParseAjaxInput {
 				
 			} else	$out['error'] = 'List could not be created, please try again and contact us if the error persists.';
 		
-		} else { //if no more lists allowed
+		} elseif(!isset($out['error'])) { //if no more lists allowed
 			$out['error'] = 'Sorry, but you can\'t have more than '.$maxlists.' Offer List(s) at the same time. You can delete old lists to make room for new ones.';
 		}
 		
@@ -203,25 +224,39 @@ class ParseAjaxInput {
 		$newlistname = $query['params']['newlistname'];
 		$userid = $_SESSION['User']['ID'];
 		
-		$sql = "UPDATE	bevomedia_user_offerlists
+		//get list names to check for dupes
+		$sql = "SELECT 
+				name
+			FROM 
+				bevomedia_user_offerlists 
+			WHERE 
+				(user__id = {$userid})
+			";					
+		$raw = mysql_query($sql);
+		while($names = mysql_fetch_object($raw)) {
+			//check for dupes
+			if($names->name == $newlistname) {
+				$out['error'] = 'You already have a list with this name! List names should be unique.';
+				break;
+			}
+		}
+		
+		if(!isset($out['error'])) {
+			$sql = "UPDATE	bevomedia_user_offerlists				
+				SET	name = '$newlistname'				
+				WHERE	id = $listid AND
+					user__id = $userid					
+				LIMIT 1
+			";
 			
-			SET	name = '$newlistname'
-			
-			WHERE	id = $listid AND
-				user__id = $userid
-				
-			LIMIT 1
-		";
-			
-			//die($sql);
-			
-		$result = mysql_query($sql);
+			$result = mysql_query($sql);
 	
-		if(mysql_affected_rows() == 1) {
-			$out['message'] = 'List renamed to <em>'.$newlistname.'</em>';
-			$out['newlistname'] = $newlistname;
-			
-		} else	$out['error'] = 'The list could not be renamed, please refresh the page and try again!';
+			if(mysql_affected_rows() == 1) {
+				$out['message'] = 'List renamed to <em>'.$newlistname.'</em>';
+				$out['newlistname'] = $newlistname;
+				
+			} else	$out['error'] = 'The list could not be renamed, please refresh the page and try again!';
+		}
 		
 		return $out;
 		
