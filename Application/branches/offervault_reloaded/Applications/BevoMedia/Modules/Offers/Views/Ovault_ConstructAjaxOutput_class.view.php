@@ -136,9 +136,8 @@ class ConstructAjaxOutput {
 			}//endif is_oright
 			
 			//aff link
+			$offer->affId = false;
 			if($offer->isNetworkMember == 1 && $offer->affUrl) {
-				
-				$offer->affId = false;
 				
 				$sql = "SELECT 	userIdLabel,
 						otherIdLabel
@@ -172,29 +171,15 @@ class ConstructAjaxOutput {
 					}
 				}//endwhile labelresult
 				
-				if($offer->affId) {
-					$offer->affUrl = str_replace('{$OfferID}', $offer->offer__id, $offer->affUrl);
-					$offer->affUrl = str_replace('{$AffiliateID}', $offer->affId, $offer->affUrl);
-				
-				} else {
-					$offer->affUrl = false;
-				}
 			}//endif affurl
 			
+			if($offer->affId) {
+				$offer->affUrl = str_replace('{$OfferID}', $offer->offer__id, $offer->affUrl);
+				$offer->affUrl = str_replace('{$AffiliateID}', $offer->affId, $offer->affUrl);
 			
-			// $offer->id
-			// $offer->title = $offerTEMP->offername
-			// $offer->dateAdded = $offerTEMP->dateadded
-			// $offer->payout = $offerTEMP->payout
-			// $offer->type = $offerTEMP->offerType
-			// $offer->categoryTitle = $offerTEMP->vertical
-			// $offer->network__id
-			// $offer->isNetworkMember = $offerTEMP->is_networkmember
-			// $offer->networkName = $offerTEMP->networkname
-			// $offer->networkDescription
-			// $offer->userRating
-			// $offer->ratings
-			// $offer->detail
+			} else {
+				$offer->affUrl = false;
+			}
 			
 			break;
 			
@@ -240,7 +225,7 @@ class ConstructAjaxOutput {
 			if($query['params']['search'] == '*' && strstr(',', $query['params']['include_networks']) === false && is_numeric($query['params']['include_networks'])) {
 					
 				$searchAdd = '';
-				$out['message'] = 'Did you know? If you select only one network in the Bevo Search Sphere, you can use the * command to find all its offers.';
+				//$out['message'] = 'Did you know? If you select only one network in the Bevo Search Sphere, you can use the * command to find all its offers.';
 				
 			} else {
 			
@@ -340,10 +325,11 @@ class ConstructAjaxOutput {
 					{$networksSearchAdd}
 					{$savelistAdd}
 				ORDER BY 
-					bevomedia_offers.payout DESC
+					bevomedia_offers.id DESC
 					{$limitAdd}
 					
-				";		
+				";
+				//bevomedia_offers.payout DESC
 		//die($sql);
 				
 		$data = mysql_query($sql);
