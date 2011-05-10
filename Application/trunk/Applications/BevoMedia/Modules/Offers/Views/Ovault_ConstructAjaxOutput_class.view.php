@@ -36,22 +36,6 @@ class ConstructAjaxOutput {
 		
 		$offerID = intval($query['params']['oid']);		
 				
-		/*$sql = "SELECT
-					bevomedia_offers.*,
-					bevomedia_category.title as `categoryTitle`,
-					bevomedia_aff_network.title as `networkName`,
-					bevomedia_aff_network.detail as `networkDescription`,
-					bevomedia_aff_network.offerUrl as `affUrl`
-				FROM
-					bevomedia_offers,
-					bevomedia_category,
-					bevomedia_aff_network
-				WHERE
-					(bevomedia_category.id = bevomedia_offers.category__id) AND
-					(bevomedia_aff_network.id = bevomedia_offers.network__id) AND
-					(bevomedia_offers.id = {$offerID})
-				"; echo $sql;die;*/
-				
 		$sql = "SELECT	offers.*,
 				category.title as `categoryTitle`,
 				network.title as `networkName`,
@@ -100,26 +84,6 @@ class ConstructAjaxOutput {
 			} else {
 				$offer->userRating = 0;
 			}
-			
-			
-			/* //isnt this the same as above? lol
-			$sql = "SELECT
-						rating
-					FROM
-						bevomedia_user_aff_network_rating
-					WHERE
-						(bevomedia_user_aff_network_rating.network__id = {$offer->network__id}) AND
-						(bevomedia_user_aff_network_rating.user__id = {$_SESSION['User']['ID']})			
-					";
-			$userRating = mysql_query($sql);
-			
-			if (mysql_num_rows($userRating)>0) {
-				$userRating = mysql_fetch_assoc($userRating);
-				$offer->userRating = $userRating['rating'];
-			} else {
-				$offer->userRating = 0;
-			} */
-			
 			
 			//if not the slim version (like on the mysavedlists page), get user comments
 			$offer->is_oright = false;
