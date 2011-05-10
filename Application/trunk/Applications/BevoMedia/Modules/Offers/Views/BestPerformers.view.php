@@ -254,7 +254,7 @@ include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.p
 						
 						//preview url
 						if(property_exists($offer, 'previewUrl') && $offer->previewUrl && $offer->previewUrl != '') { ?>
-							<a class="ovault_othumb" href="<?php $offer->previewUrl; ?>" title="Preview offer in a new tab" target="_blank"><?php echo $imageTag; ?><span></span></a>
+							<a class="ovault_othumb" href="<?php echo $offer->previewUrl; ?>" title="Preview offer in a new tab" target="_blank"><?php echo $imageTag; ?><span></span></a>
 							
 						<?php } else { ?>
 							<div class="ovault_othumb"><?php echo $imageTag; ?></div>
