@@ -641,11 +641,12 @@ function addOfferTableRow(offer, oright) {
 		
 	//offername
 	//out += '<td class="td_offername" style="width:465px;"><p>'+offer['title']+'<span>Added '+offer['dateAdded']+'</span></p></td>';
-	out += '<td class="td_offername"><p>'+offer['title']+'<span>Added '+offer['dateAdded']+'</span></p></td>';
+	out += '<td class="td_offername"><p>'+offer['title']+offer['dateAdded']+'</p></td>';
 		
 	//payout
 	//out += '<td class="td_payout" style="width:54px;"><p>'+offer['payout']+'</p></td>';
-	out += '<td class="td_payout"><p>'+offer['payout']+'</p></td>';
+	out += '<td class="td_payout"><p>'+offer['payout']+'</p>';
+	out += '</td>';
 		
 	//type
 	//out += '<td class="td_type" style="width:41px;"><p>'+offer['type']+'</p></td>';
