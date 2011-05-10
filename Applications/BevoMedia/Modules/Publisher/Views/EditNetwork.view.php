@@ -72,15 +72,8 @@
 		<th><?php print htmlentities($this->Network->userIdLabel)?></th>
 		<td>
 			<input type="text" name="loginid" size="35" value="<?php print htmlentities($this->UserNetwork->loginId) ?>" />
-			<?php if(in_array($this->Network->title, array('ClickBooth', 'Copeac', 'FluxAds', 'ROIRocket', 'XY7', 'CommissionEmpire', 'Rextopia', 'Wotogepa', 'Market Leverage', 'Adfinity', 'AdEx', 'BlinkAds', 'EWA', 'Epicenter', 'FireLead'))):?>
-				<br/>
-				<i>Your <?php print htmlentities($this->Network->userIdLabel); ?> is not your email address.  
-				<?php if(in_array($this->Network->title, array('ClickBooth', 'Copeac', 'FluxAds', 'ROIRocket', 'XY7', 'CommissionEmpire', 'Rextopia', 'Wotogepa', 'Market Leverage'))) {?>
-				<br/>Ex: CD1234</i>
-				<?php } else { ?>
-				<br/>Ex: 12345</i>
-				<?php } ?>
-			<?php endif?>
+			<br />
+			<?=htmlentities($this->Network->userIdDescription)?>
 		</td>
 	</tr>
 	
@@ -98,15 +91,11 @@
 		<th><?php print htmlentities($this->Network->otherIdLabel); ; ?></th>
 		<td>
 			<input type="text" name="otherid" size="35" value="<?php print htmlentities($this->UserNetwork->otherId); ; ?>" />
-		  <?php if (($this->Network->otherIdLabel == 'API Key') && (($this->Network->id==1062) || ($this->Network->id==1059)) ) { ?>
-			<a class="tooltip" title="You must enter your API Key for this network to access your stats. To retrieve your API key, login to the network and go to the &quot;Support -&gt; Stats API&quot; Page. Then click on ">
+		  
+			<a class="tooltip" title="<?=htmlentities($this->Network->otherIdDescription)?>">
 				<img src="/Themes/BevoMedia/img/questionMarkIcon.png" width="12" height="12" />
 			</a>
-		  <? } else { ?>
-		  	<a class="tooltip" title="You must enter your API Key for this network to access your stats. To retrieve your API key, login to the network and go to the &quot;Reports&quot; Page. Then select the API tool and copy your unique API Key">
-				<img src="/Themes/BevoMedia/img/questionMarkIcon.png" width="12" height="12" />
-			</a>
-		  <? } ?>
+		  
 		</td>
 	</tr>
 	<?php endif; ?>
