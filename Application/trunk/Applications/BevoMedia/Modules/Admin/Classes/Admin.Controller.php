@@ -1,5 +1,6 @@
 <?php
 	require_once(Zend_Registry::get('Application/TrueWorkingDirectory') .'Applications/'. Zend_Registry::get('Instance/Application') .'/Common/IncludeHelper.include.php');
+	require_once (Zend_Registry::get('Application/TrueWorkingDirectory') .'Applications/BevoMedia/Common/lib_nmi/nmiCustomerVault.class.php');
 	include(PATH.'AbsoluteIncludeHelper.include.php');
 	Class AdminController extends ClassComponent
 	{
