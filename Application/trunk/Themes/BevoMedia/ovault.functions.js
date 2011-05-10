@@ -649,7 +649,7 @@ function addOfferTableRow(offer, oright) {
 		
 	//type
 	//out += '<td class="td_type" style="width:41px;"><p>'+offer['type']+'</p></td>';
-	out += '<td class="td_type"><p>'+offer['type']+'</p></td>';
+	out += '<td class="td_type"><p>'+offer['offerType']+'</p></td>';
 		
 	//vertical
 	//out += '<td class="td_vertical" style="width:123px;"><p>'+offer['categoryTitle']+'</p></td>';
