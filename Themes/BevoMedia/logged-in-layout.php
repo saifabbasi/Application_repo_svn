@@ -56,7 +56,8 @@ if(userTimezoneOffset == false)
 
 <script language="JavaScript" src="/Themes/BevoMedia/AC_RunActiveContent.js"></script>
 
-<script type="text/javascript" src="/JS/charts/jquery-1.4.2.min.js"></script>
+<!--<script type="text/javascript" src="/JS/charts/jquery-1.4.2.min.js"></script>-->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
 <!--[if IE]><script type="text/javascript" src="/JS/charts/excanvas.compiled.js"></script><![endif]-->
 <script type="text/javascript" src="/JS/charts/visualize.jQuery.js"></script>
 <link type="text/css" rel="stylesheet" href="/JS/charts/visualize.jQuery.css"/>
@@ -367,7 +368,15 @@ if(userTimezoneOffset == false)
 									|| $this->PageHelper->Function == 'MyProducts')?' active':'';?>" href="/BevoMedia/User/ChangeProfile.html">My Account</a>
 				<a class="btn topmenu_logout" href="/BevoMedia/User/Logout.html">Logout</a>
 			</div>
-			<div id="setupmenu">
+			<div id="offersmenu">
+				<a class="btn offersmenu_networks<?php echo(($this->PageHelper->Area == 'MyNetworks' && $this->PageHelper->Function == 'Index')
+									|| $this->PageHelper->Function == 'Reviews')?' active':''?>" href="/BevoMedia/Publisher/Index.html">Networks</a>
+				<a class="btn offersmenu_offervault<?php echo($this->PageHelper->Function == 'BestPerformers'
+									|| ($this->PageHelper->Area == 'Offers' && $this->PageHelper->Function == 'Index') 
+									|| $this->PageHelper->Function == 'MySavedLists')?' active':''?>" href="/BevoMedia/Offers/BestPerformers.html">Offers</a>
+				<a class="btn offersmenu_stats<?php echo($this->PageHelper->Function == 'MyStats')?' active':''?>" href="/BevoMedia/Offers/MyStats.html">My Network Stats</a>
+			</div>
+			<!--<div id="setupmenu">
 				<a class="btn setupmenu_networks<?php echo(($this->PageHelper->Area == 'MyNetworks' && $this->PageHelper->Function == 'Index')
 									|| $this->PageHelper->Function == 'Reviews')?' active':''?>" href="/BevoMedia/Publisher/Index.html">Networks</a>
 				<a class="btn setupmenu_offers<?php echo($this->PageHelper->Area == 'Offers')?' active':''?>" href="/BevoMedia/Offers/Index.html">Offers</a>
@@ -375,7 +384,7 @@ if(userTimezoneOffset == false)
 									|| $this->PageHelper->Function == 'RackspaceWizard'
 									|| $this->PageHelper->Function == 'ServerScript'
 									|| $this->PageHelper->Function == 'SelfHostedLoginDownload')?' active':''?>" href="/BevoMedia/User/SelfHostedLogin.html">Self-Hosted</a>
-			</div>
+			</div>-->
 			<div id="coremenu">
 				<a class="btn coremenu_ppc<?php 
 					echo($this->PageHelper->Function == 'PPCManager' //gotta find a better way to do all this, including the redundant containerclass below
@@ -541,9 +550,9 @@ if(userTimezoneOffset == false)
 	</script>
 	<?php endif; ?>
 	
-	<div class="content">	
+	<div class="content">
 		<?=$this->{'Instance/ViewContent'};?>
-		<div class="clear"></div>
+		<div class="clear"></div>		
 	</div><!--close content-->
 	<div class="containerbutt"></div>
 	

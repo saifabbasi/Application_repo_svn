@@ -226,10 +226,31 @@ Class PageHelper {
 			$PagePresets['Offers/NameYourPayoutResult/SubHeading'] = 'Get the payout you want! Enter your requested payout for a a specific offer or niche and have the Bevo networks bid for you to run with them. If a match is found, a Bevo representative will connect you with your winning network.</p><p>Please note: the highest bidding network may not match your desired payout and/or EPC <em>exactly</em>, but it\'s the winner among all bidders.';			
 		
 			$PagePresets['Offers/Index/UniquePageName'] = 'offers_index';
+			$PagePresets['Offers/Index/HeadingImage'] = 'pagedesc_offervault.png';
+			$PagePresets['Offers/Index/Heading'] = 'Bevo Offer Vault';
+			$PagePresets['Offers/Index/SubHeading'] = 'Using Bevo\'s revolutionary Search Offer Tool, you can search for offers across all affiliate networks.';
+			
+			$PagePresets['Offers/BestPerformers/UniquePageName'] = 'offers_bestperf';
+			$PagePresets['Offers/BestPerformers/HeadingImage'] = 'pagedesc_offervault.png';
+			$PagePresets['Offers/BestPerformers/Heading'] = 'Bevo Offer Vault';
+			$PagePresets['Offers/BestPerformers/SubHeading'] = 'Using Bevo\'s revolutionary Search Offer Tool, you can search for offers across all affiliate networks.';
+			
+			$PagePresets['Offers/MySavedLists/UniquePageName'] = 'offers_mysavedlists';
+			$PagePresets['Offers/MySavedLists/HeadingImage'] = 'pagedesc_mysavedlists.png';
+			$PagePresets['Offers/MySavedLists/Heading'] = 'My Saved Offer Lists';
+			$PagePresets['Offers/MySavedLists/SubHeading'] = 'Offer Lists make it easy for you to save offers you are considering for a campaign. Use the yellow button to the left of any offer in the search results to add that offer to a list!';
+			
+			$PagePresets['Offers/MyStats/UniquePageName'] = 'offers_mystats';
+			$PagePresets['Offers/MyStats/HeadingImage'] = 'pagedesc_mynetworkstats.png';
+			$PagePresets['Offers/MyStats/Heading'] = 'My Network Stats';
+			$PagePresets['Offers/MyStats/SubHeading'] = 'View your detailed statistics within your affiliate network. This page allows you to see which offers generated stats, and the SubIDs associated with your affiliate account.';
+			
+			/*
+			$PagePresets['Offers/Index/UniquePageName'] = 'offers_index';
 			$PagePresets['Offers/Index/HeadingImage'] = 'pagedesc_offers.png';
 			$PagePresets['Offers/Index/Heading'] = 'Analyze Offer Performance';
 			$PagePresets['Offers/Index/SubHeading'] = 'Analyze your performance with a specific network below by clicking on stats - you can even drill down to your performance on a specific offer and sub id. Using Bevo\'s Search Offer Tool, you can search for CPA offers across all of the affiliate networks of which you are a member.';
-			
+			*/
 			$PagePresets['Offers/Search/UniquePageName'] = 'offers_search';
 			$PagePresets['Offers/Search/HeadingImage'] = 'pagedesc_offers.png';
 			$PagePresets['Offers/Search/Heading'] = 'Your Offer Search Results';
@@ -848,6 +869,24 @@ Class PageHelper {
 	{
 		return array('EMAIL', 'KEYWORD', 'WEB', 'OTHER');
 	}
+	
+	/**
+	 * Truncate a string to a certain length of characters and append an extension like "..." if it was actually truncated, else return untouched
+	 *
+	 * @param $str string that has to be truncated
+	 * @param $length int length of characters before $str gets cut off
+	 * @param $ext string extension that will be appended if $str gets cut off
+	 * @return string
+	 */
+	 Public Function TruncTxt($str='', $length=20, $ext='...') {
+		if($str != '') {
+			$out = substr($str, 0, $length);
+			if(strlen($out) < strlen($str))
+				$out .= $ext;
+			
+			return $out;
+		}
+	}//TruncTxt()
 }
 
 
