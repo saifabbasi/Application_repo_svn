@@ -101,6 +101,8 @@
 				ON networks.id = offers.network__id
 			LEFT JOIN bevomedia_category AS categories
 				ON categories.id = offers.category__id
+				
+		WHERE	offers.archived = 0
 		
 		ORDER BY offers.dateAdded DESC
 		
