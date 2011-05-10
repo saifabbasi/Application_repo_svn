@@ -36,6 +36,61 @@
 			}
 		}
 		
+		Public Function ManualCharge()
+		{
+			$this->{'resultMessage'} = '';
+			if ( isset ( $_POST['userId'] ) ) {
+				$userId = $_POST['userId'];
+				$amount = $_POST['amount'];
+				
+				$query = "
+					SELECT
+					    *
+				    FROM
+					    bevomedia_user
+				    WHERE
+				        bevomedia_user.id = {$userId}
+				";
+				
+				$user = current($this->db->fetchAssoc($query));
+				
+				$vaultId = $user['vaultID'];
+				
+				$Vault = new nmiCustomerVault();
+				$Vault->setCustomerVaultId($vaultId);
+				$Vault->charge($amount);
+				
+				$Result = $Vault->execute();
+				
+				
+				switch($Result['response'])
+				{
+					case 1: //Success
+						$this->{'resultMessage'} = 'Success!';
+						
+						break;
+					default:
+						
+						$Body = "Misc payment for user \"{$UserID}\" has failed.<br /><br />
+				    			 Error: {$Result['responsetext']}<br /><br />
+				    			 Amount:  \${$Total}		    	
+			    				";
+						 
+						$Headers  = 'MIME-Version: 1.0' . "\r\n";
+						$Headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+						 
+						mail('ryan@bevomedia.com', 'Recurring User Payment Failed', $Body, $Headers);
+						
+						$this->{'resultMessage'} = 'Error! See below and email for details <br/><br/>'. $Body;						
+						
+						break;
+				}
+				
+				
+				
+			}
+		}
+		
 		Public Function GivePremium()
 		{
 			$o = new PremiumOrder();

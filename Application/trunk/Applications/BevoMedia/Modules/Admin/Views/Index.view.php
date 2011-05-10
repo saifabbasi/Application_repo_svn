@@ -69,6 +69,9 @@
 		<li>
 			<a href='Revenue.html'>Sales Report</a>
 		</li>
+		<li>
+			<a href='ManualCharge.html'>Manual Charge</a>
+		</li>
 	</ul>
 </div>
 
