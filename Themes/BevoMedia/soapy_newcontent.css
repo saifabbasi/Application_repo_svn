@@ -935,6 +935,7 @@ h2.imagetitle.interested { width:147px; height:22px; background:url(img/imagetit
 	#ovault .btable td.td_offername p { color:#000; }
 		#ovault .btable td.td_offername p span { font-size:.8em; color:#999; display:block; margin:-5px 0 0; }
 	#ovault .btable td.td_payout p { color:#000; }	
+                #ovault .btable td.td_payout p .small { font-size:.8em; line-height:1em; color:#ccc; text-align:center; }
 	#ovault .btable td.td_type p { font-size:.9em; color:#808080; }
 	#ovault .btable td.td_vertical p { font-size:.9em; color:#808080; }
 	#ovault .btable td.td_network p { font-size:.9em; color:#808080; }
@@ -977,13 +978,14 @@ h2.imagetitle.interested { width:147px; height:22px; background:url(img/imagetit
 		#ovault tr.orowbig td.td_info .floatright { width:250px; }
 		
 			#ovault tr.orowbig td.td_info small { margin:4px 0 15px; font-size:.8em; color:#999; display:block; }
+			#ovault tr.orowbig td.td_info small span { margin:0; font-size:1em; color:#999; }
 			#ovault tr.orowbig td.td_info p { color:#808080; }
                         #ovault tr.orowbig td.td_info a.btn.ovault_importoffer { margin:0; }
 			
 			/*ovault_thumb*/
 			a.ovault_othumb { width:290px; height:125px; margin:0 0 10px; overflow:hidden; display:block; }
-				a.ovault_othumb img { max-width:245px; width:auto !important; width:245px; float:left; }
-				a.ovault_othumb span { width:35px; height:73px; margin:0; display:block; float:left; background:url(img_new/othumb.png) no-repeat; }
+				.ovault_othumb img { max-width:245px; width:auto !important; width:245px; float:left; }
+				.ovault_othumb span { width:35px; height:73px; margin:0; display:block; float:left; background:url(img_new/othumb.png) no-repeat; }
 				a.ovault_othumb:hover span { background-position:left bottom; }
 			
 			/*olink*/			
@@ -1253,6 +1255,8 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 	#offmain_searchform { float:left; }
 	table.floatleft { display:inline !important; }
 }
+
+
 
 
 

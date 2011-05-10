@@ -2,6 +2,9 @@
 	if(isset($_GET['ExportTo']))
 		$viewheaderCSV = true;
 	
+	include 'Applications/BevoMedia/Modules/Offers/Views/Ovault_ConstructAjaxOutput_class.view.php';
+	$construct = new ConstructAjaxOutput();
+	
 	include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.php';
 			
 	/*build lists*/
@@ -130,10 +133,23 @@
 				$isMemberOfNetwork = mysql_query($sql);
 				$offer->isNetworkMember = (mysql_num_rows($isMemberOfNetwork)) ? ' icon_nwmember' : '';
 				
-				$offer->dateAdded_nice = date('M j, Y', strtotime($offer->dateAdded));				
-				$offer->payout = !stristr($offer->payout, '$')
-					? '$'.number_format(intval($offer->payout), 2)
-					: number_format(intval($offer->payout), 2);
+				$offer->dateAdded = $construct->formatDate($offer->dateAdded);
+				$offer->payout = isset($_GET['ExportTo']) ? $offer->payout : $construct->formatPayout($offer->payout); //do not format for CSV
+				
+				//date
+				/*
+				//$offer->dateAdded_nice = date('M j, Y', strtotime($offer->dateAdded));
+				if($offer->dateAdded == '0000-00-00 00:00:00' || $offer->dateAdded == '')
+					$offer->dateAdded_nice = '';
+				else	$offer->dateAdded_nice = date('F j, Y', strtotime($offer->dateAdded));				
+				
+				//payout
+				$offer->payout = preg_replace('/[^0-9\.]/', '', $offer->payout);			
+				$null_payouts = array('0','0.0','0.00');
+				if(in_array($offer->payout, $null_payouts))
+					$offer->payout = '';
+				else	$offer->payout = '$'.number_format($offer->payout, 2);
+				*/
 				
 				$offersArray[] = $offer;
 			}
@@ -163,7 +179,7 @@
 			print "\"$offer->payout\",";
 			print "\"$offer->previewUrl\",";
 			print isset($offer->affLink) ? "\"$offer->affLink\"," : "\"\","; //edit this later when we have the afflink field!
-			print "\"$offer->dateAdded_nice\",";
+			print "\"$offer->dateAdded\",";
 			print "\"$offer->type\",";
 			print "\"$offer->categoryTitle\",";
 			print "\r\n";
@@ -435,7 +451,7 @@
 						$out .= '<tr class="orow j_oright j_oid-'.$offer->id.'" data-oid="'.$offer->id.'" data-listid="'.$ovaultSavelist['righttable']->id.'" title="Click to expand or collapse this offer">';
 						
 						$out .= '<td class="border">&nbsp;</td>';
-						$out .= '<td class="td_offername"><p>'.$offer->title.'<span>Added '.$offer->dateAdded_nice.'</span></p></td>';
+						$out .= '<td class="td_offername"><p>'.$offer->title.$offer->dateAdded.'</p></td>';
 						$out .= '<td class="td_payout"><p>'.$offer->payout.'</p></td>';
 						$out .= '<td class="td_type"><p>'.$offer->type.'</p></td>';
 						$out .= '<td class="td_vertical"><p>'.$offer->categoryTitle.'</p></td>';

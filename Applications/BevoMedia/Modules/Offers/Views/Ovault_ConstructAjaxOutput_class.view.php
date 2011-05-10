@@ -164,16 +164,10 @@ class ConstructAjaxOutput {
 			
 		}
 		
-		
-		//if(!$offer)
-		//	$out['error'] = 'This offer seems to be invalid!';
-		//else	$out['resultarr'] = $offer;
-		//else	
-		
-		//$out['resultarr'] = $offer;
+		$offer->dateAdded = self::formatDate($offer->dateAdded);
 		
 		$out['html'] = self::MakeOrowbig($offer);
-		//$out['html'] = '<pre>'.print_r($offer,true).'</pre>';
+		
 		return $out;
 		
 	}//orowbig()
@@ -366,13 +360,8 @@ class ConstructAjaxOutput {
 			//$offersArray[$key]->title = htmlentities($offer->title, ENT_QUOTES, 'UTF-8'); //turns errors into null values
 			//$offersArray[$key]->title = str_replace('£','&pound;', $offer->title); //doesnt work either...
 			
-			//payout
-			$offersArray[$key]->payout = !stristr($offer->payout, '$')
-				? '$'.number_format(intval($offer->payout), 2)
-				: number_format(intval($offer->payout), 2);
-				
-			//date
-			$offersArray[$key]->dateAdded = date('F j, Y', strtotime($offer->dateAdded));
+			$offersArray[$key]->dateAdded = self::formatDate($offer->dateAdded);
+			$offersArray[$key]->payout = self::formatPayout($offer->payout);
 			
 			//category NULL vals
 			if($offer->categoryTitle == NULL)
@@ -441,15 +430,15 @@ class ConstructAjaxOutput {
 				$isMemberOfNetwork = mysql_query($sql);
 				$offer->isNetworkMember = (mysql_num_rows($isMemberOfNetwork)) ? 1 : 0;
 				
-				$offer->dateAdded_nice = date('M j, Y', strtotime($offer->dateAdded));				
-				$offer->payout = !stristr($offer->payout, '$')
-					? '$'.number_format(intval($offer->payout), 2)
-					: number_format(intval($offer->payout), 2);
-				
+				//date
+				//$offer->dateAdded_nice = date('M j, Y', strtotime($offer->dateAdded));
+				$offer->dateAdded = self::formatDate($offer->dateAdded);
+				$offer->payout = self::formatPayout($offer->payout);
+						
 				$offersArray[] = $offer;
 			}
 			
-			$out['resultarr'] = $offersArray;
+			//$out['resultarr'] = $offersArray;
 			
 		}	
 		
@@ -658,7 +647,7 @@ class ConstructAjaxOutput {
 				
 				$out .= '<div class="floatright">';
 				$out .= '<h3>'.$offer->title.'</h3>';
-				$out .= '<small>Added '.date('F j, Y', strtotime($offer->dateAdded)).'</small>';
+				$out .= $offer->dateAdded ? '<small>'.$offer->dateAdded.'</small>' : '&nbsp;';
 				
 				$out .= '<div class="otitle otitle_offerdesc"></div>';
 				$out .= '<p>'.$offer->detail.'</p>';
@@ -739,4 +728,28 @@ $out .= '</tr><!--close .orowbig-->';
 		
 		return $out;
 	}//makeOrowbig()
+	
+	public function formatPayout($payout=false) {
+		$payout = preg_replace('/[^0-9\.]/', '', $payout);
+		if($payout) {
+			$null_payouts = array('0','0.0','0.00');
+			if(in_array($payout, $null_payouts))
+				$payout = false;
+			else	$payout = '$'.number_format($payout, 2);
+		} else	$payout = false;
+		
+		$payout = $payout ? $payout : '<span class="small">Upon request</span>';
+		
+		return $payout;				
+	}//formatPayout()
+	
+	public function formatDate($date=false) {
+		if($date == '0000-00-00 00:00:00' || $date == '')
+			$date = '&nbsp;';
+		else	$date = 'Added '.date('F j, Y', strtotime($date));
+		
+		$date = '<span>'.$date.'</span>';
+		
+		return $date;
+	}//formatDate
 }

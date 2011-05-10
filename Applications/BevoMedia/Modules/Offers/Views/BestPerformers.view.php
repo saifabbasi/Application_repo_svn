@@ -1,4 +1,7 @@
 <?php
+	include 'Applications/BevoMedia/Modules/Offers/Views/Ovault_ConstructAjaxOutput_class.view.php';
+	$construct = new ConstructAjaxOutput();
+
 	/*recommended offer*/
 	$offer_id = '20726';
 	
@@ -132,10 +135,19 @@
 	}
 	
 	//formatting
-	$offer->dateAdded_nice = date('F j, Y', strtotime($offer->dateAdded));
-	$offer->payout = !stristr($offer->payout, '$')
-			? '$'.number_format(intval($offer->payout), 2)
-			: number_format(intval($offer->payout), 2);
+	//$offer->dateAdded_nice = date('F j, Y', strtotime($offer->dateAdded));
+	
+	$offer->dateAdded = $construct->formatDate($offer->dateAdded);
+	$offer->payout = $construct->formatPayout($offer->payout);
+	
+	//payout
+	/*	
+	$offer->payout = preg_replace('/[^0-9\.]/', '', $offer->payout);	
+	$null_payouts = array('0','0.0','0.00');
+	if(in_array($offer->payout, $null_payouts))
+		$offer->payout = '';
+	else	$offer->payout = '$'.number_format($offer->payout, 2);
+	*/
 			
 	/*latest offers*/
 	$sql = "SELECT 	offers.*,
@@ -184,10 +196,17 @@
 		$latest->saved2list = mysql_num_rows($savelistLatest) ? 1 : 0;
 		
 		//formatting
-		$latest->dateAdded_nice = date('F j, Y', strtotime($latest->dateAdded));
-		$latest->payout = !stristr($latest->payout, '$')
-				? '$'.number_format(intval($latest->payout), 2)
-				: number_format(intval($latest->payout), 2);
+		$latest->dateAdded = $construct->formatDate($latest->dateAdded);
+		$latest->payout = $construct->formatPayout($latest->payout);
+		
+		/*$latest->dateAdded_nice = date('F j, Y', strtotime($latest->dateAdded));
+		
+		$latest->payout = preg_replace('/[^0-9\.]/', '', $latest->payout);	
+		$null_payouts = array('0','0.0','0.00');
+		if(in_array($latest->payout, $null_payouts))
+			$latest->payout = '';
+		else	$latest->payout = '$'.number_format($latest->payout, 2);
+		*/
 				
 		$offers[] = $latest;
 	
@@ -225,7 +244,7 @@ include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.p
 				<div class="olay_container"></div>
 			</td>
 			<td class="td_offername">
-				<p><?php echo $offer->title; ?><span><?php echo $offer->dateAdded_nice; ?></span></p>
+				<p><?php echo $offer->title.$offer->dateAdded; ?></p>
 			</td>
 			<td class="td_payout">
 				<p><?php echo $offer->payout; ?></p>
@@ -265,7 +284,7 @@ include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.p
 					</div><!--close floatleft-->
 					<div class="floatright">
 						<h3><?php echo $offer->title; ?></h3>
-						<small>Added <?php echo $offer->dateAdded_nice?></small>
+						<small><?php echo $offer->dateAdded ?></small>
 						
 						<div class="otitle otitle_offerdesc"></div>
 						<p><?php echo $offer->detail; ?></p>
@@ -278,7 +297,7 @@ include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.p
 								<a class="btn ovault_visiticon" href="<?php echo $offer->affUrl; ?>" title="Click to test your affiliate link (opens in new tab)" target="_blank">Visit</a>
 							</div>
 						<?php } ?>
-					</div><!--close floatleft-->
+					</div><!--close floatright-->
 					<div class="clear"></div>
 				</div>
 			</td><!--close td_info-->
@@ -300,7 +319,7 @@ include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.p
 						
 						<p>You're already a member of this network!</p>
 						<div class="icon icon_ovault_nwmember_bigwhite"></div>
-						<a class="btn ovault_gotomystats_trans" href="#">Go to my stats</a>
+						<a class="btn ovault_gotomystats_trans" href="/BevoMedia/Offers/MyStats.html?network=<?php echo $offer->network__id; ?>">Go to my stats</a>
 						
 					<?php } else { ?>
 						
@@ -369,7 +388,7 @@ include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.p
 						<div class="olay_container"></div>
 					</td>
 					<td class="td_offername">
-						<p><?php echo $o->title; ?><span><?php echo $o->dateAdded_nice; ?></span></p>
+						<p><?php echo $o->title.$o->dateAdded; ?></p>
 					</td>
 					<td class="td_payout">
 						<p><?php echo $o->payout; ?></p>
