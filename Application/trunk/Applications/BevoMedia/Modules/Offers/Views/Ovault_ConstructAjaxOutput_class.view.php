@@ -36,7 +36,7 @@ class ConstructAjaxOutput {
 		
 		$offerID = intval($query['params']['oid']);		
 				
-		$sql = "SELECT
+		/*$sql = "SELECT
 					bevomedia_offers.*,
 					bevomedia_category.title as `categoryTitle`,
 					bevomedia_aff_network.title as `networkName`,
@@ -50,7 +50,22 @@ class ConstructAjaxOutput {
 					(bevomedia_category.id = bevomedia_offers.category__id) AND
 					(bevomedia_aff_network.id = bevomedia_offers.network__id) AND
 					(bevomedia_offers.id = {$offerID})
-				"; //echo $sql;die;
+				"; echo $sql;die;*/
+				
+		$sql = "SELECT	offers.*,
+				category.title as `categoryTitle`,
+				network.title as `networkName`,
+				network.detail as `networkDescription`,
+				network.offerUrl as `affUrl`
+			FROM
+				bevomedia_offers AS offers
+				LEFT JOIN bevomedia_category AS category
+					ON category.id = offers.category__id
+				LEFT JOIN bevomedia_aff_network AS network
+					ON network.id = offers.network__id
+			WHERE
+				offers.id = {$offerID}
+		";
 		
 		$data = mysql_query($sql);
 		
