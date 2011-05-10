@@ -1,6 +1,6 @@
 <?php
 	/*recommended offer*/
-	$offer_id = '39324';
+	$offer_id = '20726';
 	
 	$sql = "SELECT 	offers.*,
 			categories.title AS categoryTitle,
