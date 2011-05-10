@@ -358,27 +358,6 @@ class ConstructAjaxOutput {
 			
 			$offersArray[] = $offer;
 			
-			// $offer->id
-			// $offer->title = $offerTEMP->offername
-			// $offer->dateAdded = $offerTEMP->dateadded
-			// $offer->payout = $offerTEMP->payout
-			// $offer->type = $offerTEMP->offerType
-			// $offer->categoryTitle = $offerTEMP->vertical
-			// $offer->isNetworkMember = $offerTEMP->is_networkmember
-			// $offer->networkName = $offerTEMP->networkname
-			
-			
-			
-			//OLD OBJECT
-			// $offerTEMP->saved2list = 1; //already saved in a list or not? 
-			// $offerTEMP->offername = 'Shields Deluxe Enhanced Pro Ultra Plus';
-			// $offerTEMP->dateadded = '12/12/2011';
-			// $offerTEMP->payout = '$12.50';
-			// $offerTEMP->type = 'Lead';
-			// $offerTEMP->vertical = 'Shields &amp; Daggers';
-			// $offerTEMP->is_networkmember = 1; //is this user a member of the network?
-			// $offerTEMP->networkname = 'CPA Staxx';
-			
 		}
 		
 		//format a few things
@@ -394,6 +373,10 @@ class ConstructAjaxOutput {
 				
 			//date
 			$offersArray[$key]->dateAdded = date('F j, Y', strtotime($offer->dateAdded));
+			
+			//category NULL vals
+			if($offer->categoryTitle == NULL)
+				$offersArray[$key]->categoryTitle = '';
 		}
 		
 		//pagination
