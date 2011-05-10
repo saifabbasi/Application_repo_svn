@@ -120,8 +120,8 @@
 		
 		ovault_orow_ignoreClick = false,
 		
-		ovault_ajaxGet = 'ajaxGetContent.html',
-		ovault_ajaxPut = 'ajaxPutContent.html',
+		ovault_ajaxGet = 'AjaxGetContent.html',
+		ovault_ajaxPut = 'AjaxPutContent.html',
 		ovault_searchPage = '/BevoMedia/Offers/Index.html',
 		ovault_mysavedPage = '/BevoMedia/Offers/MySavedLists.html',
 		
