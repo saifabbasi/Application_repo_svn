@@ -2290,6 +2290,162 @@ END;
 			//NetworkPayments
 		}
 		
+		Public Function BrokerTrackingPlatforms()
+		{
+			$this->TopMenu = $this->BrokersMenu();
+			
+			
+			$Sql = "SELECT 
+						*
+					FROM
+						broker_tracking_platforms
+					ORDER BY
+						Name
+					";
+			
+			$this->TrackingPlatforms = $this->db->fetchAll($Sql);
+		}
+		
+		Public Function BrokerTrackingPlatformForm()
+		{
+			$this->TopMenu = $this->BrokersMenu();
+			
+			
+			$ID = intval($_GET['ID']);
+			
+			if (isset($_POST['Save'])) {
+				if ($ID==0) {
+					$InsertArray = array('Name' => $_POST['Name']);
+					$this->db->insert('broker_tracking_platforms', $InsertArray);
+				} else {
+					$UpdateArray = array('Name' => $_POST['Name']);
+					$this->db->update('broker_tracking_platforms', $UpdateArray, 'ID = '.$ID);
+				}
+				
+				header('Location: /BevoMedia/Admin/BrokerTrackingPlatforms.html');
+				die;
+			}
+			
+			$Sql = "SELECT
+						*
+					FROM
+						broker_tracking_platforms
+					WHERE
+						(broker_tracking_platforms.ID = ?)
+					";
+			$this->TrackingPlatform = $this->db->fetchRow($Sql, $ID);
+		}
+		
+		Public Function BrokerNetworks()
+		{
+			$this->TopMenu = $this->BrokersMenu();
+			
+			
+			if (isset($_GET['EnableID'])) {
+				$UpdateArray = array(
+											'Enabled' => 1,
+									);
+				$this->db->update('broker_networks', $UpdateArray, 'ID = '.intval($_GET['EnableID']));
+				
+				header('Location: /Bevomedia/Admin/BrokerNetworks.html');
+				die;
+			}
+			
+			if (isset($_GET['DisableID'])) {
+				$UpdateArray = array(
+											'Enabled' => 0,
+									);
+				$this->db->update('broker_networks', $UpdateArray, 'ID = '.intval($_GET['DisableID']));
+				
+				header('Location: /Bevomedia/Admin/BrokerNetworks.html');
+				die;
+			}
+			
+			
+			
+			
+			$Sql = "SELECT 
+						*
+					FROM
+						broker_networks
+					ORDER BY
+						Name
+					";
+			
+			$this->BrokerNetworks = $this->db->fetchAll($Sql);
+		}
+		
+		Public Function BrokerNetworkForm()
+		{
+			$this->TopMenu = $this->BrokersMenu();
+			
+			
+			$ID = intval($_GET['ID']);
+			
+			
+			if (isset($_POST['Save'])) {
+				if ($ID==0) {
+					$InsertArray = array(
+											'Username' => $_POST['Username'],
+											'Password' => $_POST['Password'],
+											'Name' => $_POST['Name'],
+											'TrackingPlatformID' => $_POST['TrackingPlatformID'],
+											'Email' => $_POST['Email'],
+											'Phone' => $_POST['Phone'],
+									);
+					$this->db->insert('broker_networks', $InsertArray);
+				} else {
+					$UpdateArray = array(
+											'Username' => $_POST['Username'],
+											'Password' => $_POST['Password'],
+											'Name' => $_POST['Name'],
+											'TrackingPlatformID' => $_POST['TrackingPlatformID'],
+											'Email' => $_POST['Email'],
+											'Phone' => $_POST['Phone'],
+									);
+					$this->db->update('broker_networks', $UpdateArray, 'ID = '.$ID);
+				}
+				
+				header('Location: /BevoMedia/Admin/BrokerNetworks.html');
+				die;
+			}
+			
+			$Sql = "SELECT
+						*
+					FROM
+						broker_networks
+					WHERE
+						(broker_networks.ID = ?)
+					";
+			$this->BrokerNetwork = $this->db->fetchRow($Sql, $ID);
+			
+			
+			
+			$Sql = "SELECT 
+						*
+					FROM
+						broker_tracking_platforms
+					ORDER BY
+						Name
+					";
+			
+			$this->TrackingPlatforms = $this->db->fetchAll($Sql);
+		}
+		
+		Public Function BrokersMenu()
+		{
+			$TopMenu = '
+				
+				<a href="/Bevomedia/Admin/BrokerTrackingPlatforms.html">Tracking Platforms</a>
+				|
+				<a href="/Bevomedia/Admin/BrokerNetworks.html">Broker Networks</a>
+			
+				<br /><br />
+			';
+			
+			return $TopMenu;
+		}
+		
 	}
 
 ?>

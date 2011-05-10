@@ -104,6 +104,7 @@ $(document).ready(function() {
 	}
 });
 
+/*kitchen*/
 function soap_cookCreate(name,value,days) {
 	if(days) {
 		var date = new Date();
@@ -124,4 +125,36 @@ function soap_cookRead(name) {
 	}
 	return null;
 }
+
+/*truncate*/
+function soap_truncTxt(str,len,ext) {
+	len = len ? len : 20;
+	ext = ext == undefined ? '...' : ext;
+	if(str && str != '') {
+		var out = str.substring(0,len);
+		if(len < str.length)
+			out += ext;
+		return out;
+	}
+}//soap_truncTxt
+
+/*ArrayUnique*/ //filters out dupes in an array
+var ArrayUnique = function(origArr) {  
+	var newArr = [],  
+	origLen = origArr.length,  
+	found,  
+	x, y;
+
+	for ( x = 0; x < origLen; x++ ) {  
+		found = undefined;  
+		for ( y = 0; y < newArr.length; y++ ) {  
+			if ( origArr[x] === newArr[y] ) {  
+				found = true;  
+				break;  
+			}  
+		}  
+		if ( !found) newArr.push( origArr[x] );  
+	}  
+	return newArr;  
+}; 
 
