@@ -20,6 +20,9 @@ class OfferImport {
 	public function __construct($NetworkID)
 	{
 		$this->networkId = $NetworkID;
+		
+		$sql = "UPDATE ".$this->offersTableName." SET archived = 1 WHERE network__id = " . $this->networkId;
+		mysql_query($sql);
 	}
 	
 	public function insertOffer($OfferObj)
@@ -42,7 +45,7 @@ class OfferImport {
 			
 			$UpdateSql .= "network__id = '" . $this->networkId . "'";
 			
-			$Sql = "UPDATE " . $this->offersTableName . " SET " . $UpdateSql . " WHERE id = '" . $OfferInsertID . "'";
+			$Sql = "UPDATE " . $this->offersTableName . " SET " . $UpdateSql . ", archived = 0 WHERE id = '" . $OfferInsertID . "'";
 		
 			$Result = mysql_query($Sql);
 			if(!$Result){

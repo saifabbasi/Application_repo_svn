@@ -196,7 +196,7 @@ Class User {
 	const PRODUCT_FREE_RESEARCH = 'Free Research';
 	const PRODUCT_FREE_PPVSPY = 'Free PPVSpy';
 	
-	
+	const PRODUCT_PPVSPY_REFERRAL_PRICE = 'PPVSpy Referral Price';
 	
 	
 	/**
@@ -577,6 +577,28 @@ Class User {
 							  );
 			    $this->_db->insert('bevomedia_referrals', $Array);
 			}	
+		} else
+		if (isset($_COOKIE['BevoReferralS']) && (strlen($_COOKIE['BevoReferralS'])==32) ) 
+		{
+			$ReferrerID = $this->FindUserIdByReferralCode($_COOKIE['BevoReferralS']);
+			
+			if ($ReferrerID)
+			{
+				$Array = array(
+								'ReferrerID' => $ReferrerID,
+								'UserID'	 => $this->id,			
+							  );
+			    $this->_db->insert('bevomedia_referrals', $Array);
+			    $ReferID = $this->_db->lastInsertId();
+			    
+			    $ReferrerUser = new User($ReferrerID);
+			    if ($ReferrerUser->IsSubscribed(User::PRODUCT_PPVSPY_REFERRAL_PRICE)) {
+				    $Array = array(
+									'ReferID' => $ReferID			
+								  );
+				    $this->_db->insert('bevomedia_referrals_ppvspy', $Array);
+			    }
+			}
 		}
 		
 		
@@ -1666,6 +1688,34 @@ END;
 		}
 		
 		return null;
+	}
+	
+	Public Function GetPPVSpyOneTimePrice()
+	{
+		$Product = $this->GetProduct(User::PRODUCT_PPVSPY_YEARLY);
+		
+		$Sql = "SELECT 
+					bevomedia_referrals.ID,
+					bevomedia_referrals.ReferrerID
+				FROM 
+					bevomedia_referrals_ppvspy,
+					bevomedia_referrals 
+				WHERE 
+					(bevomedia_referrals.ID = bevomedia_referrals_ppvspy.ReferID) AND 
+					(bevomedia_referrals.UserID = ?)
+				";
+		$Row = $this->_db->fetchRow($Sql, $this->id);
+		
+		if (isset($Row->ID)) {
+			
+			$ParentUser = new User($Row->ReferrerID);
+			if ($ParentUser->IsSubscribed(User::PRODUCT_PPVSPY_REFERRAL_PRICE)) {
+				return 497;
+			}
+			
+		}
+		
+		return $Product->Price;
 	}
 }
 ?>
