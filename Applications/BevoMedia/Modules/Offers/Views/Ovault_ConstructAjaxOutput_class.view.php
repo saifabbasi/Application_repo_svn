@@ -377,6 +377,7 @@ class ConstructAjaxOutput {
 			//category NULL vals
 			if($offer->categoryTitle == NULL)
 				$offersArray[$key]->categoryTitle = '';
+			
 		}
 		
 		//pagination
