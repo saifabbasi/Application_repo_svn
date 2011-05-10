@@ -1047,7 +1047,7 @@ while($Row = mysql_fetch_assoc($Query))
 ?>
 						<tr>
 							<td class="border">&nbsp;</td>
-							<td  style="text-align: left;"><span><a href='/BevoMedia/Offers/Stats.html?network=<?php echo $network['id']?>'><?=$network['title']?></a></span></td>
+							<td  style="text-align: left;"><span><a href='/BevoMedia/Offers/MyStats.html?network=<?php echo $network['id']?>'><?=$network['title']?></a></span></td>
 							<td  style="text-align: center;"><span><?=LegacyAbstraction::getFormattedPrice($network['REVENUE'])?></span></td>
 							<td  style="text-align: center;"><span><?=LegacyAbstraction::getFormattedPrice($network['MTD'])?></span></td>
 							<td  style="text-align: center;"><span><?=(int)$network['clicks']?></span></td>
