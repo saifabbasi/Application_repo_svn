@@ -338,6 +338,7 @@ class ConstructAjaxOutput {
 					{$searchAdd}
 					{$networksSearchAdd}
 					{$savelistAdd}
+					AND bevomedia_offers.archived = 0
 				ORDER BY 
 					bevomedia_offers.payout DESC
 					{$limitAdd}
