@@ -77,7 +77,7 @@ Class AffiliateNetworkUser {
 	Public Function GetAllAffiliateNetworksForUser($UserID)
 	{
 		$Output = array();
-		$AffNetworks = $this->_db->fetchAll('SELECT bevomedia_user_aff_network.id AS id FROM bevomedia_user_aff_network LEFT JOIN bevomedia_aff_network ON bevomedia_aff_network.id = bevomedia_user_aff_network.network__id WHERE user__id = ? ORDER BY title', $UserID);
+		$AffNetworks = $this->_db->fetchAll('SELECT bevomedia_user_aff_network.id AS id FROM bevomedia_user_aff_network LEFT JOIN bevomedia_aff_network ON bevomedia_aff_network.id = bevomedia_user_aff_network.network__id WHERE user__id = ? AND isValid = \'Y\' ORDER BY title', $UserID);
 		foreach($AffNetworks as $AffNetwork)
 		{
 			$Output[] = new AffiliateNetworkUser($AffNetwork->id);
