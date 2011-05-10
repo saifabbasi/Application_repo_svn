@@ -88,6 +88,7 @@
 		setcookie($myNws['cookie_lastnw'], $myNws['current'], time()+60*60*24*30*12);
 	
 	/*get all user networks*/
+	//BELOW: OLD QUERY -  ONLY GETS NWs THAT HAVE OFFERS! NO GOOD
 	$sql = "SELECT 	networks.*,
 			COUNT(offers.id) AS offercount
 		FROM	bevomedia_aff_network AS networks
@@ -97,6 +98,19 @@
 				ON (usernetworks.network__id = networks.id)
 		WHERE	usernetworks.user__id = {$_SESSION['User']['ID']}
 			AND offers.archived = 0
+			AND networks.model = 'CPA'
+			AND networks.isValid = 'Y'
+		GROUP BY networks.id	
+		ORDER BY networks.title
+	";
+	
+	$sql = "SELECT 	networks.*
+		FROM	bevomedia_aff_network AS networks
+			LEFT JOIN bevomedia_user_aff_network AS usernetworks
+				ON (usernetworks.network__id = networks.id)
+		WHERE	usernetworks.user__id = {$_SESSION['User']['ID']}
+			AND networks.model = 'CPA'
+			AND networks.isValid = 'Y'
 		GROUP BY networks.id	
 		ORDER BY networks.title
 	";
@@ -448,9 +462,7 @@
 				<ul>
 					<li><a<?php echo ($myNws['page'] == 'performance' ? ' class="active"' : ''); ?> href="?page=performance">Performance Report<span></span></a></li>
 					<li><a<?php echo ($myNws['page'] == 'subids' ? ' class="active"' : ''); ?> href="?page=subids">Sub ID Report<span></span></a></li>
-					<?php if($myNws['righttable']->nw->offercount > 0)
-						echo '<li><a class="btn ovault_mystats_findallnwoffers" href="#" data-nwid="'.$myNws['righttable']->nw->id.'" title="View all '.$myNws['righttable']->nw->offercount.' offers on this network">Offers</a></li>';
-					?>
+					<li><a class="btn ovault_mystats_findallnwoffers" href="#" data-nwid="<?php echo $myNws['righttable']->nw->id; ?>" title="View all offers on this network">Offers</a></li>
 				</ul>
 			</div><!--close tabs-->
 			<div class="content">
