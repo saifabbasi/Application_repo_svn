@@ -462,7 +462,11 @@
 				<ul>
 					<li><a<?php echo ($myNws['page'] == 'performance' ? ' class="active"' : ''); ?> href="?page=performance">Performance Report<span></span></a></li>
 					<li><a<?php echo ($myNws['page'] == 'subids' ? ' class="active"' : ''); ?> href="?page=subids">Sub ID Report<span></span></a></li>
-					<li><a class="btn ovault_mystats_findallnwoffers" href="#" data-nwid="<?php echo $myNws['righttable']->nw->id; ?>" title="View all offers on this network">Offers</a></li>
+					
+					<?php //dont allow search for clickbank (1040)
+					if($myNws['righttable']->nw->id != '1040')
+						echo '<li><a class="btn ovault_mystats_findallnwoffers" href="#" data-nwid="'.$myNws['righttable']->nw->id.'" title="View all offers on this network">Offers</a></li>';
+					?>
 				</ul>
 			</div><!--close tabs-->
 			<div class="content">
