@@ -32,37 +32,29 @@ body { font-family:Helvetica, Arial, sans-serif; color:#333; font-size:75%; back
 	/*topdroptop*/
 	.topdropbox { height:90px; padding:3px 6px 0 0; margin:0 10px 0 0; float:left; position:relative; overflow:hidden; }
 		.topdropbox_financial { width:218px; }
-                        .topdrop_premium .topdropbox_financial { width:450px; }
-		.topdropbox_api { width:190px; }
+                        .topdrop_premium .topdropbox_financial {}
+		.topdropbox_api { width:65px; }
+        		.topdrop_premium .topdropbox_api { width:190px; }
 		.topdropbox_accstatus { width:362px; overflow:visible; }
-		.topdropbox_premiumsupport { width:220px; }
 		.topdropbox_mentorship_slim { width:149px; margin-right:0; }
 		.topdropbox_mentorship_wide { width:290px; margin-right:0; }
+                .topdropbox_ootm { width:220px; margin:-4px 0 0 10px; position:relative; }
+                        .topdrop_standard .topdropbox_ootm { margin:-4px -1px 0 0; position:relative; left:-8px; }
 
                 #topdropgraph { width:450px; height:65px; margin:16px 0 0 25px; overflow:hidden; } 
 	
 		.topdropentry {}
-			.topdropbox_financial .topdropentry { margin:0 0 12px; text-align:right; font-size:1.2em; font-weight:bold; }
+			.topdropbox_financial .topdropentry { margin:0 0 9px; text-align:right; font-size:1.2em; font-weight:bold; }
 				.topdropentry_earnings { color:#29abe2; }
 				.topdropentry_expenses { color:#f00; }
 				.topdropentry_profit { color:#8CC63F; }
-
-                                .topdrop_premium .topdropentry_earnings { width:119px; margin:-2px 0 0 55px; float:left; display:inline; }
-                                .topdrop_premium .topdropentry_expenses { width:119px; margin:-2px 0 0 18px; float:left; display:inline; }
-                                .topdrop_premium .topdropentry_profit { width:119px; margin:-2px 0 0 18px; float:left; display:inline; }
-				
+	
 			.topdropbox_api .topdropentry { height:35px; margin:0 0 8px; text-align:right; font-size:1.2em; line-height:1em; font-weight:bold; color:#999; }
+	        		.topdrop_standard .topdropbox_api .topdropentry { height:29px; text.align:center; }
+        			.topdrop_standard .topdropbox_api .topdropentry_networkupdate { margin:30px 0 0 }
 			.topdropbox_api .topdropentry span { font-size:.7em; font-weight:normal; display:block; }
+        			.topdrop_standard .topdropbox_api .topdropentry span { display:none; }
 			
-			.topdropbox_accstatus .topdropentry { width:200px; margin:30px 0 0 10px; font-size:1em; color:#FFB500; }
-                                .topdropbox_accstatus strong,
-                                .topdropbox_accstatus ul { color:#FFB500; position:relative; z-index:12; }
-				.topdropbox_accstatus a.btn { position:absolute; top:-18px; right:1px; z-index:11; }
-				
-			.topdropbox_premiumsupport .topdropentry { width:135px; margin:0 0 14px 85px; font-size:1em; color:#ccc; }
-				.topdropbox_premiumsupport .topdropentry a { display:block; color:#ccc; text-decoration:underline; font-size:.9em; }
-				.topdropbox_premiumsupport .topdropentry a:hover { color:#FFB500; }
-				
 			.topdropbox_mentorship_slim a.btn { margin:27px 0 0 6px; }
 			
 			.topdropbox_mentorship_wide ul { margin:0 0 0 90px; color:#8CC63F; }
@@ -71,6 +63,20 @@ body { font-family:Helvetica, Arial, sans-serif; color:#333; font-size:75%; back
 				
 				.topdropbox_mentorship_wide a.btn { position:absolute; top:50px; left:10px; }
 				
+			.topdropbox_accstatus .topdropentry { width:200px; margin:30px 0 0 10px; font-size:1em; color:#FFB500; }
+                                .topdropbox_accstatus strong,
+                                .topdropbox_accstatus ul { color:#FFB500; position:relative; z-index:12; }
+				.topdropbox_accstatus a.btn { position:absolute; top:-18px; right:1px; z-index:11; }
+				
+			.topdropbox_ootm .ootmpic { width:184px; height:80px; background:url(img_new/topdrop_ootm.gif) no-repeat; position:absolute; top:0; right:0; }
+			.topdropbox_ootm  a.btn.ovault_transyell_details { position:absolute; top:37px; left:4px; }
+				.topdropbox_ootm .ootmpic a.picbtn  { width:170px; height:80px; display:block; position:relative; left:14px; overflow:hidden; }
+					.topdropbox_ootm .ootmpic .picbtn img { max-width:170px; width:auto !important; width:80px; z-index:10; }
+					.topdropbox_ootm .ootmpic .picbtn span.picframe { width:170px; height:80px; position:absolute; top:0; left:0; background:url(img_new/topdrop_ootm_picbtn_picframe.png) no-repeat; z-index:11; }
+					.topdropbox_ootm .ootmpic .picbtn span.btn { display:block; position:absolute; top:0px; right:0px; z-index:12; }
+			
+			
+				
 	/*topdropbutt*/
 	.topdroplabel { height:23px; padding:7px 10px 5px; float:left; font-size:1.8em; letter-spacing:-.05em; overflow:hidden; position:relative; }
 		.topdroplabel_financial { width:211px; }
@@ -78,7 +84,7 @@ body { font-family:Helvetica, Arial, sans-serif; color:#333; font-size:75%; back
 		.topdroplabel_installdownload { width:195px; padding:4px 5px 5px 11px; }
 		.topdroplabel_discoverpremium { width:215px; }
 		.topdroplabel_premiumacc { width:215px;  }
-		.topdroplabel_mentorship { width:282px; }
+                .topdroplabel_quicksearch { width:282px; }
 		
 		.topdroplabel .topdropentry { text-align:center; float:right; }
 			.topdroplabel_financial .topdropentry { width:140px; color:#fff;}
@@ -97,13 +103,18 @@ body { font-family:Helvetica, Arial, sans-serif; color:#333; font-size:75%; back
                         .topdrop_premium .topdroplabel_clickstooffer { width:89px; margin-left:50px; color:#b2b2b2; }
                         .topdrop_premium .topdroplabel_conversions { width:90px; margin-left:42px; color:#D1D1D1; }
                         .topdrop_premium .topdroplabel_cr { width:61px; margin-left:38px; color:#F2F2F2; }
+                        
+                .topdroplabel_quicksearch p { width:190px; margin:2px 0 0 60px; line-height:1em; color:#888; font-size:11px; letter-spacing:normal; text-align:center; }
+                .topdroplabel_quicksearch .hide { display:none; }
+                .topdroplabel_quicksearch input.formtxt { width:195px; padding:4px; margin:0 5px 0 50px; float:left; font-size:10px; box-shadow:none; }
+                .topdroplabel_quicksearch input.btn { margin:1px 0 0 5px; }
+                        
                         /*.topdrop_premium .topdroplabel_api { width:143px; }
                                 .topdrop_premium .topdroplabel_api .topdropentry { width:102px; color:#999; }
                                 .topdrop_premium .topdroplabel_api a.btn { margin:6px 0 0 5px; float:right; }*/
-		
-                .topdroplabel_mentorship .topdroptoggle { width:238px; height:26px; margin:-7px 0 0; float:left; }
+                /*.topdroplabel_mentorship .topdroptoggle { width:238px; height:26px; margin:-7px 0 0; float:left; }
                         .topdrop_premium .topdroplabel_mentorship { width:280px; }
-		.topdroplabel_mentorship a.btn { float:right; margin:-22px 0 0; }
+		.topdroplabel_mentorship a.btn { float:right; margin:-22px 0 0; }*/
 		
 /*header*/
 #header h1 { position:absolute; top:10px; left:0; }
@@ -342,7 +353,5 @@ ul#footermenu li { display:inline; margin:0 5px; }
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 	#networkotm a { margin-top:8px; display:block; }
 }
-
-
 
 

@@ -470,27 +470,40 @@ function updateDialByHash(searchstring) {
 	
 	//networks
 	if(params['include_networks'] && params['inclde_networks'] != '') {
-		$('#osearch_include_networks').val(params['include_networks']);
-		var tmp = params['include_networks'].split(',');
-		
-		tmp = ArrayUnique(tmp); //filter out dupes
-		
 		var nwcount = 0;
 		
-		//first deactivate all
-		$('#olay_networks ul.j_olay_allnetworkslist li a, #olay_networks ul.j_olay_mynetworklist li a').removeClass('active');
-		//then activate the right ones
-		$.each(tmp, function(i, value) {
+		//if ALL
+		if(params['include_networks'] == 'ALL' || params['include_networks'] == 'all' || params['include_networks'] == 'All') {
+			
+			params['include_networks'] = 'ALL'; //overwrite with allcaps
+			
 			$('#olay_networks ul.j_olay_allnetworkslist li a, #olay_networks ul.j_olay_mynetworklist li a').each(function() {
-				if($(this).hasClass('j_nwid-'+value)) {
-					nwcount++;
-					$(this).addClass('active');
-				}
+				nwcount++;
+				$(this).addClass('active');
 			});
-		});
-		//update number
+			
+		} else {	
+			var tmp = params['include_networks'].split(',');		
+			tmp = ArrayUnique(tmp); //filter out dupes
+					
+			//first deactivate all
+			$('#olay_networks ul.j_olay_allnetworkslist li a, #olay_networks ul.j_olay_mynetworklist li a').removeClass('active');
+			//then activate the right ones
+			$.each(tmp, function(i, value) {
+				$('#olay_networks ul.j_olay_allnetworkslist li a, #olay_networks ul.j_olay_mynetworklist li a').each(function() {
+					if($(this).hasClass('j_nwid-'+value)) {
+						nwcount++;
+						$(this).addClass('active');
+					}
+				});
+			});
+		}//endif all
+		
+		//update hidden and number
+		$('#osearch_include_networks').val(params['include_networks']);
 		$('#number_networks').html(nwcount);
 	}
+	
 	//type
 	if(params['type'] && params['type'] != '') {
 		tmp = params['type'].split(',');

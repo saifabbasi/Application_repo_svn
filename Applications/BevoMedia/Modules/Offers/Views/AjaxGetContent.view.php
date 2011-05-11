@@ -21,7 +21,7 @@ $allowed_gets = array('orowbig', 'searchresults','savelistoffers');
 $query = array();
 $out = array();
 $error = false;
-
+	
 /*start script*/
 if($_GET && isset($_GET['get']) && in_array($_GET['get'], $allowed_gets)) {
 	
@@ -45,14 +45,20 @@ if($_GET && isset($_GET['get']) && in_array($_GET['get'], $allowed_gets)) {
 				$f = str_replace(array('\'','"'), '', strip_tags(trim($_GET[$key])));
 				
 				if($key == 'include_networks') {
-					$terms = explode(',', $f);
-					$goodterms = array();
-					foreach($terms as $term) {
-						if(trim($term) != '')
-							$goodterms[] = trim(intval($term));
+					
+					if($f == 'ALL' || $f == 'all' || $f == 'All') {
+						$f = 'ALL';
+					
+					} else {
+						$terms = explode(',', $f);
+						$goodterms = array();
+						foreach($terms as $term) {
+							if(trim($term) != '')
+								$goodterms[] = trim(intval($term));
+						}
+						$goodterms = array_unique($goodterms);
+						$f = implode(',',$goodterms);
 					}
-					$goodterms = array_unique($goodterms);
-					$f = implode(',',$goodterms);
 			
 				} elseif($key == 'numresults' || $key == 'page' || $key == 'newpage' || $key == 'include_mysaved') {
 					$tmp = intval($_GET[$key]); 

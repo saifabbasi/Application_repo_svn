@@ -11,7 +11,10 @@
 	//set $OfferSaveList to list ID or "new" if no list exists yet. echo it for the js var currentSaveList.
 	
 	global $ovaultSavelist;
-	$ovaultSavelist = array('cookie'=>'__bevoOLSL');
+	$ovaultSavelist = array(
+		'cookie'=>'__bevoOLSL', //last active savelist
+		'cookie_lastsearch' => '__bevoOLSearch', //last search query (hash). when changing value, also change it in offers/index.view!!!
+	);
 	
 	$TEMP = "CREATE TABLE IF NOT EXISTS bevomedia_user_offerlists(
 			id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -127,7 +130,7 @@
 		
 		ovault_cache = [],
 		
-		ovault_cook_LastSearch = '__bevoOLSearch',		
+		ovault_cook_LastSearch = '<?php echo $ovaultSavelist['cookie_lastsearch']; ?>',		
 		
 		ovault_cookSearch = soap_cookRead(ovault_cook_LastSearch),
 		
