@@ -79,7 +79,6 @@ class OfferImport {
 						if (stristr($Title, $VerticalKeyword) || stristr($Description, $VerticalKeyword)) 
 						{
 							$found = true;
-							echo $VerticalName."\n";
 							$CategoryID = $this->getCategoryId($VerticalName);
 							break;
 						}
@@ -127,7 +126,6 @@ class OfferImport {
 						if (stristr($Title, $VerticalKeyword) || stristr($Description, $VerticalKeyword)) 
 						{
 							$found = true;
-							echo $VerticalName."\n";
 							$CategoryID = $this->getCategoryId($VerticalName);
 							break;
 						}
