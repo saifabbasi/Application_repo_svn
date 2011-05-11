@@ -590,6 +590,14 @@ abstract class LinkTrustAbstract Extends NetworksAbstract {
 			$OfferObj->type = $Result['Type'];
 			$OfferObj->previewUrl = $Result['PreviewUrl'];
 			
+			$OfferObj->offerType = 'Lead';
+			if (strstr($Result['Payout'], '%')) {
+				$OfferObj->offerType = 'Sale';
+			}
+			
+			$OfferObj->imageUrl = '';
+			$OfferObj->dateAdded = $Result['Starts'];
+			
 			$Output->addOfferObject($OfferObj);
 		}
 		return $Output;
