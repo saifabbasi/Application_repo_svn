@@ -30,8 +30,8 @@ class OfferImport {
 		$Verticales['Insurance'] = array('Insurance');
 		$Verticales['Business'] = array('budget', 'print', 'card');
 		$Verticales['Weight Loss'] = array('Weight', 'colon', 'acai', 'diet');
-		$Verticales['Mobile'] = array('phone', 'mobile', 'pin', 'ringtone', 'ringtones');
-		$Verticales['Freebie'] = array('freebie', 'sweepstakes');
+		$Verticales['Mobile'] = array('phone', 'mobile', 'pin', 'ringtone', 'ringtones', 'quiz');
+		$Verticales['Freebie'] = array('freebie', 'sweepstakes', 'freebies', 'apple', 'ipad', 'ipod', 'macbook', 'laptop');
 		$Verticales['Credit'] = array('credit');
 		$Verticales['Legal'] = array('Legal');
 		$Verticales['Bizopp'] = array('Bizopp', 'Biz opp');
