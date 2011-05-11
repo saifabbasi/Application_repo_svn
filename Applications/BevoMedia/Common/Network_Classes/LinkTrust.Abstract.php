@@ -597,7 +597,7 @@ abstract class LinkTrustAbstract Extends NetworksAbstract {
 			
 			$OfferObj->imageUrl = '';
 			$OfferObj->dateAdded = $Result['Starts'];
-			print_r($OfferObj);die;
+			print_r($OfferObj);
 			$Output->addOfferObject($OfferObj);
 		}
 		return $Output;
