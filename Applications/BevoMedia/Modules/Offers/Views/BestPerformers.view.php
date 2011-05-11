@@ -271,6 +271,9 @@
 		$latest->dateAdded = $construct->formatDate($latest->dateAdded);
 		$latest->payout = $construct->formatPayout($latest->payout);
 		
+		if($latest->offerType == '')
+			$latest->offerType = 'Lead';
+		
 		$offers[] = $latest;
 	
 	}//endwhile $latest

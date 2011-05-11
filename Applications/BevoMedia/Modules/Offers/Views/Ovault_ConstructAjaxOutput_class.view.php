@@ -361,6 +361,9 @@ class ConstructAjaxOutput {
 			//category NULL vals
 			if($offer->categoryTitle == NULL)
 				$offersArray[$key]->categoryTitle = '';
+				
+			if($offer->offerType == '')
+				$offersArray[$key]->offerType = 'Lead';
 			
 		}
 		
@@ -429,6 +432,9 @@ class ConstructAjaxOutput {
 				//$offer->dateAdded_nice = date('M j, Y', strtotime($offer->dateAdded));
 				$offer->dateAdded = self::formatDate($offer->dateAdded);
 				$offer->payout = self::formatPayout($offer->payout);
+				
+				if($offer->type == '')
+					$offer->type = 'Lead';
 						
 				$offersArray[] = $offer;
 			}
