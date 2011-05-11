@@ -27,7 +27,7 @@ class OfferImport {
 	
 	public function insertOffer($OfferObj)
 	{
-		$Sql = "SELECT id, offer__id FROM " . $this->offersTableName . " WHERE offer__id= '" . $OfferObj->offerId . "' AND network__id = '" . $this->networkId . "'";
+		$Sql = "SELECT id, offer__id FROM " . $this->offersTableName . " WHERE offer__id= '" . $OfferObj->offerId . "' AND network__id = '" . $this->networkId . "'";echo $Sql;die;
 		$Result = mysql_query($Sql);
 		if(mysql_num_rows($Result)>0)
 		{
