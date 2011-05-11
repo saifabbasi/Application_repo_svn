@@ -357,6 +357,10 @@ a.btn_appstore_verify { width:187px; height:41px; background:url(img_new/btn_app
 	
 	/*offervault*/
 .btn.odial_go { width:32px; height:32px; background:url(img_new/btn_odial_go.png) no-repeat; }
+.btn.odial_go_small { width:25px; height:24px; background:url(img_new/btn_odial_go_small.png) no-repeat; }
+	.btn.odial_go:hover,
+	.btn.odial_go_small:hover { background-position:left bottom; }
+
 a.btn.ocheck_lead { width:47px; height:14px; background:url(img_new/btn_ocheck_lead.png) no-repeat; }
 a.btn.ocheck_sale { width:37px; height:14px; background:url(img_new/btn_ocheck_sale.png) no-repeat; }
 a.btn.ocheck_display { width:53px; height:14px; background:url(img_new/btn_ocheck_display.png) no-repeat; }
@@ -384,6 +388,7 @@ a.btn.ovault_smallgray_deleteall { width:66px; height:13px; background:url(img_n
 
 a.btn.ovault_transgray_rename { width:50px; height:14px; background:url(img_new/btn_ovault_transgray_rename.png) no-repeat; }
 a.btn.ovault_transgray_delete { width:34px; height:23px; background:url(img_new/btn_ovault_transgray_delete.png) no-repeat; }
+.btn.ovault_transyell_details { width:38px; height:25px; background:url(img_new/btn_ovault_transyell_details.png) no-repeat; }
 
 a.btn.ovault_yell_createnewlist { width:107px; height:22px; background:url(img_new/btn_ovault_yell_createnewlist.png) no-repeat; }
 a.btn.ovault_yell_gotolistpage { width:139px; height:22px; background:url(img_new/btn_ovault_yell_gotolistpage.png) no-repeat; }
@@ -410,6 +415,8 @@ p.icon_nwmember { padding-left:20px; padding-bottom:3px; display:inline; backgro
 	
 a.btn.ovault_importoffer { width:177px; height:43px; background:url(img_new/btn_ovault_importoffer.png) no-repeat; }
 a.btn.ovault_visiticon { width:18px; height:19px; background:url(img_new/btn_ovault_visiticon.png) no-repeat; }
+.btn.ovault_visiticon_transyell { width:25px; height:25px; background:url(img_new/btn_ovault_visiticon_transyell.png) no-repeat; }
+a:hover .btn.ovault_visiticon_transyell { background-position:left bottom; }
 a.btn.ovault_gotomystats_trans { width:104px; height:23px; background:url(img_new/btn_ovault_gotomystats_trans.png) no-repeat; }
 
 a.btn.ovault_mystats_findallnwoffers { width:129px; height:25px; background:url(img_new/btn_ovault_mystats_findallnwoffers.png) no-repeat !important; }

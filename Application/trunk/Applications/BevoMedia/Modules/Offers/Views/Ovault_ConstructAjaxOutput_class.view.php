@@ -181,7 +181,7 @@ class ConstructAjaxOutput {
 		//$query['params']['search'] (the search term. search in both OFFER NAME and VERTICAL NAME! to retrieve accurate results, might have to split the search term by space and search for single words.)
 		//$query['params']['type'] (can be either "lead", or "sale", or "lead,sale". split the 3rd one by comma and do XOR in the query)
 		//$query['params']['include_mysaved'] (1 or 0. if 0, add something like "offers.id NOT IN {db table that stores saved offers for this user}" to the query) (ignore this for now)
-		//$query['params']['include_networks'] (is a comma-separated list of at least 1 netword ID. search only in offers from these networks.)
+		//$query['params']['include_networks'] (is a comma-separated list of at least 1 netword ID. search only in offers from these networks, or ALL
 		
 		
 		//$query['params']['type'] ?? how are we going to get this
@@ -219,29 +219,24 @@ class ConstructAjaxOutput {
 					$searchAdd = '';
 				}
 			}//endif *
-		}
+		}//end search
 		
 		
 		$networksSearchAdd = '';
-		if(isset($query['params']['include_networks'])) {
+		if(isset($query['params']['include_networks']) && $query['params']['include_networks'] != 'ALL') {
+			
 			$terms = explode(',', $query['params']['include_networks']);
-			
-			
-			foreach ($terms as $term)
-			{
-				//if (trim($term)=='') continue;
-				
-				$term = intval(trim($term));
-				
+		
+			foreach ($terms as $term) {					
+				$term = intval(trim($term));					
 				$networksSearchAdd .= " (bevomedia_offers.network__id = {$term} ) OR ";
 			}
 			
-			if (strlen($networksSearchAdd)>1) {
+			if (strlen($networksSearchAdd) > 1)
 				$networksSearchAdd = ' AND ('.rtrim($networksSearchAdd, 'OR ').' )';
-			} else {
-				$networksSearchAdd = '';
-			}
-		}
+			else 	$networksSearchAdd = '';		
+			
+		}//end networks
 		
 		
 		

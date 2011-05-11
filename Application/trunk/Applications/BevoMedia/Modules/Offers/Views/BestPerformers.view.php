@@ -134,20 +134,8 @@
 		$offer->affUrl = false;
 	}
 	
-	//formatting
-	//$offer->dateAdded_nice = date('F j, Y', strtotime($offer->dateAdded));
-	
 	$offer->dateAdded = $construct->formatDate($offer->dateAdded);
 	$offer->payout = $construct->formatPayout($offer->payout);
-	
-	//payout
-	/*	
-	$offer->payout = preg_replace('/[^0-9\.]/', '', $offer->payout);	
-	$null_payouts = array('0','0.0','0.00');
-	if(in_array($offer->payout, $null_payouts))
-		$offer->payout = '';
-	else	$offer->payout = '$'.number_format($offer->payout, 2);
-	*/
 			
 	/*latest offers*/
 	$sql = "SELECT 	offers.*,
@@ -166,7 +154,92 @@
 		ORDER BY offers.dateAdded DESC
 		
 		LIMIT 30	
-	";
+	"; //orig query
+	
+/*	trying to limit # of offers to 3 per network... in 1 query
+
+	$sql = "SET 	@num := 0,
+			@type := '';
+
+		SELECT	type, variety, price,
+			@num := if(@type = type, @num + 1, 1) AS row_number,
+			@type := type AS dummy
+			
+		FROM	fruits FORCE index(type)
+		
+		GROUP BY type, price, variety
+			HAVING row_number <= 2;
+	
+	"; //model
+	
+	$sql = "SET 	@num := 0,
+			@id := '';
+
+		SELECT	offers.*,
+			categories.title AS categoryTitle,
+			networks.title AS networkName,
+			networks.detail AS networkDescription,
+			
+			@num := if(@id = offers.id, @num + 1, 1) AS row_number,
+			@id := offers.id AS dummy
+			
+		FROM	bevomedia_offers AS offers
+			LEFT JOIN bevomedia_aff_network AS networks
+				ON networks.id = offers.network__id
+			LEFT JOIN bevomedia_category AS categories
+				ON categories.id = offers.category__id
+			
+		
+		GROUP BY 	offers.id, 
+				offers.dateAdded
+				HAVING row_number <= 2	
+	"; //should work, doesnt
+	
+	$sql = "SET 	@num := 0,
+			@id := '';
+
+		SELECT	*,
+			@num := if(@id = id, @num + 1, 1) AS row_number,
+			@id := id AS dummy
+			
+		FROM	bevomedia_offers
+			FORCE index(id)
+			
+		GROUP BY 	id
+		HAVING	row_number <= 2	
+	"; //simplified
+	
+	
+	
+	
+	
+	//try 3
+/ *	$sql = "SET @cRank = 0;
+		SET @cCoutnry = '';
+		
+		SELECT Country, Number
+		FROM (
+		    SELECT Number, @cRank := IF(@cCoutnry = Country, @cRank+1, 1) AS rank, @cCoutnry := Country Country 
+		    FROM table
+		    ORDER BY Country, Number DESC
+		) rs
+		WHERE rank < 3
+	"; //model
+	
+	$sql = "SET @cRank = 0;
+		SET @cCoutnry = '';
+		
+		SELECT Country, Number
+		FROM (
+		    SELECT 	Number, @cRank := IF(@cCoutnry = Country, @cRank+1, 1) AS rank, 
+		    		@cCoutnry := Country Country 
+		    FROM table
+		    ORDER BY Country, Number DESC
+		) rs
+		WHERE rank < 3	
+	";*/
+	
+	
 	
 	$rawLatest = mysql_query($sql);
 	$offers = array();
@@ -195,19 +268,9 @@
 		$savelistLatest = mysql_query($sql);
 		$latest->saved2list = mysql_num_rows($savelistLatest) ? 1 : 0;
 		
-		//formatting
 		$latest->dateAdded = $construct->formatDate($latest->dateAdded);
 		$latest->payout = $construct->formatPayout($latest->payout);
 		
-		/*$latest->dateAdded_nice = date('F j, Y', strtotime($latest->dateAdded));
-		
-		$latest->payout = preg_replace('/[^0-9\.]/', '', $latest->payout);	
-		$null_payouts = array('0','0.0','0.00');
-		if(in_array($latest->payout, $null_payouts))
-			$latest->payout = '';
-		else	$latest->payout = '$'.number_format($latest->payout, 2);
-		*/
-				
 		$offers[] = $latest;
 	
 	}//endwhile $latest

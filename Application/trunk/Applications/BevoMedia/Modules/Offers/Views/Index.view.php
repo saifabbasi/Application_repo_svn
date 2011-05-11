@@ -1,4 +1,42 @@
-<?php include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.php'; ?>
+<?php
+	//quicksearch form in topdrop sends POST
+	//something doesnt work about this... need to redo the topdrop search later when GET + HASH navi is implemented in search!
+	
+	/*if(isset($_GET['topdrop_quicksearch_submit']) && isset($_GET['topdrop_osearch']) && !empty($_GET['topdrop_osearch'])) {
+				
+		$search = urlencode(str_replace(array('\'','"'), '', strip_tags(trim($_GET['topdrop_osearch']))));
+		
+		if($search) {
+			//look for cookie to apply all the other options, of no cookie load default
+			if(isset($_COOKIE['__bevoOLSearch'])) {
+				$lastsearch = trim($_COOKIE['__bevoOLSearch']);
+				
+				$searchparams = explode('&', $lastsearch);
+				if(strpos($searchparams[1], 'search=') === 0) { //overwrite with new value
+					$searchparams[1] = 'search='.$search;
+					//setcookie('__bevoOLSearch', implode('&', $searchparams), time()+60*60*24*30*12, '/');
+					setcookie('__bevoOLSearch', '', time()+60*60*24*30*12, '/');
+					
+				}
+				
+			} else { //if no cookie, apply default values. search in all networks.
+				
+				$searchstring = 'get=searchresults&search='.$search.'&type=lead&include_mysaved=1&include_networks=ALL&numresults=100';
+				setcookie('__bevoOLSearch', $searchstring, time()+60*60*24*30*12, '/');
+			
+			}//endif cookie
+			
+			//now refresh page for the JS to grab the new cookie
+			header('Location: /BevoMedia/Offers/Index.html');
+			/*
+			LATER: as soon as we implement HASH navigation instead of cookie nav, remove header and just change hash.
+			* /
+			
+		}//endif search
+	}//endif post*/
+	
+	include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.php';
+?>
 <script src="/Themes/BevoMedia/ovault.index.js" type="text/javascript"></script>
 
 <div id="pagemenu">
@@ -27,29 +65,13 @@
 				<td class="td_network" style="width:120px;"><a class="tcol tcol_sortby" href="#" data-value="network">Network</a></td>
 				<td class="hhr">&nbsp;</td>
 			</tr>
-		</thead>
-		
-		<!--<table width="100%" cellspacing="0" cellpadding="0" border="0" class="btable" id="j_otablecont">-->
+		</thead>		
 		<tbody>	
 			<tr class="message loading">
 				<td class="border">&nbsp;</td>
 				<td colspan="7" style="padding:25px 0;text-align:center;">Search for offers using the search dial at the top!</td>
-			</tr>
-			
-			<?php /*<tr>
-				<td class="border">&nbsp;</td>
-				<td class="td_savelist"></td>
-				<td class="td_offername"></td>
-				<td class="td_payout"></td>
-				<td class="td_type"></td>
-				<td class="td_vertical"></td>
-				<td class="td_network"></td>
-				<td class="tail">&nbsp;</td>
-			</tr> */ ?>
-			
-		<!--</table>< !--close #j_otablecont-->
-		</tbody>
-		
+			</tr>			
+		</tbody>		
 		<tfoot>
 			<tr class="table_footer">
 				<td class="hhl"></td>

@@ -200,44 +200,20 @@ if(userTimezoneOffset == false)
 	
 
 
-	<div id="topdrop"<?php if($this->User->vaultID != 0) echo ' class="topdrop_premium"'; ?>>
+	<div id="topdrop" class="<?php if($this->User->vaultID != 0) echo 'topdrop_premium'; else echo 'topdrop_standard' ?>">
 	<div id="topdroptop"<?php if($soap_topdrop_status) echo ' class="'.$soap_topdrop_status.'"'; ?>>
 	
-		<div class="topdropbox topdropbox_financial">
-			<div class="topdropentry topdropentry_earnings">$<?php echo number_format($RevenueMonth, 2)?></div>
-			<div class="topdropentry topdropentry_expenses">$<?php echo number_format($ExpensesMonth, 2)?></div>
-			<div class="topdropentry topdropentry_profit">$<?php echo number_format($NetMonth, 2)?></div>
+		<?php /*finance for veified*/
+		if($this->User->vaultID != 0) : ?>
 		
-			<?php if($this->User->vaultID != 0) : //graph
-			?>
-				<div id="topdropgraph">
-				
-				<!-- chart here -->
-					
-				<script type="text/javascript">
-					$(document).ready(function(){
-						//make some charts
-//						$('#JQueryChartDataTopBar').visualize({type: 'line', colors: ['#ef5926', '#2ba9e4', '#8ac73c'], width: 407, height: 52, appendTitle: false, appendKey: false, xLabels: false, yLabels: true, transparent: true, borderWidth: 0, labelsHeight: 15}).appendTo('#JQueryChartDisplayTopBar');
-//						$('#JQueryChartDataTopBar').css('padding-left', '20px');
-//						$('#JQueryChartDisplayTopBar .label').css('background', 'none');
-//						$('#JQueryChartDisplayTopBar .label').css('font-size', '9px');
-//						$('#JQueryChartDisplayTopBar .label').css('color', '#ffffff');
-					});
-				</script>
-				<?php 
-					$ChartXML = new ChartXMLHelper();
-					$ChartXML->LoadTopBarStats($this->User->id);
-					
-					$Out = $ChartXML->getJQueryChartOutput('', 'JQueryChartDataTopBar', 'JQueryChartDisplayTopBar', '', '0');
-					echo $Out;
-				?>
-							
-					
-				</div><!--close topdropgraph-->
-				
-			<?php endif; //standard/premium
-			?>		
-		</div><!--close topdropbox_financial-->
+			<div class="topdropbox topdropbox_financial">
+				<div class="topdropentry topdropentry_earnings">$<?php echo number_format($RevenueMonth, 2)?></div>
+				<div class="topdropentry topdropentry_expenses">$<?php echo number_format($ExpensesMonth, 2)?></div>
+				<div class="topdropentry topdropentry_profit">$<?php echo number_format($NetMonth, 2)?></div>
+			</div>
+			
+		<?php endif;
+		?>		
 		
 		<div class="topdropbox topdropbox_api">
 			<div class="topdropentry topdropentry_networkupdate">
@@ -250,7 +226,17 @@ if(userTimezoneOffset == false)
 			</div>
 		</div>
 		
-		<?php /*upgrade / mentorship*/
+		<div class="topdropbox topdropbox_mentorship_wide">
+			<ul class="iconlist iconlist_mentorship">
+				<li class="icon_phone">Unlimited access to your mentor</li>
+				<li class="icon_people">Financial, technical, and legal support</li>
+				<li class="icon_thumb">Invaluable benefits</li>
+				<li class="icon_pen">Full resource pool at your service</li>
+			</ul>
+			<a class="btn topdrop_mentorship_learnmore" href="/BevoMedia/Marketplace/MentorshipProgram.html">Learn more about the Bevo Mentorship Program</a>
+		</div>
+		
+		<?php /*upgrade*/
 		if($this->User->vaultID == 0) : //standard account
 		?>
 			<div class="topdropbox topdropbox_accstatus">
@@ -265,25 +251,46 @@ if(userTimezoneOffset == false)
 				<a class="btn topdrop_getpremium" href="/BevoMedia/User/AddCreditCard.html"></a>
 			</div>
 			
-			<div class="topdropbox topdropbox_mentorship_slim">
+			<?php //depreciated slim mentorship box
+			/*<div class="topdropbox topdropbox_mentorship_slim">
 				<a class="btn topdrop_mentorship_icons" href="/BevoMedia/Marketplace/MentorshipProgram.html"></a>
-			</div>
-		
-		<?php else : //if premium account
-		 ?>
-			
-			<div class="topdropbox topdropbox_mentorship_wide">
-				<ul class="iconlist iconlist_mentorship">
-					<li class="icon_phone">Unlimited access to your mentor</li>
-					<li class="icon_people">Financial, technical, and legal support</li>
-					<li class="icon_thumb">Invaluable benefits</li>
-					<li class="icon_pen">Full resource pool at your service</li>
-				</ul>
-				<a class="btn topdrop_mentorship_learnmore" href="/BevoMedia/Marketplace/MentorshipProgram.html">Learn more about the Bevo Mentorship Program</a>
-			</div>
+			</div>*/
+			?>
 		
 		<?php endif; //endif !$accstatus_premium
-		?>		
+		
+		/*offer of the month*/
+		$offer_id = '20726'; //MAKE SURE THIS IS THE SAME AS IN Offers/BestPerformers.view line 6!
+		
+		$sql = "SELECT 	title, imageUrl, previewUrl
+			FROM	bevomedia_offers
+			WHERE	id = $offer_id
+			LIMIT 1		
+		";
+		$ootmRaw = mysql_query($sql);
+		$ootm = mysql_fetch_object($ootmRaw);
+
+		if(!empty($ootm)) { ?>
+			
+			<!--
+			<?php echo '<pre>';
+			var_dump($ootm);
+			echo '</pre>';?>
+			-->
+			
+			<div class="topdropbox topdropbox_ootm">
+				<div class="ootmpic">
+					<a class="picbtn" href="<?php echo $ootm->previewUrl; ?>" target="_blank" title="<?php echo htmlentities($ootm->title); ?> - Click to preview in a new tab">
+						<img src="<?php echo $ootm->imageUrl; ?>" alt="" />
+						<span class="picframe"></span>
+						<span class="btn ovault_visiticon_transyell"></span>
+					</a>
+				</div>
+				<a class="btn ovault_transyell_details" href="/BevoMedia/Offers/BestPerformers.html" title="View offer details in Bevo">View offer details in Bevo</a>
+			</div>
+			
+		<?php } //endif $ootm
+		?>	
 		
 		<div class="clear"></div>
 		
@@ -320,10 +327,51 @@ if(userTimezoneOffset == false)
 		<?php endif; //endif premium
 		?>
 		
-		<div class="topdroplabel topdroplabel_mentorship">
+		<div class="topdroplabel topdroplabel_quicksearch">
+			<?php 	if(	$this->PageHelper->Controller == 'Offers'
+				&&	$this->PageHelper->Function != 'NameYourPayout'	
+				) { ?>
+			
+				<p>Use the Bevo Search Sphere to search for offers!</p>
+			
+			<?php } else { ?>
+				
+				<form method="get" action="" id="topdrop_osearchform">
+					<label class="hide">type any offer name or vertical</label>
+					<input type="text" class="formtxt" id="topdrop_osearch" name="topdrop_osearch" value="type any offer name or vertical" />
+					<input type="submit" class="btn formsubmit odial_go_small" name="topdrop_quicksearch_submit" value="Go" />
+				</form>	
+				<script type="text/javascript">
+				$('#topdrop_osearch').live('focus', function() {
+					if($(this).val() == $(this).prev().html())
+						$(this).val('');					
+				}).live('blur', function() {
+					if($(this).val() == '')
+						$(this).val($(this).prev().html());				
+				})
+				$('#topdrop_osearchform').submit(function() {
+					var field = $('#topdrop_osearch');
+					if(field.val() == '' || field.val() == field.prev().html()) {
+						alert('Please enter a search term!');
+						return false;
+					} else {
+						<?php /* TEMPORARY - POST or GET does not work right now, not sure why. will revisit when HASH/GET search navi is implemented. */?>						
+						var s = 'get=searchresults&search='+field.val()+'&type=lead&include_mysaved=1&include_networks=ALL&numresults=100';
+						soap_cookCreate('__bevoOLSearch',s,365);
+						window.location = '/BevoMedia/Offers/Index.html';
+					}
+					return false;
+				});
+				</script>
+				
+			<?php } ?>			
+		</div><!--close topdroplabel_quicksearch-->
+		
+		<?php //depreciated 110511 in favor of quick offer search
+		/*<div class="topdroplabel topdroplabel_mentorship">
 			<div class="topdroptoggle"></div>
 			<a class="btn topdrop_mentorship_clickhere" href="/BevoMedia/Marketplace/MentorshipProgram.html">Click Here</a>
-		</div>
+		</div>*/ ?>
 		<div class="clear"></div>
 	
 	</div><!--close topdropbutt-->	
@@ -552,7 +600,7 @@ if(userTimezoneOffset == false)
 	
 	<div class="content">
 		<?=$this->{'Instance/ViewContent'};?>
-		<div class="clear"></div>		
+		<div class="clear"></div>	
 	</div><!--close content-->
 	<div class="containerbutt"></div>
 	
