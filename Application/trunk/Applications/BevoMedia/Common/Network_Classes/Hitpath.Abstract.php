@@ -309,6 +309,10 @@ abstract class HitpathAbstract Extends NetworksAbstract {
 	
 	private function loadOfferPage($Offset)
 	{
+		$sql = "SELECT NOW()";
+		mysql_query($sql);
+		
+		echo "loadOfferPage ".$Offset."\n";
 		global $OffersURL;
 		
 		$arrParams = array('CURLOPT_SSL_VERIFYPEER' => FALSE,

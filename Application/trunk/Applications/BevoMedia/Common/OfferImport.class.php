@@ -27,6 +27,25 @@ class OfferImport {
 	
 	public function insertOffer($OfferObj)
 	{
+		$Verticales['Insurance'] = array('Insurance');
+		$Verticales['Business'] = array('budget', 'print', 'card');
+		$Verticales['Weight Loss'] = array('Weight', 'colon', 'acai', 'diet');
+		$Verticales['Mobile'] = array('phone', 'mobile', 'pin', 'ringtone', 'ringtones');
+		$Verticales['Freebie'] = array('freebie', 'sweepstakes');
+		$Verticales['Credit'] = array('credit');
+		$Verticales['Legal'] = array('Legal');
+		$Verticales['Bizopp'] = array('Bizopp', 'Biz opp');
+		$Verticales['Dating'] = array('singles', 'single', 'dating', 'match', 'amateur', 'women');
+		$Verticales['Gaming and Auctions'] = array('Auction', 'Penny');
+		$Verticales['Financial'] = array('financial', 'debt', 'payday', 'loan', 'loans');
+		$Verticales['Health'] = array('skin', 'teeth', 'whitening', 'anti age', 'antiage', 'beauty', 'health', 'resv', 'resveratrol', 'hair');
+		$Verticales['Education'] = array('Education', 'edu', 'class', 'classes', 'courses', 'college', 'university');
+		$Verticales['Incentive'] = array('Incentive');
+		$Verticales['Downloads'] = array('Download', 'install');
+		$Verticales['Zip'] = array('Zip');
+				
+				
+				
 		$Sql = "SELECT id, offer__id FROM " . $this->offersTableName . " WHERE offer__id= '" . $OfferObj->offerId . "' AND network__id = '" . $this->networkId . "'";
 		$Result = mysql_query($Sql);
 		if(mysql_num_rows($Result)>0)
@@ -43,7 +62,35 @@ class OfferImport {
 				}
 			}
 			
-			$UpdateSql .= "network__id = '" . $this->networkId . "'";
+			
+			$CategoryID = 0;
+			if(sizeof($OfferObj->category)>0)
+			{
+				$CategoryID = $this->getCategoryId($OfferObj->category[0]);
+			} else {
+				$Title = $OfferObj->name;
+				$Description = $OfferObj->description;
+				
+				
+				foreach ($Verticales as $VerticalName => $VerticalKeywords)
+				{
+					$found = false;
+					foreach ($VerticalKeywords as $VerticalKeyword) {
+						if (stristr($Title, $VerticalKeyword) || stristr($Description, $VerticalKeyword)) 
+						{
+							$found = true;
+							echo $VerticalName."\n";
+							$CategoryID = $this->getCategoryId($VerticalName);
+							break;
+						}
+					}
+					if ($found) break;
+				}
+			}
+			
+			
+			
+			$UpdateSql .= "network__id = '" . $this->networkId . "', category__id = ".intval($CategoryID);
 			
 			$Sql = "UPDATE " . $this->offersTableName . " SET " . $UpdateSql . ", archived = 0 WHERE id = '" . $OfferInsertID . "'";
 		
@@ -67,6 +114,26 @@ class OfferImport {
 			if(sizeof($OfferObj->category)>0)
 			{
 				$CategoryID = $this->getCategoryId($OfferObj->category[0]);
+			} else {
+				$Title = $OfferObj->name;
+				$Description = $OfferObj->description;
+				
+				
+				
+				foreach ($Verticales as $VerticalName => $VerticalKeywords)
+				{
+					$found = false;
+					foreach ($VerticalKeywords as $VerticalKeyword) {
+						if (stristr($Title, $VerticalKeyword) || stristr($Description, $VerticalKeyword)) 
+						{
+							$found = true;
+							echo $VerticalName."\n";
+							$CategoryID = $this->getCategoryId($VerticalName);
+							break;
+						}
+					}
+					if ($found) break;
+				}
 			}
 			
 			$ColumnNames .= 'network__id,user__id,category__id';

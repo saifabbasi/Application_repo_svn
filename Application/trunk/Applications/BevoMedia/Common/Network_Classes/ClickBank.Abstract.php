@@ -213,6 +213,14 @@ abstract class ClickBankAbstract Extends NetworksAbstract {
 						$OfferObj->openDate = (string)$Site->ActivateDate;
 						//$OfferObj->percent = (string)$Site->PercentPerSale;
 						
+						$OfferObj->offerType = 'Lead';
+						if (strstr($Payout, '%')) {
+							$OfferObj->offerType = 'Sale';
+						}
+						
+						$OfferObj->imageUrl = '';
+						$OfferObj->dateAdded = $OfferObj->openDate;
+						
 						$Output->addOfferObject($OfferObj);
 					}
 				}
