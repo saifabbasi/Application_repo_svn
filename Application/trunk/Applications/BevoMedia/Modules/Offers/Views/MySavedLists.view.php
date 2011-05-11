@@ -136,6 +136,9 @@
 				$offer->dateAdded = $construct->formatDate($offer->dateAdded);
 				$offer->payout = isset($_GET['ExportTo']) ? $offer->payout : $construct->formatPayout($offer->payout); //do not format for CSV
 				
+				if($offer->type == '')
+					$offer->type = 'Lead';
+				
 				//date
 				/*
 				//$offer->dateAdded_nice = date('M j, Y', strtotime($offer->dateAdded));
