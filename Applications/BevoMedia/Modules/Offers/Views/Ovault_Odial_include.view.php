@@ -18,12 +18,12 @@
 		return (mysql_num_rows($isMemberOfNetwork)==1);
 	}
 
-	$sql = "SELECT
-			*
-		FROM
-			bevomedia_aff_network
+	//get all networks EXCEPT clickbank (1040)
+	$sql = "SELECT	*
+		FROM	bevomedia_aff_network
 		WHERE	model = 'CPA'
 			AND isValid = 'Y'
+			AND id <> '1040'
 		ORDER BY title
 	";
 	$networksData = mysql_query($sql);
