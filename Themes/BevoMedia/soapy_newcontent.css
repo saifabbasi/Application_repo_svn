@@ -979,7 +979,8 @@ h2.imagetitle.interested { width:147px; height:22px; background:url(img/imagetit
 		
 			#ovault tr.orowbig td.td_info small { margin:4px 0 15px; font-size:.8em; color:#999; display:block; }
 			#ovault tr.orowbig td.td_info small span { margin:0; font-size:1em; color:#999; }
-			#ovault tr.orowbig td.td_info p { color:#808080; }
+			#ovault tr.orowbig td.td_info p,
+                        #ovault tr.orowbig .td_info p span  { color:#808080; font-size:.9em }
                         #ovault tr.orowbig td.td_info a.btn.ovault_importoffer { margin:0; }
                         #ovault tr.orowbig p.nolineheight { line-height:1em; }
 			
@@ -1024,6 +1025,9 @@ h2.imagetitle.interested { width:147px; height:22px; background:url(img/imagetit
 				#ovault tr.orowbig input.formtxt.onwid { width:70px; padding:2px; margin:0 5px 0 0; float:left; 
 									-moz-border-radius-topleft:0; -webkit-border-top-left-radius:0; border-top-left-radius:0; }
 				#ovault tr.orowbig .onwidbox p { width:120px; margin:0; float:left; color:#29abe2 !important; line-height:1em; }
+
+                        /*offer desc*/
+                        #ovault tr.orowbig .td_info a.btn.ovault_transgray_expand { margin-bottom:-12px; position:relative; top:-19px; left:92px; }
 			
 				
 			/*olink*/
@@ -1039,7 +1043,8 @@ h2.imagetitle.interested { width:147px; height:22px; background:url(img/imagetit
 		#ovault tr.orowbig td.td_nw p,
 		#ovault tr.orowbig td.td_nwdesc p{ color:#F2F2F2; }
 		#ovault tr.orowbig .icon_ovault_nwmember_bigwhite { margin:10px auto; }
-		#ovault tr.orowbig a.btn.ovault_gotomystats_trans { margin:0 auto; }
+		#ovault tr.orowbig a.btn.ovault_gotomystats_trans {  margin:0 auto; }
+                #ovault tr.orowbig a.ovault_nw_ratebystar { padding:3px; }
 		
 			/*onwpic*/
 		#ovault .onwpic { width:110px; padding:5px; margin:0 0 10px; border:1px solid #999; background:#fff;
@@ -1054,6 +1059,7 @@ h2.imagetitle.interested { width:147px; height:22px; background:url(img/imagetit
 		/*td_nwdesc*/
 		#ovault tr.orowbig td.td_nwdesc .otitle_latestnwreviews { width:158px; margin-top:10px; float:left; }
 		#ovault tr.orowbig td.td_nwdesc a.btn.ovault_transgray_readall_reviews { margin:12px 0 0; float:left; }
+		#ovault tr.orowbig td.td_nwdesc .ovault_boxlist a.ovault_transgray_expand { margin:0; }
 		
 			
 	/*offer of the month*/		
@@ -1296,9 +1302,6 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 	#offmain_searchform { float:left; }
 	table.floatleft { display:inline !important; }
 }
-
-
-
 
 
 

@@ -5,16 +5,14 @@
 
 class ConstructAjaxOutput {
 	
-	/*
-	static $SelfHosted;
+	private static $PageHelper;
 	
 	function __construct() {
-		//self::$SelfHosted = false;
+	
+		require_once(Zend_Registry::get('Application/TrueWorkingDirectory') .'Applications/'. Zend_Registry::get('Instance/Application') .'/Common/PageHelper.class.php');
+		self::$PageHelper = new PageHelper(); 
 		
-		//if(Zend_Registry::get('Application/Mode') == 'SelfHosted') 
-			self::$SelfHosted = Zend_Registry::get('Application/Mode');
-		
-	}*/
+	}
 	
 	/** orowbig()
 	  * Offer details for table
@@ -24,9 +22,6 @@ class ConstructAjaxOutput {
 		
 		//fetch offer from db HERE using the following params:
 		//$query['params']['oid'] (the offer ID)
-		
-		require_once(Zend_Registry::get('Application/TrueWorkingDirectory') .'Applications/'. Zend_Registry::get('Instance/Application') .'/Common/PageHelper.class.php');
-		$PageHelper = new PageHelper();
 		
 		$offerID = intval($query['params']['oid']);		
 				
@@ -61,7 +56,7 @@ class ConstructAjaxOutput {
 			$offer->isNetworkMember = (mysql_num_rows($isMemberOfNetwork))?1:0;
 			
 			//rating
-			$offer->userRating = $PageHelper->FixNetworkRating($offer->networkName);
+			$offer->userRating = self::$PageHelper->FixNetworkRating($offer->networkName);
 			
 			if($offer->userRating == false) {
 				$sql = "SELECT	rating
@@ -689,8 +684,19 @@ class ConstructAjaxOutput {
 				$out .= '<h3>'.$offer->title.'</h3>';
 				$out .= $offer->dateAdded ? '<small>'.$offer->dateAdded.'</small>' : '&nbsp;';
 				
+				//description
 				$out .= '<div class="otitle otitle_offerdesc"></div>';
-				$out .= '<p>'.$offer->detail.'</p>';
+				
+				$offerdet_trunc = self::$PageHelper->TruncTxt($offer->detail, 600);
+				if(strlen($offerdet_trunc) < strlen($offer->detail)) {
+					$out .= '<a class="btn ovault_transgray_expand j_expand" href="#" data-target="ovault_offerdetail_expanded_'.$offer->id.'">View full offer description</a>
+						<div class="clear"></div>
+						<p class="j_expand" data-target="ovault_offerdetail_expanded_'.$offer->id.'" title="Click to read the full offer description">'.$offerdet_trunc.'
+						<span id="ovault_offerdetail_expanded_'.$offer->id.'" class="hide">'.substr($offer->detail, 600).'</span>
+						</p>';
+				} else {
+					$out .= '<p>'.$offer->detail.'</p>';
+				}
 				
 				//offer ID
 				//$out .= '<div class="onwidbox">'; //distinguish btw oid (bevo offer id) and onwid (network's offer id)
@@ -725,7 +731,10 @@ class ConstructAjaxOutput {
 			
 			for($i=1; $i<=5; $i++) {
 				$ratingstate = $offer->userRating >= $i ? 'on' : 'off'; 		
-				$out .= '<img src="/Themes/BevoMedia/img/star-'.$ratingstate.'.gif" align="absbottom" />';
+				//$out .= '<img src="/Themes/BevoMedia/img/star-'.$ratingstate.'.gif" align="absbottom" />';
+				$out .= '<a class="ovault_nw_ratebystar j_shadowbox" href="/BevoMedia/Publisher/NetworkRating.html?Rating='.$i.'&ID='.$offer->network__id.'" title="Share your experience with this network">
+						<img src="/Themes/BevoMedia/img/star-'.$ratingstate.'.gif" id="img_rating_top_month_'.$offer->network__id.'_'.$i.'" onmouseover="ratingTill(\'img_rating_top_month_'.$offer->network__id.'\', '.$i.')" onmouseout="ratingRst(\'img_rating_top_month_'.$offer->network__id.'\', '.$offer->userRating.')" align="absbottom" />
+					</a>';
 			}
 			
 			$out .= '</p>';
@@ -741,7 +750,7 @@ class ConstructAjaxOutput {
 		} else {
 			$out .= '<p>You\'re not a member of this network yet! Become one now:</p>';
 			//$out .= '<a class="btn nw_applyadd" href="/BevoMedia/Publisher/ApplyAdd.html?network='.$offer->network__id.'" rel="shadowbox;width=640;height=480;player=iframe">Apply to join this network</a>';
-			$out .= '<a class="btn nw_applyadd" href="/BevoMedia/Publisher/ApplyAdd.html?network='.$offer->network__id.'">Apply to join this network</a>';
+			$out .= '<a class="btn nw_applyadd j_shadowbox" href="/BevoMedia/Publisher/ApplyAdd.html?network='.$offer->network__id.'" title="Apply / Add this network">Apply to join this network</a>';
 		}
 		
 		$out .= '</div><!--close td_inner-->';
@@ -765,8 +774,21 @@ class ConstructAjaxOutput {
 				
 				$out .= '<div class="clear"></div>';
 				$out .= '<ul class="ovault_boxlist hastitle">';
+				
 					foreach($offer->ratings as $review) {
-						$out .= $review->userComment != '' ? '<li>'.$review->userComment.'</li>' : '';
+						if($review->userComment != '') {
+							$nwcomm_trunc = self::$PageHelper->TruncTxt($review->userComment, 120);
+							if(strlen($nwcomm_trunc) < strlen($review->userComment)) {
+								$out .= '<li class="j_expand" data-target="ovault_nwcomment_expanded_'.$review->id.'" title="Click to expand the full comment">'.$nwcomm_trunc.'
+									<a class="btn ovault_transgray_expand j_expand" href="#" data-target="ovault_nwcomment_expanded_'.$review->id.'">Expand full comment</a>
+									<span id="ovault_nwcomment_expanded_'.$review->id.'" class="hide">...'.substr($review->userComment, 120).'</span>
+									</li>';
+							} else {
+								$out .= '<li>'.$review->userComment.'</li>';
+							}
+						}
+						
+						//$out .= $review->userComment != '' ? '<li>'.$review->userComment.'</li>' : '';
 					}
 				$out .= '</ul>';
 			}
