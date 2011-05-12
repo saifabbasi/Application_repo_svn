@@ -149,146 +149,76 @@
 	$offer->payout = $construct->formatPayout($offer->payout);
 			
 	/*latest offers*/
-	$sql = "SELECT 	offers.*,
-			categories.title AS categoryTitle,
-			networks.title AS networkName,
-			networks.detail AS networkDescription
-			
-		FROM	bevomedia_offers as offers
-			LEFT JOIN bevomedia_aff_network AS networks
-				ON networks.id = offers.network__id
-			LEFT JOIN bevomedia_category AS categories
-				ON categories.id = offers.category__id
-				
-		WHERE	offers.archived = 0
-		
-		ORDER BY offers.dateAdded DESC
-		
-		LIMIT 30	
-	"; //orig query
+	//get all nws except clickbank
+	$sql = "SELECT	*
+		FROM	bevomedia_aff_network
+		WHERE	model = 'CPA'
+			AND isValid = 'Y'
+			AND id <> '1040'
+		ORDER BY title
+	";
 	
-/*	trying to limit # of offers to 3 per network... in 1 query
-
-	$sql = "SET 	@num := 0,
-			@type := '';
-
-		SELECT	type, variety, price,
-			@num := if(@type = type, @num + 1, 1) AS row_number,
-			@type := type AS dummy
-			
-		FROM	fruits FORCE index(type)
-		
-		GROUP BY type, price, variety
-			HAVING row_number <= 2;
+	$rawNws = mysql_query($sql);
 	
-	"; //model
-	
-	$sql = "SET 	@num := 0,
-			@id := '';
-
-		SELECT	offers.*,
-			categories.title AS categoryTitle,
-			networks.title AS networkName,
-			networks.detail AS networkDescription,
-			
-			@num := if(@id = offers.id, @num + 1, 1) AS row_number,
-			@id := offers.id AS dummy
-			
-		FROM	bevomedia_offers AS offers
-			LEFT JOIN bevomedia_aff_network AS networks
-				ON networks.id = offers.network__id
-			LEFT JOIN bevomedia_category AS categories
-				ON categories.id = offers.category__id
-			
-		
-		GROUP BY 	offers.id, 
-				offers.dateAdded
-				HAVING row_number <= 2	
-	"; //should work, doesnt
-	
-	$sql = "SET 	@num := 0,
-			@id := '';
-
-		SELECT	*,
-			@num := if(@id = id, @num + 1, 1) AS row_number,
-			@id := id AS dummy
-			
-		FROM	bevomedia_offers
-			FORCE index(id)
-			
-		GROUP BY 	id
-		HAVING	row_number <= 2	
-	"; //simplified
-	
-	
-	
-	
-	
-	//try 3
-/ *	$sql = "SET @cRank = 0;
-		SET @cCoutnry = '';
-		
-		SELECT Country, Number
-		FROM (
-		    SELECT Number, @cRank := IF(@cCoutnry = Country, @cRank+1, 1) AS rank, @cCoutnry := Country Country 
-		    FROM table
-		    ORDER BY Country, Number DESC
-		) rs
-		WHERE rank < 3
-	"; //model
-	
-	$sql = "SET @cRank = 0;
-		SET @cCoutnry = '';
-		
-		SELECT Country, Number
-		FROM (
-		    SELECT 	Number, @cRank := IF(@cCoutnry = Country, @cRank+1, 1) AS rank, 
-		    		@cCoutnry := Country Country 
-		    FROM table
-		    ORDER BY Country, Number DESC
-		) rs
-		WHERE rank < 3	
-	";*/
-	
-	
-	
-	$rawLatest = mysql_query($sql);
 	$offers = array();
-	while($latest = mysql_fetch_object($rawLatest)) {
-	
+	while($nw = mysql_fetch_object($rawNws)) {
+		
 		//aff network user
-		$sql = "SELECT 
-				id
-			FROM 
-				bevomedia_user_aff_network 
-			WHERE 
-				(bevomedia_user_aff_network.network__id = {$latest->network__id}) AND
-				(bevomedia_user_aff_network.user__id = {$_SESSION['User']['ID']})	
+		$sql = "SELECT 	id
+			FROM 	bevomedia_user_aff_network 
+			WHERE 	(bevomedia_user_aff_network.network__id = {$nw->id}) 
+				AND (bevomedia_user_aff_network.user__id = {$_SESSION['User']['ID']})	
 		";
 		$isMemberOfNetwork = mysql_query($sql);
-		$latest->isNetworkMember = (mysql_num_rows($isMemberOfNetwork))?1:0;
+		$nw->isNetworkMember = (mysql_num_rows($isMemberOfNetwork)) ? 1 : 0;
 		
-		//savelist
-		$sql = "SELECT offers.offer__id
-			FROM bevomedia_user_offerlists_offers AS offers
-				LEFT JOIN bevomedia_user_offerlists AS lists
-					ON offers.list__id = lists.id
-			WHERE lists.user__id = {$_SESSION['User']['ID']}
-				AND offers.offer__id = $latest->id
+		//get latest 3 offers
+		$sql = "SELECT 	offers.*,
+				categories.title AS categoryTitle
+				
+			FROM	bevomedia_offers as offers
+				LEFT JOIN bevomedia_category AS categories
+					ON categories.id = offers.category__id
+					
+			WHERE	offers.archived = 0
+				AND offers.network__id = {$nw->id}
+			
+			ORDER BY offers.dateAdded DESC
+			
+			LIMIT 3	
 		";
-		$savelistLatest = mysql_query($sql);
-		$latest->saved2list = mysql_num_rows($savelistLatest) ? 1 : 0;
-		
-		$latest->dateAdded = $construct->formatDate($latest->dateAdded);
-		$latest->payout = $construct->formatPayout($latest->payout);
-		
-		if($latest->offerType == '')
-			$latest->offerType = 'Lead';
-		
-		$offers[] = $latest;
+		$rawNwOffers = mysql_query($sql);
+		while($nwOffer = mysql_fetch_object($rawNwOffers)) {
+			
+			//add network info
+			$nwOffer->networkName = $nw->title;
+			$nwOffer->networkDescription = $nw->detail;
+			$nwOffer->isNetworkMember = $nw->isNetworkMember;
+			
+			//format
+			$nwOffer->dateAdded = $construct->formatDate($nwOffer->dateAdded);
+			$nwOffer->payout = $construct->formatPayout($nwOffer->payout);
+			if($nwOffer->offerType == '')
+				$nwOffer->offerType = 'Lead';
+			
+			//get savelist info
+			$sql = "SELECT	offers.offer__id
+				FROM	bevomedia_user_offerlists_offers AS offers
+					LEFT JOIN bevomedia_user_offerlists AS lists
+						ON offers.list__id = lists.id
+				WHERE	lists.user__id = {$_SESSION['User']['ID']}
+					AND offers.offer__id = $nwOffer->id
+			";
+			$rawSavelist = mysql_query($sql);
+			$nwOffer->saved2list = mysql_num_rows($rawSavelist) ? 1 : 0;
+			
+			$offers[$nwOffer->title] = $nwOffer; //add to $offers with the name as the index so that we can sort it later
+			
+		} //endwhile offers
+	}//endwhile networks
 	
-	}//endwhile $latest
-	
+	//sort by offer title
+	ksort($offers);	
 
 include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.php'; ?>
 <script src="/Themes/BevoMedia/ovault.index.js" type="text/javascript"></script>
