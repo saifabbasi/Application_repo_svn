@@ -161,6 +161,7 @@ class ConstructAjaxOutput {
 			}//endif affurl
 			
 			$offer->dateAdded = self::formatDate($offer->dateAdded);
+			$offer->detail = strip_tags(html_entity_decode($offer->detail),'<br>');
 			
 			break;
 			
