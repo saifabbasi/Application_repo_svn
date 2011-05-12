@@ -876,3 +876,23 @@ function getToday() {
 	
 	return today;
 }
+
+/*rating stars*/
+//network star rating
+function ratingTill(id, amnt, state) {
+	for(var i=1; i<6; i++) {
+		document.getElementById(id+"_"+i).src = '/Themes/BevoMedia/img/star-off.gif';
+	}
+	for(var i=1; i<amnt+1; i++) {
+		document.getElementById(id+"_"+i).src = '/Themes/BevoMedia/img/star-on.gif';
+	}
+}
+
+function ratingRst(id, amnt) {
+	for(var i=1; i<6; i++) {
+		document.getElementById(id+"_"+i).src = '/Themes/BevoMedia/img/star-on.gif';
+	}
+	for(var i=amnt+1; i<6; i++) {
+		document.getElementById(id+"_"+i).src = '/Themes/BevoMedia/img/star-off.gif';
+	}
+}

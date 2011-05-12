@@ -132,11 +132,11 @@ $(document).ready(function() {
 	})//orow expand/collapse
 	
 	//add/apply shadowbox
-	$('.orowbig a.nw_applyadd').live('click', function() {
+	$('a.j_shadowbox').live('click', function() {
 		Shadowbox.open({
 			content: $(this).attr('href'),
 			player: 'iframe',
-			title: 'Apply/Add this Network',
+			title: $(this).attr('title'),
 			width: 640,
 			height: 480
 		});

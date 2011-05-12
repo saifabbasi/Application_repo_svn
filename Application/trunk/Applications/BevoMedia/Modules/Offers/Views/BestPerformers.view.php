@@ -340,7 +340,10 @@ include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.p
 							Publisher's Rating: <?php echo $offer->userRating; ?><br />
 							<?php for($i=1; $i<=5; $i++) {
 								$ratingstate = $offer->userRating >= $i ? 'on' : 'off'; 		
-								echo '<img src="/Themes/BevoMedia/img/star-'.$ratingstate.'.gif" align="absbottom" />';
+								//echo '<img src="/Themes/BevoMedia/img/star-'.$ratingstate.'.gif" align="absbottom" />';
+								echo '<a class="ovault_nw_ratebystar j_shadowbox" href="/BevoMedia/Publisher/NetworkRating.html?Rating='.$i.'&ID='.$offer->network__id.'" title="Share your experience with this network">
+									<img src="/Themes/BevoMedia/img/star-'.$ratingstate.'.gif" id="img_rating_top_month_'.$offer->network__id.'_'.$i.'" onmouseover="ratingTill(\'img_rating_top_month_'.$offer->network__id.'\', '.$i.')" onmouseout="ratingRst(\'img_rating_top_month_'.$offer->network__id.'\', '.$offer->userRating.')" align="absbottom" />
+								</a>';
 							} ?>
 						</p>
 					</div>
@@ -354,7 +357,7 @@ include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.p
 					<?php } else { ?>
 						
 						<p>You're not a member of this network yet! Become one now:</p>
-						<a class="btn nw_applyadd" href="/BevoMedia/Publisher/ApplyAdd.html?network=<?php echo $offer->network__id; ?>" rel="shadowbox;width=640;height=480;player=iframe">Apply to join this network</a>
+						<a class="btn nw_applyadd j_shadowbox" href="/BevoMedia/Publisher/ApplyAdd.html?network=<?php echo $offer->network__id; ?>" rel="shadowbox;width=640;height=480;player=iframe" title="Apply / Add this network">Apply to join this network</a>
 					
 					<?php } ?>
 				</div>
