@@ -38,19 +38,16 @@
 	$offer->isNetworkMember = (mysql_num_rows($isMemberOfNetwork))?1:0;
 	
 	//rating
-	$sql = "SELECT
-			rating
-		FROM
-			bevomedia_user_aff_network_rating
-		WHERE
-			(bevomedia_user_aff_network_rating.network__id = {$offer->network__id}) AND
-			(bevomedia_user_aff_network_rating.user__id = {$_SESSION['User']['ID']})			
-		";
+	$sql = "SELECT	rating
+		FROM	bevomedia_user_aff_network_rating
+		WHERE	bevomedia_user_aff_network_rating.network__id = {$offer->network__id}			
+	";
 	$userRating = mysql_query($sql);
 	
-	if (mysql_num_rows($userRating)>0) {
-		$userRating = mysql_fetch_assoc($userRating);
-		$offer->userRating = $userRating['rating'];
+	if(mysql_num_rows($userRating) > 0) {
+		$userRating = mysql_fetch_object($userRating);
+		$offer->userRating = $userRating->rating;
+		
 	} else {
 		$offer->userRating = 0;
 	}
