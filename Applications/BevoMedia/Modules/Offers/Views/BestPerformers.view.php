@@ -9,7 +9,7 @@
 			categories.title AS categoryTitle,
 			networks.title AS networkName,
 			networks.detail AS networkDescription,
-			networks.offerUrl as affUrl
+			networks.offerUrl as network_affUrl
 			
 		FROM	bevomedia_offers as offers
 			LEFT JOIN bevomedia_aff_network AS networks
@@ -88,9 +88,12 @@
 	$savelist = mysql_query($sql);
 	$offer->saved2list = mysql_num_rows($savelist) ? 1 : 0;
 	
-	//aff link
-	$offer->affId = false;
-	if($offer->isNetworkMember == 1 && $offer->affUrl) {
+	//affurl
+	$affId = false;
+	$offer->affUrl = false;
+	$offer->affUrlNotice = false; //fill with notice in case we show a placeholder in their aff URL
+	
+	if($offer->isNetworkMember == 1 && ($offer->affiliateUrl || $offer->network_affUrl)) {
 		
 		$sql = "SELECT 	userIdLabel,
 				otherIdLabel
@@ -108,7 +111,8 @@
 			elseif($field->otherIdLabel == 'Affiliate ID' || $field->otherIdLabel == 'Account ID')
 				$affField = 'otherId';
 			
-			if($affField) {
+			if($affField) {						
+				//get affiliate ID
 				$sql = "SELECT `$affField`
 					FROM	bevomedia_user_aff_network
 					WHERE	user__id = {$_SESSION['User']['ID']}
@@ -118,21 +122,28 @@
 				$affresult = mysql_query($sql);
 				if(mysql_num_rows($affresult) == 1) {
 					while($affId = mysql_fetch_object($affresult)) {
-						$offer->affId = $affId->$affField;
+						$affId = $affId->$affField;
+						break;
 					}
 				}
 			}
 		}//endwhile labelresult
 		
+		//if we dont have an affId, use placeholder and tell them
+		if(!$affId) {
+			$affId = '{YOUR_AFFID}';
+			$offer->affUrlNotice = 'Replace <strong>'.$affId.'</strong> with your affiliate ID for '.$offer->networkName.'!';
+		}
+		
+		//get urlstructure: see if offer->affiliateUrl exists, else use networks.offerUrl
+		if($offer->affiliateUrl && $offer->affiliateUrl != '') 
+			$urlstructure = $offer->affiliateUrl;
+		else	$urlstructure = $offer->network_affUrl;	
+		
+		//replace placeholders
+		$offer->affUrl = str_replace(array('{$OfferID}','{$AffiliateID}'), array($offer->offer__id, $affId), $urlstructure);
+		
 	}//endif affurl
-	
-	if($offer->affId) {
-		$offer->affUrl = str_replace('{$OfferID}', $offer->offer__id, $offer->affUrl);
-		$offer->affUrl = str_replace('{$AffiliateID}', $offer->affId, $offer->affUrl);
-	
-	} else {
-		$offer->affUrl = false;
-	}
 	
 	$offer->dateAdded = $construct->formatDate($offer->dateAdded);
 	$offer->payout = $construct->formatPayout($offer->payout);
@@ -297,7 +308,7 @@ include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.p
 
 <div class="pagecontent" id="ovault">
 	<div class="icon icon_ovault_ootm_tabletop"></div>
-	<table width="100%" cellspacing="0" cellpadding="3" border="0" class="btable" id="ootm">
+	<table width="100%" cellspacing="0" cellpadding="3" border="0" class="btable" id="	">
 		<tbody>	
 		<tr class="orow expanded j_oid-<?php echo $offer->id; ?>" title="Click to expand/collapse this offer">
 			<td class="border">&nbsp;</td>
@@ -339,12 +350,32 @@ include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.p
 						
 						//preview url
 						if(property_exists($offer, 'previewUrl') && $offer->previewUrl && $offer->previewUrl != '') { ?>
-							<a class="ovault_othumb" href="<?php echo $offer->previewUrl; ?>" title="Preview offer in a new tab" target="_blank"><?php echo $imageTag; ?><span></span></a>
+							<a class="ovault_othumb" href="<?php echo $offer->previewUrl; ?>" title="Preview offer in a new tab" target="_blank">
+								<?php echo $imageTag; ?>
+								<span class="btn ovault_visiticon_transyell"></span>
+							</a>
 							
 						<?php } else { ?>
 							<div class="ovault_othumb"><?php echo $imageTag; ?></div>
 							
 						<?php } ?>
+						
+						<div class="olinkbox">
+						<?php if($offer->affUrl) { ?>
+							<div class="otitle otitle_olink noborder"></div>
+							<?php echo ($offer->affUrlNotice ? '' : '<a class="btn ovault_transgray_testit_link" href="'.$offer->affUrl.'" target="_blank" title="Test your Affilate URL (opens in a new tab)">Test Link</a>'); ?>
+							<textarea class="formtxtarea j_hiliteall" rows="1" cols="1" readonly><?php echo $offer->affUrl; ?></textarea>
+							<?php echo ($offer->affUrlNotice ? '<p class="affurlnotice">'.$offer->affUrlNotice.'</p>' : ''); ?>
+							<p class="disclaimer">Note: Make sure your link works! If it does't, it means that this offer requires network approval before running.</p>
+						
+						<?php } elseif($offer->isNetworkMember == 1) { ?>
+							<p>You can find this offer in <?php echo $offer->networkName; ?>'s interface by searching for the <strong>Offer ID</strong> (to the right).</p>
+							
+						<?php } else { ?>
+							<p>We'd love to give you your Affiliate Link for this offer right now, but you're not a member of <?php echo $offer->networkName; ?> yet! <a class="nw_applyadd" href="/BevoMedia/Publisher/ApplyAdd.html?network=<?php echo $offer->network__id; ?>"><strong>Click Here</strong> to apply now</a>.</p>
+							
+						<?php } ?>
+					</div>
 						
 						<div class="clear"></div>
 					</div><!--close floatleft-->
@@ -355,14 +386,20 @@ include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.p
 						<div class="otitle otitle_offerdesc"></div>
 						<p><?php echo $offer->detail; ?></p>
 						
-						<?php 
+						<div class="otitle otitle_onwid noborder"></div>
+						<div class="clear"></div>
+						<input type="text" class="formtxt onwid j_hiliteall" readonly value="<?php echo $offer->offer__id; ?>" />
+						<p class="nolineheight">This offer's ID in <?php echo $offer->networkName; ?>'s interface</p>
+						<div class="clear"></div>
+						
+						<?php /*
 						//olink
 						if(property_exists($offer, 'affUrl') && $offer->affUrl) { ?>
 							<div class="olink">
 								<input type="text" class="formtxt" readonly value="<?php echo $offer->affUrl; ?>" />
 								<a class="btn ovault_visiticon" href="<?php echo $offer->affUrl; ?>" title="Click to test your affiliate link (opens in new tab)" target="_blank">Visit</a>
 							</div>
-						<?php } ?>
+						<?php } */ ?>
 					</div><!--close floatright-->
 					<div class="clear"></div>
 				</div>

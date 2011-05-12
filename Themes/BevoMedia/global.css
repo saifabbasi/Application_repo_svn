@@ -388,6 +388,7 @@ a.btn.ovault_smallgray_deleteall { width:66px; height:13px; background:url(img_n
 
 a.btn.ovault_transgray_rename { width:50px; height:14px; background:url(img_new/btn_ovault_transgray_rename.png) no-repeat; }
 a.btn.ovault_transgray_delete { width:34px; height:23px; background:url(img_new/btn_ovault_transgray_delete.png) no-repeat; }
+a.btn.ovault_transgray_testit_link { width:48px; height:12px; background:url(img_new/btn_ovault_transgray_testit_link.png) no-repeat; }
 .btn.ovault_transyell_details { width:38px; height:25px; background:url(img_new/btn_ovault_transyell_details.png) no-repeat; }
 
 a.btn.ovault_yell_createnewlist { width:107px; height:22px; background:url(img_new/btn_ovault_yell_createnewlist.png) no-repeat; }
@@ -429,7 +430,9 @@ a.btn.ovault_mystats_findallnwoffers { width:129px; height:25px; background:url(
 	.otitle.otitle_offerdesc { background:url(img_new/otitle_offerdesc.png) no-repeat; }
 	.otitle.otitle_network { background:url(img_new/otitle_network.png) no-repeat; }
 	.otitle.otitle_networkdesc { background:url(img_new/otitle_networkdesc.png) no-repeat; }
-	.otitle.otitle_latestnwreviews { background:url(img_new/otitle_latestnwreviews.png) no-repeat; }
+	.otitle.otitle_latestnwreviews { background:url(img_new/otitle_latestnwreviews.png) no-repeat; }        
+	.otitle.otitle_olink { width:106px; background:url(img_new/otitle_olink.png) no-repeat; }
+	.otitle.otitle_onwid { width:51px; background:url(img_new/otitle_onwid.png) no-repeat; }
 	
 		/*ovault_boxlist*/
 ul.ovault_boxlist { margin:0 0 10px; list-style:none; background:url(img_new/orow_exp_bg_lite.gif) repeat-y right top; border:1px solid #b2b2b2;
@@ -768,6 +771,7 @@ html>body #ieBar { display: none }
 	width: 131px; height:24px; background:url(img/btn_track_submit.png) no-repeat;
 	border: 0px; 
 }
+
 
 
 

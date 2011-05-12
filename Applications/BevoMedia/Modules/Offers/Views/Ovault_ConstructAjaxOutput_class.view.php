@@ -172,11 +172,11 @@ class ConstructAjaxOutput {
 				
 			}//endif affurl
 			
+			$offer->dateAdded = self::formatDate($offer->dateAdded);
+			
 			break;
 			
 		}//endwhile $offer
-		
-		$offer->dateAdded = self::formatDate($offer->dateAdded);
 		
 		$out['html'] = self::MakeOrowbig($offer);
 		
@@ -657,7 +657,8 @@ class ConstructAjaxOutput {
 				if(property_exists($offer, 'previewUrl') && $offer->previewUrl && $offer->previewUrl != '') {
 					$out .= '<a class="ovault_othumb" href="'.$offer->previewUrl.'" title="Preview offer in a new tab" target="_blank">';
 					$out .= $imageTag;
-					$out .= '<span></span></a>';
+					$out .= '<span class="btn ovault_visiticon_transyell"></span>
+						</a>';
 					
 				} else {
 					$out .= '<div class="ovault_othumb">';
@@ -665,10 +666,29 @@ class ConstructAjaxOutput {
 					$out .= '</div>';				
 				}
 				
+				//aff link
+				$out .= '<div class="olinkbox">';
+					if($offer->affUrl) {
+						$out .= '<div class="otitle otitle_olink noborder"></div>';
+						$out .= $offer->affUrlNotice ? '' : '<a class="btn ovault_transgray_testit_link" href="'.$offer->affUrl.'" target="_blank" title="Test your Affilate URL (opens in a new tab)">Test Link</a>'; //only show when we dont have a notice = when we have an affID
+						$out .= '<textarea class="formtxtarea j_hiliteall" rows="1" cols="1" readonly>'.$offer->affUrl.'</textarea>';
+						$out .= $offer->affUrlNotice ? '<p class="affurlnotice">'.$offer->affUrlNotice.'</p>' : '';
+						$out .= '<p class="disclaimer">Note: Make sure your link works! If it does\'t, it means that this offer requires network approval before running.</p>';
+					
+					} elseif($offer->isNetworkMember == 1) {
+						$out .= '<p>You can find this offer in '.$offer->networkName.'\'s interface by searching for the <strong>Offer ID</strong> (to the right).</p>';
+						
+					} else {
+						$out .= '<p>We\'d love to give you your Affiliate Link for this offer right now, but you\'re not a member of '.$offer->networkName.' yet! <a class="nw_applyadd" href="/BevoMedia/Publisher/ApplyAdd.html?network='.$offer->network__id.'"><strong>Click Here</strong> to apply now</a>.</p>';
+						
+					}
+				$out .= '</div>';
+				
 				//cake import
+				/*
 				if(property_exists($offer, 'importUrl') && $offer->importUrl && $offer->importUrl != '') {
 					$out .= '<a class="btn ovault_importoffer" href="'.$offer->importUrl.'">Import this offer into my network</a>';
-				}
+				}*/
 				
 				$out .= '<div class="clear"></div></div>';
 				
@@ -679,13 +699,22 @@ class ConstructAjaxOutput {
 				$out .= '<div class="otitle otitle_offerdesc"></div>';
 				$out .= '<p>'.$offer->detail.'</p>';
 				
+				//offer ID
+				//$out .= '<div class="onwidbox">'; //distinguish btw oid (bevo offer id) and onwid (network's offer id)
+					$out .= '<div class="otitle otitle_onwid noborder"></div>
+						<div class="clear"></div>
+						<input type="text" class="formtxt onwid j_hiliteall" readonly value="'.$offer->offer__id.'" />
+						<p class="nolineheight">This offer\'s ID in '.$offer->networkName.'\'s interface</p>
+						<div class="clear"></div>';
+				//$out .= '</div>';	
+				
 				//olink
-				if(property_exists($offer, 'affUrl') && $offer->affUrl) {
+				/*if(property_exists($offer, 'affUrl') && $offer->affUrl) {
 					$out .= '<div class="olink">';
 						$out .= '<input type="text" class="formtxt" readonly value="'.$offer->affUrl.'" />';
 						$out .= '<a class="btn ovault_visiticon" href="'.$offer->affUrl.'" title="Click to test your affiliate link (opens in new tab)" target="_blank">Visit</a>';
 					$out .= '</div>';
-				}
+				}*/
 				
 			$out .= '</div><div class="clear"></div></div><!--close td_inner-->';
 			$out .= '</td>';
