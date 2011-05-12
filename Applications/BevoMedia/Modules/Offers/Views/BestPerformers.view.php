@@ -308,7 +308,7 @@ include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.p
 
 <div class="pagecontent" id="ovault">
 	<div class="icon icon_ovault_ootm_tabletop"></div>
-	<table width="100%" cellspacing="0" cellpadding="3" border="0" class="btable" id="	">
+	<table width="100%" cellspacing="0" cellpadding="3" border="0" class="btable" id="ootm">
 		<tbody>	
 		<tr class="orow expanded j_oid-<?php echo $offer->id; ?>" title="Click to expand/collapse this offer">
 			<td class="border">&nbsp;</td>
