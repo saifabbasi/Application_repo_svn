@@ -222,31 +222,32 @@ class ConstructAjaxOutput {
 		}//end search
 		
 		
+		//networks
 		$networksSearchAdd = '';
-		if(isset($query['params']['include_networks']) && $query['params']['include_networks'] != 'ALL') {
-			
-			$terms = explode(',', $query['params']['include_networks']);
+		if(isset($query['params']['include_networks'])) {
 		
-			foreach ($terms as $term) {					
-				$term = intval(trim($term));					
-				$networksSearchAdd .= " (bevomedia_offers.network__id = {$term} ) OR ";
-			}
+			if($query['params']['include_networks'] == 'ALL') {
+				//exclude clickbank (1040)
+				$networksSearchAdd = " AND (bevomedia_offers.network__id <> '1040')";
+				
+			} else {			
+				$terms = explode(',', $query['params']['include_networks']);
 			
-			if (strlen($networksSearchAdd) > 1)
-				$networksSearchAdd = ' AND ('.rtrim($networksSearchAdd, 'OR ').' )';
-			else 	$networksSearchAdd = '';		
+				foreach ($terms as $term) {					
+					$term = intval(trim($term));					
+					$networksSearchAdd .= " (bevomedia_offers.network__id = {$term} ) OR ";
+				}
+				
+				if (strlen($networksSearchAdd) > 1)
+					$networksSearchAdd = ' AND ('.rtrim($networksSearchAdd, 'OR ').' )';
+				else 	$networksSearchAdd = '';
+			}
 			
 		}//end networks
 		
 		
-		
-		/*
-		
-		it would be better to integrate this into the main query with a join instead of running a 2nd query...
-		
-		*/
+		//savelist
 		$savelistAdd = '';		
-		
 		if(!isset($query['params']['include_mysaved']) || $query['params']['include_mysaved'] == 0) {
 			
 			$savedoffers = array();
