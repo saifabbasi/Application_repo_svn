@@ -477,43 +477,7 @@ function ratingRst(id, amnt)
 			<td class="rating">
 				<div id="div_<?php print $CpaNetwork->id; ; ?>" style="white-space: nowrap;">
 				<?
-					//Fix the ratings
-					if ($CpaNetwork->title=='EpicDirect')
-					{
-						$CpaNetwork->rating = 5;
-					} else
-					if ($CpaNetwork->title=='Copeac')
-					{
-						$CpaNetwork->rating = 3;
-					} else
-					if ($CpaNetwork->title=='Affiliate.com')
-					{
-						$CpaNetwork->rating = 3;
-					} else
-					if ($CpaNetwork->title=='EWA')
-					{
-						$CpaNetwork->rating = 4;
-					} else
-					if ($CpaNetwork->title=='FireLead')
-					{
-						$CpaNetwork->rating = 4;
-					} else
-					if ($CpaNetwork->title=='ClickBooth')
-					{
-						$CpaNetwork->rating = 4;
-					} else
-					if ($CpaNetwork->title=='ProfitKingsMedia')
-					{
-						$CpaNetwork->rating = 3;
-					} else
-					if ($CpaNetwork->title=='W4')
-					{
-						$CpaNetwork->rating = 4;
-					} else
-					if ($CpaNetwork->title=='XY7')
-					{
-						$CpaNetwork->rating = 2;
-					} 
+					$CpaNetwork->rating = $this->PageHelper->FixNetworkRating($CpaNetwork->title, $CpaNetwork->rating);
 				?>
 				<?php for($i=1; $i<6; $i++):?>
 					<?php if($CpaNetwork->rating >= $i){ $state = 'on'; }else{ $state = 'off'; }?>

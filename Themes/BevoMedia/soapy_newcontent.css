@@ -1052,7 +1052,8 @@ h2.imagetitle.interested { width:147px; height:22px; background:url(img/imagetit
 
 			
 		/*td_nwdesc*/
-		#ovault tr.orowbig td.td_nwdesc .otitle_latestnwreviews { margin-top:10px; }
+		#ovault tr.orowbig td.td_nwdesc .otitle_latestnwreviews { width:158px; margin-top:10px; float:left; }
+		#ovault tr.orowbig td.td_nwdesc a.btn.ovault_transgray_readall_reviews { margin:12px 0 0; float:left; }
 		
 			
 	/*offer of the month*/		
@@ -1295,6 +1296,8 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 	#offmain_searchform { float:left; }
 	table.floatleft { display:inline !important; }
 }
+
+
 
 
 

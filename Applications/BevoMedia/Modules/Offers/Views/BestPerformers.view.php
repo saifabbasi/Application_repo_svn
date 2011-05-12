@@ -361,13 +361,19 @@ include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.p
 			</td><!--close td_nw-->
 			<td class="td_nwdesc" colspan="3">
 				<div class="td_inner">
-					<div class="otitle otitle_networkdesc"></div>
-					<p><?php echo $offer->networkDescription; ?></p>
+					<?php if($offer->networkDescription) { ?>
+						<div class="otitle otitle_networkdesc"></div>
+						<p><?php echo $offer->networkDescription; ?></p>
+					<?php } ?>
 					
 					<?php if(is_array($offer->ratings) && !empty($offer->ratings)) { ?>
 						
 						<div class="otitle otitle_latestnwreviews noborder"></div>
-						<ul class="ovault_boxlist hastitme">
+						<?php if(count($offer->ratings) >= 3)
+							echo '<a class="btn ovault_transgray_readall_reviews" href="/BevoMedia/Publisher/Reviews.html?NetworkID='.$offer->network__id.'" title="Go to the review page for '.$offer->networkName.'">Read all reviews</a>'; ?>
+						<div class="clear"></div>
+						
+						<ul class="ovault_boxlist hastitle">
 							<?php foreach($offer->ratings as $review) {
 								echo ($review->userComment != '' ? '<li>'.$review->userComment.'</li>' : '');
 							} ?>
