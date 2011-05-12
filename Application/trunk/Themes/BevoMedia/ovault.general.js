@@ -61,6 +61,11 @@ $(document).ready(function() {
 	
 	})*/
 	
+	//hilite
+	$('.j_hiliteall').live('click', function() {
+		 $(this).focus().select();
+	});
+	
 	/*ini*/
 	if(ovault_cookSearch) {
 		if(location.pathname == ovault_searchPage)
@@ -127,7 +132,7 @@ $(document).ready(function() {
 	})//orow expand/collapse
 	
 	//add/apply shadowbox
-	$('.orowbig a.btn.nw_applyadd').live('click', function() {
+	$('.orowbig a.nw_applyadd').live('click', function() {
 		Shadowbox.open({
 			content: $(this).attr('href'),
 			player: 'iframe',

@@ -975,25 +975,65 @@ h2.imagetitle.interested { width:147px; height:22px; background:url(img/imagetit
 	
 		/*td_info*/
 		#ovault tr.orowbig td.td_info .floatleft { width:280px; }
-		#ovault tr.orowbig td.td_info .floatright { width:250px; }
+		#ovault tr.orowbig td.td_info .floatright { width:240px; }
 		
 			#ovault tr.orowbig td.td_info small { margin:4px 0 15px; font-size:.8em; color:#999; display:block; }
 			#ovault tr.orowbig td.td_info small span { margin:0; font-size:1em; color:#999; }
 			#ovault tr.orowbig td.td_info p { color:#808080; }
                         #ovault tr.orowbig td.td_info a.btn.ovault_importoffer { margin:0; }
+                        #ovault tr.orowbig p.nolineheight { line-height:1em; }
 			
 			/*ovault_thumb*/
-			a.ovault_othumb { width:290px; height:125px; margin:0 0 10px; overflow:hidden; display:block; }
-				.ovault_othumb img { max-width:245px; width:auto !important; width:245px; float:left; }
-				.ovault_othumb span { width:35px; height:73px; margin:0; display:block; float:left; background:url(img_new/othumb.png) no-repeat; }
-				a.ovault_othumb:hover span { background-position:left bottom; }
+			.ovault_othumb { width:285px; height:175px; margin:-8px 10px 0 -7px !important; overflow:hidden; display:block; background:#e6e6e6; position:relative; }
+                                #oright .ovault_othumb,
+                                #ootm .ovault_othumb { margin-left:-3px !important; }
+
+				.ovault_othumb img {  width:285px; float:left; }
+                                .ovault_othumb span.btn { display:block; position:absolute; top:5px; right:0px; }
+                                /*
+                                .ovault_othumb span { width:35px; height:73px; margin:0; display:block; float:left; background:url(img_new/othumb.png) no-repeat; display:none; }
+				a.ovault_othumb:hover span. { background-position:left bottom; }*/
 			
-			/*olink*/			
+			/*olink*/
+			#ovault tr.orowbig .olinkbox { width:275px; padding:10px; margin:-5px 0 0 -7px; background:url(img_new/ovault_orowbig_olinkbox.gif) repeat-y; 
+							border:1px solid #F7931E; position:relative;
+							-moz-border-radius-topright:5px; -webkit-border-top-right-radius:5px; border-top-right-radius:5px;
+							-moz-border-radius-bottomright:5px; -webkit-border-bottom-right-radius:5px; border-bottom-right-radius:5px; 
+							-moz-box-shadow:#999 1px -3px 3px; -webkit-box-shadow:#999 1px -3px 3px; box-shadow:#999 1px -3px 3px; }
+                                #oright tr.orowbig .olinkbox,
+                                #ootm tr.orowbig .olinkbox { margin-left:-3px !important; }
+
+				#ovault tr.orowbig .olinkbox .otitle { margin:0; float:left; }
+                                #ovault tr.orowbig .olinkbox a.btn.ovault_transgray_testit_link { margin:0; float:left; }
+				#ovault tr.orowbig .olinkbox textarea { width:270px; height:39px; margin:0 0 5px -5px; font-size:.9em; resize:none;
+							-moz-border-radius-topleft:0; -webkit-border-top-left-radius:0; border-top-left-radius:0; }
+				#ovault tr.orowbig .olinkbox p { margin:0 0 5px; color:#F15A24 !important; line-height:1em; }
+					#ovault tr.orowbig .olinkbox p.affurlnotice { font-weight:bold; margin:0;}
+					#ovault tr.orowbig .olinkbox p.disclaimer {}
+					#ovault tr.orowbig .olinkbox strong { margin:0 !important; font-size:1em; color:#F15A24; }
+				#ovault tr.orowbig .olinkbox a { color:#C1272D; font-size:.9em;}
+                                        #ovault tr.orowbig .olinkbox a strong { margin:0; color:#C1272D; }
+				#ovault tr.orowbig .olinkbox a:hover,
+				#ovault tr.orowbig .olinkbox a:hover strong { color:#000; }
+			
+			/*onwid*/
+			#ovault tr.orowbig .onwidbox { width:200px; padding:10px; margin:0 0 0 -7px; background:url(img_new/ovault_orowbig_onwidbox.gif) repeat-y;
+							border:1px solid #31C2FF; position:relative;
+							-moz-border-radius-bottomright:5px; -webkit-border-bottom-right-radius:5px; border-bottom-right-radius:5px; }
+                                #ovault tr.orowbig .otitle_onwid { margin-top:10px; }
+				#ovault tr.orowbig input.formtxt.onwid { width:70px; padding:2px; margin:0 5px 0 0; float:left; 
+									-moz-border-radius-topleft:0; -webkit-border-top-left-radius:0; border-top-left-radius:0; }
+				#ovault tr.orowbig .onwidbox p { width:120px; margin:0; float:left; color:#29abe2 !important; line-height:1em; }
+			
+				
+			/*olink*/
+			/*			
 			#ovault .olink { width:260px; height:67px; margin-left:-12px; position:relative; background:url(img_new/olink.png) no-repeat; overflow:hidden; }
 				#ovault .olink input { width:200px; font-size:.9em; position:absolute; top:34px; left:15px; }
 				#ovault .olink a.btn { position:absolute; top:37px; right:3px; }
 				
 				#ovault tr.orowbig td.td_info .olink { margin-top:10px; }
+			*/
 				
 		/*td_nw*/
 		#ovault tr.orowbig td.td_nw p,
@@ -1255,6 +1295,9 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 	#offmain_searchform { float:left; }
 	table.floatleft { display:inline !important; }
 }
+
+
+
 
 
 
