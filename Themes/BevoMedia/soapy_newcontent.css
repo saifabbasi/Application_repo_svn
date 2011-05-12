@@ -826,7 +826,7 @@ h2.imagetitle.interested { width:147px; height:22px; background:url(img/imagetit
 /*END ODIAL SIMPLE*/
 				
 	/*dial butt*/
-	#odial .butt .rows { width:98px; height:65px; position:absolute; top:0; left:0; background:url(img_new/odial_butt_rows.png) no-repeat; }
+	#odial .butt .rows { width:98px; height:65px; position:absolute; top:0; left:0; z-index:120; background:url(img_new/odial_butt_rows.png) no-repeat; }
 	#odial .butt .save { width:220px; height:65px; position:absolute; top:0; left:98px; background:url(img_new/odial_butt_save.png) no-repeat; }
 	
 		#odial .butt .selebtn { padding:2px 2px 2px 5px; position:absolute; color:#666; background:#fff; cursor:pointer; font-size:10px;
@@ -1295,10 +1295,6 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 	#offmain_searchform { float:left; }
 	table.floatleft { display:inline !important; }
 }
-
-
-
-
 
 
 
