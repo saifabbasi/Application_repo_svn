@@ -1,6 +1,6 @@
 <?php 
 
-require_once('HasOffers.Abstract.php');
+require_once('CakeMarketing.Abstract.php');
 
 /**
  * CPAStaxx.php
@@ -12,38 +12,49 @@ require_once('HasOffers.Abstract.php');
  * @author RCS
  * @version 0.0.1
  */
-class WolfStorm Extends HasOffersAbstract {
+class WolfStorm Extends CakeMarketingAbstract {
 	/**
 	 * @access protected
 	 * @var string $apiUrl
 	 */
-	protected $offersApiKey = 'AFF0FGx8I7RNV19BBNkmfEUT9N5wqb';
+	protected $apiUrl = 'http://login.wolfstormmedia.com/affiliates/api/1/reports.asmx/Clicks';
 	
 	/**
 	 * @access protected
-	 * @var string $statsApiUrl
+	 * @var string $apiUrlConversions
 	 */
-	protected $statsApiUrl = 'http://affiliates.wolfstormmedia.com/stats/stats.json';
+	protected $apiUrlConversions = 'http://login.wolfstormmedia.com/affiliates/api/1/reports.asmx/Conversions';
 	
 	/**
 	 * @access protected
-	 * @var string $conversionsApiUrl
+	 * @var string $offersUrl
 	 */
-	protected $conversionsApiUrl = 'http://affiliates.wolfstormmedia.com/stats/lead_report.json';
+	protected $offersUrl = 'http://login.wolfstormmedia.com/affiliates/api/1/offers.asmx/OfferFeed';
 	
 	/**
 	 * @access protected
-	 * @var string $offersApiUrl
+	 * @var string $loginUrl
 	 */
-	protected $offersApiUrl = 'http://affiliates.wolfstormmedia.com/offers/offers.json';
-	
+	protected $loginUrl = 'http://login.wolfstormmedia.com/';
 	
 	/**
-	 * EWA class constructor.
+	 * @access protected
+	 * @var string $offersAffiliateId
+	 */
+	protected $offersAffiliateId = '1970';
+	
+	/**
+	 * @access protected
+	 * @var string $offersApiKey
+	 */
+	protected $offersApiKey = 'I1jpQD7g8TY';
+	
+	/**
+	 * Convert2Media class constructor.
 	 *
 	 */
 	Public Function __construct()
 	{
-		$this->networkId = 1062;
+
 	}
 }
