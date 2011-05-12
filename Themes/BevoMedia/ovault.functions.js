@@ -404,10 +404,10 @@ function doSearch(s, updateDial) {
 				r = $.parseJSON(r);
 				
 				if(r.error) {
-					ajaxMessage(r.error);
+					ajaxMessage(r.error,1);
 					
 				} else {
-
+					
 					soap_cookCreate(ovault_cook_LastSearch,r.searchstring,365);
 					
 					ovault_cache.searchresults[r.searchstring] = r.resultarr;
@@ -440,13 +440,13 @@ function doSearch(s, updateDial) {
 					if(updateDial)
 						updateDialByHash(r.searchstring);
 					
-					else if(r.message) //throw msg, but only if not called from cook or hash
+					if(r.message)
 						ajaxMessage(r.message,1);
 					
 				}
 			},
 			error: function(r) {
-				ajaxMessage(r);
+				ajaxMessage(r,1);
 			}
 		});
 	}//endif ovault_cached or not
@@ -464,8 +464,10 @@ function updateDialByHash(searchstring) {
 	});
 	
 
-	if(params['search'] && params['search'] != '') {
+	if(params['search']) {
 		$('#osearch').val(unescape(params['search']));	
+	} else {
+		$('#osearch').val('');
 	}
 	
 	//networks

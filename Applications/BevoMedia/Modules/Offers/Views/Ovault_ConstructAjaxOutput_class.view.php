@@ -190,39 +190,43 @@ class ConstructAjaxOutput {
 		$userid = $_SESSION['User']['ID'];
 		$out = array();	
 		
+		/*search*/
 		$searchAdd = '';
-		if(isset($query['params']['search'])) {
+		if(isset($query['params']['search']) && $query['params']['search'] != '*') {
 			
-			//allow * only if 1 network is selected
-			if($query['params']['search'] == '*' && strstr(',', $query['params']['include_networks']) === false && is_numeric($query['params']['include_networks'])) {
-					
-				$searchAdd = '';
-				//$out['message'] = 'Did you know? If you select only one network in the Bevo Search Sphere, you can use the * command to find all its offers.';
+			$terms = explode(' ', $query['params']['search']);			
+			
+			foreach($terms as $term) {
+				if (trim($term)=='') continue;
 				
+				$term = trim($term);
+				
+				$searchAdd .= " (bevomedia_offers.title LIKE '%{$term}%') OR ";
+				$searchAdd .= " (bevomedia_offers.detail LIKE '%{$term}%') OR ";
+			}
+			
+			if (strlen($searchAdd)>1) {
+				$searchAdd = ' AND ('.rtrim($searchAdd, 'OR ').' )';
 			} else {
+				$searchAdd = '';
+			}
 			
-				$terms = explode(' ', $query['params']['search']);			
+		} else { //if no search param or star
+			
+			//allow only if 1 network is selected
+			if(strstr(',', $query['params']['include_networks']) === false && is_numeric($query['params']['include_networks'])) {
 				
-				foreach ($terms as $term)
-				{
-					if (trim($term)=='') continue;
-					
-					$term = trim($term);
-					
-					$searchAdd .= " (bevomedia_offers.title LIKE '%{$term}%') OR ";
-					$searchAdd .= " (bevomedia_offers.detail LIKE '%{$term}%') OR ";
-				}
-				
-				if (strlen($searchAdd)>1) {
-					$searchAdd = ' AND ('.rtrim($searchAdd, 'OR ').' )';
-				} else {
-					$searchAdd = '';
-				}
-			}//endif *
+				$searchAdd = '';
+				$out['message'] = 'Showing all offers from this network! Use * or do a blank search with only 1 network selected to find all of its offers.';
+			
+			} else {
+				$out['error'] = 'The * or empty operator only works when you have a single network selected. Please deselect all networks <em>except for one</em> in the Search Sphere, and try again!';
+			}
+		
 		}//end search
 		
 		
-		//networks
+		/*networks*/
 		$networksSearchAdd = '';
 		if(isset($query['params']['include_networks'])) {
 		
@@ -233,7 +237,7 @@ class ConstructAjaxOutput {
 			} else {			
 				$terms = explode(',', $query['params']['include_networks']);
 			
-				foreach ($terms as $term) {					
+				foreach($terms as $term) {
 					$term = intval(trim($term));					
 					$networksSearchAdd .= " (bevomedia_offers.network__id = {$term} ) OR ";
 				}
@@ -246,7 +250,7 @@ class ConstructAjaxOutput {
 		}//end networks
 		
 		
-		//savelist
+		/*mysaved*/
 		$savelistAdd = '';		
 		if(!isset($query['params']['include_mysaved']) || $query['params']['include_mysaved'] == 0) {
 			
@@ -268,7 +272,7 @@ class ConstructAjaxOutput {
 				$savelistAdd = " AND (bevomedia_offers.id NOT IN (".implode(', ', $savedoffers).")) ";
 		}
 				
-		//limit, range
+		/*limit, range*/
 		if(!isset($query['params']['page'])) //do this here - not required on the front
 			$query['params']['page'] = 1;
 		
@@ -278,99 +282,111 @@ class ConstructAjaxOutput {
 		$limitAdd = " LIMIT $numfrom, $numresults";
 		
 		
-		$sql = "SELECT SQL_CALC_FOUND_ROWS
-					bevomedia_offers.*,
-					bevomedia_category.title as `categoryTitle`,
-					bevomedia_aff_network.title as `networkName`
-				FROM
-					bevomedia_offers
-					LEFT JOIN bevomedia_category ON (bevomedia_category.id = bevomedia_offers.category__id),
-					bevomedia_aff_network
-				WHERE
-					(bevomedia_aff_network.id = bevomedia_offers.network__id) AND
-					bevomedia_offers.archived = 0
-					{$searchAdd}
-					{$networksSearchAdd}
-					{$savelistAdd}
-					AND bevomedia_offers.archived = 0
-				ORDER BY 
-					bevomedia_offers.payout DESC
-					{$limitAdd}
-					
-				";
-		//die($sql);
+		/*fetch*/
+		if(!isset($out['error'])) :
+		
+			$sql = "SELECT SQL_CALC_FOUND_ROWS
+						bevomedia_offers.*,
+						bevomedia_category.title as `categoryTitle`,
+						bevomedia_aff_network.title as `networkName`
+					FROM
+						bevomedia_offers
+						LEFT JOIN bevomedia_category ON (bevomedia_category.id = bevomedia_offers.category__id),
+						bevomedia_aff_network
+					WHERE
+						(bevomedia_aff_network.id = bevomedia_offers.network__id) AND
+						bevomedia_offers.archived = 0
+						{$searchAdd}
+						{$networksSearchAdd}
+						{$savelistAdd}
+						AND bevomedia_offers.archived = 0
+					ORDER BY 
+						bevomedia_offers.payout DESC
+						{$limitAdd}
+						
+			";//die($sql);
 				
-		$data = mysql_query($sql);
-		
-		//get total results
-		$sqlcount = "SELECT FOUND_ROWS() AS `found_rows`";
-		$countresults = mysql_query($sqlcount);
-		$countresults = mysql_fetch_object($countresults);
-		$out['totalresults'] = $countresults->found_rows;
-		
-		if($out['totalresults'] == 0)
-			$out['message'] = 'Nothing found for this query! Try widening your search terms, or include more networks.'; //overwrites any prev msgs
-		
-		elseif($out['totalresults'] > 300 && !isset($out['message'])) //only if we dont have a msg yet (only the case for search=* in 1 nw
-			$out['message'] = $out['totalresults'].' Offers were found for this query! If you want to narrow down the results, try adding more search terms, or select a fewer number of networks.';
-		
-		$offersArray = array();
-		while ($offer = mysql_fetch_object($data))
-		{
-			$sql = "SELECT 
+			$data = mysql_query($sql);
+			
+			//get total results
+			$sqlcount = "SELECT FOUND_ROWS() AS `found_rows`";
+			$countresults = mysql_query($sqlcount);
+			$countresults = mysql_fetch_object($countresults);
+			$out['totalresults'] = $countresults->found_rows;
+			
+			if($out['totalresults'] == 0)
+				$out['message'] = 'Nothing found for this query! Try widening your search terms, or include more networks.'; //overwrites any prev msgs
+			
+			elseif($out['totalresults'] > 400 && !isset($out['message'])) //only if we dont have a msg yet (only the case for search=* in 1 nw
+				$out['message'] = $out['totalresults'].' Offers were found for this query! If you want to narrow down the results, try adding more search terms, or select a fewer number of networks.';
+			
+			/*fetch additional data*/
+			$offersArray = array();
+			while($offer = mysql_fetch_object($data)) {
+				
+				/*isNetworkMember*/
+				$sql = "SELECT 
 						id
 					FROM 
 						bevomedia_user_aff_network 
 					WHERE 
 						(bevomedia_user_aff_network.network__id = {$offer->network__id}) AND
 						(bevomedia_user_aff_network.user__id = {$_SESSION['User']['ID']})
-					";
-			$isMemberOfNetwork = mysql_query($sql);
-			$offer->isNetworkMember = (mysql_num_rows($isMemberOfNetwork))?1:0;
-			
-			//check if offer is in an offer list already
-			if(isset($query['params']['include_mysaved']) && $query['params']['include_mysaved'] == 1) {
-				
-				$savedoffers = array();
-				
-				$sql = "SELECT offers.offer__id
-					FROM bevomedia_user_offerlists_offers AS offers
-						LEFT JOIN bevomedia_user_offerlists AS lists
-							ON offers.list__id = lists.id
-					WHERE offers.offer__id = {$offer->id}
-						AND lists.user__id = {$userid}
-					LIMIT 1
 				";
+				$isMemberOfNetwork = mysql_query($sql);
+				$offer->isNetworkMember = (mysql_num_rows($isMemberOfNetwork))?1:0;
 				
-				$offerIsSaved = mysql_query($sql);
-				$offer->saved2list = (mysql_num_rows($offerIsSaved)) ? 1 : 0;
-			}
-			
-			$offersArray[] = $offer;
-			
-		}
-		
-		//format a few things
-		foreach($offersArray as $key => $offer) {
-			//special chars in name
-			//$offersArray[$key]->title = htmlentities($offer->title, ENT_QUOTES, 'UTF-8'); //turns errors into null values
-			//$offersArray[$key]->title = str_replace('£','&pound;', $offer->title); //doesnt work either...
-			
-			$offersArray[$key]->dateAdded = self::formatDate($offer->dateAdded);
-			$offersArray[$key]->payout = self::formatPayout($offer->payout);
-			
-			//category NULL vals
-			if($offer->categoryTitle == NULL)
-				$offersArray[$key]->categoryTitle = '';
+				/*mysaved icon*/
+				if(isset($query['params']['include_mysaved']) && $query['params']['include_mysaved'] == 1) {
+					
+					$savedoffers = array();
+					
+					$sql = "SELECT offers.offer__id
+						FROM bevomedia_user_offerlists_offers AS offers
+							LEFT JOIN bevomedia_user_offerlists AS lists
+								ON offers.list__id = lists.id
+						WHERE offers.offer__id = {$offer->id}
+							AND lists.user__id = {$userid}
+						LIMIT 1
+					";
+					
+					$offerIsSaved = mysql_query($sql);
+					$offer->saved2list = (mysql_num_rows($offerIsSaved)) ? 1 : 0;
+				}//end mysaved
 				
-			if($offer->offerType == '')
-				$offersArray[$key]->offerType = 'Lead';
+				/*formatting*/
+				//special chars in name
+				//$offersArray[$key]->title = htmlentities($offer->title, ENT_QUOTES, 'UTF-8'); //turns errors into null values
+				//$offersArray[$key]->title = str_replace('£','&pound;', $offer->title); //doesnt work either...
+				
+				$offer->dateAdded = self::formatDate($offer->dateAdded);
+				$offer->payout = self::formatPayout($offer->payout);
+				
+				if($offer->categoryTitle == NULL)
+					$offer->categoryTitle = '';
+					
+				if($offer->offerType == '')
+					$offer->offerType = 'Lead';
+				
+				/*add*/
+				$offersArray[] = $offer;
+				
+			}//endwhile offer
 			
-		}
+			//format a few things
+			/*foreach($offersArray as $key => $offer) {
+				
+				
+			}*/
+			
+			//pagination
+			$out['pagination'] = self::MakePagination($out['totalresults'], $numresults, $query['params']['page']);
+			$out['resultarr'] = $offersArray;
 		
-		//pagination
-		$out['pagination'] = self::MakePagination($out['totalresults'], $numresults, $query['params']['page']);
-		$out['resultarr'] = $offersArray;
+		endif; //!$out['error']
+		
+		if(empty($out))
+			$out['error'] = 'Something went wrong, couldn\'t retrieve any offers. Try modifying your search parameters.';
 		
 		return $out;
 		
@@ -438,11 +454,9 @@ class ConstructAjaxOutput {
 					$offer->type = 'Lead';
 						
 				$offersArray[] = $offer;
-			}
+			}//endwhile
 			
-			//$out['resultarr'] = $offersArray;
-			
-		}	
+		}//endif results
 		
 		$out['resultarr'] = $offersArray;
 					
