@@ -727,7 +727,7 @@ class ConstructAjaxOutput {
 			
 			//rating stars (just show, dont allow to rate)
 			$out .= '<p class="bordertop aligncenter">Publisher\'s Rating: ';
-			$out .= $offer->userRating > 0 ? $offer->userRating.' / 5' : '';
+			$out .= $offer->userRating > 0 ? $offer->userRating.' /5' : '';
 			$out .= '<br />';
 			
 			for($i=1; $i<=5; $i++) {
