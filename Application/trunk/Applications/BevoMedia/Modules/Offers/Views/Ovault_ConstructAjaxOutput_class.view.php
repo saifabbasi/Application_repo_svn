@@ -150,6 +150,7 @@ class ConstructAjaxOutput {
 						if(mysql_num_rows($affresult) == 1) {
 							while($affId = mysql_fetch_object($affresult)) {
 								$affId = $affId->$affField;
+								break;
 							}
 						}
 					}
