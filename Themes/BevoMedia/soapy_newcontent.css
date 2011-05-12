@@ -892,7 +892,7 @@ h2.imagetitle.interested { width:147px; height:22px; background:url(img/imagetit
 #ovault .btable td.td_offername { width:465px; }
 #ovault .btable td.td_payout { width:54px; text-align:center; }
 #ovault .btable td.td_type { width:41px; text-align:center; }
-#ovault .btable td.td_vertical { width:123px; text-align:center; }
+#ovault .btable td.td_vertical { width:123px !important; text-align:center; }
 #ovault .btable td.td_network { width:120px; text-align:center; }
         #ovault .btable tr.orow td.td_network { border-right:1px solid #ABE2F5 !important; }
 #ovault .btable td.td_savelist { border-left:none; }
