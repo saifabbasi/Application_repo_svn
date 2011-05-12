@@ -41,7 +41,7 @@ class ConstructAjaxOutput {
 				category.title as `categoryTitle`,
 				network.title as `networkName`,
 				network.detail as `networkDescription`,
-				network.offerUrl as `affUrl`
+				network.offerUrl as `network_affUrl`
 			FROM
 				bevomedia_offers AS offers
 				LEFT JOIN bevomedia_category AS category
@@ -116,8 +116,11 @@ class ConstructAjaxOutput {
 			}//endif is_oright
 			
 			//aff link
-			$offer->affId = false;
-			if($offer->isNetworkMember == 1 && $offer->affUrl) {
+			$affId = false;
+			$offer->affUrl = false;
+			$offer->affUrlNotice = false; //fill with notice in case we show a placeholder in their aff URL
+			
+			if($offer->isNetworkMember == 1 && ($offer->affiliateUrl || $offer->network_affUrl)) {
 				
 				$sql = "SELECT 	userIdLabel,
 						otherIdLabel
@@ -135,7 +138,8 @@ class ConstructAjaxOutput {
 					elseif($field->otherIdLabel == 'Affiliate ID' || $field->otherIdLabel == 'Account ID')
 						$affField = 'otherId';
 					
-					if($affField) {
+					if($affField) {						
+						//get affiliate ID
 						$sql = "SELECT `$affField`
 							FROM	bevomedia_user_aff_network
 							WHERE	user__id = {$_SESSION['User']['ID']}
@@ -145,25 +149,31 @@ class ConstructAjaxOutput {
 						$affresult = mysql_query($sql);
 						if(mysql_num_rows($affresult) == 1) {
 							while($affId = mysql_fetch_object($affresult)) {
-								$offer->affId = $affId->$affField;
+								$affId = $affId->$affField;
 							}
 						}
 					}
 				}//endwhile labelresult
 				
+				//if we dont have an affId, use placeholder and tell them
+				if(!$affId) {
+					$affId = '{YOUR_AFFID}';
+					$offer->affUrlNotice = 'Replace <strong>'.$affId.'</strong> with your affiliate ID for '.$offer->networkName.'!';
+				}
+				
+				//get urlstructure: see if offer->affiliateUrl exists, else use networks.offerUrl
+				if($offer->affiliateUrl && $offer->affiliateUrl != '') 
+					$urlstructure = $offer->affiliateUrl;
+				else	$urlstructure = $offer->network_affUrl;	
+				
+				//replace placeholders
+				$offer->affUrl = str_replace(array('{$OfferID}','{$AffiliateID}'), array($offer->offer__id, $affId), $urlstructure);
+				
 			}//endif affurl
-			
-			if($offer->affId) {
-				$offer->affUrl = str_replace('{$OfferID}', $offer->offer__id, $offer->affUrl);
-				$offer->affUrl = str_replace('{$AffiliateID}', $offer->affId, $offer->affUrl);
-			
-			} else {
-				$offer->affUrl = false;
-			}
 			
 			break;
 			
-		}
+		}//endwhile $offer
 		
 		$offer->dateAdded = self::formatDate($offer->dateAdded);
 		
