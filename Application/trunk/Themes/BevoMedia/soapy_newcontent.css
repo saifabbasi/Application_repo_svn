@@ -1044,7 +1044,8 @@ h2.imagetitle.interested { width:147px; height:22px; background:url(img/imagetit
 		#ovault tr.orowbig td.td_nwdesc p{ color:#F2F2F2; }
 		#ovault tr.orowbig .icon_ovault_nwmember_bigwhite { margin:10px auto; }
 		#ovault tr.orowbig a.btn.ovault_gotomystats_trans {  margin:0 auto; }
-                #ovault tr.orowbig a.ovault_nw_ratebystar { padding:3px; }
+                #ovault tr.orowbig a.ovault_nw_ratebystar { padding:0; margin:0 -2px !important; }
+                #ovault tr.orowbig a.ovault_nw_ratebystar img { margin:0 !important; } 
 		
 			/*onwpic*/
 		#ovault .onwpic { width:110px; padding:5px; margin:0 0 10px; border:1px solid #999; background:#fff;
@@ -1302,6 +1303,7 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 	#offmain_searchform { float:left; }
 	table.floatleft { display:inline !important; }
 }
+
 
 
 
