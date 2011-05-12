@@ -64,9 +64,12 @@ $networks[] = networkArray('GetAds', 1057, 'LinkTrust');
 $networks[] = networkArray('CPAStaxx', 1059, 'LinkTrust');
 $networks[] = networkArray('PeerFly', 1060);
 $networks[] = networkArray('DiabloMedia', 1061);
-$networks[] = networkArray('WolfStorm', 1062);
+$networks[] = networkArray('WolfStorm', 1062, 'CakeMarketing');
+$networks[] = networkArray('CPAProsperity', 1070, 'CakeMarketing');
 $networks[] = networkArray('NDemand', 1063, 'LinkTrust');
 $networks[] = networkArray('LazyProfits', 1064, 'HasOffers');
+$networks[] = networkArray('CPAProsperity', 1070, 'CakeMarketing');
+
 
 foreach($networks as $network)
 {
