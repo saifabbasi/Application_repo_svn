@@ -443,7 +443,16 @@ function doSearch(s, updateDial) {
 					if(r.message)
 						ajaxMessage(r.message,1);
 					
-				}
+					if(r.message_once) {
+						var once = soap_cookRead(ovault_cook_messageOnce);
+						
+						if(!once) {
+							ajaxMessage(r.message_once,1);
+							soap_cookCreate(ovault_cook_messageOnce,1,14);
+						}	
+					}
+					
+				}//endif r.error
 			},
 			error: function(r) {
 				ajaxMessage(r,1);

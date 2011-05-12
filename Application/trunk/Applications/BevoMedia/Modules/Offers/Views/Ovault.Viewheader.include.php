@@ -130,7 +130,8 @@
 		
 		ovault_cache = [],
 		
-		ovault_cook_LastSearch = '<?php echo $ovaultSavelist['cookie_lastsearch']; ?>',		
+		ovault_cook_LastSearch = '<?php echo $ovaultSavelist['cookie_lastsearch']; ?>',
+		ovault_cook_messageOnce = '__bevoOMOnce',		
 		
 		ovault_cookSearch = soap_cookRead(ovault_cook_LastSearch),
 		
