@@ -69,19 +69,16 @@ class ConstructAjaxOutput {
 			$offer->isNetworkMember = (mysql_num_rows($isMemberOfNetwork))?1:0;
 			
 			
-			$sql = "SELECT
-						rating
-					FROM
-						bevomedia_user_aff_network_rating
-					WHERE
-						(bevomedia_user_aff_network_rating.network__id = {$offer->network__id}) AND
-						(bevomedia_user_aff_network_rating.user__id = {$_SESSION['User']['ID']})			
-					";
+			$sql = "SELECT	rating
+				FROM	bevomedia_user_aff_network_rating
+				WHERE	bevomedia_user_aff_network_rating.network__id = {$offer->network__id}			
+			";
 			$userRating = mysql_query($sql);
 			
-			if (mysql_num_rows($userRating)>0) {
-				$userRating = mysql_fetch_assoc($userRating);
-				$offer->userRating = $userRating['rating'];
+			if(mysql_num_rows($userRating) > 0) {
+				$userRating = mysql_fetch_object($userRating);
+				$offer->userRating = $userRating->rating;
+				
 			} else {
 				$offer->userRating = 0;
 			}
@@ -91,17 +88,17 @@ class ConstructAjaxOutput {
 			if(!isset($query['params']['is_oright']) || $query['params']['is_oright'] != 1) {
 			
 				$sql = "SELECT
-							*
-						FROM
-							bevomedia_user_aff_network_rating
-						WHERE
-							(bevomedia_user_aff_network_rating.network__id = {$offer->network__id}) AND
-							(bevomedia_user_aff_network_rating.approved = 1) AND
-							(bevomedia_user_aff_network_rating.userComment != '')
-						ORDER BY 
-							bevomedia_user_aff_network_rating.id DESC
-						LIMIT 3
-						";
+						*
+					FROM
+						bevomedia_user_aff_network_rating
+					WHERE
+						(bevomedia_user_aff_network_rating.network__id = {$offer->network__id}) AND
+						(bevomedia_user_aff_network_rating.approved = 1) AND
+						(bevomedia_user_aff_network_rating.userComment != '')
+					ORDER BY 
+						bevomedia_user_aff_network_rating.id DESC
+					LIMIT 3
+					";
 				$ratings = mysql_query($sql);
 				
 				$offer->ratings = array();
