@@ -5,25 +5,16 @@
 
 class ConstructAjaxOutput {
 	
-	/*output*/
-	private function out($out=false) {
+	/*
+	static $SelfHosted;
+	
+	function __construct() {
+		//self::$SelfHosted = false;
 		
-		if(!$out)
-			$out['error'] = 'An error occured, please try again.';
+		//if(Zend_Registry::get('Application/Mode') == 'SelfHosted') 
+			self::$SelfHosted = Zend_Registry::get('Application/Mode');
 		
-		/*if(!array_key_exists('raw', $out)) { //if not a raw string
-			if(!$out || !is_array($out) || empty($out))
-				$out['error'] = 'Oops, something went wrong! Please try again.';
-			
-			if(is_array($out) && array_key_exists('html', $out) && $out['html']) {
-				$out['id'] = uniqid('ppvs_html_'); //add id
-				$out['html'] = '<div class="ppvs_html" id="'.$out['id'].'">'.$out['html'].'<div class="clear"></div></div><div class="clear"></div>';
-			
-			} else	$out['error'] = 'Nothing found for this query! Please try again.';
-		}*/
-				
-		return $out;
-	}
+	}*/
 	
 	/** orowbig()
 	  * Offer details for table
@@ -33,7 +24,9 @@ class ConstructAjaxOutput {
 		
 		//fetch offer from db HERE using the following params:
 		//$query['params']['oid'] (the offer ID)
-		//no need to parse anything after fetching - just fetch the offer object
+		
+		require_once(Zend_Registry::get('Application/TrueWorkingDirectory') .'Applications/'. Zend_Registry::get('Instance/Application') .'/Common/PageHelper.class.php');
+		$PageHelper = new PageHelper();
 		
 		$offerID = intval($query['params']['oid']);		
 				
@@ -54,34 +47,37 @@ class ConstructAjaxOutput {
 		
 		$data = mysql_query($sql);
 		
-		while ($offer = mysql_fetch_object($data))
-		{ 
+		while ($offer = mysql_fetch_object($data)) { 
 			
 			$sql = "SELECT 
-						id
-					FROM 
-						bevomedia_user_aff_network 
-					WHERE 
-						(bevomedia_user_aff_network.network__id = {$offer->network__id}) AND
-						(bevomedia_user_aff_network.user__id = {$_SESSION['User']['ID']})
-					";
+					id
+				FROM 
+					bevomedia_user_aff_network 
+				WHERE 
+					(bevomedia_user_aff_network.network__id = {$offer->network__id}) AND
+					(bevomedia_user_aff_network.user__id = {$_SESSION['User']['ID']})
+				";
 			$isMemberOfNetwork = mysql_query($sql);
 			$offer->isNetworkMember = (mysql_num_rows($isMemberOfNetwork))?1:0;
 			
+			//rating
+			$offer->userRating = $PageHelper->FixNetworkRating($offer->networkName);
 			
-			$sql = "SELECT	rating
-				FROM	bevomedia_user_aff_network_rating
-				WHERE	bevomedia_user_aff_network_rating.network__id = {$offer->network__id}			
-			";
-			$userRating = mysql_query($sql);
-			
-			if(mysql_num_rows($userRating) > 0) {
-				$userRating = mysql_fetch_object($userRating);
-				$offer->userRating = $userRating->rating;
+			if($offer->userRating == false) {
+				$sql = "SELECT	rating
+					FROM	bevomedia_user_aff_network_rating
+					WHERE	bevomedia_user_aff_network_rating.network__id = {$offer->network__id}			
+				";
+				$userRating = mysql_query($sql);
 				
-			} else {
-				$offer->userRating = 0;
-			}
+				if(mysql_num_rows($userRating) > 0) {
+					$userRating = mysql_fetch_object($userRating);
+					$offer->userRating = $userRating->rating;
+					
+				} else {
+					$offer->userRating = 0;
+				}
+			}//rating
 			
 			//if not the slim version (like on the mysavedlists page), get user comments
 			$offer->is_oright = false;
@@ -723,12 +719,16 @@ class ConstructAjaxOutput {
 				$out .= '<img class="nwpic w120" src="/Themes/BevoMedia/img/networklogos/uni/'.$offer->network__id.'.png" alt="'.$offer->networkName.'" />';
 			
 			//rating stars (just show, dont allow to rate)
-			$out .= '<p class="bordertop aligncenter">Publisher\'s Rating: '.$offer->userRating.'<br />';
+			$out .= '<p class="bordertop aligncenter">Publisher\'s Rating: ';
+			$out .= $offer->userRating > 0 ? $offer->userRating.' / 5' : '';
+			$out .= '<br />';
+			
 			for($i=1; $i<=5; $i++) {
 				$ratingstate = $offer->userRating >= $i ? 'on' : 'off'; 		
 				$out .= '<img src="/Themes/BevoMedia/img/star-'.$ratingstate.'.gif" align="absbottom" />';
 			}
-			$out .= '</p><!--close publishers rating-->';
+			
+			$out .= '</p>';
 			
 		$out .= '</div><!--close div.onwpic-->';
 		
@@ -761,6 +761,9 @@ class ConstructAjaxOutput {
 			//reviews
 			if(property_exists($offer, 'ratings') && is_array($offer->ratings) && !empty($offer->ratings) && $offer->ratings != '') {
 				$out .= '<div class="otitle otitle_latestnwreviews noborder"></div>';
+				$out .= count($offer->ratings) >= 3 ? '<a class="btn ovault_transgray_readall_reviews" href="/BevoMedia/Publisher/Reviews.html?NetworkID='.$offer->network__id.'" title="Go to the review page for '.$offer->networkName.'">Read all reviews</a>' : '';
+				
+				$out .= '<div class="clear"></div>';
 				$out .= '<ul class="ovault_boxlist hastitle">';
 					foreach($offer->ratings as $review) {
 						$out .= $review->userComment != '' ? '<li>'.$review->userComment.'</li>' : '';

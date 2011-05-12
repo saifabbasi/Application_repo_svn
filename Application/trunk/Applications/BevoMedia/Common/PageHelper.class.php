@@ -289,12 +289,12 @@ Class PageHelper {
 			$PagePresets['Publisher/Index/Area'] = 'MyNetworks';
 			
 			$PagePresets['Publisher/Index/UniquePageName'] = 'pub_mynetworks';
-			$PagePresets['Publisher/Index/HeadingImage'] = 'pagedesc_ppc.png';
+			$PagePresets['Publisher/Index/HeadingImage'] = 'pagedesc_mynetworks.png';
 			$PagePresets['Publisher/Index/Heading'] = 'My Networks';
 			$PagePresets['Publisher/Index/SubHeading'] = 'Apply to any of the networks below so that Bevo can consolidate your stats onto its interface. Bevo has partnerships with the most popular and trusted affiliate networks listed below. Feel free to apply to new networks, even in a new advertising model - with Bevo\'s Network Consolidation all of your network stats are centralized onto the Bevo interface!';
 			
 			$PagePresets['Publisher/Reviews/UniquePageName'] = 'pub_reviews';
-			$PagePresets['Publisher/Reviews/HeadingImage'] = 'pagedesc_ppc.png';
+			$PagePresets['Publisher/Reviews/HeadingImage'] = 'pagedesc_mynetworks.png';
 			$PagePresets['Publisher/Reviews/Heading'] = 'Network Reviews';
 			$PagePresets['Publisher/Reviews/SubHeading'] = ' On the reviews page, Bevo users can rate and comment about the networks they have used. Hearing directly from publishers about their experiences with networks give Bevo users a leg up when deciding who to run with. Rate and leave a comment to help out your fellow publishers and make Bevo as interactive as possible.';			
 			
@@ -887,6 +887,31 @@ Class PageHelper {
 			return $out;
 		}
 	}//TruncTxt()
+	
+	/** FixNetworkRating
+	  * fixes the rating if necessary, else returns the existing value.
+	  * @param $networkTitle string the title of the network, ususally $networkobject->title
+	  * @param $rating int usually $networkobject->rating
+	  * @return int the new (or existing) rating
+	  */
+	Public Function FixNetworkRating($networkTitle=false, $rating=false) {
+		
+		switch($networkTitle) {
+			case 'EpicDirect': $out = 5; break;
+			case 'Copeac': $out = 3; break;
+			case 'Affiliate.com': $out = 3; break;
+			case 'EWA': $out = 5; break;
+			case 'FireLead': $out = 4; break;
+			case 'ClickBooth': $out = 4; break;
+			case 'ProfitKingsMedia': $out = 3; break;
+			case 'W4': $out = 4; break;
+			case 'XY7': $out = 2; break;
+			default: $out = $rating;
+		}
+		
+		return $out;
+		
+	}//FixNetworkRating()
 }
 
 
