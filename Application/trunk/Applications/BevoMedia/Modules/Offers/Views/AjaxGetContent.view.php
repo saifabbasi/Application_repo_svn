@@ -38,7 +38,7 @@ if($_GET && isset($_GET['get']) && in_array($_GET['get'], $allowed_gets)) {
 		break;
 		
 		case 'searchresults' :
-			$required_keys = array('search','type','include_networks');
+			$required_keys = array('type','include_networks');
 			
 			foreach($_GET as $key => $value) {
 				
@@ -53,7 +53,7 @@ if($_GET && isset($_GET['get']) && in_array($_GET['get'], $allowed_gets)) {
 						$terms = explode(',', $f);
 						$goodterms = array();
 						foreach($terms as $term) {
-							if(trim($term) != '')
+							if(trim($term) != '' && trim($term) != 0)
 								$goodterms[] = trim(intval($term));
 						}
 						$goodterms = array_unique($goodterms);

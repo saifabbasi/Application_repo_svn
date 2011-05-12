@@ -55,11 +55,11 @@ $(document).ready(function() {
 		if($(this).val() == $(this).prev().html())
 			$(this).val('');
 		
-	}).live('blur', function() {
+	})/*.live('blur', function() {
 		if($(this).val() == '')
 			$(this).val($(this).prev().html());
 	
-	})
+	})*/
 	
 	/*ini*/
 	if(ovault_cookSearch) {
@@ -150,8 +150,8 @@ $(document).ready(function() {
 			page = $('#osearch_page').val();
 		
 		//check options
-		if((search == $('#osearch').prev().html()) || (search == ''))
-			error.push('Please enter an offer name or vertical to search for!');
+		if((search == $('#osearch').prev().html()))
+			error.push('Please enter a search term. To find all offers from a single network, you can also leave the search field empty or enter * (will only work with 1 network selected).');
 		
 		if(type == '')
 			error.push('Please select at least one conversion type!');
