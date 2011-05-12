@@ -26,7 +26,8 @@ class ConstructAjaxOutput {
 	}
 	
 	/** orowbig()
-	  * Offer details for table. output is tr.orowbig 
+	  * Offer details for table
+	  * @return html (tr.orowbig)
 	  */
 	public function orowbig($query=false) {
 		
@@ -174,6 +175,7 @@ class ConstructAjaxOutput {
 	
 	/** searchresults()
 	  * search for offers using the dial
+	  * @return offers array
 	  */
 	public function searchresults($query=false) {
 		
@@ -217,7 +219,7 @@ class ConstructAjaxOutput {
 			if(strstr(',', $query['params']['include_networks']) === false && is_numeric($query['params']['include_networks'])) {
 				
 				$searchAdd = '';
-				$out['message'] = 'Showing all offers from this network! Use * or do a blank search with only 1 network selected to find all of its offers.';
+				$out['message_once'] = 'Showing all offers from this network! Use * or do a blank search with only 1 network selected to find all of its offers.'; //message_once = uses JS cookie to only show once
 			
 			} else {
 				$out['error'] = 'The * or empty operator only works when you have a single network selected. Please deselect all networks <em>except for one</em> in the Search Sphere, and try again!';
@@ -317,7 +319,7 @@ class ConstructAjaxOutput {
 			if($out['totalresults'] == 0)
 				$out['message'] = 'Nothing found for this query! Try widening your search terms, or include more networks.'; //overwrites any prev msgs
 			
-			elseif($out['totalresults'] > 400 && !isset($out['message'])) //only if we dont have a msg yet (only the case for search=* in 1 nw
+			elseif($out['totalresults'] > 400 && !isset($out['message']) && isset($query['params']['search']) && $query['params']['search'] != '*') //only if we dont have a msg yet
 				$out['message'] = $out['totalresults'].' Offers were found for this query! If you want to narrow down the results, try adding more search terms, or select a fewer number of networks.';
 			
 			/*fetch additional data*/
@@ -372,14 +374,8 @@ class ConstructAjaxOutput {
 				$offersArray[] = $offer;
 				
 			}//endwhile offer
-			
-			//format a few things
-			/*foreach($offersArray as $key => $offer) {
-				
-				
-			}*/
-			
-			//pagination
+						
+			/*pagination*/
 			$out['pagination'] = self::MakePagination($out['totalresults'], $numresults, $query['params']['page']);
 			$out['resultarr'] = $offersArray;
 		
@@ -392,6 +388,10 @@ class ConstructAjaxOutput {
 		
 	}//searchresults()
 	
+	/** savelistoffers()
+	  * fetches offers that a user saved in a savelist
+	  * @return offers array
+	  */
 	public function savelistoffers($query=false) {
 		$out = array();
 		
@@ -745,6 +745,9 @@ $out .= '</tr><!--close .orowbig-->';
 		return $out;
 	}//makeOrowbig()
 	
+	
+	/** formatPayout
+	  */
 	public function formatPayout($payout=false) {
 		$payout = preg_replace('/[^0-9\.]/', '', $payout);
 		if($payout) {
@@ -759,6 +762,8 @@ $out .= '</tr><!--close .orowbig-->';
 		return $payout;				
 	}//formatPayout()
 	
+	/** formatDate
+	  */
 	public function formatDate($date=false) {
 		if($date == '0000-00-00 00:00:00' || $date == '')
 			$date = '&nbsp;';
