@@ -682,7 +682,7 @@ class ConstructAjaxOutput {
 				$cakeNetworks = array('Convert2Media','Rextopia','Wolf Storm Media','CPAProsperity');
 				
 				if(in_array($offer->networkName, $cakeNetworks)) {
-					$out .= '<a rel="height=480;width=640" class="btn ovault_importoffer_cake j_shadowbox" href="/BevoMedia/Offers/OfferImportFrame.html?ajax=true&o='.$offer->id.'">Import this offer into my CAKE network</a>';
+					$out .= '<a data-width="940" data-height="480" class="btn ovault_importoffer_cake j_shadowbox" href="/BevoMedia/Offers/OfferImportFrame.html?ajax=true&o='.$offer->id.'">Import this offer into my CAKE network</a>';
 				}
 				
 				
