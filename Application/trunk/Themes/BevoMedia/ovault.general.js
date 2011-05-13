@@ -137,8 +137,8 @@ $(document).ready(function() {
 			content: $(this).attr('href'),
 			player: 'iframe',
 			title: $(this).attr('title'),
-			width: 640,
-			height: 480
+			width: $(this).data('width') ? $(this).data('width') : 640,
+			height: $(this).data('height') ? $(this).data('height') : 480,
 		});
 		return false;
 	});
