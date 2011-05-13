@@ -671,19 +671,23 @@ class ConstructAjaxOutput {
 						$out .= '<p>We\'d love to give you your Affiliate Link for this offer right now, but you\'re not a member of '.$offer->networkName.' yet! <a class="nw_applyadd j_shadowbox" href="/BevoMedia/Publisher/ApplyAdd.html?network='.$offer->network__id.'"><strong>Click Here</strong> to apply now</a>.</p>';
 						
 					}
-				$out .= '</div>';
-				
-				//cake import
-				/*
-				if(property_exists($offer, 'importUrl') && $offer->importUrl && $offer->importUrl != '') {
-					$out .= '<a class="btn ovault_importoffer" href="'.$offer->importUrl.'">Import this offer into my network</a>';
-				}*/
-				
+				$out .= '</div>';				
 				$out .= '<div class="clear"></div></div>';
 				
 				$out .= '<div class="floatright">';
 				$out .= '<h3>'.$offer->title.'</h3>';
 				$out .= $offer->dateAdded ? '<small>'.$offer->dateAdded.'</small>' : '&nbsp;';
+				
+				//import to cake
+				$cakeNetworks = array('Convert2Media','Rextopia','Wolf Storm Media','CPAProsperity');
+				/*
+				if(in_array($offer->networkName, $cakeNetworks)) {
+					$out .= '<a class="btn ovault_importoffer_cake" href="#">Import this offer into my CAKE network</a>';
+				}
+				*/
+				
+				$out .= '<div class="clear"></div>';
+				
 				
 				//description
 				$out .= '<div class="otitle otitle_offerdesc"></div>';
@@ -699,6 +703,9 @@ class ConstructAjaxOutput {
 					$out .= '<p>'.$offer->detail.'</p>';
 				}
 				
+				//negotiate payout terms
+				//$out .= '<a class="btn ovault_negotiatepayoutterms_trans" href="#">Negotiate payout terms</a>';
+				
 				//offer ID
 				//$out .= '<div class="onwidbox">'; //distinguish btw oid (bevo offer id) and onwid (network's offer id)
 					$out .= '<div class="otitle otitle_onwid noborder"></div>
@@ -707,14 +714,6 @@ class ConstructAjaxOutput {
 						<p class="nolineheight">This offer\'s ID in '.$offer->networkName.'\'s interface</p>
 						<div class="clear"></div>';
 				//$out .= '</div>';	
-				
-				//olink
-				/*if(property_exists($offer, 'affUrl') && $offer->affUrl) {
-					$out .= '<div class="olink">';
-						$out .= '<input type="text" class="formtxt" readonly value="'.$offer->affUrl.'" />';
-						$out .= '<a class="btn ovault_visiticon" href="'.$offer->affUrl.'" title="Click to test your affiliate link (opens in new tab)" target="_blank">Visit</a>';
-					$out .= '</div>';
-				}*/
 				
 			$out .= '</div><div class="clear"></div></div><!--close td_inner-->';
 			$out .= '</td>';

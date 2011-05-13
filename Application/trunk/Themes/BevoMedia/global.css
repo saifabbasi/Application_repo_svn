@@ -416,11 +416,12 @@ p.icon_nwmember { padding-left:20px; padding-bottom:3px; display:inline; backgro
 .icon_ovault_savelist_csv { width:31px; height:11px; background:url(img_new/icon_ovault_savelist_csv.png) no-repeat; }
 .icon_ovault_savelist_delete { width:10px; height:10px; background:url(img_new/icon_ovault_savelist_delete.png) no-repeat; }
 	
-a.btn.ovault_importoffer { width:177px; height:43px; background:url(img_new/btn_ovault_importoffer.png) no-repeat; }
+a.btn.ovault_importoffer_cake { width:103px; height:10px; background:url(img_new/btn_ovault_importoffer_cake.png) no-repeat; }
 a.btn.ovault_visiticon { width:18px; height:19px; background:url(img_new/btn_ovault_visiticon.png) no-repeat; }
 .btn.ovault_visiticon_transyell { width:25px; height:25px; background:url(img_new/btn_ovault_visiticon_transyell.png) no-repeat; }
 a:hover .btn.ovault_visiticon_transyell { background-position:left bottom; }
 a.btn.ovault_gotomystats_trans { width:104px; height:23px; background:url(img_new/btn_ovault_gotomystats_trans.png) no-repeat; }
+a.btn.ovault_negotiatepayoutterms_trans { width:148px; height:23px; background:url(img_new/btn_ovault_negotiatepayoutterms_trans.png) no-repeat; }
 
 a.btn.ovault_mystats_findallnwoffers { width:129px; height:25px; background:url(img_new/btn_ovault_mystats_findallnwoffers.png) no-repeat !important; }
 	a.btn.ovault_mystats_findallnwoffers:hover { background-position:left bottom !important; }
