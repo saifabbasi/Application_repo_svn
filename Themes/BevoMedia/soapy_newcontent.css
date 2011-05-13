@@ -977,12 +977,14 @@ h2.imagetitle.interested { width:147px; height:22px; background:url(img/imagetit
 		#ovault tr.orowbig td.td_info .floatleft { width:280px; }
 		#ovault tr.orowbig td.td_info .floatright { width:240px; }
 		
-			#ovault tr.orowbig td.td_info small { margin:4px 0 15px; font-size:.8em; color:#999; display:block; }
-			#ovault tr.orowbig td.td_info small span { margin:0; font-size:1em; color:#999; }
+			#ovault tr.orowbig td.td_info small { margin:4px 4px 15px 0; float:left; font-size:.8em; color:#999; display:block; }
+        			#ovault tr.orowbig td.td_info small span { margin:0; font-size:1em; color:#999; }
+                        #ovault tr.orowbig .td_info a.btn.ovault_importoffer_cake { margin:4px 0 0; float:left; }
 			#ovault tr.orowbig td.td_info p,
                         #ovault tr.orowbig .td_info p span  { color:#808080; font-size:.9em }
-                        #ovault tr.orowbig td.td_info a.btn.ovault_importoffer { margin:0; }
                         #ovault tr.orowbig p.nolineheight { line-height:1em; }
+
+                        #ovault tr.orowbig .td_info a.btn.ovault_negotiatepayoutterms_trans { margin:5px 0 0 -1px; }
 			
 			/*ovault_thumb*/
 			.ovault_othumb { width:285px; height:175px; margin:-8px 10px 0 -7px !important; overflow:hidden; display:block; background:#e6e6e6; position:relative; }
@@ -1029,15 +1031,6 @@ h2.imagetitle.interested { width:147px; height:22px; background:url(img/imagetit
                         /*offer desc*/
                         #ovault tr.orowbig .td_info a.btn.ovault_transgray_expand { margin-bottom:-12px; position:relative; top:-19px; left:92px; }
 			
-				
-			/*olink*/
-			/*			
-			#ovault .olink { width:260px; height:67px; margin-left:-12px; position:relative; background:url(img_new/olink.png) no-repeat; overflow:hidden; }
-				#ovault .olink input { width:200px; font-size:.9em; position:absolute; top:34px; left:15px; }
-				#ovault .olink a.btn { position:absolute; top:37px; right:3px; }
-				
-				#ovault tr.orowbig td.td_info .olink { margin-top:10px; }
-			*/
 				
 		/*td_nw*/
 		#ovault tr.orowbig td.td_nw p,
@@ -1303,6 +1296,9 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 	#offmain_searchform { float:left; }
 	table.floatleft { display:inline !important; }
 }
+
+
+
 
 
 
