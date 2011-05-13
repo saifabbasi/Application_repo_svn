@@ -30,12 +30,28 @@
 	
 	$allnetworks = array();
 	$mynetworks = array();
-	while ($network = mysql_fetch_object($networksData))
-	{
-		if(isUserRegisteredOnNetwork($network->id) == 1)
+	$preselectedNetworks = array();
+	$preselectedNetworks_Ids = array();
+	
+	while($network = mysql_fetch_object($networksData)) {
+		if($this->User->vaultID == 0) //avoid running 32 db queries if user is not regged
+			$allnetworks[] = $network;
+			
+		elseif(isUserRegisteredOnNetwork($network->id) == 1)
 			$mynetworks[] = $network;
+		
 		else	$allnetworks[] = $network;
 	}
+	
+	$preselectedNetworks = count($mynetworks) > 1 && $this->User->vaultID != 0 ? $mynetworks : $allnetworks;
+	
+	//need yet another arr with the id to avoid 2 more foreach loops below
+	if(!empty($preselectedNetworks)) {
+		foreach($preselectedNetworks as $nw) {
+			$preselectedNetworks_Ids[] = $nw->id;
+		}
+	}
+	
 		
 	//current savelist
 	if($ovaultSavelist['current'] == 'new') {
@@ -172,7 +188,7 @@
 					
 					<input type="hidden" id="osearch_type" name="type" value="lead" />
 					<input type="hidden" id="osearch_include_mysaved" name="include_mysaved" value="1" />
-					<input type="hidden" id="osearch_include_networks" name="include_networks" value="<?php foreach($mynetworks as $network) { echo $network->id.',';} ?>" />
+					<input type="hidden" id="osearch_include_networks" name="include_networks" value="<?php foreach($preselectedNetworks as $network) { echo $network->id.',';} ?>" />
 					<input type="hidden" id="osearch_numresults" name="numresults" value="100" />
 					<input type="hidden" id="osearch_page" name="page" value="1" />
 					
@@ -191,7 +207,7 @@
 				</div><!--close obox countries-->
 				
 				<div class="obox networks">
-					<div class="number j_expand" id="number_networks" data-target="olay_networks" data-closeclass="ovault_olay"><?php echo count($mynetworks); ?></div>
+					<div class="number j_expand" id="number_networks" data-target="olay_networks" data-closeclass="ovault_olay"><?php echo count($preselectedNetworks); ?></div>
 					<div class="clear"></div>
 				</div><!--close obox include-->
 				<div class="clear"></div>
@@ -254,7 +270,9 @@
 				</div>
 				<ul class="olay_selelist j_olay_allnetworkslist">
 					<?php	foreach($allnetworks as $network) {
-							echo '<li><a class="j_nwid-'.$network->id.'" href="#" data-hiddenfield="include_networks" data-value="'.$network->id.'" data-number="number_networks">'.$network->title.'</a></li>';
+							echo '<li><a class="j_nwid-'.$network->id;
+							echo in_array($network->id, $preselectedNetworks_Ids) ? ' active' : '';
+							echo '" href="#" data-hiddenfield="include_networks" data-value="'.$network->id.'" data-number="number_networks">'.$network->title.'</a></li>';
 					}
 					?>
 				</ul>
@@ -267,7 +285,9 @@
 				</div>
 				<ul class="olay_selelist j_olay_mynetworklist">
 					<?php	foreach($mynetworks as $network) {
-							echo '<li><a class="j_nwid-'.$network->id.' active" href="#" data-hiddenfield="include_networks" data-value="'.$network->id.'" data-number="number_networks">'.$network->title.'</a></li>';
+							echo '<li><a class="j_nwid-'.$network->id;
+							echo in_array($network->id, $preselectedNetworks_Ids) ? ' active' : '';
+							echo' active" href="#" data-hiddenfield="include_networks" data-value="'.$network->id.'" data-number="number_networks">'.$network->title.'</a></li>';
 					}
 					?>
 				</ul>

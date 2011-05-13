@@ -668,7 +668,7 @@ class ConstructAjaxOutput {
 						$out .= '<p>You can find this offer in '.$offer->networkName.'\'s interface by searching for the <strong>Offer ID</strong> (to the right).</p>';
 						
 					} else {
-						$out .= '<p>We\'d love to give you your Affiliate Link for this offer right now, but you\'re not a member of '.$offer->networkName.' yet! <a class="nw_applyadd" href="/BevoMedia/Publisher/ApplyAdd.html?network='.$offer->network__id.'"><strong>Click Here</strong> to apply now</a>.</p>';
+						$out .= '<p>We\'d love to give you your Affiliate Link for this offer right now, but you\'re not a member of '.$offer->networkName.' yet! <a class="nw_applyadd j_shadowbox" href="/BevoMedia/Publisher/ApplyAdd.html?network='.$offer->network__id.'"><strong>Click Here</strong> to apply now</a>.</p>';
 						
 					}
 				$out .= '</div>';
