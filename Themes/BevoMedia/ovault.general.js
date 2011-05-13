@@ -364,4 +364,15 @@ $(document).ready(function() {
 		}//endif confirm
 		return false;
 	});//delete all lists
+	
+	
+	$('a.ovault_negotiatepayoutterms_trans').live('click', function() {
+		
+		$.get($(this).attr('href')+'&OfferID='+$(this).attr('OfferID'));
+		ajaxMessage('Request successfully sent.');
+		
+		return false;
+	});
+	
+	
 });

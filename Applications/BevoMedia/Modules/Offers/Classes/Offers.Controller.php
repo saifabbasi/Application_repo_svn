@@ -185,7 +185,43 @@
 			$Row = $this->db->fetchRow($Sql, $_GET['ID']);
 			$this->NetworkName = $Row->NetworkName;
 			$this->AffNetworkID = $Row->AffNetworkID; 
-		}		
+		}
+
+		Public Function AskNegotiatePaymentTerms()
+		{
+			Zend_Registry::set('Instance/LayoutType', 'blank-layout');
+			
+			$OfferID = $_GET['OfferID'];
+			
+			$Sql = "SELECT
+						bevomedia_offers.title,
+						bevomedia_offers.offer__id,
+						bevomedia_offers.payout,
+						bevomedia_aff_network.title as `networkName`
+					FROM
+						bevomedia_offers,
+						bevomedia_aff_network
+					WHERE
+						(bevomedia_aff_network.id = bevomedia_offers.network__id) AND
+						(bevomedia_offers.id = ?)
+				";
+			$Offer = $this->db->fetchRow($Sql, $OfferID);
+			
+			$Message = "User ID: {$this->User->id}<br />
+						User Email: {$this->User->email}<br />
+						Offer Title: {$Offer->title}<br />
+						Offer Number: {$Offer->offer__id}<br />
+						Offer Payout: {$Offer->payout}<br />
+						Network Name: {$Offer->networkName}<br />						
+						";
+			
+			$Headers  = 'MIME-Version: 1.0' . "\r\n";
+			$Headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+			mail('negotiation@bevomedia.com', 'Negotiate Payment Terms', $Message, $Headers);
+			
+			die;
+			
+		}
 	}
 
 ?>
