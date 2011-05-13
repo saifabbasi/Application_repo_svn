@@ -680,11 +680,11 @@ class ConstructAjaxOutput {
 				
 				//import to cake
 				$cakeNetworks = array('Convert2Media','Rextopia','Wolf Storm Media','CPAProsperity');
-				/*
+				
 				if(in_array($offer->networkName, $cakeNetworks)) {
-					$out .= '<a class="btn ovault_importoffer_cake" href="#">Import this offer into my CAKE network</a>';
+					$out .= '<a rel="height=480;width=640" class="btn ovault_importoffer_cake j_shadowbox" href="/BevoMedia/Offers/OfferImportFrame.html?ajax=true&o='.$offer->id.'">Import this offer into my CAKE network</a>';
 				}
-				*/
+				
 				
 				$out .= '<div class="clear"></div>';
 				
@@ -704,7 +704,7 @@ class ConstructAjaxOutput {
 				}
 				
 				//negotiate payout terms
-				//$out .= '<a class="btn ovault_negotiatepayoutterms_trans" href="#">Negotiate payout terms</a>';
+				$out .= '<a OfferID="'.$offer->id.'" class="btn ovault_negotiatepayoutterms_trans " href="/BevoMedia/Offers/AskNegotiatePaymentTerms.html?ajax=true">Negotiate payout terms</a>';
 				
 				//offer ID
 				//$out .= '<div class="onwidbox">'; //distinguish btw oid (bevo offer id) and onwid (network's offer id)
