@@ -178,9 +178,9 @@ abstract class CakeMarketingAbstract Extends NetworksAbstract {
 		$this->offersLogin();
 		
 		$url = $this->offersUrl."?affiliate_id={$this->offersAffiliateId}&api_key={$this->offersApiKey}";
-		echo $url;die;
+
 		$xmlData = file_get_contents($url);
-		print_r($xmlData);die;
+		
 		libxml_use_internal_errors(true);
 		$xml = simplexml_load_string($xmlData);
 		
