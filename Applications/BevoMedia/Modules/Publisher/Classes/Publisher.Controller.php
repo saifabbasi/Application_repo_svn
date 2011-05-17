@@ -283,7 +283,7 @@
 					$this->Network1 = $this->CpaNetworks[$Key];  
 				}
 				
-				if ($this->CpaNetworks[$Key]->title=='CPAStaxx')
+				if ($this->CpaNetworks[$Key]->title=='CPAProsperity')
 				{
 					$this->Network2 = $this->CpaNetworks[$Key];  
 				}
