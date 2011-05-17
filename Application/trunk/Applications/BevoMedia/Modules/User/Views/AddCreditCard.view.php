@@ -325,8 +325,8 @@ for ($i=date('Y'); $i<=(date('Y')+10); $i++)
 		{
 			$('#State option').remove();
 
-			$.getJSON('/BevoMedia/Networks/JSONGetCountryStates.html', {'Code': $(this).val()}, function(Data, TextStatus) {
-
+			$.get('/BevoMedia/Networks/JSONGetCountryStates.html?Code='+$(this).val(), function(Data){
+				Data = eval(Data);
 				$('#State').append("<option value=''>Select State</option>");
 				$.each(Data, function(Index, Value) {
 					var Selected = '';
@@ -337,7 +337,7 @@ for ($i=date('Y'); $i<=(date('Y')+10); $i++)
 					
 					$('#State').append("<option value='"+Value['initials']+"' "+Selected+">"+Value['name']+"</option>");
 				});
-				
+					
 			});
 			
 			
