@@ -7,6 +7,12 @@ $(document).ready(function() {
 	$('#opagi .numbers a.j_num:not(.active), #opagi .numbers a.j_prevnext').live('click', function() {
 		s = ovault_cache.current_searchstring + '&newpage='+$(this).data('page'); //newpage overrides page
 		
+		if (ovault_cache.sort_by!='') {
+			s += '&sort_by='+ovault_cache.sort_by+'&sort_by_direction='+ovault_cache.sort_by_direction;
+		}
+		
+		ovault_cache.current_page = $(this).data('page');
+		
 		doSearch(s);		
 		return false;
 	});

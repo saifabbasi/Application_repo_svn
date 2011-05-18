@@ -196,15 +196,57 @@ class ConstructAjaxOutput {
 		$searchAdd = '';
 		if(isset($query['params']['search']) && $query['params']['search'] != '*') {
 			
-			$terms = explode(' ', $query['params']['search']);			
+			$terms = array();
+			
+			$terms = preg_split('/\G(?:"[^"]*"|\'[^\']*\'|[^"\'\s]+)*\K\s+/', $query['params']['search']);
+			$stopWords = array('a', 'an', 'and', 'any', 'are', 'as', 'at', 'be', 'by', 'do', 
+				 			   'for', 'from', 'go', 'I', 'is', 'it', 'me', 'most', 'my', 'net', 
+							   'of', 'on', 'the', 'to', 'too');
+			
+			foreach ($terms as $key => $term)
+			{
+				if (in_array($term, $stopWords)) {
+					unset($terms[$key]);
+					continue;
+				}
+				$terms[$key] = str_replace('"', '', $term);
+			}
+			
+		
+			$searchAddTitle = '';
+			$searchAddDescription = '';
 			
 			foreach($terms as $term) {
 				if (trim($term)=='') continue;
 				
 				$term = trim($term);
 				
-				$searchAdd .= " (bevomedia_offers.title LIKE '%{$term}%') OR ";
-				$searchAdd .= " (bevomedia_offers.detail LIKE '%{$term}%') OR ";
+				if ($term[0]=='-') {
+					$term = substr($term, 1);
+					$searchAddTitle .= " (bevomedia_offers.title NOT LIKE '%{$term}%') AND ";
+					$searchAddDescription .= " (bevomedia_offers.detail NOT LIKE '%{$term}%') AND ";
+				} else {
+					$searchAddTitle .= " (bevomedia_offers.title LIKE '%{$term}%') AND ";
+					$searchAddDescription .= " (bevomedia_offers.detail LIKE '%{$term}%') AND ";					
+				}
+				
+				
+			}
+			
+			$searchAddTitle = rtrim($searchAddTitle, 'AND ');
+			$searchAddDescription = rtrim($searchAddDescription, 'AND ');
+			
+			if ( ($searchAddTitle!='') || ($searchAddDescription!='') ) 
+			{
+				if ( ($searchAddTitle!='') && ($searchAddDescription!='') ) {
+					$searchAdd = " ( {$searchAddTitle} ) OR ( {$searchAddDescription} ) ";
+				} else
+				if ($searchAddTitle!='') {
+					$searchAdd = $searchAddTitle;
+				} else
+				if ($searchAddDescription!='') {
+					$searchAdd = $searchAddDescription;
+				} 
 			}
 			
 			if (strlen($searchAdd)>1) {
@@ -287,6 +329,20 @@ class ConstructAjaxOutput {
 		/*fetch*/
 		if(!isset($out['error'])) :
 		
+			$orderBy = " bevomedia_offers.payout DESC ";
+			
+			if (isset($query['params']['sort_by'])) {
+				if ($query['params']['sort_by']=='payout') {
+					$orderBy = " bevomedia_offers.payout ";
+				}
+				
+				if (isset($query['params']['sort_by_direction'])) {
+					if ($query['params']['sort_by_direction']=='asc')
+						$orderBy .= " ASC "; else
+						$orderBy .= " DESC "; 
+				}
+			}
+		
 			$sql = "SELECT SQL_CALC_FOUND_ROWS
 						bevomedia_offers.*,
 						bevomedia_category.title as `categoryTitle`,
@@ -303,7 +359,7 @@ class ConstructAjaxOutput {
 						{$savelistAdd}
 						AND bevomedia_offers.archived = 0
 					ORDER BY 
-						bevomedia_offers.payout DESC
+						{$orderBy}
 						{$limitAdd}
 						
 			";//die($sql);

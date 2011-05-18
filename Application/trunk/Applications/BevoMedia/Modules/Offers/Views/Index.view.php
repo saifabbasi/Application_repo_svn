@@ -84,6 +84,22 @@
 
 <script type="text/javascript">
 	$('.tcol_sortby').click(function() {
+
+		
+		if (ovault_cache.sort_by!='payout') {
+			ovault_cache.sort_by_direction = 'desc'; //so it can be reset below
+		}
+		
+		if (ovault_cache.sort_by_direction=='asc') 
+			ovault_cache.sort_by_direction = 'desc'; else
+			ovault_cache.sort_by_direction = 'asc';
+
+		ovault_cache.sort_by = 'payout';
+		
+		s = ovault_cache.current_searchstring+'&sort_by='+ovault_cache.sort_by+'&sort_by_direction='+ovault_cache.sort_by_direction; //newpage overrides page
+		ovault_cache.current_page = $(this).data('page');
+		doSearch(s);		
+		return false;
 		
 	});
 </script>

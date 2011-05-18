@@ -209,7 +209,7 @@ function ratingRst(id, amnt)
 				</td>
 				<td class="borderbutt flushtop">
 					<img class="icon_cleantable_why" src="/Themes/BevoMedia/img/icon_cleantable_why.gif" alt="Why?" />
-					<p><?php echo $this->Network2->title?> is a emerging network dedicated to personally helping each publisher meet their campaign goals.</p>
+					<p><?php echo $this->Network2->title?> is an emerging network dedicated to personally helping each publisher meet their campaign goals.</p>
 				</td>
 				<td class="borderleft" rowspan="3">
 					
