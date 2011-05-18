@@ -368,6 +368,15 @@ function doSearch(s, updateDial) {
 	
 	var target = $('#j_otable tbody');
 	
+	if (s.indexOf('newpage')==-1) {
+		ovault_cache.current_page = 1;
+	}
+	
+	if (s.indexOf('sort_by')==-1) {
+		ovault_cache.sort_by = '';
+		ovault_cache.sort_by_direction = '';
+	}
+	
 	if(ovault_cache.searchresults[s]) { //dupe code - same as below. maybe outsource to func later
 		/*
 		

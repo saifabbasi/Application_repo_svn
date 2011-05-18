@@ -146,6 +146,9 @@
 	ovault_cache.offerdetails = []; //index = the offer ID
 	ovault_cache.searchresults = []; //index = the actual search string
 	ovault_cache.current_searchstring = false; //the current search string, set after ajax success 
+	ovault_cache.current_page = 1;
+	ovault_cache.sort_by = '';
+	ovault_cache.sort_by_direction = 'asc';
 </script>
 <script src="/Themes/BevoMedia/ovault.functions.js" type="text/javascript"></script>
 <script src="/Themes/BevoMedia/ovault.general.js" type="text/javascript"></script>

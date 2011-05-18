@@ -42,7 +42,7 @@ if($_GET && isset($_GET['get']) && in_array($_GET['get'], $allowed_gets)) {
 			
 			foreach($_GET as $key => $value) {
 				
-				$f = str_replace(array('\'','"'), '', strip_tags(trim($_GET[$key])));
+				$f = str_replace('\'', '', strip_tags(trim($_GET[$key])));
 				
 				if($key == 'include_networks') {
 					
@@ -110,6 +110,9 @@ if(count($out) == 0) {
 	$out['error'] = 'Oops, something went wrong! Please try again.';
 
 } else {
+	unset($query['params']['sort_by']);
+	unset($query['params']['sort_by_direction']);
+	
 	//construct sanitized search string and add it
 	$out['searchstring'] = http_build_query($query['params']);
 	echo json_encode($out);
