@@ -81,3 +81,9 @@
 		</tfoot>
 	</table><!--close outer .btable-->
 </div><!--close pagecontent#ovault-->
+
+<script type="text/javascript">
+	$('.tcol_sortby').click(function() {
+		
+	});
+</script>
