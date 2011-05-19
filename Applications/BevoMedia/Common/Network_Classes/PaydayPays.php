@@ -148,6 +148,8 @@ class PaydayPays Extends NetworksAbstract {
 	 */
 	Public Function getStats($Date = '')
 	{
+		ini_set('memory_limit', '512M');
+		
 		$this->login();
 		
 		if($Date == '')
@@ -302,6 +304,9 @@ class PaydayPays Extends NetworksAbstract {
  	 */
 	public function getOffers()
 	{
+		ini_set('memory_limit', '512M');
+		
+		
 		$this->offersLogin();
 		
 		$Page = $this->loadOfferPage();
