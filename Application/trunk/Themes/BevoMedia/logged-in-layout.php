@@ -260,7 +260,7 @@ if(userTimezoneOffset == false)
 		<?php endif; //endif !$accstatus_premium
 		
 		/*offer of the month*/
-		$offer_id = '20726'; //MAKE SURE THIS IS THE SAME AS IN Offers/BestPerformers.view line 6!
+		$offer_id = '49079'; //MAKE SURE THIS IS THE SAME AS IN Offers/BestPerformers.view line 6!
 		
 		$sql = "SELECT 	title, imageUrl, previewUrl
 			FROM	bevomedia_offers
