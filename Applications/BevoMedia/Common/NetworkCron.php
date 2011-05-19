@@ -29,7 +29,8 @@ function networkArray($name, $id, $type = false) {
     return array('name' => $name, 'id' => $id, 'type' => $type); }
 
     
-    
+
+$networks[] = networkArray('PaydayPays', 1071);
 $networks[] = networkArray('BlamAds', 1069, 'HasOffers');
 $networks[] = networkArray('DanDingo', 1068);
 $networks[] = networkArray('AdDrive', 1067);
