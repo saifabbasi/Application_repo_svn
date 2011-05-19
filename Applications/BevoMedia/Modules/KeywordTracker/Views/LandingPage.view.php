@@ -8,6 +8,8 @@ $stDate = $this->StartDate;
 $enDate = $this->EndDate;
 $isTrackerPage = true;
 
+
+
 $Sql = "SELECT 
 			clicks.referrerUrl AS referrerUrl,
 			lps.landingPageUrl AS url,
@@ -16,21 +18,14 @@ $Sql = "SELECT
 			
 			
 			COALESCE( SUM(  `subid`.`conversions` ) , 0 ) AS actions
-		FROM (
+		FROM 
 		 `bevomedia_tracker_clicks`  `clicks` 
-		LEFT JOIN  `bevomedia_user_aff_network_subid`  `subid` ON ( (
+		LEFT JOIN  `bevomedia_user_aff_network_subid`  `subid` ON (subid.user__id= clicks.user__id AND `clicks`.`subId` =  `subid`.`subId`)
+		LEFT JOIN bevomedia_tracker_landing_pages AS lps ON (  `clicks`.`landingPageId` = lps.id )
+		LEFT JOIN bevomedia_tracker_clicks_optional ON bevomedia_tracker_clicks_optional.clickId = clicks.id
+					
+		WHERE
 		(
-		 `clicks`.`user__id` =  `subid`.`user__id`
-		)
-		AND (
-		 `clicks`.`subId` =  `subid`.`subId`
-		)
-		
-		AND (subid.statDate = `clicks`.`clickDate`)
-		)
-		)
-		JOIN bevomedia_tracker_landing_pages AS lps ON (  `clicks`.`landingPageId` = lps.id ) 
-		AND (
 		`clicks`.`user__id` = {$userId}
 		)
 		AND (
@@ -39,11 +34,62 @@ $Sql = "SELECT
 		AND  '$enDate'
 		)
 		
-		)
+		
+		
 		GROUP BY  
 			clicks.id
 		ORDER BY lps.landingPageUrl
-		";//echo '<pre>'.$Sql;die;
+		";
+
+//echo '<pre>'.$Sql;die;
+
+//
+//
+//$Sql = "SELECT 
+//			clicks.referrerUrl AS referrerUrl,
+//			lps.landingPageUrl AS url,
+//			COALESCE( COUNT( DISTINCT  `clicks`.`id` ) , 0 ) AS clicks, 
+//			(COALESCE( SUM(  `clicks`.`clickThrough` ) , 0 )) AS click_thrus,
+//			
+//			
+//			COALESCE( SUM(  `subid`.`conversions` ) , 0 ) AS actions
+//		FROM 
+//		 `bevomedia_tracker_clicks`  `clicks` 
+//		LEFT JOIN  `bevomedia_user_aff_network_subid`  `subid` ON ( (
+//		(
+//		 `clicks`.`user__id` =  `subid`.`user__id`
+//		)
+//		AND (
+//		 `clicks`.`subId` =  `subid`.`subId`
+//		)
+//		
+//		AND (subid.statDate = `clicks`.`clickDate`)
+//		)
+//		)
+//		
+//		LEFT JOIN bevomedia_tracker_landing_pages AS lps ON (  `clicks`.`landingPageId` = lps.id )
+//
+//		
+//		WHERE
+//		(
+//		`clicks`.`user__id` = {$userId}
+//		)
+//		AND (
+//		`clicks`.`clickDate` 
+//		BETWEEN  '$stDate'
+//		AND  '$enDate'
+//		)
+//		
+//		
+//		
+//		GROUP BY  
+//			clicks.id
+//		ORDER BY lps.landingPageUrl
+//		";
+// echo '<pre>'.$Sql;die;
+
+
+
 //$query = "
 //		SELECT
 //			lps.landingPageUrl AS url,
