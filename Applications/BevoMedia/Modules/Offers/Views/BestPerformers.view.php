@@ -3,7 +3,7 @@
 	$construct = new ConstructAjaxOutput();
 
 	/*recommended offer*/
-	$offer_id = '20726';
+	$offer_id = '49079';
 	
 	$sql = "SELECT 	offers.*,
 			categories.title AS categoryTitle,
