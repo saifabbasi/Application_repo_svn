@@ -469,7 +469,7 @@ setVisible($(".landingPageItems"), !CheckBox.checked);
 				<td>
 					<p>
 						<input class="formcheck" type='checkbox' id='autotrack' name='autotrack' value='on' checked=checked onclick=' $("#saleAmtSpan").toggle(); $("#autoSpan").toggle();'>
-						<span id="autoSpan">Your conversion stats will be automatically retrieved from the network.<br />(Most accurate, you must first setup your affiliate networks on the My Networks page, requires API calls)</span>
+						<span id="autoSpan">Your conversion stats will be automatically retrieved from the network.<br />(Most accurate, you must first setup your affiliate networks on the My Networks page, uncheck for Pixel/Postback)</span>
 						<span id="saleAmtSpan" style="display: none">Conversions are worth: $<input type="text" name="saleAmt" size=4 value="3.00"></input></span>
 					</p>
 				</td>
