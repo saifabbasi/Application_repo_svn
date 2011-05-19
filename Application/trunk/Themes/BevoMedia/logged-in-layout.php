@@ -274,7 +274,7 @@ if(userTimezoneOffset == false)
 			<div class="topdropbox topdropbox_ootm">
 				<div class="ootmpic">
 					<a class="picbtn" href="<?php echo $ootm->previewUrl; ?>" target="_blank" title="<?php echo htmlentities($ootm->title); ?> - Click to preview in a new tab">
-						<img src="/Themes/BevoMedia/img/offers/<?php echo $offer_id; ?>.jpg" alt="" />
+						<img src="<?php echo $ootm->imageUrl; ?>" alt="" />
 						<span class="picframe"></span>
 						<span class="btn ovault_visiticon_transyell"></span>
 					</a>
