@@ -2393,6 +2393,7 @@ END;
 											'TrackingPlatformID' => $_POST['TrackingPlatformID'],
 											'Email' => $_POST['Email'],
 											'Phone' => $_POST['Phone'],
+											'NetworkID' => $_POST['AffiliateNetworkID']
 									);
 					$this->db->insert('broker_networks', $InsertArray);
 				} else {
@@ -2403,6 +2404,7 @@ END;
 											'TrackingPlatformID' => $_POST['TrackingPlatformID'],
 											'Email' => $_POST['Email'],
 											'Phone' => $_POST['Phone'],
+											'NetworkID' => $_POST['AffiliateNetworkID']
 									);
 					$this->db->update('broker_networks', $UpdateArray, 'ID = '.$ID);
 				}
@@ -2431,6 +2433,16 @@ END;
 					";
 			
 			$this->TrackingPlatforms = $this->db->fetchAll($Sql);
+			
+			$Sql = "SELECT
+						id,
+						title
+					FROM
+						bevomedia_aff_network
+					ORDER BY
+						title			
+					";
+			$this->AffiliateNetworks = $this->db->fetchAll($Sql);
 		}
 		
 		Public Function BrokersMenu()
