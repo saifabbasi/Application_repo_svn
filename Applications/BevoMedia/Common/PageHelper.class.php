@@ -906,6 +906,7 @@ Class PageHelper {
 			case 'ProfitKingsMedia': $out = 3; break;
 			case 'W4': $out = 4; break;
 			case 'XY7': $out = 2; break;
+			case 'CPAProsperity': $out = 4; break;
 			default: $out = $rating;
 		}
 		

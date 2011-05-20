@@ -85,8 +85,10 @@
 <script type="text/javascript">
 	$('.tcol_sortby').click(function() {
 
+		var sort_by = $(this).data('value');
+
 		
-		if (ovault_cache.sort_by!='payout') {
+		if (ovault_cache.sort_by!=sort_by) {
 			ovault_cache.sort_by_direction = 'desc'; //so it can be reset below
 		}
 		
@@ -94,7 +96,7 @@
 			ovault_cache.sort_by_direction = 'desc'; else
 			ovault_cache.sort_by_direction = 'asc';
 
-		ovault_cache.sort_by = 'payout';
+		ovault_cache.sort_by = sort_by;
 		
 		s = ovault_cache.current_searchstring+'&sort_by='+ovault_cache.sort_by+'&sort_by_direction='+ovault_cache.sort_by_direction; //newpage overrides page
 		ovault_cache.current_page = $(this).data('page');
