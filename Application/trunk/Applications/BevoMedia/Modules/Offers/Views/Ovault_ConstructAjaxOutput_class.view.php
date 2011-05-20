@@ -334,7 +334,20 @@ class ConstructAjaxOutput {
 			if (isset($query['params']['sort_by'])) {
 				if ($query['params']['sort_by']=='payout') {
 					$orderBy = " bevomedia_offers.payout ";
-				}
+				} else
+				if ($query['params']['sort_by']=='offername') {
+					$orderBy = " bevomedia_offers.title ";
+				} else
+				if ($query['params']['sort_by']=='type') {
+					$orderBy = " bevomedia_offers.offerType ";
+				} else
+				if ($query['params']['sort_by']=='vertical') {
+					$orderBy = " categoryTitle ";
+				} else
+				if ($query['params']['sort_by']=='network') {
+					$orderBy = " networkName ";
+				} 
+				
 				
 				if (isset($query['params']['sort_by_direction'])) {
 					if ($query['params']['sort_by_direction']=='asc')
