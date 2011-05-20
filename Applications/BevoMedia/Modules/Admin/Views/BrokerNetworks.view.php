@@ -1,7 +1,7 @@
 
 <?=$this->TopMenu?>
 
-<a href="/Bevomedia/Admin/BrokerNetworkForm.html?ID=0">Insert</a>
+<a href="/BevoMedia/Admin/BrokerNetworkForm.html?ID=0">Insert</a>
 
 <br /><br />
 
@@ -18,19 +18,19 @@
 	<tr>
 		<td><?=$BrokerNetwork->Name?></td>
 		<td>
-			<a href="/Bevomedia/Admin/BrokerNetworkForm.html?ID=<?=$BrokerNetwork->ID?>">Edit</a>
+			<a href="/BevoMedia/Admin/BrokerNetworkForm.html?ID=<?=$BrokerNetwork->ID?>">Edit</a>
 		</td>
 		<td>
 		<?php 
 			if ($BrokerNetwork->Enabled)
 			{
 		?>
-			<a href="/Bevomedia/Admin/BrokerNetworks.html?DisableID=<?=$BrokerNetwork->ID?>">Disable</a>
+			<a href="/BevoMedia/Admin/BrokerNetworks.html?DisableID=<?=$BrokerNetwork->ID?>">Disable</a>
 		<?php 
 			} else 
 			{
 		?>
-			<a href="/Bevomedia/Admin/BrokerNetworks.html?EnableID=<?=$BrokerNetwork->ID?>">Enable</a>
+			<a href="/BevoMedia/Admin/BrokerNetworks.html?EnableID=<?=$BrokerNetwork->ID?>">Enable</a>
 		<?php 	
 			}
 		?>
