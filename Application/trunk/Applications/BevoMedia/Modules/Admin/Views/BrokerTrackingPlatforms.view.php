@@ -1,7 +1,7 @@
 
 <?=$this->TopMenu?>
 
-<a href="/Bevomedia/Admin/BrokerTrackingPlatformForm.html?ID=0">Insert</a>
+<a href="/BevoMedia/Admin/BrokerTrackingPlatformForm.html?ID=0">Insert</a>
 
 <br /><br />
 
@@ -17,7 +17,7 @@
 	<tr>
 		<td><?=$TrackingPlatform->Name?></td>
 		<td>
-			<a href="/Bevomedia/Admin/BrokerTrackingPlatformForm.html?ID=<?=$TrackingPlatform->ID?>">Edit</a>
+			<a href="/BevoMedia/Admin/BrokerTrackingPlatformForm.html?ID=<?=$TrackingPlatform->ID?>">Edit</a>
 		</td>
 	</tr>
 <?php 
