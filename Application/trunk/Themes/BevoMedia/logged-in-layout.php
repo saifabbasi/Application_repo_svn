@@ -393,7 +393,11 @@ if(userTimezoneOffset == false)
 			<div id="topmenu">
 				<a class="btn topmenu_nyp<?php echo($this->PageHelper->Function == 'NameYourPayout'
 									|| $this->PageHelper->Function == 'NameYourPayoutResult')?' active':''?>" href="/BevoMedia/Offers/NameYourPayout.html">Name Your Payout</a>
-				<a class="btn topmenu_marketplace<?php echo($this->PageHelper->Area == 'Marketplace')?' active':''?>" href="/BevoMedia/Marketplace/">Marketplace</a>
+				<?php /*<a class="btn topmenu_selfhosted<?php echo($this->PageHelper->Area == 'Marketplace')?' active':''?>" href="/BevoMedia/SelfHosted/">SelfHosted</a> */ ?>
+				<a class="btn topmenu_selfhosted<?php echo($this->PageHelper->Function == 'SelfHostedLogin'
+									|| $this->PageHelper->Function == 'RackspaceWizard'
+									|| $this->PageHelper->Function == 'ServerScript'
+									|| $this->PageHelper->Function == 'SelfHostedLoginDownload')?' active':''?>" href="/BevoMedia/User/SelfHostedLogin.html">Self-Hosted</a>
 				<a class="btn topmenu_topdroptoggle topdroptoggle<?php if($soap_topdrop_status) echo ' '.$soap_topdrop_status; ?>" href="#">Toggle Bevo Topdrop</a>
 				<a class="btn topmenu_classroom<?php echo($this->PageHelper->Area == 'Classroom'
 									|| $this->PageHelper->Function == 'KB')?' active':''?>" href="/BevoMedia/Publisher/Classroom.html">Classroom</a>
@@ -417,15 +421,6 @@ if(userTimezoneOffset == false)
 									|| $this->PageHelper->Function == 'MySavedLists')?' active':''?>" href="/BevoMedia/Offers/BestPerformers.html">Offers</a>
 				<a class="btn offersmenu_stats<?php echo($this->PageHelper->Function == 'MyStats')?' active':''?>" href="/BevoMedia/Offers/MyStats.html">My Network Stats</a>
 			</div>
-			<!--<div id="setupmenu">
-				<a class="btn setupmenu_networks<?php echo(($this->PageHelper->Area == 'MyNetworks' && $this->PageHelper->Function == 'Index')
-									|| $this->PageHelper->Function == 'Reviews')?' active':''?>" href="/BevoMedia/Publisher/Index.html">Networks</a>
-				<a class="btn setupmenu_offers<?php echo($this->PageHelper->Area == 'Offers')?' active':''?>" href="/BevoMedia/Offers/Index.html">Offers</a>
-				<a class="btn setupmenu_selfhosted<?php echo($this->PageHelper->Function == 'SelfHostedLogin'
-									|| $this->PageHelper->Function == 'RackspaceWizard'
-									|| $this->PageHelper->Function == 'ServerScript'
-									|| $this->PageHelper->Function == 'SelfHostedLoginDownload')?' active':''?>" href="/BevoMedia/User/SelfHostedLogin.html">Self-Hosted</a>
-			</div>-->
 			<div id="coremenu">
 				<a class="btn coremenu_ppc<?php 
 					echo($this->PageHelper->Function == 'PPCManager' //gotta find a better way to do all this, including the redundant containerclass below

@@ -227,13 +227,13 @@ Class PageHelper {
 		
 			$PagePresets['Offers/Index/UniquePageName'] = 'offers_index';
 			$PagePresets['Offers/Index/HeadingImage'] = 'pagedesc_offervault.png';
-			$PagePresets['Offers/Index/Heading'] = 'Bevo Offer Vault';
-			$PagePresets['Offers/Index/SubHeading'] = 'Using Bevo\'s revolutionary Search Offer Tool, you can search for offers across all affiliate networks.';
+			$PagePresets['Offers/Index/Heading'] = 'Bevo Offer Hub';
+			$PagePresets['Offers/Index/SubHeading'] = 'Using Bevo\'s revolutionary Offer Search Tool, you can search for offers across all affiliate networks.';
 			
 			$PagePresets['Offers/BestPerformers/UniquePageName'] = 'offers_bestperf';
 			$PagePresets['Offers/BestPerformers/HeadingImage'] = 'pagedesc_offervault.png';
-			$PagePresets['Offers/BestPerformers/Heading'] = 'Bevo Offer Vault';
-			$PagePresets['Offers/BestPerformers/SubHeading'] = 'Using Bevo\'s revolutionary Search Offer Tool, you can search for offers across all affiliate networks.';
+			$PagePresets['Offers/BestPerformers/Heading'] = 'Bevo Offer Hub';
+			$PagePresets['Offers/BestPerformers/SubHeading'] = 'Using Bevo\'s revolutionary Offer Search Tool, you can search for offers across all affiliate networks.';
 			
 			$PagePresets['Offers/MySavedLists/UniquePageName'] = 'offers_mysavedlists';
 			$PagePresets['Offers/MySavedLists/HeadingImage'] = 'pagedesc_mysavedlists.png';

@@ -107,11 +107,11 @@ a.btn_topdrop_downloadselfhosted { width:96px; height:30px; background:url(img_n
 
 #topmenu a.btn { height:28px; position:absolute; top:0; background:url(img_new/btns_topmenu.png) no-repeat; z-index:25; }
 	
-	#topmenu a.btn.topmenu_nyp { width:131px; height:34px; background:url(img_new/btns_topmenu_nyp_mp.png) no-repeat; }
+	#topmenu a.btn.topmenu_nyp { width:131px; height:34px; background:url(img_new/btns_topmenu_nyp_sh.png) no-repeat; }
 	#topmenu a.btn.topmenu_nyp:hover, #topmenu a.btn.topmenu_nyp.active { background-position:left bottom; }
 
-        #topmenu a.btn.topmenu_marketplace { width:100px; height:29px; left:131px; background:url(img_new/btns_topmenu_nyp_mp.png) no-repeat -131px 0; }
-	a.btn.topmenu_marketplace:hover, a.btn.topmenu_marketplace.active { background-position:-131px -34px !important; }
+        #topmenu a.btn.topmenu_selfhosted { width:100px; height:29px; left:131px; background:url(img_new/btns_topmenu_nyp_sh.png) no-repeat -131px 0; }
+	a.btn.topmenu_selfhosted:hover, a.btn.topmenu_selfhosted.active { background-position:-131px -34px !important; }
 	
 	#topmenu a.btn.topmenu_topdroptoggle { width:37px; height:22px; right:516px; background-position:-118px -6px; }
 	a.btn.topmenu_topdroptoggle:hover { background-position:-118px -34px !important; }
@@ -155,14 +155,6 @@ a.btn_topdrop_downloadselfhosted { width:96px; height:30px; background:url(img_n
 	a.btn.offersmenu_offervault:hover, a.btn.offersmenu_offervault.active { background-position:-106px -31px !important; }
 	#offersmenu a.btn.offersmenu_stats { width:88px; background-position:-219px 0; }
 	a.btn.offersmenu_stats:hover, a.btn.offersmenu_stats.active { background-position:-219px -31px !important; }
-	
-/*#setupmenu a.btn { height:27px; background:url(img_new/btns_setupmenu.png) no-repeat; }
-	#setupmenu a.btn.setupmenu_networks { width:78px; }
-	a.btn.setupmenu_networks:hover, a.btn.setupmenu_networks.active { background-position:0 -27px !important; }
-	#setupmenu a.btn.setupmenu_offers { width:66px; background-position:-78px 0; }
-	a.btn.setupmenu_offers:hover, a.btn.setupmenu_offers.active { background-position:-78px -27px !important; }
-	#setupmenu a.btn.setupmenu_selfhosted { width:91px; background-position:-144px 0; }
-	a.btn.setupmenu_selfhosted:hover, a.btn.setupmenu_selfhosted.active { background-position:-144px -27px !important; }*/
 	
 #coremenu a.btn { width:107px; height:30px; background:url(img_new/btns_coremenu.png) no-repeat; }
 	#coremenu a.btn.coremenu_ppc { background-position:-1px -17px; }
