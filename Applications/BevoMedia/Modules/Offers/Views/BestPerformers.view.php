@@ -357,7 +357,7 @@ include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.p
 					<?php } else { ?>
 						
 						<p>You're not a member of this network yet! Become one now:</p>
-						<a class="btn nw_applyadd j_shadowbox" href="/BevoMedia/Publisher/ApplyAdd.html?network=<?php echo $offer->network__id; ?>" rel="shadowbox;width=640;height=480;player=iframe" title="Apply / Add this network">Apply to join this network</a>
+						<a class="btn nw_applyadd j_shadowbox" href="/BevoMedia/Publisher/ApplyAdd.html?network=<?php echo $offer->network__id; ?>" title="Apply / Add this network">Apply to join this network</a>
 					
 					<?php } ?>
 				</div>
