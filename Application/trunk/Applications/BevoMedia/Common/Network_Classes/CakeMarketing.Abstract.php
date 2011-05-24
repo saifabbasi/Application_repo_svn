@@ -200,6 +200,7 @@ abstract class CakeMarketingAbstract Extends NetworksAbstract {
 			$offerType = $offer->offer_type;
 			$offerLink = $offer->offer_link;
 			$thumbnailImageUrl = $offer->thumbnail_image_url;
+			$offerContract = $offer->offer_contract_id;
 			
 			echo $offerId."\n";
 			echo $offerName."\n";
@@ -221,6 +222,7 @@ abstract class CakeMarketingAbstract Extends NetworksAbstract {
 			$OfferObj->description = $description;
 			$OfferObj->previewUrl = $url;
 			$OfferObj->imageUrl = $thumbnailImageUrl;
+			$OfferObj->offerContractId = $offerContract;
 			
 			$OfferObj->offerType = 'Lead';
 			if (strstr($payout, '%')) {
