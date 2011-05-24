@@ -299,7 +299,7 @@ include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.p
 							<p>You can find this offer in <?php echo $offer->networkName; ?>'s interface by searching for the <strong>Offer ID</strong> (to the right).</p>
 							
 						<?php } else { ?>
-							<p>We'd love to give you your Affiliate Link for this offer right now, but you're not a member of <?php echo $offer->networkName; ?> yet! <a class="nw_applyadd" href="/BevoMedia/Publisher/ApplyAdd.html?network=<?php echo $offer->network__id; ?>"><strong>Click Here</strong> to apply now</a>.</p>
+							<p>We'd love to give you your Affiliate Link for this offer right now, but you're not a member of <?php echo $offer->networkName; ?> yet! <a class="nw_applyadd j_shadowbox" href="/BevoMedia/Publisher/ApplyAdd.html?network=<?php echo $offer->network__id; ?>"><strong>Click Here</strong> to apply now</a>.</p>
 							
 						<?php } ?>
 					</div>
