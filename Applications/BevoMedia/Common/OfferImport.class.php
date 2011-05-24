@@ -91,6 +91,11 @@ class OfferImport {
 			
 			$UpdateSql .= "network__id = '" . $this->networkId . "', category__id = ".intval($CategoryID);
 			
+			if (isset($OfferObj->offerContractId))
+			{
+				$UpdateSql .= ", offerContractID = " . $OfferObj->offerContractId;
+			}
+			
 			$Sql = "UPDATE " . $this->offersTableName . " SET " . $UpdateSql . ", archived = 0 WHERE id = '" . $OfferInsertID . "'";
 		
 			$Result = mysql_query($Sql);
@@ -136,6 +141,13 @@ class OfferImport {
 			
 			$ColumnNames .= 'network__id,user__id,category__id';
 			$ColumnValues .= $this->networkId . ',' . $this->userId . ',' . $CategoryID;
+			
+			if (isset($OfferObj->offerContractId))
+			{
+				$ColumnNames .= ',offerContractID';
+				$ColumnValues .= ', '.$OfferObj->offerContractId;
+			}
+			
 			$Sql = "INSERT INTO " . $this->offersTableName . " (" . $ColumnNames . ") VALUES (" . $ColumnValues . ")";
 			
 			$Result = mysql_query($Sql);
