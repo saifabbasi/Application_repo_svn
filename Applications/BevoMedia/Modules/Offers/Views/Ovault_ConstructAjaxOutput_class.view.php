@@ -371,6 +371,7 @@ class ConstructAjaxOutput {
 						{$networksSearchAdd}
 						{$savelistAdd}
 						AND bevomedia_offers.archived = 0
+						AND ( (bevomedia_offers.hidden = 0) OR (bevomedia_offers.hidden = 2) ) 
 					ORDER BY 
 						{$orderBy}
 						{$limitAdd}
@@ -492,6 +493,8 @@ class ConstructAjaxOutput {
 			WHERE	lists.id = {$query['params']['listid']}
 				AND lists.user__id = {$_SESSION['User']['ID']}
 				AND offers.archived = 0
+				
+				AND ( (offers.hidden = 0) OR (offers.hidden = 2) )
 				
 			GROUP BY offers.id
 			ORDER BY offers.payout
