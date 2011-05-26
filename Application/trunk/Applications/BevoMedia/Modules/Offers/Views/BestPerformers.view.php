@@ -179,6 +179,8 @@
 					
 			WHERE	offers.archived = 0
 				AND offers.network__id = {$nw->id}
+				
+				AND ( (offers.hidden = 0) OR (offers.hidden = 2) )
 			
 			ORDER BY offers.dateAdded DESC
 			
