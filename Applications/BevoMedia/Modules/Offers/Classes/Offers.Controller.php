@@ -222,6 +222,38 @@
 			die;
 			
 		}
+		
+		Public Function OfferImportFrame()
+		{
+			$NetworkID = $_GET['network__id'];
+			
+			$Sql = "SELECT
+						bevomedia_user_aff_network.id,
+						bevomedia_user_aff_network.loginId as `AffiliateID`,
+						bevomedia_user_aff_network.otherId as `APIKey`,
+						bevomedia_aff_network.url
+					FROM
+						bevomedia_aff_network,
+						bevomedia_user_aff_network
+					WHERE
+						(bevomedia_user_aff_network.network__id	= bevomedia_aff_network.id) AND 
+						(bevomedia_user_aff_network.user__id = ?) AND
+						(bevomedia_user_aff_network.network__id = ?) AND
+						(bevomedia_user_aff_network.loginId <> '') AND
+						(bevomedia_user_aff_network.otherId <> '') 
+					";
+			
+			$Row = $this->db->fetchRow($Sql, array($_SESSION['User']['ID'], $NetworkID));
+			
+			if (!isset($Row->id))
+			{
+				header('Location: /BevoMedia/Publisher/EditNetwork.html?network='.$NetworkID);
+				die;
+			} else 
+			{
+				$this->NetworkInfo = $Row;
+			}
+		}
 	}
 
 ?>
