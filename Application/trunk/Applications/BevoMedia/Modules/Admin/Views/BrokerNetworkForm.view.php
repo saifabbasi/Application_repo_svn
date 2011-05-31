@@ -42,6 +42,7 @@
 	
 	<label for="AffiliateNetworkID">Affiliate Network:</label>
 	<select id="AffiliateNetworkID" name="AffiliateNetworkID">
+		<option value="0"></option>
 	<?php 
 		foreach ($this->AffiliateNetworks as $AffiliateNetwork)
 		{
