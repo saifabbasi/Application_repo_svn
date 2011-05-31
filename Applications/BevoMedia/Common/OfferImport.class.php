@@ -46,12 +46,18 @@ class OfferImport {
 				
 				
 				
-		$Sql = "SELECT id, offer__id FROM " . $this->offersTableName . " WHERE offer__id= '" . $OfferObj->offerId . "' AND network__id = '" . $this->networkId . "'";
+		$Sql = "SELECT id, offer__id, edited FROM " . $this->offersTableName . " WHERE offer__id= '" . $OfferObj->offerId . "' AND network__id = '" . $this->networkId . "'";
 		$Result = mysql_query($Sql);
 		if(mysql_num_rows($Result)>0)
 		{
 			$Row = mysql_fetch_assoc($Result);
 			$OfferInsertID = $Row['id'];
+			$Edited = $Row['edited'];
+			
+			if ($Edited==1) {
+				return;
+			}
+			
 			
 			$UpdateSql = '';
 			foreach($this->tableToOfferBinding as $columnName=>$offerParam)
