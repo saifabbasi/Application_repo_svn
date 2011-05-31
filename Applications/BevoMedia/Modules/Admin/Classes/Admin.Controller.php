@@ -2315,11 +2315,14 @@ END;
 			$ID = intval($_GET['ID']);
 			
 			if (isset($_POST['Save'])) {
+				
+				$Enabled = isset($_POST['Enabled'])?1:0;
+				
 				if ($ID==0) {
-					$InsertArray = array('Name' => $_POST['Name']);
+					$InsertArray = array('Name' => $_POST['Name'], 'Enabled' => $Enabled);
 					$this->db->insert('broker_tracking_platforms', $InsertArray);
 				} else {
-					$UpdateArray = array('Name' => $_POST['Name']);
+					$UpdateArray = array('Name' => $_POST['Name'], 'Enabled' => $Enabled);
 					$this->db->update('broker_tracking_platforms', $UpdateArray, 'ID = '.$ID);
 				}
 				

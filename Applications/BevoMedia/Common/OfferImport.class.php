@@ -21,7 +21,7 @@ class OfferImport {
 	{
 		$this->networkId = $NetworkID;
 		
-		$sql = "UPDATE ".$this->offersTableName." SET archived = 1 WHERE network__id = " . $this->networkId;
+		$sql = "UPDATE ".$this->offersTableName." SET archived = 1 WHERE edited = 0 AND network__id = " . $this->networkId;
 		mysql_query($sql);
 	}
 	
