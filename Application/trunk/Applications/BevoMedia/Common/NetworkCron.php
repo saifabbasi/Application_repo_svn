@@ -70,6 +70,8 @@ $networks[] = networkArray('CPAProsperity', 1070, 'CakeMarketing');
 $networks[] = networkArray('NDemand', 1063, 'LinkTrust');
 $networks[] = networkArray('LazyProfits', 1064, 'HasOffers');
 $networks[] = networkArray('CPAProsperity', 1070, 'CakeMarketing');
+$networks[] = networkArray('EnvyusMedia', 1072, 'CakeMarketing');
+
 
 
 foreach($networks as $network)
