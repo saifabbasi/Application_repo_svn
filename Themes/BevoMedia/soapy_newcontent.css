@@ -1222,7 +1222,7 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 		#oleft .btable .td_oleft form a.btn.ovault_olay_close_gray { position:absolute; top:3px; left:9px; }
 
                 #oleft .btable .td_oleft.nwlogo { padding:0 !important; height:48px; text-align:center; }	
-                #oleft .btable .td_oleft.nwlogo a { width:171px; height:48px; display:block; overflow:hidden; }
+                #oleft .btable .td_oleft.nwlogo a { width:171px; /*height:48px;*/ display:block; overflow:hidden; vertical-align:middle; }
                 #oleft .btable .td_oleft.nwlogo img { margin:0; max-height:48px; height:auto !important; height:48px; }
 
 	#ovault .footfeat { margin:-2px 0 5px 5px; }		
