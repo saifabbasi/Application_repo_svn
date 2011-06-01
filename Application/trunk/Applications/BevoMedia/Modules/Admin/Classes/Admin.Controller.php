@@ -2462,6 +2462,182 @@ END;
 			return $TopMenu;
 		}
 		
+		
+		Public Function BlacklistAffiliates()
+		{
+			$Sql = "SELECT
+					broker_blacklist_affiliate.ID,
+					broker_blacklist_affiliate.Name,
+					broker_blacklist_affiliate.Email,
+					broker_blacklist_affiliate.UserID,
+					broker_blacklist_affiliate.Text,
+					broker_blacklist_affiliate.Created,
+					broker_networks.Name as `NetworkName`
+				FROM
+					broker_blacklist_affiliate,
+					broker_networks
+				WHERE
+					(broker_networks.ID = broker_blacklist_affiliate.UserID)
+				GROUP BY
+					broker_blacklist_affiliate.ID
+				ORDER BY
+					broker_blacklist_affiliate.Created DESC		
+				";
+		
+			$this->Posts = $this->db->fetchAll($Sql);
+		}
+		
+		Public Function ViewAffiliatePost()
+		{
+			$PostID = $_GET['ID'];
+		
+			$Sql = "SELECT
+						broker_blacklist_affiliate.*,
+						broker_networks.Name as `NetworkName`
+					FROM
+						broker_blacklist_affiliate,
+						broker_networks
+					WHERE
+						(broker_networks.ID = broker_blacklist_affiliate.UserID) AND
+						(broker_blacklist_affiliate.ID = ?)
+			
+					";		
+			$this->Post = $this->db->fetchRow($Sql, array($PostID));
+	
+			
+			
+			$Sql = "SELECT
+						broker_blacklist_affiliate_comments.*,
+						broker_networks.Name as `NetworkName`
+					FROM
+						broker_blacklist_affiliate_comments,
+						broker_networks
+					WHERE
+						(broker_networks.ID = broker_blacklist_affiliate_comments.UserID) AND
+						(broker_blacklist_affiliate_comments.PostID = ?)
+					ORDER BY
+						broker_blacklist_affiliate_comments.Created
+					";
+			$this->Comments = $this->db->fetchAll($Sql, array($PostID));
+		}
+		
+		Public Function PostAffiliateComment()
+		{
+			Zend_Registry::set('Instance/LayoutType', 'shadowbox-layout');
+			
+			$this->Success = false;
+			
+			if (isset($_POST['Save']))
+			{
+				
+				if ( ($_POST['Title']=='') || ($_POST['Text']=='') )
+				{
+					$this->ErrorMessage = 'You must enter title and comment.';
+					return;
+				}
+				
+				$Array = array (
+								'PostID' => $_POST['PostID'],
+								'UserID' => 1,
+								'Title' => $_POST['Title'],
+								'Text' => nl2br($_POST['Text']),
+								'Username' => $_POST['Username'],
+							);
+				$this->db->insert('broker_blacklist_affiliate_comments', $Array);
+				
+				$this->Success = true;
+			}
+		}
+		
+		Public Function BlacklistAdvertisers()
+		{
+			$Sql = "SELECT
+						broker_blacklist_advertiser.ID,
+						broker_blacklist_advertiser.Name,
+						broker_blacklist_advertiser.Email,
+						broker_blacklist_advertiser.UserID,
+						broker_blacklist_advertiser.Text,
+						broker_blacklist_advertiser.Created,
+						broker_networks.Name as `NetworkName`
+					FROM
+						broker_blacklist_advertiser,
+						broker_networks
+					WHERE
+						(broker_networks.ID = broker_blacklist_advertiser.UserID)
+					GROUP BY
+						broker_blacklist_advertiser.ID
+					ORDER BY
+						broker_blacklist_advertiser.Created DESC		
+					";
+			
+			$this->Posts = $this->db->fetchAll($Sql);		
+		}
+		
+		Public Function ViewAdvertiserPost()
+		{
+			$PostID = $_GET['ID'];
+			
+			$Sql = "SELECT
+						broker_blacklist_advertiser.*,
+						broker_networks.Name as `NetworkName`
+					FROM
+						broker_blacklist_advertiser,
+						broker_networks
+					WHERE
+						(broker_networks.ID = broker_blacklist_advertiser.UserID) AND
+						(broker_blacklist_advertiser.ID = ?)
+			
+					";		
+			$this->Post = $this->db->fetchRow($Sql, array($PostID));
+	
+			
+			
+			$Sql = "SELECT
+						broker_blacklist_advertiser_comments.*,
+						broker_networks.Name as `NetworkName`
+					FROM
+						broker_blacklist_advertiser_comments,
+						broker_networks
+					WHERE
+						(broker_networks.ID = broker_blacklist_advertiser_comments.UserID) AND
+						(broker_blacklist_advertiser_comments.PostID = ?)
+					ORDER BY
+						broker_blacklist_advertiser_comments.Created
+					";
+			$this->Comments = $this->db->fetchAll($Sql, array($PostID));
+		}
+		
+		Public Function PostAdvertiserComment()
+		{
+			Zend_Registry::set('Instance/LayoutType', 'shadowbox-layout');
+			
+			$this->Success = false;
+			
+			if (isset($_POST['Save']))
+			{
+				
+				if ( ($_POST['Title']=='') || ($_POST['Text']=='') )
+				{
+					$this->ErrorMessage = 'You must enter title and comment.';
+					return;
+				}
+				
+				$Array = array (
+								'PostID' => $_POST['PostID'],
+								'UserID' => 1,
+								'Title' => $_POST['Title'],
+								'Text' => nl2br($_POST['Text']),
+								'Username' => $_POST['Username'],
+							);
+				$this->db->insert('broker_blacklist_advertiser_comments', $Array);
+				
+				$this->Success = true;
+			}
+		}
+		
+		
+		
+		
 	}
 
 ?>
