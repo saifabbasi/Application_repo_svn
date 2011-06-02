@@ -72,10 +72,10 @@ function get_column_sort_link($a, $b)
 		if($tg['sort_dir'] == 'desc')
 		{
 			$tg['sort_dir'] = '';
-			$img = '<img src="/assets/images/sort_desc.gif"/>';
+			$img = '<img src="/Themes/BevoMedia/img_new/icon_arrsmall_down_k.png"/>';
 		}else{
 			$tg['sort_dir'] = 'desc';
-			$img = '<img src="/assets/images/sort_asc.gif"/>';
+			$img = '<img src="/Themes/BevoMedia/img_new/icon_arrsmall_up_k.png"/>';
 		}
 	}
 	$tg['sort'] = $b;
