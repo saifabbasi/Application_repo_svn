@@ -8,7 +8,9 @@
 	
 	<div>
 		E-mail: <?php echo $this->Post->Email; ?><br />
-		Network posted by: <?php echo $this->Post->NetworkName; ?><br /><br />
+		Network posted by: <?=($this->Post->Username=='')?$this->Post->NetworkName:$this->Post->Username; ?><br />
+		Known Individuals attached to this company: <?php echo $this->Post->KnownAttachedIndividuals; ?><br />
+		<br />
 	</div>
 	
 	<div>

@@ -2396,7 +2396,10 @@ END;
 											'TrackingPlatformID' => $_POST['TrackingPlatformID'],
 											'Email' => $_POST['Email'],
 											'Phone' => $_POST['Phone'],
-											'NetworkID' => $_POST['AffiliateNetworkID']
+											'NetworkID' => $_POST['AffiliateNetworkID'],
+											'PaymentPlan' => floatval($_POST['PaymentPlan']),
+											'PaymentPlanTerm' => $_POST['PaymentPlanTerm'],
+											'IsIntegrated' => intval($_POST['IsIntegrated']),
 									);
 					$this->db->insert('broker_networks', $InsertArray);
 				} else {
@@ -2407,7 +2410,10 @@ END;
 											'TrackingPlatformID' => $_POST['TrackingPlatformID'],
 											'Email' => $_POST['Email'],
 											'Phone' => $_POST['Phone'],
-											'NetworkID' => $_POST['AffiliateNetworkID']
+											'NetworkID' => $_POST['AffiliateNetworkID'],
+											'PaymentPlan' => floatval($_POST['PaymentPlan']),
+											'PaymentPlanTerm' => $_POST['PaymentPlanTerm'],
+											'IsIntegrated' => intval($_POST['IsIntegrated']),
 									);
 					$this->db->update('broker_networks', $UpdateArray, 'ID = '.$ID);
 				}
@@ -2470,6 +2476,7 @@ END;
 					broker_blacklist_affiliate.Name,
 					broker_blacklist_affiliate.Email,
 					broker_blacklist_affiliate.UserID,
+					broker_blacklist_affiliate.Username,
 					broker_blacklist_affiliate.Text,
 					broker_blacklist_affiliate.Created,
 					broker_networks.Name as `NetworkName`
@@ -2556,6 +2563,7 @@ END;
 						broker_blacklist_advertiser.Name,
 						broker_blacklist_advertiser.Email,
 						broker_blacklist_advertiser.UserID,
+						broker_blacklist_advertiser.Username,
 						broker_blacklist_advertiser.Text,
 						broker_blacklist_advertiser.Created,
 						broker_networks.Name as `NetworkName`
@@ -2635,7 +2643,61 @@ END;
 			}
 		}
 		
+		Public Function PostAffiliate()
+		{
+			Zend_Registry::set('Instance/LayoutType', 'shadowbox-layout');
+			
+			$this->Success = false;
+			if (isset($_POST['Save']))
+			{
+				if ($_POST['Name']=='') {
+					$this->ErrorMessage = 'You must enter name.';
+					return;	
+				}
+				
+				$Array = array (
+								'UserID' => 1,
+								'Name' => $_POST['Name'],
+								'Email' => $_POST['Email'],
+								'Address' => $_POST['Address'],
+								'Text' => nl2br($_POST['Text']),
+								'Username' => $_POST['Username'],
+								'KnownAttachedIndividuals' => $_POST['KnownAttachedIndividuals'],
+							);
+							
+				$this->db->insert('broker_blacklist_affiliate', $Array);
+				
+				$this->Success = true;
+			}
+		}		
 		
+		Public Function PostAdvertiser()
+		{
+			Zend_Registry::set('Instance/LayoutType', 'shadowbox-layout');
+			
+			$this->Success = false;
+			if (isset($_POST['Save']))
+			{
+				if ($_POST['Name']=='') {
+					$this->ErrorMessage = 'You must enter name.';
+					return;	
+				}
+				
+				$Array = array (
+								'UserID' => 1,
+								'Name' => $_POST['Name'],
+								'Email' => $_POST['Email'],
+								'Address' => $_POST['Address'],
+								'Text' => nl2br($_POST['Text']),
+								'Username' => $_POST['Username'],
+								'KnownAttachedIndividuals' => $_POST['KnownAttachedIndividuals'],
+							);
+							
+				$this->db->insert('broker_blacklist_advertiser', $Array);
+				
+				$this->Success = true;
+			}
+		}	
 		
 		
 	}

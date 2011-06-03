@@ -1,6 +1,7 @@
 
 	<a href="/BevoMedia/Admin/BlacklistAffiliates.html">Affiliates</a> |
-	Advertisers
+	Advertisers  |
+	<a rel="shadowbox;width=400;height=350;" href="/BevoMedia/Admin/PostAdvertiser.html">Post Advertiser Review</a>
 
 	<br /><br />
 	
@@ -21,7 +22,7 @@
 			<td>
 				<a href="/BevoMedia/Admin/ViewAdvertiserPost.html?ID=<?=$Post->ID?>"><?=$Post->Name?></a>
 			</td>
-			<td><?=$Post->NetworkName?></td>
+			<td><?=($Post->Username=='')?$Post->NetworkName:$Post->Username?></td>
 			<td><?=date('m/d/Y H:i a', strtotime($Post->Created))?></td>
 		</tr>
 	<?php 
