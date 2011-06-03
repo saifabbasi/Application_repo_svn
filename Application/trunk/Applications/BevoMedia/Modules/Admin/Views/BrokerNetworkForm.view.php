@@ -69,6 +69,20 @@
 	<input type="text" id="Phone" name="Phone" value="<?=isset($this->BrokerNetwork->Phone)?$this->BrokerNetwork->Phone:''?>" />
 	<br /><br />
 	
+	<label for="PaymentPlan">Payment Plan:</label>
+	$<input type="text" id="PaymentPlan" name="PaymentPlan" value="<?=isset($this->BrokerNetwork->PaymentPlan)?$this->BrokerNetwork->PaymentPlan:''?>" />
+	<select name="PaymentPlanTerm">
+		<option></option>
+		<option <?=(isset($this->BrokerNetwork->PaymentPlanTerm) && ($this->BrokerNetwork->PaymentPlanTerm=='Monthly'))?'selected':''?>>Monthly</option>
+		<option <?=(isset($this->BrokerNetwork->PaymentPlanTerm) && ($this->BrokerNetwork->PaymentPlanTerm=='Yearly'))?'selected':''?>>Yearly</option>
+	</select>
+	<br /><br />
+	
+	
+	<label for="IsIntegrated">Is Integrated on Offer Brokering System:</label>
+	<input type="checkbox" id="IsIntegrated" name="IsIntegrated" value="1" <?=(isset($this->BrokerNetwork->IsIntegrated) && ($this->BrokerNetwork->IsIntegrated==1))?'checked':''?> />
+	<br /><br />
+	
 	
 	<input type="submit" name="Save" value="Save" />
 </form>
