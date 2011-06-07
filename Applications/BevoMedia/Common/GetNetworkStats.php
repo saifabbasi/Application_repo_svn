@@ -89,7 +89,20 @@ if ( (\$user->vaultID==0) && (!\$user->IsSubscribed(User::PRODUCT_INSTALL_NETWOR
 try {
 	if(\$network->login() === false)
 	{
-	  \$network->logTransaction('Error logging in, aborting stats pull!', 'warning');
+		\$network->logTransaction('Error logging in, aborting stats pull!', 'warning');
+		
+		
+		\$Sql = "SELECT id FROM bevomedia_user_aff_network WHERE (user__id = {$AffNetworkUser['user__id']}) AND (network__id = {$NetDetails['id']})";
+		\$Row = mysql_query(\$Sql);
+		if (mysql_num_rows(\$Row)>0) {
+			\$Row = mysql_fetch_assoc(\$Row);
+			
+			\$Sql = "UPDATE bevomedia_user_aff_network SET `status` = 0 WHERE id = {\$Row['id']}";
+			mysql_query(\$Sql);
+			
+			die();
+		}
+	
 	  die();
 	}
 	echo "Logged in!\n";

@@ -18,6 +18,7 @@
 	</div>
 	
 	<br /><br />
+	<hr />
 	
 <?php 
 	foreach ($this->Comments as $Comment)
@@ -29,7 +30,8 @@
 		<br />
 		<div><?=$Comment->Text?></div>
 	</div>
-	
+	<a href="/BevoMedia/Admin/ViewAffiliatePost.html?ID=<?=$_GET['ID']?>&DeleteID=<?=$Comment->ID?>" onclick="return confirm('Are you sure you want to delete this comment?');">Delete Comment</a>
+	<hr />
 	<br /><br />
 <?php 
 	}

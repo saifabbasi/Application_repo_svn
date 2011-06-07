@@ -24,6 +24,9 @@
 			</td>
 			<td><?=($Post->Username=='')?$Post->NetworkName:$Post->Username?></td>
 			<td><?=date('m/d/Y H:i a', strtotime($Post->Created))?></td>
+			<td>
+				<a href="/BevoMedia/Admin/BlacklistAdvertisers.html?DeleteID=<?=$Post->ID?>" onclick="return confirm('Are you sure you want to delete this post?');">Delete</a>
+			</td>
 		</tr>
 	<?php 
 		}

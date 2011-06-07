@@ -2471,6 +2471,16 @@ END;
 		
 		Public Function BlacklistAffiliates()
 		{
+			if (isset($_GET['DeleteID'])) 
+			{
+				$DeleteID = $_GET['DeleteID'];
+				
+				$this->db->delete('broker_blacklist_affiliate', ' ID = '.$DeleteID);
+				
+				header('Location: /BevoMedia/Admin/BlacklistAffiliates.html');
+				die;				
+			}
+			
 			$Sql = "SELECT
 					broker_blacklist_affiliate.ID,
 					broker_blacklist_affiliate.Name,
@@ -2496,6 +2506,17 @@ END;
 		
 		Public Function ViewAffiliatePost()
 		{
+			if (isset($_GET['DeleteID'])) 
+			{
+				$PostID = intval($_GET['ID']);
+				$DeleteID = intval($_GET['DeleteID']);
+				
+				$this->db->delete('broker_blacklist_affiliate_comments', ' ID = '.$DeleteID);
+				
+				header('Location: /BevoMedia/Admin/ViewAffiliatePost.html?ID='.$PostID);
+				die;				
+			}
+			
 			$PostID = $_GET['ID'];
 		
 			$Sql = "SELECT
@@ -2558,6 +2579,17 @@ END;
 		
 		Public Function BlacklistAdvertisers()
 		{
+			if (isset($_GET['DeleteID'])) 
+			{
+				$DeleteID = $_GET['DeleteID'];
+				
+				$this->db->delete('broker_blacklist_advertiser', ' ID = '.$DeleteID);
+				
+				header('Location: /BevoMedia/Admin/BlacklistAdvertisers.html');
+				die;				
+			}
+			
+			
 			$Sql = "SELECT
 						broker_blacklist_advertiser.ID,
 						broker_blacklist_advertiser.Name,
@@ -2583,6 +2615,18 @@ END;
 		
 		Public Function ViewAdvertiserPost()
 		{
+			if (isset($_GET['DeleteID'])) 
+			{
+				$PostID = intval($_GET['ID']);
+				$DeleteID = intval($_GET['DeleteID']);
+				
+				$this->db->delete('broker_blacklist_advertiser_comments', ' ID = '.$DeleteID);
+				
+				header('Location: /BevoMedia/Admin/ViewAdvertiserPost.html?ID='.$PostID);
+				die;				
+			}
+			
+			
 			$PostID = $_GET['ID'];
 			
 			$Sql = "SELECT

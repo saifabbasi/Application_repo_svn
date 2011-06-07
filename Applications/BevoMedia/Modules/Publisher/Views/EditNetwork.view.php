@@ -61,7 +61,16 @@
 </script>
 <?php endif; ?>
 
-
+<?php
+	if ($this->UserNetwork->status==0)
+	{
+?>
+	<div style="color: #f00; text-align: center;">
+		You have entered wrong network credentials. Your stats are not updated.
+	</div>
+<?php 
+	}	
+?>
 
 <form method="post">
 
