@@ -64,6 +64,21 @@
 	
 	
 		<br/><br/>
+		
+
+	<b>Referral Rate:</b>
+	<br/>
+	<input type='text' name='referralRate' value='<?php print $this->User->referralRate; ?>'/>%
+	<br/><br/><br/>
+	
+	<b>PPVSpy Referral Rate:</b>
+	<br/>
+	<input type='text' name='ppvSpyReferralRate' value='<?php print $this->User->ppvSpyReferralRate; ?>'/>%
+	<br />
+	(setting custom PPVSpy Referral Rate will remove other non-ppvspy purchases from the referrals)
+	
+	<br/><br/><br/>
+		
 
 	<b>Phone:</b>
 	<br/>

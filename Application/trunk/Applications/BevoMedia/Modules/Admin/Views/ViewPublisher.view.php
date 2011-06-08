@@ -147,6 +147,12 @@
 <b>Website:</b> <?php print $this->User->website; ?><br/>
 <br/>
 
+<b>Referral Rate:</b> <?php print $this->User->referralRate; ?>%<br/>
+<br/>
+
+<b>Custom PPVSpy Referral Rate:</b> <?php print $this->User->ppvSpyReferralRate; ?>%<br/>
+<br/>
+
 <b>Phone:</b> <?php print $this->User->phone; ?><br/>
 <br/>
 

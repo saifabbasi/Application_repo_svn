@@ -1167,8 +1167,14 @@
 			
 			if(isset($_POST['editPublisherSubmit']))
 			{
+				$UpdateArray = array('referralRate' => $_POST['referralRate'], 'ppvSpyReferralRate' => $_POST['ppvSpyReferralRate']);
+				$this->db->update('bevomedia_user', $UpdateArray, ' ID = '.$this->User->id);
+				
 				$Data = $_POST;
 				unset($Data['editPublisherSubmit']);
+				unset($Data['referralRate']);
+				unset($Data['ppvSpyReferralRate']);
+								
 				$niche = $Data['niche'];
 				unset($Data['niche']);
 				$this->User->Update($Data);
@@ -1940,14 +1946,14 @@ END;
 		}
 		
 		Public Function Referrals()
-		{
+		{			
 			$Sql = "SELECT
 						bevomedia_user.id,
 						bevomedia_user_info.firstName,
 						bevomedia_user_info.lastName,
 						bevomedia_referrals.Date,
 						COUNT(distinct(bevomedia_user.id)) as `TotalUsers`,
-						SUM(bevomedia_user_payments.Price)*0.1 AS `TotalRevenue`
+						SUM(bevomedia_user_payments.Price)*(bevomedia_user.referralRate/100.0) AS `TotalRevenue`
 					FROM
 						bevomedia_referrals,
 						bevomedia_user,
@@ -1958,11 +1964,37 @@ END;
 						(bevomedia_user_info.id = bevomedia_user.id) AND
 						(bevomedia_user_payments.UserID = bevomedia_referrals.UserID) AND
 						(bevomedia_user_payments.TransactionID > 0) AND
-						(bevomedia_user_payments.PaidDate >= DATE_SUB(now(), interval 1 year))
+						(bevomedia_user_payments.PaidDate >= DATE_SUB(now(), interval 1 year)) AND
+						(bevomedia_user.ppvSpyReferralRate = 0)
 					GROUP BY
 						bevomedia_referrals.ReferrerID
 				";
 			$this->Referrals = $this->db->fetchAll($Sql);
+			
+			$Sql = "SELECT
+						bevomedia_user.id,
+						bevomedia_user_info.firstName,
+						bevomedia_user_info.lastName,
+						bevomedia_referrals.Date,
+						COUNT(distinct(bevomedia_user.id)) as `TotalUsers`,
+						SUM(bevomedia_user_payments.Price)*(bevomedia_user.ppvSpyReferralRate/100.0) AS `TotalRevenue`
+					FROM
+						bevomedia_referrals,
+						bevomedia_user,
+						bevomedia_user_info,
+						bevomedia_user_payments
+					WHERE
+						(bevomedia_user.id = bevomedia_referrals.ReferrerID) AND
+						(bevomedia_user_info.id = bevomedia_user.id) AND
+						(bevomedia_user_payments.UserID = bevomedia_referrals.UserID) AND
+						(bevomedia_user_payments.TransactionID > 0) AND
+						(bevomedia_user_payments.PaidDate >= DATE_SUB(now(), interval 1 year)) AND
+						(bevomedia_user.ppvSpyReferralRate > 0) AND
+						((bevomedia_user_payments.ProductID = 12) OR (bevomedia_user_payments.ProductID = 13)) 
+					GROUP BY
+						bevomedia_referrals.ReferrerID
+				";
+			$this->Referrals = array_merge($this->Referrals, $this->db->fetchAll($Sql));
 		}
 
 		Public Function InvoiceRequests()
