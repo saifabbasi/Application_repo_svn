@@ -1646,12 +1646,27 @@ END;
 	
 	Public Function ListReferrals($UserID = null)
 	{
+		if ($UserID==null) {
+			$Rate = floatval($this->referralRate);
+			$PPVSpyReferralRate = floatval($this->ppvSpyReferralRate);
+		} else {
+			$User = new User($UserID);
+			$Rate = floatval($User->referralRate);
+			$PPVSpyReferralRate = floatval($User->ppvSpyReferralRate);
+		}
+		
+		$PPVSpyAdd = "";
+		if ($PPVSpyReferralRate>0) {
+			$Rate = $PPVSpyReferralRate;
+			$PPVSpyAdd = " ((bevomedia_user_payments.ProductID = 12) OR (bevomedia_user_payments.ProductID = 13)) AND ";
+		}
+		
 		$Sql = "SELECT
 					bevomedia_user.id,
 					bevomedia_user_info.firstName,
 					bevomedia_user_info.lastName,
 					bevomedia_referrals.Date,
-					SUM(bevomedia_user_payments.Price)*0.1 AS `Total`,
+					SUM(bevomedia_user_payments.Price)*({$Rate}/100.0) AS `Total`,
 					SUM(bevomedia_user_payments.Price) AS `TotalRevenue`
 				FROM
 					bevomedia_referrals,
@@ -1659,6 +1674,7 @@ END;
 					bevomedia_user_info,
 					bevomedia_user_payments
 				WHERE
+					{$PPVSpyAdd}
 					(bevomedia_user.id = bevomedia_referrals.UserID) AND
 					(bevomedia_user_info.id = bevomedia_user.id) AND
 					(bevomedia_user_payments.UserID = bevomedia_referrals.UserID) AND
