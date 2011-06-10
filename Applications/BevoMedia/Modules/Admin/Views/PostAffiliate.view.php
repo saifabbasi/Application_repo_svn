@@ -32,56 +32,56 @@
 			<tr>
 				<td>From Username</td>
 				<td>
-					<input type="text" class="formtxt" name="Username" value="" />
+					<input type="text" class="formtxt" name="Username" value="<?=isset($this->Post)?$this->Post->Username:''?>" />
 				</td>
 			</tr>				
 			
 			<tr>
 				<td>Affiliate Name</td>
 				<td>
-					<input type="text" class="formtxt" name="Name" value="" />
+					<input type="text" class="formtxt" name="Name" value="<?=isset($this->Post)?$this->Post->Name:''?>" />
 				</td>
 			</tr>
 			
 			<tr>
 				<td>Email</td>
 				<td>
-					<input type="text" class="formtxt" name="Email" value="" />
+					<input type="text" class="formtxt" name="Email" value="<?=isset($this->Post)?$this->Post->Email:''?>" />
 				</td>
 			</tr>
 					
 			<tr>
 				<td>Address</td>
 				<td>
-					<input type="text" class="formtxt" name="Address" value="" />
+					<input type="text" class="formtxt" name="Address" value="<?=isset($this->Post)?$this->Post->Address:''?>" />
 				</td>
 			</tr>
 			
 			<tr>
 				<td>Phone</td>
 				<td>
-					<input type="text" class="formtxt" name="Phone" value="" />
+					<input type="text" class="formtxt" name="Phone" value="<?=isset($this->Post)?$this->Post->Phone:''?>" />
 				</td>
 			</tr>			
 			
 			<tr>
 				<td>Known Individuals attached to this company</td>
 				<td>
-					<input type="text" class="formtxt" name="KnownAttachedIndividuals" value="" />
+					<input type="text" class="formtxt" name="KnownAttachedIndividuals" value="<?=isset($this->Post)?$this->Post->KnownAttachedIndividuals:''?>" />
 				</td>
 			</tr>	
 			
 			<tr>
 				<td>Custom Heat</td>
 				<td>
-					<input type="text" class="formtxt" name="CustomHeat" value="0" />
+					<input type="text" class="formtxt" name="CustomHeat" value="<?=isset($this->Post)?$this->Post->CustomHeat:'0'?>" />
 				</td>
 			</tr>
 			
 			<tr valign="top">
 				<td>Detail</td>
 				<td>
-					<textarea class="formtxtarea" name="Text" rows="6"></textarea>
+					<textarea class="formtxtarea" name="Text" rows="6"><?=isset($this->Post)?$this->Post->Text:''?></textarea>
 				</td>
 			</tr>
 			

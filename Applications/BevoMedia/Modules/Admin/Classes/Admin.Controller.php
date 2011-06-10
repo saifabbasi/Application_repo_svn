@@ -2590,9 +2590,9 @@ END;
 			if (isset($_POST['Save']))
 			{
 				
-				if ( ($_POST['Title']=='') || ($_POST['Text']=='') )
+				if ( ($_POST['Text']=='') )
 				{
-					$this->ErrorMessage = 'You must enter title and comment.';
+					$this->ErrorMessage = 'You must enter comment.';
 					return;
 				}
 				
@@ -2603,9 +2603,24 @@ END;
 								'Text' => nl2br($_POST['Text']),
 								'Username' => $_POST['Username'],
 							);
-				$this->db->insert('broker_blacklist_affiliate_comments', $Array);
+							
+				if (!isset($_GET['CommentID'])) 
+				{
+					$this->db->insert('broker_blacklist_affiliate_comments', $Array);
+				} else 
+				{
+					$this->db->update('broker_blacklist_affiliate_comments', $Array, ' ID = '.$_GET['CommentID']);
+				}
 				
 				$this->Success = true;
+				
+				return;
+			}
+			
+			if (isset($_GET['CommentID']))
+			{
+				$Sql = "SELECT * FROM broker_blacklist_affiliate_comments WHERE ID = ?";
+				$this->Comment = $this->db->fetchRow($Sql, $_GET['CommentID']); 
 			}
 		}
 		
@@ -2700,9 +2715,9 @@ END;
 			if (isset($_POST['Save']))
 			{
 				
-				if ( ($_POST['Title']=='') || ($_POST['Text']=='') )
+				if ( ($_POST['Text']=='') )
 				{
-					$this->ErrorMessage = 'You must enter title and comment.';
+					$this->ErrorMessage = 'You must enter comment.';
 					return;
 				}
 				
@@ -2713,9 +2728,23 @@ END;
 								'Text' => nl2br($_POST['Text']),
 								'Username' => $_POST['Username'],
 							);
-				$this->db->insert('broker_blacklist_advertiser_comments', $Array);
+				if (!isset($_GET['CommentID'])) 
+				{
+					$this->db->insert('broker_blacklist_advertiser_comments', $Array);
+				} else 
+				{
+					$this->db->update('broker_blacklist_advertiser_comments', $Array, ' ID = '.$_GET['CommentID']);
+				}
 				
 				$this->Success = true;
+				
+				return;
+			}
+			
+			if (isset($_GET['CommentID']))
+			{
+				$Sql = "SELECT * FROM broker_blacklist_advertiser_comments WHERE ID = ?";
+				$this->Comment = $this->db->fetchRow($Sql, $_GET['CommentID']); 
 			}
 		}
 		
@@ -2740,11 +2769,25 @@ END;
 								'Username' => $_POST['Username'],
 								'KnownAttachedIndividuals' => $_POST['KnownAttachedIndividuals'],
 								'CustomHeat' => $_POST['CustomHeat'],
+								'Phone' => $_POST['Phone'],
 							);
 							
-				$this->db->insert('broker_blacklist_affiliate', $Array);
+				if (!isset($_GET['ID'])) 
+				{
+					$this->db->insert('broker_blacklist_affiliate', $Array);
+				} else 
+				{
+					$this->db->update('broker_blacklist_affiliate', $Array, ' ID = '.$_GET['ID']);
+				}
 				
 				$this->Success = true;
+				return;
+			}
+			
+			if (isset($_GET['ID']))
+			{
+				$Sql = "SELECT * FROM broker_blacklist_affiliate WHERE ID = ?";
+				$this->Post = $this->db->fetchRow($Sql, $_GET['ID']); 
 			}
 		}		
 		
@@ -2769,11 +2812,25 @@ END;
 								'Username' => $_POST['Username'],
 								'KnownAttachedIndividuals' => $_POST['KnownAttachedIndividuals'],
 								'CustomHeat' => $_POST['CustomHeat'],
+								'Phone' => $_POST['Phone'],
 							);
 							
-				$this->db->insert('broker_blacklist_advertiser', $Array);
+				if (!isset($_GET['ID'])) 
+				{
+					$this->db->insert('broker_blacklist_advertiser', $Array);
+				} else 
+				{
+					$this->db->update('broker_blacklist_advertiser', $Array, ' ID = '.$_GET['ID']);
+				}
 				
 				$this->Success = true;
+				return;
+			}
+			
+			if (isset($_GET['ID']))
+			{
+				$Sql = "SELECT * FROM broker_blacklist_advertiser WHERE ID = ?";
+				$this->Post = $this->db->fetchRow($Sql, $_GET['ID']); 
 			}
 		}	
 		

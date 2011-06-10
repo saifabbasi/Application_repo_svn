@@ -296,7 +296,7 @@ Class PageHelper {
 			$PagePresets['Publisher/Reviews/UniquePageName'] = 'pub_reviews';
 			$PagePresets['Publisher/Reviews/HeadingImage'] = 'pagedesc_mynetworks.png';
 			$PagePresets['Publisher/Reviews/Heading'] = 'Network Reviews';
-			$PagePresets['Publisher/Reviews/SubHeading'] = ' On the reviews page, Bevo users can rate and comment about the networks they have used. Hearing directly from publishers about their experiences with networks give Bevo users a leg up when deciding who to run with. Rate and leave a comment to help out your fellow publishers and make Bevo as interactive as possible.';			
+			$PagePresets['Publisher/Reviews/SubHeading'] = ' On the reviews page, Bevo users can rate and comment about the networks they have used. Hearing directly from publishers about their experiences with networks give Bevo users a leg up when deciding who to run with. Rate and leave a comment to help out your fellow publishers and make Bevo as interactive as possible. Feedback and ratings come from Bevo users and Affiliatepaying.com voters.';			
 			
 			//PPC
 			$PagePresets['Publisher/PPCManager/Area'] = 'PPCManager';
