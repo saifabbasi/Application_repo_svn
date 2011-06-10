@@ -1,10 +1,12 @@
 
 	<a href="/BevoMedia/Admin/BlacklistAffiliates.html">&lt;- Affiliates</a> |
-	<a rel="shadowbox;height=400;width=500" href="/BevoMedia/Admin/PostAffiliateComment.html?ID=<?=$this->Post->ID?>">Post Comment</a>
+	<a rel="shadowbox;height=400;width=500" href="/BevoMedia/Admin/PostAffiliateComment.html?ID=<?=$this->Post->ID?>">Post Comment</a> |
+	<a rel="shadowbox;height=400;width=500" href="/BevoMedia/Admin/PostAffiliate.html?ID=<?=$this->Post->ID?>">Edit Post</a>
 	
 	<br /><br />
 	
 	<h1><?=$this->Post->Name?></h1>
+	
 	
 	<div>
 		E-mail: <?php echo $this->Post->Email; ?><br />
@@ -30,6 +32,7 @@
 		<br />
 		<div><?=$Comment->Text?></div>
 	</div>
+	<a rel="shadowbox;height=400;width=500" href="/BevoMedia/Admin/PostAffiliateComment.html?ID=<?=$this->Post->ID?>&CommentID=<?=$Comment->ID?>">Edit</a> |
 	<a href="/BevoMedia/Admin/ViewAffiliatePost.html?ID=<?=$_GET['ID']?>&DeleteID=<?=$Comment->ID?>" onclick="return confirm('Are you sure you want to delete this comment?');">Delete Comment</a>
 	<hr />
 	<br /><br />

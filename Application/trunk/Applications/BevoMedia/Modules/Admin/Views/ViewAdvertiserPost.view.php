@@ -1,6 +1,7 @@
 
 	<a href="/BevoMedia/Admin/BlacklistAdvertisers.html">&lt;- Advertisers</a> |
-	<a rel="shadowbox;height=400;width=500" href="/BevoMedia/Admin/PostAdvertiserComment.html?ID=<?=$this->Post->ID?>">Post Comment</a>
+	<a rel="shadowbox;height=400;width=500" href="/BevoMedia/Admin/PostAdvertiserComment.html?ID=<?=$this->Post->ID?>">Post Comment</a> |
+	<a rel="shadowbox;height=400;width=500" href="/BevoMedia/Admin/PostAdvertiser.html?ID=<?=$this->Post->ID?>">Edit Post</a>
 	
 	<br /><br />
 	
@@ -30,6 +31,7 @@
 		<br />
 		<div><?=$Comment->Text?></div>
 	</div>
+	<a rel="shadowbox;height=400;width=500" href="/BevoMedia/Admin/PostAdvertiserComment.html?ID=<?=$this->Post->ID?>&CommentID=<?=$Comment->ID?>">Edit</a> |
 	<a href="/BevoMedia/Admin/ViewAdvertiserPost.html?ID=<?=$_GET['ID']?>&DeleteID=<?=$Comment->ID?>" onclick="return confirm('Are you sure you want to delete this comment?');">Delete Comment</a>
 	<hr />
 	<br /><br />
