@@ -71,6 +71,13 @@
 				</td>
 			</tr>
 			
+			<tr>
+				<td>Custom Heat</td>
+				<td>
+					<input type="text" class="formtxt" name="CustomHeat" value="0" />
+				</td>
+			</tr>
+			
 			<tr valign="top">
 				<td>Detail</td>
 				<td>

@@ -1,7 +1,7 @@
 
 	Affiliates |
 	<a href="/BevoMedia/Admin/BlacklistAdvertisers.html">Advertisers</a> |
-	<a rel="shadowbox;width=400;height=350;" href="/BevoMedia/Admin/PostAffiliate.html">Post Affiliate Review</a>
+	<a rel="shadowbox;width=400;height=400;" href="/BevoMedia/Admin/PostAffiliate.html">Post Affiliate Review</a>
 
 	<br /><br />
 	
