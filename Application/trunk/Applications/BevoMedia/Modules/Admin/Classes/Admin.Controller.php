@@ -2739,6 +2739,7 @@ END;
 								'Text' => nl2br($_POST['Text']),
 								'Username' => $_POST['Username'],
 								'KnownAttachedIndividuals' => $_POST['KnownAttachedIndividuals'],
+								'CustomHeat' => $_POST['CustomHeat'],
 							);
 							
 				$this->db->insert('broker_blacklist_affiliate', $Array);
@@ -2767,6 +2768,7 @@ END;
 								'Text' => nl2br($_POST['Text']),
 								'Username' => $_POST['Username'],
 								'KnownAttachedIndividuals' => $_POST['KnownAttachedIndividuals'],
+								'CustomHeat' => $_POST['CustomHeat'],
 							);
 							
 				$this->db->insert('broker_blacklist_advertiser', $Array);
