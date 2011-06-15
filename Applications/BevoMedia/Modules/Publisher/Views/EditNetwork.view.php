@@ -61,8 +61,8 @@
 </script>
 <?php endif; ?>
 
-<?php
-	if ($this->UserNetwork->status==0)
+<?php 
+	if (isset($this->UserNetwork->status) && ($this->UserNetwork->status==0))
 	{
 ?>
 	<div style="color: #f00; text-align: center;">
@@ -87,7 +87,7 @@
 	</tr>
 	
 	<?php endif; ?>
-	<?php if ( ($this->Network->passwordLabel != '') && (!in_array($this->Network->id, array(1028, 1044, 1070, 1062, 1072))) ): ?>
+	<?php if ( ($this->Network->passwordLabel != '') && (!in_array($this->Network->id, array(1028, 1044, 1070, 1062, 1072, 1073))) ): ?>
 	<tr>
 		<th><?php print htmlentities($this->Network->passwordLabel); ; ?></th>
 		<td>
