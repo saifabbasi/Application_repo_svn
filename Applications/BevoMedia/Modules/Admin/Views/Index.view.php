@@ -181,6 +181,13 @@
 			</a>
 		</li>
 	</ul>
+	<ul class='account_ul'>
+		<li>
+			<a href='OffersQueue.html'>
+				Offers Queue
+			</a>
+		</li>
+	</ul>
 </div>
 
 <div class='floatRight'>
