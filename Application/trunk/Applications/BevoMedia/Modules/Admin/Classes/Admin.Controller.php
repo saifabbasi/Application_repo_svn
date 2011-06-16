@@ -2832,7 +2832,24 @@ END;
 				$Sql = "SELECT * FROM broker_blacklist_advertiser WHERE ID = ?";
 				$this->Post = $this->db->fetchRow($Sql, $_GET['ID']); 
 			}
-		}	
+		}
+
+		Public Function OffersQueue()
+		{
+			$Sql = "SELECT
+						*
+					FROM
+						bevomedia_queue
+					WHERE
+						(bevomedia_queue.user__id IS NULL) AND
+						(bevomedia_queue.`type` LIKE  '%offers%')
+					GROUP BY
+						bevomedia_queue.`type`
+					ORDER BY
+						bevomedia_queue.started DESC
+					";
+			$this->Offers = $this->db->fetchAll($Sql);
+		}
 		
 		
 	}
