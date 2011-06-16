@@ -210,7 +210,7 @@ class OfferImport {
 	
 	private function getMultipleCategoryId($CategoryName)
 	{
-		$Sql = "SELECT id FROM " . $this->multipleCategoryTableName. " WHERE mCategorie = '" . mysql_escape_string($CategoryName) . "'";echo $Sql."\n";
+		$Sql = "SELECT id FROM " . $this->multipleCategoryTableName. " WHERE mCategorie = '" . mysql_escape_string($CategoryName) . "'";
 		$Result = mysql_query($Sql);
 		if(!mysql_num_rows($Result))
 		{
