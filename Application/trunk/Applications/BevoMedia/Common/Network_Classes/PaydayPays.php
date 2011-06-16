@@ -319,7 +319,7 @@ class PaydayPays Extends NetworksAbstract {
 		{
 			$OfferName = $Offer->plaintext;
 			$OfferID = $Offer->href;
-			echo $OfferID.":::".$Offer->plaintext."\n";
+//			echo $OfferID.":::".$Offer->plaintext."\n";
 			
 			$OfferID = substr($OfferID, 1);
 			

@@ -165,7 +165,6 @@ class OfferImport {
 		
 		if(sizeof($OfferObj->category)>1)
 		{
-			print 'MULTIPLE CATEGORIES';
 			$Sql = "DELETE FROM " . $this->multipleCategoryToOffersTableName . " WHERE offer__id = '" . $OfferInsertID . "'";
 			$Result = mysql_query($Sql);
 			
