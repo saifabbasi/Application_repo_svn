@@ -2843,8 +2843,6 @@ END;
 					WHERE
 						(bevomedia_queue.user__id IS NULL) AND
 						(bevomedia_queue.`type` LIKE  '%offers%')
-					GROUP BY
-						bevomedia_queue.`type`
 					ORDER BY
 						bevomedia_queue.started DESC
 					";
