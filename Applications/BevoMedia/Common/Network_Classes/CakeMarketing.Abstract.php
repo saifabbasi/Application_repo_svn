@@ -192,6 +192,12 @@ abstract class CakeMarketingAbstract Extends NetworksAbstract {
 		
 		foreach ($xml->Offer as $offer)
 		{
+			if ( ($offer->status_name!='Apply To Run') && ($offer->status_name!='Active') && ($offer->status_name!='Public') ) 
+			{
+				continue;
+			}
+			
+			
 			$offerId = $offer->offer_id;
 			$offerName = $offer->offer_name;
 			$payout = $offer->payout;
@@ -202,9 +208,9 @@ abstract class CakeMarketingAbstract Extends NetworksAbstract {
 			$thumbnailImageUrl = $offer->thumbnail_image_url;
 			$offerContract = $offer->offer_contract_id;
 			
-			echo $offerId."\n";
-			echo $offerName."\n";
-			echo $offerType."\n";
+//			echo $offerId."\n";
+//			echo $offerName."\n";
+//			echo $offerType."\n";
 			$countries = array();
 			
 			if (isset($offer->allowed_countries))
@@ -214,7 +220,7 @@ abstract class CakeMarketingAbstract Extends NetworksAbstract {
 			}
 			
 			$categories = array($offer->vertical);
-			echo $offer->vertical."\n";
+//			echo $offer->vertical."\n";
 			
 			$OfferObj = new Offer();
 			$OfferObj->offerId = $offerId;
