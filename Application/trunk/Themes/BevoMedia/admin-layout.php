@@ -91,7 +91,7 @@ var modYesterday = 'yesterday';
         <div class="TabBar">
             <div class="Tab<?php echo($this->PageHelper->Area == 'Index')?'Over':''?>" style="margin-left:10px;"><a href="/BevoMedia/Admin/Index.html">Index</a></div>
             <div class="Tab<?php echo($this->PageHelper->Area == 'Publishers')?'Over':''?>"><a href="/BevoMedia/Admin/Publishers.html">Publishers</a></div>
-            <div class="Tab<?php echo($this->PageHelper->Area == 'Mentors')?'Over':''?>"><a href="/BevoMedia/Admin/Mentors.html">Mentors</a></div>
+            <div class="Tab<?php echo($this->PageHelper->Area == 'NetworksPlatforms')?'Over':''?>"><a href="/BevoMedia/Admin/Networks.html">Networks Platform</a></div>
             <div class="Tab<?php echo($this->PageHelper->Area == 'Networks')?'Over':''?>"><a href="/BevoMedia/Admin/NetworkStats.html">Networks</a></div>
             <div class="Tab<?php echo($this->PageHelper->Area == 'Queue')?'Over':''?>"><a href="/BevoMedia/Admin/Queue.html">Queue</a></div>
             <div class="Tab<?php echo($this->PageHelper->Area == 'Settings')?'Over':''?>"><a href="/BevoMedia/Admin/Settings.html">Settings</a></div>

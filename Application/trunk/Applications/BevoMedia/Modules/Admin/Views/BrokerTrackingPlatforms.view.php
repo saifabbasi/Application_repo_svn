@@ -1,7 +1,6 @@
 
 <?=$this->TopMenu?>
 
-<a href="/BevoMedia/Admin/BrokerTrackingPlatformForm.html?ID=0">Insert</a>
 
 <br /><br />
 
