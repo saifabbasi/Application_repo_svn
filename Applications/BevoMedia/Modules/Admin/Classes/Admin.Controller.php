@@ -2383,8 +2383,11 @@ END;
 									);
 				$this->db->update('broker_networks', $UpdateArray, 'ID = '.intval($_GET['EnableID']));
 				
-				header('Location: /Bevomedia/Admin/BrokerNetworks.html');
+				header('Location: ' . $_SERVER['HTTP_REFERER']);
 				die;
+				
+//				header('Location: /Bevomedia/Admin/BrokerNetworks.html');
+//				die;
 			}
 			
 			if (isset($_GET['DisableID'])) {
@@ -2393,8 +2396,11 @@ END;
 									);
 				$this->db->update('broker_networks', $UpdateArray, 'ID = '.intval($_GET['DisableID']));
 				
-				header('Location: /Bevomedia/Admin/BrokerNetworks.html');
+				header('Location: ' . $_SERVER['HTTP_REFERER']);
 				die;
+				
+//				header('Location: /Bevomedia/Admin/BrokerNetworks.html');
+//				die;
 			}
 			
 			
@@ -2492,8 +2498,12 @@ END;
 				
 				<a href="/Bevomedia/Admin/BrokerTrackingPlatforms.html">Tracking Platforms</a>
 				|
-				<a href="/Bevomedia/Admin/BrokerNetworks.html">Broker Networks</a>
-			
+				<a href="/BevoMedia/Admin/Networks.html">Broker Networks</a>
+				|
+				<a href="/BevoMedia/Admin/BrokerNetworkForm.html?ID=0">Insert Network</a>
+				|
+				<a href="/BevoMedia/Admin/BrokerTrackingPlatformForm.html?ID=0">Insert Tracking Platform</a>
+				
 				<br /><br />
 			';
 			
@@ -2849,6 +2859,89 @@ END;
 			$this->Offers = $this->db->fetchAll($Sql);
 		}
 		
+		Public Function NetworksJSON()
+		{	
+			function v($p, $d)
+		    {
+				if(isset($_REQUEST[$p])&&!empty($_REQUEST[$p]))
+			  		return mysql_real_escape_string($_REQUEST[$p]);
+				else
+			  		return $d;
+		    }
+			
+		    $Search = v('search', false);
+		    $SearchAdd = "";
+			if($Search && ($Search!=''))
+		  	{
+		  		$SearchAdd = " AND (broker_networks.Name LIKE '%{$Search}%' OR broker_networks.Username LIKE '%{$Search}%' OR broker_networks.Email LIKE '%{$Search}%' OR broker_networks.ID LIKE '%{$Search}%') ";
+		  	}
+		  	
+		  	$Order = v('o', 'id');
+		  	$OrderDir = v('o_dir', 'desc');
+		  	$lStart = v('start', 0);
+		  	$lEnd = v('end', 50);
+		    
+			$Sql = "SELECT
+						*
+					FROM
+						broker_networks
+					WHERE 
+						(1=1)
+						{$SearchAdd}
+					ORDER BY
+						{$Order} {$OrderDir}
+					LIMIT
+						{$lStart}, {$lEnd}
+					";
+			$Resuts = $this->db->fetchAssoc($Sql);
+		  	$Count = $this->db->fetchOne("SELECT count(*) FROM broker_networks WHERE (1=1) {$SearchAdd}");
+		  	$Arr = array('results' => $Resuts,
+				'passback' => @$_GET['passback'],
+				'count' => $Count);
+		  		
+		  	die(json_encode($Arr));
+		}
+		
+		Public Function Networks()
+		{
+			$this->TopMenu = $this->BrokersMenu();
+		}
+		
+		Public Function BrokerNetworkView()
+		{
+			
+			$ID = intval($_GET['ID']);
+			
+			$Sql = "SELECT
+						*
+					FROM
+						broker_networks
+					WHERE
+						(broker_networks.ID = ?)
+					";
+			$this->BrokerNetwork = $this->db->fetchRow($Sql, $ID);
+			
+			
+			$Sql = "SELECT 
+						Name
+					FROM
+						broker_tracking_platforms
+					WHERE
+						(ID = ?)
+					";
+			
+			$this->TrackingPlatform = $this->db->fetchOne($Sql, $this->BrokerNetwork->TrackingPlatformID);
+			
+			$Sql = "SELECT
+						title
+					FROM
+						bevomedia_aff_network
+					ORDER BY
+						title			
+					";
+			$this->AffiliateNetwork = $this->db->fetchOne($Sql, $this->BrokerNetwork->NetworkID);
+			
+		}
 		
 	}
 

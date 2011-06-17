@@ -686,12 +686,20 @@ Class PageHelper {
 		$PagePresets['Admin/AddDemoData/SubHeading'] = 
 		$PagePresets['Admin/EditPublisher/SubHeading'] = 'Publishers';
 		
+
+		$PagePresets['Admin/BrokerTrackingPlatforms/SubHeading'] =
+		$PagePresets['Admin/BrokerNetworkForm/SubHeading'] =
+		$PagePresets['Admin/BrokerTrackingPlatformForm/SubHeading'] =
+		$PagePresets['Admin/Networks/SubHeading'] = 'Network Platforms';
+		
+		
 		$PagePresets['Admin/Mentors/SubHeading'] = 'Mentors';
 		
 		$PagePresets['Admin/NetworkStatsAverages/SubHeading'] =
 		$PagePresets['Admin/NetworkStatsCollapse/SubHeading'] =
 		$PagePresets['Admin/AffiliateNetworks/SubHeading'] =
 		$PagePresets['Admin/AffiliateNetworkUsers/SubHeading'] =
+		$PagePresets['Admin/BrokerNetworkView/SubHeading'] =
 		$PagePresets['Admin/NetworkStats/SubHeading'] = 'Networks';
 		
 		$PagePresets['Admin/*/Area'] = 'Index';
@@ -712,6 +720,13 @@ Class PageHelper {
 		$PagePresets['Admin/PublisherStatsCollapse/Area'] = 
 		$PagePresets['Admin/AddDemoData/Area'] = 
 		$PagePresets['Admin/EditPublisher/Area'] = 'Publishers';
+		
+		
+		$PagePresets['Admin/BrokerTrackingPlatforms/Area'] =
+		$PagePresets['Admin/BrokerNetworkForm/Area'] =
+		$PagePresets['Admin/BrokerTrackingPlatformForm/Area'] =
+		$PagePresets['Admin/BrokerNetworkView/Area'] =
+		$PagePresets['Admin/Networks/Area'] = 'NetworksPlatforms';
 		
 		$PagePresets['Admin/Mentors/Area'] = 'Mentors';
 		

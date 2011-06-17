@@ -11,7 +11,6 @@
 -->
 </style>
 
-<a href="/BevoMedia/Admin/BrokerTrackingPlatforms.html">&lt;- Tracking Platforms</a>
 
 <br /><br />
 
