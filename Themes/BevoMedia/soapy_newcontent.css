@@ -765,7 +765,7 @@ h2.imagetitle.interested { width:147px; height:22px; background:url(img/imagetit
 
 #pagedesc.ovault { z-index:40; }
 #ovault.pagecontent { margin-top:60px; position:relative; z-index:40; }
-#ovault.pagecontent.secondarypage { margin-top:10px; }
+#ovault.pagecontent.secondarypage { margin-top:55px; }
 #odial { z-index:100; }
 #opagi_bg { z-index:90; }
 #opagi { z-index:110; }
@@ -1240,13 +1240,13 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 	#ovault a.btn.ovault_smallgray_deleteall { margin:0 0 0 10px; }
 
 	/*oright*/
-	#oright .tabs { width:740px; height:22px;  padding:1px 0 0; margin:7px 0 -3px; position:relative; top:-7px;}
+	#oright .tabs { width:740px; height:22px; padding:1px 0 0; margin:7px 0 -3px -5px; position:relative; top:-7px; }
 	
 		/*tabs like pagemenu*/
-		#oright .tabs ul { list-style:none; margin-left:3px; }
+		#oright .tabs ul { list-style:none; }
 		#oright .tabs > ul > li { float:left; display:inline; margin:0 5px 0 0; position:relative; font-size:.9em; }
 		#oright .tabs > ul > li.label { color:#A8E0FF; }
-		#oright .tabs ul li a { padding:2px 5px 6px 12px; text-decoration:none; display:block; position:relative; color:#999; background:url(img_new/pagemenu_a.png) no-repeat left top; outline:none; }
+		#oright .tabs ul li a { padding:2px 20px 6px 26px; text-decoration:none; display:block; position:relative; color:#999; background:url(img_new/pagemenu_a.png) no-repeat left top; outline:none; }
 		#oright .tabs ul li a span { width:8px; height:26px; position:absolute; top:0; right:-8px; background:url(img_new/pagemenu_a.png) no-repeat right top; }
 		#oright .tabs ul li a.btn { padding:0; top:1px;}
 		
@@ -1254,7 +1254,7 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 			#oright .tabs ul li a.active { font-weight:bold; color:#004A80; text-shadow:#fff 0 1px 0px; }
 			#oright .tabs ul li a.active:hover { pointer-events:none; cursor:default; }
 			
-		#oright .content { width:720px; padding:10px/*REMOVE PADDING FROM TABLE LATER*/; border:1px solid #CEE2EC; 	
+		#oright .content { width:720px; padding:10px; border:1px solid #CEE2EC; 	
 				background:#F4FCFF url(img_new/ovault_oright_content.gif) repeat-x;
 				-moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px; }
 
@@ -1296,8 +1296,6 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 	#offmain_searchform { float:left; }
 	table.floatleft { display:inline !important; }
 }
-
-
 
 
 
