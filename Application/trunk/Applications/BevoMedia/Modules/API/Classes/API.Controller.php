@@ -136,6 +136,8 @@ Class APIController extends ClassComponent
 
 	Public Function SelfHostedUpdate()
 	{
+		ini_set('memory_limit', '1024M');
+		
 	    ignore_user_abort(true);
     	require_once(PATH . 'SelfHostedUpdate.class.php');
     	require_once(PATH . 'CatchUpJson.class.php');
