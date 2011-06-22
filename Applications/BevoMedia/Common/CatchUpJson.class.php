@@ -52,7 +52,6 @@
 			       'unique' => array('reportId')),
 			array('tableName'=>'bevomedia_analytics_reports_visitors_overview', 'where' => 'reportId in (##reportId##)',
 			       'unique' => array('reportId')),
-			array('tableName'=>'bevomedia_offers', 'unique' => array('id')),
 			
 		);
 		public function __construct($userId = NULL)
