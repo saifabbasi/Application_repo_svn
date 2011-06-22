@@ -15,7 +15,7 @@ $dateDiff = ((strtotime($enDate) - strtotime($stDate))/86400)+1;
 $data = array();
 
 for ( $i = 0; $i < $dateDiff; $i++ ) {
-	$data[date("Y-m-d", strtotime("{$stDate} + {$i} days"))] = 0;	
+	$data[date("Y-m-d", strtotime("{$stDate} + {$i} days"))] = array();	
 }  
 
 
@@ -31,11 +31,16 @@ $Sql = "SELECT
 		GROUP BY
 			bevomedia_tracker_clicks.clickDate
 
-		";
+		"; //echo '<pre>'.$Sql;die;
 $query = mysql_query($Sql);
 while($row = mysql_fetch_object($query))
 {
-	$data[$row->date]['revenue'] = $data[$row->date]['revenue']+$revRow->revenue;
+	if (!isset($data[$row->date]['revenue'])) {
+		$data[$row->date]['revenue'] = 0;
+	}
+	
+	$data[$row->date]['revenue'] = $data[$row->date]['revenue']+$row->revenue;
+	$data[$row->date]['date'] = $row->date;
 }
 
 //$query = "
