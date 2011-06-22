@@ -34,16 +34,14 @@
 	$preselectedNetworks_Ids = array();
 	
 	while($network = mysql_fetch_object($networksData)) {
-		if($this->User->vaultID == 0) //avoid running 32 db queries if user is not regged
-			$allnetworks[] = $network;
-			
-		elseif(isUserRegisteredOnNetwork($network->id) == 1)
+
+		if(isUserRegisteredOnNetwork($network->id) == 1)
 			$mynetworks[] = $network;
 		
 		else	$allnetworks[] = $network;
 	}
 	
-	$preselectedNetworks = count($mynetworks) > 1 && $this->User->vaultID != 0 ? $mynetworks : $allnetworks;
+	$preselectedNetworks = count($mynetworks) > 1 ? $mynetworks : $allnetworks;
 	
 	//need yet another arr with the id to avoid 2 more foreach loops below
 	if(!empty($preselectedNetworks)) {
