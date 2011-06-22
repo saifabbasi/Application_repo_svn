@@ -35,7 +35,7 @@ $Sql = "SELECT
 $query = mysql_query($Sql);
 while($row = mysql_fetch_object($query))
 {
-	$data[$row->date] = $data[$row->date]+$revRow->revenue;
+	$data[$row->date]['revenue'] = $data[$row->date]['revenue']+$revRow->revenue;
 }
 
 //$query = "
