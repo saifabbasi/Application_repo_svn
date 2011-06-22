@@ -19,37 +19,56 @@ for ( $i = 0; $i < $dateDiff; $i++ ) {
 }  
 
 
-$query = "
-	SELECT tc.clickDate AS date, tc.subId
-	FROM bevomedia_tracker_clicks AS tc
-	WHERE tc.user__id = $userId
-	AND tc.clickDate
-	BETWEEN '$stDate'
-	AND '$enDate'
-";
+$Sql = "SELECT 
+			bevomedia_tracker_clicks.clickDate AS date, 
+			SUM(bevomedia_user_aff_network_subid.revenue) AS revenue
+		FROM 
+			bevomedia_tracker_clicks
+			INNER JOIN bevomedia_user_aff_network_subid ON ( (bevomedia_user_aff_network_subid.subId = bevomedia_tracker_clicks.subId) AND (bevomedia_tracker_clicks.clickDate = bevomedia_user_aff_network_subid.statDate) )
+		WHERE 
+			(bevomedia_tracker_clicks.user__id = {$userId}) AND 
+			(bevomedia_tracker_clicks.clickDate BETWEEN '{$stDate}' AND '{$enDate}')
+		GROUP BY
+			bevomedia_tracker_clicks.clickDate
 
-
-$query = mysql_query($query);
-
-
+		";
+$query = mysql_query($Sql);
 while($row = mysql_fetch_object($query))
 {
-	$sql = "
-		SELECT COALESCE(SUM(afs.revenue),0) AS revenue
-		FROM bevomedia_user_aff_network_subid AS afs 
-		WHERE afs.user__id = $userId
-		AND afs.subId = {$row->subId}
-		AND afs.statDate
-		BETWEEN '$stDate' 
-		AND '$enDate' 
-	";
-	
-	$result = mysql_query($sql);
-	$revRow = mysql_fetch_object($result);
-	
 	$data[$row->date] = $data[$row->date]+$revRow->revenue;
-	
 }
+
+//$query = "
+//	SELECT tc.clickDate AS date, tc.subId
+//	FROM bevomedia_tracker_clicks AS tc
+//	WHERE tc.user__id = $userId
+//	AND tc.clickDate
+//	BETWEEN '$stDate'
+//	AND '$enDate'
+//";
+//echo '<pre>'.$query;die;
+//
+//$query = mysql_query($query);
+//
+//
+//while($row = mysql_fetch_object($query))
+//{
+//	$sql = "
+//		SELECT SUM(afs.revenue) AS revenue
+//		FROM bevomedia_user_aff_network_subid AS afs 
+//		WHERE afs.user__id = $userId
+//		AND afs.subId = {$row->subId}
+//		AND afs.statDate
+//		BETWEEN '$stDate' 
+//		AND '$enDate' 
+//	";
+////	echo '<pre>'.$sql;die;
+//	$result = mysql_query($sql);
+//	$revRow = mysql_fetch_object($result);
+//	
+//	$data[$row->date] = $data[$row->date]+$revRow->revenue;
+//	
+//}
 
 /*
 $query = "
