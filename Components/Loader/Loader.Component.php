@@ -167,7 +167,7 @@
 	        
 			Zend_Registry::set('System/Domain', $_SERVER['HTTP_HOST']);
         	
-        	if ((Zend_Registry::get('Application/Mode') == 'Development') || (Zend_Registry::get('Application/Mode') == 'SelfHosted'))
+        	if (Zend_Registry::get('Application/Mode') == 'Development')
         	{
         		ini_set('display_errors', 'On');
         		ini_set('display_startup_errors', 'On');
@@ -609,9 +609,17 @@
         	$ControllerObject = Zend_Registry::get('Instance/ControllerObject');
         	$Registry = Zend_Registry::getInstance();
         	$ViewObj->assign((array) $Registry );
-        	if(isset($_POST['dd']))
-        		var_dump((array)$ControllerObject);
-        	$ViewObj->assign((array) $ControllerObject);
+        	
+        	$ControllerObject = (array)$ControllerObject;
+        	$validArray = array();
+        	foreach ( $ControllerObject as $key=>$value) {
+        	    if (!strstr($key, "\0")) {
+                    $validArray[$key] = $value;
+        	    } 
+            }
+            
+            $ViewObj->assign($validArray);
+        	//$ViewObj->assign((array) $ControllerObject);
         	
         	Zend_Registry::set('Instance/ViewContent', $ViewObj->render(Zend_Registry::get('Instance/Function').'.view.php'));
         	
@@ -644,10 +652,18 @@
         	$ViewObj->setScriptPath(Zend_Registry::get('Instance/ThemePath'));
         	$ControllerObject = Zend_Registry::get('Instance/ControllerObject');
         	
+        	$validArray = array();
+        	foreach ( $ControllerObject as $key=>$value) {
+        	    if (!strstr($key, "\0")) {
+                    $validArray[$key] = $value;
+        	    } 
+            }
+        	
         	
         	$Registry = Zend_Registry::getInstance();
         	$ViewObj->assign((array) $Registry );
-        	$ViewObj->assign((array) $ControllerObject);
+        	//$ViewObj->assign((array) $ControllerObject);
+        	$ViewObj->assign($validArray);
         	
         	print $ViewObj->render(Zend_Registry::get('Instance/LayoutType').'.php');
         	
