@@ -159,7 +159,7 @@
 		
 		foreach($ovaultSavelist['righttable']->offers as $offer) {
 			print "\"$offer->title\",";
-			print "\"$offer->networkName\"";
+			print "\"$offer->networkName\",";
 			print "\"$offer->payout\",";
 			print "\"$offer->previewUrl\",";
 			print isset($offer->affLink) ? "\"$offer->affLink\"," : "\"\","; //edit this later when we have the afflink field!

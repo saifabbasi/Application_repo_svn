@@ -981,8 +981,8 @@ h2.imagetitle.interested { width:147px; height:22px; background:url(img/imagetit
                         #ovault tr.orowbig td.td_info a.btn.ovault_importoffer { margin:0; }
 			
 			/*ovault_thumb*/
-			a.ovault_othumb { width:290px; height:125px; margin:0 0 10px; overflow:hidden; display:block; }
-				a.ovault_othumb img { max-width:245px; width:auto !important; width:245px; float:left; }
+			.ovault_othumb { width:290px; height:124px; margin:0 0 10px; overflow:hidden; display:block; }
+				.ovault_othumb img { max-width:245px; width:auto !important; width:245px; float:left; }
 				a.ovault_othumb span { width:35px; height:73px; margin:0; display:block; float:left; background:url(img_new/othumb.png) no-repeat; }
 				a.ovault_othumb:hover span { background-position:left bottom; }
 			
@@ -1253,6 +1253,7 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 	#offmain_searchform { float:left; }
 	table.floatleft { display:inline !important; }
 }
+
 
 
 

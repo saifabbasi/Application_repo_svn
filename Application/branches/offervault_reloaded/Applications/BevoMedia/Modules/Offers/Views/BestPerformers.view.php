@@ -5,7 +5,8 @@
 	$sql = "SELECT 	offers.*,
 			categories.title AS categoryTitle,
 			networks.title AS networkName,
-			networks.detail AS networkDescription
+			networks.detail AS networkDescription,
+			networks.offerUrl as affUrl
 			
 		FROM	bevomedia_offers as offers
 			LEFT JOIN bevomedia_aff_network AS networks
@@ -84,6 +85,56 @@
 	$savelist = mysql_query($sql);
 	$offer->saved2list = mysql_num_rows($savelist) ? 1 : 0;
 	
+	/*
+		LATERRRR optimize these 2 queries... maybe per join or so? also in constructajaxoutput.class!
+	*/
+	//aff link
+	$offer->affId = false;
+	if($offer->isNetworkMember == 1 && $offer->affUrl) {
+		
+		$sql = "SELECT 	userIdLabel,
+				otherIdLabel
+			FROM	bevomedia_aff_network 
+			WHERE	id = $offer->network__id
+			LIMIT 1
+		";
+		$labelresult = mysql_query($sql);
+		while($field = mysql_fetch_object($labelresult)) {
+			
+			$affField = false;
+			
+			if($field->userIdLabel == 'Affiliate ID' || $field->userIdLabel == 'Account ID')
+				$affField = 'loginId';
+			elseif($field->otherIdLabel == 'Affiliate ID' || $field->otherIdLabel == 'Account ID')
+				$affField = 'otherId';
+			
+			if($affField) {
+				$sql = "SELECT `$affField`
+					FROM	bevomedia_user_aff_network
+					WHERE	user__id = {$_SESSION['User']['ID']}
+					AND	network__id = {$offer->network__id}
+					LIMIT 	1
+				";
+				$affresult = mysql_query($sql);
+				if(mysql_num_rows($affresult) == 1) {
+					while($affId = mysql_fetch_object($affresult)) {
+						$offer->affId = $affId->$affField;
+					}
+				}
+			}
+		}//endwhile labelresult
+		
+	}//endif affurl
+	
+	if($offer->affId) {
+		$offer->affUrl = str_replace('{$OfferID}', $offer->offer__id, $offer->affUrl);
+		$offer->affUrl = str_replace('{$AffiliateID}', $offer->affId, $offer->affUrl);
+	
+	} else {
+		$offer->affUrl = false;
+	}
+	
+	
 	//formatting
 	$offer->dateAdded_nice = date('F j, Y', strtotime($offer->dateAdded));
 	$offer->payout = !stristr($offer->payout, '$')
@@ -94,7 +145,8 @@
 	$sql = "SELECT 	offers.*,
 			categories.title AS categoryTitle,
 			networks.title AS networkName,
-			networks.detail AS networkDescription
+			networks.detail AS networkDescription,
+			networks.offerUrl as affUrl
 			
 		FROM	bevomedia_offers as offers
 			LEFT JOIN bevomedia_aff_network AS networks
@@ -133,6 +185,52 @@
 		";
 		$savelistLatest = mysql_query($sql);
 		$latest->saved2list = mysql_num_rows($savelistLatest) ? 1 : 0;
+		
+		//aff link
+		$offer->affId = false;
+		if($offer->isNetworkMember == 1 && $offer->affUrl) {
+			
+			$sql = "SELECT 	userIdLabel,
+					otherIdLabel
+				FROM	bevomedia_aff_network 
+				WHERE	id = $offer->network__id
+				LIMIT 1
+			";
+			$labelresult = mysql_query($sql);
+			while($field = mysql_fetch_object($labelresult)) {
+				
+				$affField = false;
+				
+				if($field->userIdLabel == 'Affiliate ID' || $field->userIdLabel == 'Account ID')
+					$affField = 'loginId';
+				elseif($field->otherIdLabel == 'Affiliate ID' || $field->otherIdLabel == 'Account ID')
+					$affField = 'otherId';
+				
+				if($affField) {
+					$sql = "SELECT `$affField`
+						FROM	bevomedia_user_aff_network
+						WHERE	user__id = {$_SESSION['User']['ID']}
+						AND	network__id = {$offer->network__id}
+						LIMIT 	1
+					";
+					$affresult = mysql_query($sql);
+					if(mysql_num_rows($affresult) == 1) {
+						while($affId = mysql_fetch_object($affresult)) {
+							$offer->affId = $affId->$affField;
+						}
+					}
+				}
+			}//endwhile labelresult
+			
+		}//endif affurl
+		
+		if($offer->affId) {
+			$offer->affUrl = str_replace('{$OfferID}', $offer->offer__id, $offer->affUrl);
+			$offer->affUrl = str_replace('{$AffiliateID}', $offer->affId, $offer->affUrl);
+		
+		} else {
+			$offer->affUrl = false;
+		}
 		
 		//formatting
 		$latest->dateAdded_nice = date('F j, Y', strtotime($latest->dateAdded));
@@ -197,11 +295,23 @@ include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.p
 			<td class="td_info" colspan="3">
 				<div class="td_inner">
 					<div class="floatleft">
-						<a class="ovault_othumb" href="<?php echo $offer->previewUrl; ?>" title="Preview offer in a new tab" target="_blank">
-							<img src="/Themes/BevoMedia/img_new/othumb_default.gif" alt="" />
-							<span></span>
-						</a>
-						<?php if(property_exists($offer, 'importUrl') && $offer->importUrl)
+						<?php
+						//image url
+						if(property_exists($offer, 'imageUrl') && $offer->imageUrl && $offer->imageUrl != '')
+							$imageTag = '<img src="'.$offer->imageUrl.'" alt="" />';
+						else	$imageTag = '<img src="/Themes/BevoMedia/img_new/othumb_default.gif" alt="" />';
+						
+						//preview url
+						if(property_exists($offer, 'previewUrl') && $offer->previewUrl && $offer->previewUrl != '') { ?>
+							<a class="ovault_othumb" href="'.$offer->previewUrl.'" title="Preview offer in a new tab" target="_blank"><?php echo $imageTag; ?><span></span></a>
+							
+						<?php } else { ?>
+							<div class="ovault_othumb"><?php echo $imageTag; ?></div>
+							
+						<?php }
+						
+						//import url
+						if(property_exists($offer, 'importUrl') && $offer->importUrl)
 							echo '<a class="btn ovault_importoffer" href="'.$offer->importUrl.'">Import this offer into my network</a>';
 						?>
 						<div class="clear"></div>
@@ -213,9 +323,15 @@ include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.p
 						<div class="otitle otitle_offerdesc"></div>
 						<p><?php echo $offer->detail; ?></p>
 						
-						<div class="olink">
-							<input type="text" class="formtxt" readonly value="<?php echo $offer->previewUrl; ?>"/>
-						</div>
+						<?php 
+						//olink
+						if(property_exists($offer, 'affUrl') && $offer->affUrl) { ?>
+							<div class="olink">
+								<input type="text" class="formtxt" readonly value="<?php echo $offer->affUrl; ?>" />
+								<a class="btn ovault_visiticon" href="<?php echo $offer->affUrl; ?>" title="Click to test your affiliate link (opens in new tab)" target="_blank">Visit</a>
+							</div>
+						<?php } ?>
+						
 					</div><!--close floatleft-->
 					<div class="clear"></div>
 				</div>
