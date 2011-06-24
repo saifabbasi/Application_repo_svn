@@ -32,8 +32,8 @@ $(document).ready(function() {
 	$('#oright .top2 form.ovault_mysaved_renamelistform').live('submit', function() {
 		var 	thisform = $(this),
 			field = $('input.ovault_renamelistname', this),
-			oldname = $(this).data('listname'),
-			listid = $(this).data('listid'),
+			oldname = thisform.data('listname'),
+			listid = thisform.data('listid'),
 			val = field.val().replace(/[^A-z0-9-_.,:\s]/g,'');
 			
 		if(val == '' || val.length < 3 || val.length > 55) {
@@ -49,9 +49,10 @@ $(document).ready(function() {
 				$.ajax({
 					type: 'GET',
 					url: ovault_ajaxPut+'?put=renamelist&listid='+listid+'&newlistname='+val,
-					success: function(r) {				
-						r = $.parseJSON(r);
+					success: function(r) {
 						
+						r = $.parseJSON(r);
+												
 						if(r.error)
 							ajaxMessage(r.error,1);
 						
