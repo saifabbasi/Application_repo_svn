@@ -6,7 +6,8 @@
 <h1><img src="/Themes/BevoMedia/img/networklogos/<?php print $this->network->id; ; ?>.png" alt="<?php print htmlentities($this->network->title); ; ?>" /></h1>
 
 <?
-	if ($this->network->id==1038)
+	//if ($this->network->id==1038)
+	if (1==0)
 	{
 ?>
 		Are you trying to install Commission Junction? <br /><br />
