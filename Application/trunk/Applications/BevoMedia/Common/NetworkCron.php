@@ -72,7 +72,8 @@ $networks[] = networkArray('LazyProfits', 1064, 'HasOffers');
 $networks[] = networkArray('CPAProsperity', 1070, 'CakeMarketing');
 $networks[] = networkArray('EnvyusMedia', 1072, 'CakeMarketing');
 $networks[] = networkArray('KonceptAds', 1073, 'HasOffers');
-
+$networks[] = networkArray('BMIElite', 1074, 'CakeMarketing');
+$networks[] = networkArray('CommissionJunction', 1038);
 
 
 foreach($networks as $network)
