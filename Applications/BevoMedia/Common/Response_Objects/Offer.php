@@ -77,6 +77,12 @@ class Offer {
 	
 	/**
 	 * @access public
+	 * @var string $cakeStatus
+	 */
+	public $cakeStatus = '';
+	
+	/**
+	 * @access public
 	 * @var string $ecpc
 	 */
 	public $ecpc = NULL;

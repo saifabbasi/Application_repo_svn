@@ -12,7 +12,7 @@ class OfferImport {
 		'offer__id'=>'offerId', 'title'=>'name', 'detail'=>'description', 'launchedOn'=>'openDate',
 		'expiresOn'=>'expireDate', 'trackingCodesUrl'=>'trackUrl', 'payout'=>'payout', 'epc'=>'ecpc',
 		'imageUrl' => 'imageUrl', 'offerType' => 'offerType', 'dateAdded' => 'dateAdded',
-		'previewUrl' => 'previewUrl'
+		'previewUrl' => 'previewUrl', 'cakeStatus' => 'cakeStatus'
 	);
 	private $networkId = 0;
 	private $userId = 0;
