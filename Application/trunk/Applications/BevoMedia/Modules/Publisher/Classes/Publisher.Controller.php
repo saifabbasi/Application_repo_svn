@@ -339,6 +339,10 @@
 			}
 			if($_POST)
 			{
+				if (isset($_POST['otherid'])) {
+					$_POST['otherid'] = trim($_POST['otherid']);
+				}
+				
 				$data = array(
 					'network__id' => $network_id,
 					'user__id' => $this->User->id,
