@@ -56,8 +56,19 @@ if(userTimezoneOffset == false)
 
 <script language="JavaScript" src="/Themes/BevoMedia/AC_RunActiveContent.js"></script>
 
-<!--<script type="text/javascript" src="/JS/charts/jquery-1.4.2.min.js"></script>-->
+<?php 
+	if (Zend_Registry::get('Instance/Function')!='VisitorSpy')
+	{
+?>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+<?php 
+	} else
+	{
+?>
+<script type="text/javascript" src="/JS/charts/jquery-1.4.2.min.js"></script>
+<?php 
+	}
+?>
 <!--[if IE]><script type="text/javascript" src="/JS/charts/excanvas.compiled.js"></script><![endif]-->
 <script type="text/javascript" src="/JS/charts/visualize.jQuery.js"></script>
 <link type="text/css" rel="stylesheet" href="/JS/charts/visualize.jQuery.css"/>
