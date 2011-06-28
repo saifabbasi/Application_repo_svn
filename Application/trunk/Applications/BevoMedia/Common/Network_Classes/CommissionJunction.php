@@ -72,6 +72,12 @@ class CommissionJunction Extends NetworksAbstract {
 	 */
 	public function getStats($Date = '')
 	{
+		if (date('m/d/Y', strtotime($Date))==date('m/d/Y'))
+		{
+			$Date = strtotime("-1 day", strtotime($Date));
+			$Date = date('m/d/Y', $Date);
+		}
+		
         $ini = ini_set("soap.wsdl_cache_enabled","0");
     	$Output = new StatEnvelope($Date);
     	
