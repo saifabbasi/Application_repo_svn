@@ -1170,7 +1170,7 @@
   		  
   		  
   		  $arr = array('results' => $Clicks, 'passback' => @$_GET['passback'], 'count' => $ClicksTotal->Total );
-		  die(json_encode($arr));
+		  die('('.json_encode($arr).')');
 		  
 		}
 		
