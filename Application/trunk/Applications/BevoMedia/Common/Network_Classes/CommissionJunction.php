@@ -98,8 +98,14 @@ class CommissionJunction Extends NetworksAbstract {
 	                                     		"correctionStatus" => 'all',
 	                                            "sortBy" => '',
 	                                            "sortOrder" => 'asc',));
-
-	        foreach ($Results->out->publisherCommissions as $Commission)
+	       	        
+	        
+	        $Items = $Results->out->publisherCommissions;
+	        if (isset($Results->out->publisherCommissions->PublisherCommissionV2) && is_array($Results->out->publisherCommissions->PublisherCommissionV2)) {
+	        	$Items = $Results->out->publisherCommissions->PublisherCommissionV2;
+	        }
+	        
+	        foreach ($Items as $Commission)
 	        {
 	        	$SubID = $Commission->sId;
 	        	$OfferID = $Commission->advertiserId;
