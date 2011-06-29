@@ -22,7 +22,6 @@
 		<li><a href="/BevoMedia/User/Invoice.html">Billing</a></li>
 		<li><a class="active" href="/BevoMedia/User/Referrals.html">Referrals</a></li>
 		<li><a href="/BevoMedia/User/ChangePassword.html" rel="shadowbox;width=320;height=200;player=iframe" title="Change Password">Change Password</a></li>
-		<li><a href="/BevoMedia/User/CancelAccount.html" rel="shadowbox;width=480;height=250;player=iframe" title="Cancel Bevo Account">Cancel Account</a></li>
 	</ul>
 </div>
 	<?php echo $this->PageDesc->ShowDesc($this->PageHelper, false); //2nd param to hide toggle btn, as there is nothing else on this page
