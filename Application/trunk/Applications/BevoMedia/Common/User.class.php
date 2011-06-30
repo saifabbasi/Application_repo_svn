@@ -1733,5 +1733,21 @@ END;
 		
 		return $Product->Price;
 	}
+	
+	Public Function getAllPPCCampaigns()
+	{
+		$Sql = "SELECT
+					id,
+					name
+				FROM
+					bevomedia_ppc_campaigns
+				WHERE
+					(bevomedia_ppc_campaigns.user__id = ?)
+				ORDER BY
+					name
+				";
+		return $this->_db->fetchAll($Sql, $this->id);
+	}
+	
 }
 ?>

@@ -4,11 +4,19 @@ $(function() {
   $('#sdate, #edate').val(today).datepicker();
   $('#AffAccts').toggle($('#Aff').attr('checked'));
   $('#PPCAccts').toggle($('#PPC').attr('checked'));
+  $('#CampaignDivDelete').toggle($('#campaigns').attr('checked'));
+  $('#CampaignStatsDivDelete').toggle($('#campaignStats').attr('checked'));
   $('#PPC').change(function() {
 		$('#PPCAccts').toggle($('#PPC').attr('checked'));
   });
   $('#Aff').change(function() {
 		$('#AffAccts').toggle($('#Aff').attr('checked'));
+  });
+  $('#campaigns').change(function() {
+	  $('#CampaignDivDelete').toggle();
+  });
+  $('#campaignStats').change(function() {
+	  $('#CampaignStatsDivDelete').toggle();
   });
 });
 </script>
@@ -144,6 +152,46 @@ $(function() {
 		</table>
 	</div>
 </div><!--close #AffDiv-->
+
+
+<div id="CampaignDiv" class="maindelete">
+	<input type="checkbox" name="campaigns" id="campaigns" /> Delete Campaigns
+	
+	<div class="subdelete" id="CampaignDivDelete">
+	<?php 
+		foreach ($this->PPCCampaigns as $Campaign)
+		{
+	?>
+		<label>
+			<input type="checkbox" name="deleteCampaigns[]" value="<?=$Campaign->id?>" /> <?=$Campaign->name?>
+		</label>
+		<br />
+	<?php 
+		}
+	?>
+	</div>	
+</div>
+
+
+
+<div id="CampaignStatsDiv" class="maindelete">
+	<input type="checkbox" name="campaignStats" id="campaignStats" /> Delete Campaign Stats
+	
+	<div class="subdelete" id="CampaignStatsDivDelete">
+	<?php 
+		foreach ($this->PPCCampaigns as $Campaign)
+		{
+	?>
+		<label>
+			<input type="checkbox" name="deleteCampaignStats[]" value="<?=$Campaign->id?>" /> <?=$Campaign->name?>
+		</label>
+		<br />
+	<?php 
+		}
+	?>
+	</div>	
+</div>
+
 
 <input class="formsubmit delstat_delete" type="submit" name="Delete" value="Delete" />
 </form>

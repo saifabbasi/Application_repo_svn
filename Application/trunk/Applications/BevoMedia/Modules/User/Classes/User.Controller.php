@@ -122,6 +122,7 @@ Class UserController extends ClassComponent
 		$this->YahooResults = $this->User->getAllAccountsYahoo();
 		$this->MSNResults = $this->User->getAllAccountsMSN();
 		$this->AffResults = $this->User->getAllAffiliateAccounts();
+		$this->PPCCampaigns = $this->User->getAllPPCCampaigns();
 		$this->deleted = false;
 		if(!empty($_POST))
 		{
@@ -176,6 +177,52 @@ Class UserController extends ClassComponent
 			  $this->db->exec("delete from bevomedia_ppc_contentmatch_stats where statDate $btwn AND adGroupId in ($agIds)");
 			  $this->deleted = true;
 			}
+		  }
+		  
+		  if (isset($_POST['campaigns']))
+		  { 
+		  		foreach ($_POST['deleteCampaigns'] as $CampaignID)
+		  		{
+		  			$Sql = "SELECT
+		  					 	DISTINCT bevomedia_ppc_advariations.id
+							FROM 
+								bevomedia_ppc_campaigns,
+								bevomedia_ppc_adgroups,
+								bevomedia_ppc_advariations
+							WHERE
+								(bevomedia_ppc_campaigns.id = bevomedia_ppc_adgroups.campaignId) AND
+								(bevomedia_ppc_advariations.adGroupId = bevomedia_ppc_adgroups.id) 
+		  					";
+		  			$AdVarID = $this->db->fetchOne($Sql);
+		  			
+		  			$Sql = "DELETE FROM bevomedia_tracker_clicks WHERE bevomedia_tracker_clicks.creativeId = {$AdVarID}";
+		  			$this->db->exec($Sql);
+		  			
+		  			
+		  			$Sql = "DELETE FROM bevomedia_ppc_campaigns WHERE (id = ?) AND (user__id = ?)";
+		  			$this->db->fetchRow($Sql, array($CampaignID, $this->User->id));
+		  		}
+		  }
+		  
+		  if (isset($_POST['campaignStats']))
+		  {
+		  		foreach ($_POST['deleteCampaignStats'] as $CampaignID)
+		  		{
+		  			$Sql = "SELECT
+		  					 	DISTINCT bevomedia_ppc_advariations.id
+							FROM 
+								bevomedia_ppc_campaigns,
+								bevomedia_ppc_adgroups,
+								bevomedia_ppc_advariations
+							WHERE
+								(bevomedia_ppc_campaigns.id = bevomedia_ppc_adgroups.campaignId) AND
+								(bevomedia_ppc_advariations.adGroupId = bevomedia_ppc_adgroups.id) 
+		  					";
+		  			$AdVarID = $this->db->fetchOne($Sql);
+		  			
+		  			$Sql = "DELETE FROM bevomedia_tracker_clicks WHERE bevomedia_tracker_clicks.creativeId = {$AdVarID}";
+		  			$this->db->exec($Sql);
+		  		}
 		  }
 		}
 	}
