@@ -14,8 +14,14 @@
 			
 			if(!isset($_SESSION['User']) || !intval($_SESSION['User']['ID']))
 			{
+				if (Zend_Registry::get('Instance/Function')=='OfferLogin')
+				{
+					return;					
+				}
+				
+				$_SESSION['OfferHubRedirectPage'] = Zend_Registry::get('Instance/Function');
 				$_SESSION['loginLocation'] = $_SERVER['REQUEST_URI'];
-				header('Location: /BevoMedia/Index/');
+				header('Location: /BevoMedia/Offers/OfferLogin.html');
 				die;
 			}
 			
@@ -252,6 +258,29 @@
 			} else 
 			{
 				$this->NetworkInfo = $Row;
+			}
+		}
+		
+		Public Function OfferLogin()
+		{
+			Zend_Registry::set('Instance/LayoutType', 'shadowbox-layout');
+			
+			if (isset($_POST['Login']))
+			{ 
+				$User = new User(); 
+				$LoginAttempt = $User->login($_POST['Email'], md5($_POST['Password']));
+				if($LoginAttempt==true)
+				{
+					$ID = $User->getIdUsingEmail($_POST['Email']);
+					$User->getInfo($ID);
+					$_SESSION['User']['ID'] = $User->id;					
+					
+					header('Location: '.$_POST['Url']);
+					die;
+				} else
+				{
+					$this->Error = 'You entered wrong credentials.';
+				}
 			}
 		}
 	}
