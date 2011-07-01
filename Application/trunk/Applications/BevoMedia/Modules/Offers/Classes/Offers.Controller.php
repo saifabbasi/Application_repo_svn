@@ -21,7 +21,7 @@
 				
 				$_SESSION['OfferHubRedirectPage'] = Zend_Registry::get('Instance/Function');
 				$_SESSION['loginLocation'] = $_SERVER['REQUEST_URI'];
-				header('Location: /BevoMedia/Offers/OfferLogin.html');
+				header('Location: /BevoMedia/Index/Index.html?OfferLogin');
 				die;
 			}
 			
@@ -275,7 +275,13 @@
 					$User->getInfo($ID);
 					$_SESSION['User']['ID'] = $User->id;					
 					
-					header('Location: '.$_POST['Url']);
+					echo "<script type='text/javascript'>";
+					echo "
+							parent.location = '{$_POST['Url']}';
+						";
+					echo "</script>";
+					
+					//header('Location: '.$_POST['Url']);
 					die;
 				} else
 				{

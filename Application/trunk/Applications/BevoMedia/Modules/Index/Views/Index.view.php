@@ -24,3 +24,26 @@
 	</object>
 	</div>
 </div>
+
+<?php 
+	if (isset($_GET['OfferLogin']))
+	{
+?>
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		Shadowbox.open({
+	        content:    '/BevoMedia/Offers/OfferLogin.html'+window.location.hash,
+	        player:     "iframe",
+	        title:      "OfferHub",
+	        height:     480,
+	        width:      640
+	    });
+	});
+		
+</script>
+
+<?php 
+	}
+?>
