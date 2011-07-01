@@ -169,6 +169,39 @@
 		$isMemberOfNetwork = mysql_query($sql);
 		$nw->isNetworkMember = (mysql_num_rows($isMemberOfNetwork)) ? 1 : 0;
 		
+		if (!isset($_GET['sort_by']))
+		{
+			$_GET['sort_by'] = 'offername';
+			$_GET['sort_direction'] = 'asc';
+		}
+		
+		
+		if ($_GET['sort_by']=='payout') {
+			$orderBy = " (offers.payout-0.0) ";
+		} else
+		if ($_GET['sort_by']=='offername') {
+			$orderBy = " offers.title ";
+		} else
+		if ($_GET['sort_by']=='type') {
+			$orderBy = " offers.offerType ";
+		} else
+		if ($_GET['sort_by']=='vertical') {
+			$orderBy = " categoryTitle ";
+		} else
+		if ($_GET['sort_by']=='network') {
+			$orderBy = " networkName ";
+		} 
+		
+		
+		if (isset($_GET['sort_direction'])) 
+		{
+			if ($query['params']['sort_by_direction']=='asc')
+				$orderBy .= " ASC "; else
+				$orderBy .= " DESC "; 
+		}
+			
+		
+		
 		//get latest 3 offers
 		$sql = "SELECT 	offers.*,
 				categories.title AS categoryTitle
@@ -182,10 +215,10 @@
 				
 				AND ( (offers.hidden = 0) OR (offers.hidden = 2) )
 			
-			ORDER BY offers.dateAdded DESC
+			ORDER BY {$orderBy}
 			
 			LIMIT 3	
-		";
+		";//echo $sql;die;
 		$rawNwOffers = mysql_query($sql);
 		while($nwOffer = mysql_fetch_object($rawNwOffers)) {
 			
@@ -218,7 +251,8 @@
 	
 	//sort by offer title
 	ksort($offers);	
-
+	
+//echo '<pre>';print_r($offers);die;
 include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.php'; ?>
 <script src="/Themes/BevoMedia/ovault.index.js" type="text/javascript"></script>
  
@@ -407,11 +441,11 @@ include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.p
 				<td class="hhl">&nbsp;</td>
 				<td class="td_saved2list" style="width:15px;">&nbsp;</td>
 				<td class="td_savelist" style="width:40px;">&nbsp;</td>
-				<td class="td_offername" style="width:465px;"><a class="tcol tcol_sortby <?php /*asc*/?>" href="#" data-value="offername">Offer Name <span class="nobold">(Date Added)</span></a></td>
-				<td class="td_payout" style="width:54px;"><a class="tcol tcol_sortby" href="#" data-value="payout">Payout</a></td>
-				<td class="td_type" style="width:41px;"><a class="tcol tcol_sortby" href="#" data-value="type">Type</a></td>
-				<td class="td_vertical" style="width:123px;"><a class="tcol tcol_sortby" href="#" data-value="vertical">Vertical</a></td>
-				<td class="td_network" style="width:120px;"><a class="tcol tcol_sortby" href="#" data-value="network">Network</a></td>
+				<td class="td_offername" style="width:465px;"><a class="tcol tcol_sortby <?php /*asc*/?>" href="/BevoMedia/Offers/BestPerformers.html?sort_by=offername&sort_direction=<?=($_GET['sort_by']=='offername')?(($_GET['sort_direction']=='asc')?'desc':'asc'):('asc') ?>" data-value="offername">Offer Name <span class="nobold">(Date Added)</span></a></td>
+				<td class="td_payout" style="width:54px;"><a class="tcol tcol_sortby" href="/BevoMedia/Offers/BestPerformers.html?sort_by=payout&sort_direction=<?=($_GET['sort_by']=='payout')?(($_GET['sort_direction']=='asc')?'desc':'asc'):('asc') ?>" data-value="payout">Payout</a></td>
+				<td class="td_type" style="width:41px;"><a class="tcol tcol_sortby" href="/BevoMedia/Offers/BestPerformers.html?sort_by=type&sort_direction=<?=($_GET['sort_by']=='type')?(($_GET['sort_direction']=='asc')?'desc':'asc'):('asc') ?>" data-value="type">Type</a></td>
+				<td class="td_vertical" style="width:123px;"><a class="tcol tcol_sortby" href="/BevoMedia/Offers/BestPerformers.html?sort_by=vertical&sort_direction=<?=($_GET['sort_by']=='vertical')?(($_GET['sort_direction']=='asc')?'desc':'asc'):('asc') ?>" data-value="vertical">Vertical</a></td>
+				<td class="td_network" style="width:120px;"><a class="tcol tcol_sortby" href="/BevoMedia/Offers/BestPerformers.html?sort_by=network&sort_direction=<?=($_GET['sort_by']=='network')?(($_GET['sort_direction']=='asc')?'desc':'asc'):('asc') ?>" data-value="network">Network</a></td>
 				<td class="hhr">&nbsp;</td>
 			</tr>
 		</thead>
@@ -457,3 +491,9 @@ include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.p
 	</table>	
 
 </div><!--close pagecontent#ovault-->
+
+<script type="text/javascript">
+	$('.tcol_sortby').click(function() {
+		return false;
+	});
+</script>

@@ -7,5 +7,5 @@
 	</map>
 
 	<br/>
-	<a href='#' onClick='javascript:firstlogin.close();'>Cancel Tutorial</a>
+	<a href='/BevoMedia/User/Index.html'>Cancel Tutorial</a>
 </div>

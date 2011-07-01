@@ -333,7 +333,7 @@ class ConstructAjaxOutput {
 			
 			if (isset($query['params']['sort_by'])) {
 				if ($query['params']['sort_by']=='payout') {
-					$orderBy = " bevomedia_offers.payout ";
+					$orderBy = " (bevomedia_offers.payout-0.0) ";
 				} else
 				if ($query['params']['sort_by']=='offername') {
 					$orderBy = " bevomedia_offers.title ";
