@@ -1448,8 +1448,11 @@ Class UserController extends ClassComponent
 		if (!isset($Row->ID)) {
 			$this->VerifiedBoxFirstLogin = true;
 			
-			$Arr = array('UserID' => $this->User->id);
-			$this->db->insert('bevomedia_new_rev_model_login', $Arr);
+			if (!isset($_GET['TUTORIAL']))
+			{
+				$Arr = array('UserID' => $this->User->id);
+				$this->db->insert('bevomedia_new_rev_model_login', $Arr);
+			}
 		}		
 	}
 	
