@@ -11,7 +11,17 @@
 <link href="<?=$this->{'System/BaseURL'};?>Themes/<?=$this->{'Application/Theme'};?>/bob.style.css" rel="stylesheet" type="text/css" />
 <link href="<?=$this->{'System/BaseURL'};?>Themes/<?=$this->{'Application/Theme'};?>/default.css" rel="stylesheet" type="text/css" />
 <script src="<?=$this->{'System/BaseURL'};?>Themes/<?=$this->{'Application/Theme'};?>/RegisterForm.js" type="text/javascript"></script>
-<script type="text/javascript" src="<?=$this->{'System/BaseURL'};?>JS/charts/jquery-1.3.2.js"></script>
+<script type="text/javascript" src="/JS/charts/jquery-1.4.2.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="/Themes/BevoMedia/shadowbox-source-3.0b/shadowbox.css">
+<script type="text/javascript" src="/Themes/BevoMedia/shadowbox-source-3.0b/shadowbox.js"></script>
+
+<script type="text/javascript">
+Shadowbox.init({
+    language: 'en',
+    players:  ['html', 'iframe', 'img']
+});
+</script>
 
 </head>
 
