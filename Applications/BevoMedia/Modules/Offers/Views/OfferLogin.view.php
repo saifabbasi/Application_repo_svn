@@ -32,7 +32,7 @@
 		var url = 'http://offers.bevomedia.com/BevoMedia/OffersFront/Browse.html';
 		url += window.location.hash;
 
-		window.location = url;
+		parent.location = url;
 
 		return false;
 	});
