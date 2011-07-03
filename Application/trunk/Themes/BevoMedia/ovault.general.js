@@ -55,11 +55,7 @@ $(document).ready(function() {
 		if($(this).val() == $(this).prev().html())
 			$(this).val('');
 		
-	})/*.live('blur', function() {
-		if($(this).val() == '')
-			$(this).val($(this).prev().html());
-	
-	})*/
+	})
 	
 	//hilite
 	$('.j_hiliteall').live('click', function() {
@@ -67,19 +63,71 @@ $(document).ready(function() {
 	});
 	
 	/*ini*/
-	if(ovault_cookSearch) {
+	var hasherror = true;
+	
+	if(window.location.hash) {		
+		var	clean = '',			
+			params = {};
+			
+		hasherror = false;
+		
+		$.each(window.location.hash.split('&'), function (i, value) {
+			value = value.split('=');
+			
+			if(value[0].indexOf('#') === 0) {
+				value[0] = value[0].substr(1);
+			}
+			
+			value1 = value[1].replace(/^A-Za-z0-9-_\+\,\% /g,'');
+			value1 = value1.replace(/\%2C/g, ',')
+			params[value[0]] = value1.replace(/\+/g, ' ');
+		});
+		
+		//search
+		if(params['search'])
+			clean = 'search='+params['search'];
+		else	hasherror = true;
+		
+		//type
+		if(params['type'] && params['type'] != '')
+			clean += '&type='+params['type'];
+		else	clean += '&type=lead,sale';
+		
+		//networks
+		if(params['include_networks'] && params['inclde_networks'] != '')
+			clean += '&include_networks='+params['include_networks'];
+		else	clean += '&include_networks=ALL';
+		
+		//numresults
+		if(	params['numresults'] && params['numresults'] != '' 
+			&& (params['numresults'] == 25 || params['numresults'] == 50 || params['numresults'] == 100 || params['numresults'] == 200)
+		)
+			clean += '&numresults='+params['numresults'];
+		else	clean += '&numresults=100';
+		
+		//page
+		if(params['page'] && params['page'] != '')
+			clean += '&page='+params['page'];
+		else	clean += '&page=1';
+		
+		//newpage
+		if(params['newpage'] && params['newpage'] == 1)
+			clean += '&newpage=1';
+		
+		//sortby
+		if(params['sort_by'] && params['sort_by'] != '')
+			clean += '&sort_by='+params['sort_by'];
+		
+		if(!hasherror) {
+			doSearch('get=searchresults&'+clean, true, 'Showing URL hash search results.');
+		}
+	}//endif hash
+	
+	if(hasherror && ovault_cookSearch) { //if no hash but cookie
 		if(location.pathname == ovault_searchPage)
-			doSearch(ovault_cookSearch, true);
+			doSearch(ovault_cookSearch, true, 'Your last search has been reactivated.');
 		else	updateDialByHash(ovault_cookSearch);
 	}
-	
-	/*setInterval(function()	{
-		if(window.location.hash != ovault_cache.current_searchstring) {
-			//ovault_cache.searchresults[r.searchstring]
-			alert('hash changed');
-			ovault_cache.current_searchstring = window.location.hash;
-		}
-	}, 100);*/
 	
 	/*orow*/
 	//orow expand/collapse

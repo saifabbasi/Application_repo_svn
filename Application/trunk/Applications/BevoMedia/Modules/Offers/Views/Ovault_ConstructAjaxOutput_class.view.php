@@ -389,8 +389,8 @@ class ConstructAjaxOutput {
 			if($out['totalresults'] == 0)
 				$out['message'] = 'Nothing found for this query! Try widening your search terms, or include more networks.'; //overwrites any prev msgs
 			
-			elseif($out['totalresults'] > 400 && !isset($out['message']) && isset($query['params']['search']) && $query['params']['search'] != '*') //only if we dont have a msg yet
-				$out['message'] = $out['totalresults'].' Offers were found for this query! If you want to narrow down the results, try adding more search terms, or select a fewer number of networks.';
+			//elseif($out['totalresults'] > 400 && !isset($out['message']) && isset($query['params']['search']) && $query['params']['search'] != '*') //only if we dont have a msg yet
+			//	$out['message'] = $out['totalresults'].' Offers were found for this query! If you want to narrow down the results, try adding more search terms, or select a fewer number of networks.';
 			
 			/*fetch additional data*/
 			$offersArray = array();
