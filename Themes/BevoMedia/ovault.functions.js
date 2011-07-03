@@ -13,14 +13,6 @@ function ajaxMessage(m, sticky) {
 			text: m
 		});
 	}
-	
-	
-	/*if(m.constructor.toString().indexOf("Array") == -1)
-		
-	else {
-		for(i=0; i<=m.length-1; i++)
-			alert(m[i]);
-	}*/
 }//ajaxMessage()
 
 /*doSave2List*/ //is_select bool true if it's  a.ovault_add2list_select calling
@@ -363,8 +355,10 @@ function undoSave2listSelect() {
 	
 }//undoSave2listSelect()
 
-/*doSearch*/ //updateDial bool set to true only if calling from cook or hash
-function doSearch(s, updateDial) {
+/*doSearch*/
+//updateDial bool set to true only if calling from cook or hash
+//customMessage str optional custom message, e.g. when auto-search was loaded by hash or cookie
+function doSearch(s, updateDial, customMessage) {
 	
 	var target = $('#j_otable tbody');
 	
@@ -377,97 +371,70 @@ function doSearch(s, updateDial) {
 		ovault_cache.sort_by_direction = '';
 	}
 	
-	if(ovault_cache.searchresults[s]) { //dupe code - same as below. maybe outsource to func later
-		/*
-		
-		make this work laterrrrrrrrrrrrr
-		
-		*/
-		target.html(''); //remove old content
-		for(var i in r.resultarr) { //add to dom
-			target.append(addOfferTableRow(r.resultarr[i]));
-		}
-		
-		//total results
-		$('#opagi_bg .totalresults').fadeIn(500);
-		$('#opagi .totalresults').html(r.totalresults).fadeIn(400);
-		
-		//pagination
-		if(r.pagination) {
-			$('#opagi_bg .numbers').fadeIn(400, function() {
-				$('#opagi .numbers').html(r.pagination).fadeIn(300);
-			});
-		} else {
-			$('#opagi .numbers').fadeOut(400, function() {
-				$(this).html('');
-			});
-			$('#opagi_bg .numbers').fadeOut(300);
-		}
-	
-	} else {
-	
-		$.ajax({
-			type: 'GET',
-			url: ovault_ajaxGet+'?'+s,
-			success: function(r) {
-				r = $.parseJSON(r);
+	$.ajax({
+		type: 'GET',
+		url: ovault_ajaxGet+'?'+s,
+		success: function(r) {
+			r = $.parseJSON(r);
+			
+			if(r.error) {
+				ajaxMessage(r.error,1);
 				
-				if(r.error) {
-					ajaxMessage(r.error,1);
-					
+			} else {
+				
+				soap_cookCreate(ovault_cook_LastSearch,r.searchstring,365);
+				
+				ovault_cache.searchresults[r.searchstring] = r.resultarr;
+				ovault_cache.current_searchstring = r.searchstring;
+				window.location.hash = r.searchstring;
+				
+				target.html(''); //remove old content
+				for(var i in r.resultarr) { //add to dom
+					target.append(addOfferTableRow(r.resultarr[i]));
+				}
+				
+				//total results
+				$('#opagi_bg .totalresults').fadeIn(500);
+				$('#opagi .totalresults').html(r.totalresults).fadeIn(400);
+				
+				//pagination
+				if(r.pagination) {
+					$('#opagi_bg .numbers').fadeIn(400, function() {
+						$('#opagi .numbers').html(r.pagination).fadeIn(300);
+					});
 				} else {
+					$('#opagi .numbers').fadeOut(400, function() {
+						$(this).html('');
+					});
+					$('#opagi_bg .numbers').fadeOut(300);
+				}
+				
+				updateOrowSelelistBtn();
+				
+				if(updateDial)
+					updateDialByHash(r.searchstring);
+				
+				if(customMessage)
+					ajaxMessage(customMessage,1);
+				
+				if(r.message)
+					ajaxMessage(r.message,1);
+				
+				if(r.message_once) {
+					var once = soap_cookRead(ovault_cook_messageOnce);
 					
-					soap_cookCreate(ovault_cook_LastSearch,r.searchstring,365);
-					
-					ovault_cache.searchresults[r.searchstring] = r.resultarr;
-					ovault_cache.current_searchstring = r.searchstring;
-					window.location.hash = r.searchstring;
-					
-					target.html(''); //remove old content
-					for(var i in r.resultarr) { //add to dom
-						target.append(addOfferTableRow(r.resultarr[i]));
-					}
-					
-					//total results
-					$('#opagi_bg .totalresults').fadeIn(500);
-					$('#opagi .totalresults').html(r.totalresults).fadeIn(400);
-					
-					//pagination
-					if(r.pagination) {
-						$('#opagi_bg .numbers').fadeIn(400, function() {
-							$('#opagi .numbers').html(r.pagination).fadeIn(300);
-						});
-					} else {
-						$('#opagi .numbers').fadeOut(400, function() {
-							$(this).html('');
-						});
-						$('#opagi_bg .numbers').fadeOut(300);
-					}
-					
-					updateOrowSelelistBtn();
-					
-					if(updateDial)
-						updateDialByHash(r.searchstring);
-					
-					if(r.message)
-						ajaxMessage(r.message,1);
-					
-					if(r.message_once) {
-						var once = soap_cookRead(ovault_cook_messageOnce);
-						
-						if(!once) {
-							ajaxMessage(r.message_once,1);
-							soap_cookCreate(ovault_cook_messageOnce,1,14);
-						}	
-					}
-					
-				}//endif r.error
-			},
-			error: function(r) {
-				ajaxMessage(r,1);
-			}
-		});
-	}//endif ovault_cached or not
+					if(!once) {
+						ajaxMessage(r.message_once,1);
+						soap_cookCreate(ovault_cook_messageOnce,1,14);
+					}	
+				}
+				
+			}//endif r.error
+		},
+		error: function(r) {
+			ajaxMessage(r,1);
+		}
+	});//ajax
 }//doSearch()
 
 /*updateDialByHash*/ //takes r.searchstring, updates everything in the dial. Use after cook or hash.
