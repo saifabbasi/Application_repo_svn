@@ -380,6 +380,11 @@ function doSearch(s, updateDial, customMessage) {
 			if(r.error) {
 				ajaxMessage(r.error,1);
 				
+				if(updateDial) {
+					var str = r.searchstring ? r.searchstring : s;
+					updateDialByHash(str);
+				}
+				
 			} else {
 				
 				soap_cookCreate(ovault_cook_LastSearch,r.searchstring,365);
