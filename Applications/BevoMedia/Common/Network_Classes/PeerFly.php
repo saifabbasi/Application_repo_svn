@@ -98,7 +98,7 @@ class PeerFly Extends NetworksAbstract {
 			$Date = date('Y-m-d');
 		}
 		
-		@unlink(sys_get_temp_dir().'/cookiemonster.txt');
+		@unlink(sys_get_temp_dir().'/cookiemonster'.md5($this->publisherLogin).'.txt');
 		
 		if (!$this->login()) {
 			return null;
@@ -111,8 +111,8 @@ class PeerFly Extends NetworksAbstract {
 			'CURLOPT_USERAGENT' => "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.6) Gecko/20070725 Firefox/2.0.0.6",
 			'CURLOPT_TIMEOUT' => 60,
 			'CURLOPT_FOLLOWLOCATION' => 1,
-			'CURLOPT_COOKIEJAR' => sys_get_temp_dir().'/cookiemonster.txt',
-			'CURLOPT_COOKIEFILE' => sys_get_temp_dir().'/cookiemonster.txt',
+			'CURLOPT_COOKIEJAR' => sys_get_temp_dir().'/cookiemonster'.md5($this->publisherLogin).'.txt',
+			'CURLOPT_COOKIEFILE' => sys_get_temp_dir().'/cookiemonster'.md5($this->publisherLogin).'.txt',
 			'CURLOPT_REFERER' => '',
 			'CURLOPT_HTTPGET' => 1);
 		$CSV = $this->curlIt($this->csvUrl, $arrParams);
