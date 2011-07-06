@@ -98,7 +98,7 @@ class PeerFly Extends NetworksAbstract {
 			$Date = date('Y-m-d');
 		}
 		
-		@unlink(sys_get_temp_dir().'/cookiemonster'.md5($this->publisherLogin).'.txt');
+		unlink(sys_get_temp_dir().'/cookiemonster'.md5($this->publisherLogin).'.txt');
 		
 		if (!$this->login()) {
 			return null;
