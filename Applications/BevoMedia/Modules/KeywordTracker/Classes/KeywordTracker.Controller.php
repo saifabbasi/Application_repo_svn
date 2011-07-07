@@ -2011,7 +2011,7 @@ END;
 				}
 				
 				if(!isset($results[$resultsKey])) {
-					$results[$resultsKey] = array('clicks'=>1, 'conversions'=>0, 'clickThroughs' => 0);
+					$results[$resultsKey] = array('clicks'=>0, 'conversions'=>0, 'clickThroughs' => 0);
 				}else{
 					$results[$resultsKey]['clicks']++;
 					if ($item->clickThrough == '1') {
