@@ -199,8 +199,8 @@ Class UserController extends ClassComponent
 		  			$this->db->exec($Sql);
 		  			
 		  			
-		  			$Sql = "DELETE FROM bevomedia_ppc_campaigns WHERE (id = ?) AND (user__id = ?)";
-		  			$this->db->fetchRow($Sql, array($CampaignID, $this->User->id));
+		  			$Sql = "DELETE FROM bevomedia_ppc_campaigns WHERE (id = {$CampaignID}) AND (user__id = {$this->User->id})";
+		  			$this->db->exec($Sql);
 		  		}
 		  }
 		  
