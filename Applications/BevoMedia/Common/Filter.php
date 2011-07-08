@@ -199,7 +199,9 @@ class Filter {
 	jQuery(document).ready( function($) {
 
 		$('#ppccampaign').change( function() {
-			$.getJSON("/BevoMedia/KeywordTracker/json.html?list=ppv_campaign&provider=" + $(this).val(), function(data) {
+			$.get("/BevoMedia/KeywordTracker/json.html?list=ppv_campaign&provider=" + $(this).val(), function(data) {
+				data = eval(data);
+				
 				var options = '<option value="">--</option>';
 				for (var i = 0; i < data.length; i++) {
 					options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
@@ -212,7 +214,9 @@ class Filter {
 		$('#ppcadgroup').change( function() {
 			return;
 			alert('hi');
-			$.getJSON("/BevoMedia/KeywordTracker/json.html?list=advar&ppcadgroup=" + $(this).val(), function(data) {
+			$.get("/BevoMedia/KeywordTracker/json.html?list=advar&ppcadgroup=" + $(this).val(), function(data) {
+				data = eval(data);
+				
 				var options = '<option value="">--</option>';
 				for (var i = 0; i < data.length; i++) {
 					options += '<option value="' + data[i].id + '">' + data[i].title + '</option>';
