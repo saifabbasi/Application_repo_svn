@@ -1,40 +1,7 @@
 <?php
 	//quicksearch form in topdrop sends POST
 	//something doesnt work about this... need to redo the topdrop search later when GET + HASH navi is implemented in search!
-	
-	/*if(isset($_GET['topdrop_quicksearch_submit']) && isset($_GET['topdrop_osearch']) && !empty($_GET['topdrop_osearch'])) {
-				
-		$search = urlencode(str_replace(array('\'','"'), '', strip_tags(trim($_GET['topdrop_osearch']))));
-		
-		if($search) {
-			//look for cookie to apply all the other options, of no cookie load default
-			if(isset($_COOKIE['__bevoOLSearch'])) {
-				$lastsearch = trim($_COOKIE['__bevoOLSearch']);
-				
-				$searchparams = explode('&', $lastsearch);
-				if(strpos($searchparams[1], 'search=') === 0) { //overwrite with new value
-					$searchparams[1] = 'search='.$search;
-					//setcookie('__bevoOLSearch', implode('&', $searchparams), time()+60*60*24*30*12, '/');
-					setcookie('__bevoOLSearch', '', time()+60*60*24*30*12, '/');
-					
-				}
-				
-			} else { //if no cookie, apply default values. search in all networks.
-				
-				$searchstring = 'get=searchresults&search='.$search.'&type=lead&include_mysaved=1&include_networks=ALL&numresults=100';
-				setcookie('__bevoOLSearch', $searchstring, time()+60*60*24*30*12, '/');
-			
-			}//endif cookie
-			
-			//now refresh page for the JS to grab the new cookie
-			header('Location: /BevoMedia/Offers/Index.html');
-			/*
-			LATER: as soon as we implement HASH navigation instead of cookie nav, remove header and just change hash.
-			* /
-			
-		}//endif search
-	}//endif post*/
-	
+
 	include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.php';
 ?>
 <script src="/Themes/BevoMedia/ovault.index.js" type="text/javascript"></script>

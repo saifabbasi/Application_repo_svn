@@ -960,7 +960,7 @@ h2.imagetitle.interested { width:147px; height:22px; background:url(img/imagetit
         #ovault .btable tr.orowbig td .td_inner { padding:5px; }
 
 	#ovault .btable tr.orowbig td.td_info { background:url(img_new/orow_exp_bg_lite.gif) repeat-y; }
-                #ovault .btable tr.orowbig td.td_info .td_inner { width:550px; margin:3px 0 0 -10px; }
+                #ovault .btable tr.orowbig td.td_info .td_inner { width:550px; margin:3px 0 0 -10px; overflow:hidden; }
 	#ovault .btable tr.orowbig td.td_nw { background:url(img_new/orow_exp_bg_dark.gif) repeat-y; }
                 #ovault .btable tr.orowbig td.td_nw .td_inner { width:113px; }
 	#ovault .btable tr.orowbig td.td_nwdesc { background:url(img_new/orow_exp_bg_dark.gif) repeat-y right top; border-left:none; }
