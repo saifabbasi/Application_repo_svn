@@ -2914,6 +2914,13 @@ END;
 		
 		Public Function BrokerNetworkView()
 		{
+			if (isset($_GET['LoginID']))
+			{
+				//set POST variables
+				$url = 'http://networks.bevomedia.com/BevoMedia/Index/Index.html?LoginID='.$_GET['LoginID'].'&Key='.md5('Secure'.$_GET['LoginID']);
+				header('Location: '.$url);
+				die;
+			}
 			
 			$ID = intval($_GET['ID']);
 			

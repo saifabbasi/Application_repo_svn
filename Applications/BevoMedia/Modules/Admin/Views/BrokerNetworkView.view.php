@@ -12,7 +12,8 @@
 </style>
 
 <a href="/BevoMedia/Admin/Networks.html">&lt;- Broker Networks</a> |
-<a href="/BevoMedia/Admin/BrokerNetworkForm.html?ID=<?=$_GET['ID']?>">Edit</a> 
+<a href="/BevoMedia/Admin/BrokerNetworkForm.html?ID=<?=$_GET['ID']?>">Edit</a> |
+<a href="/BevoMedia/Admin/BrokerNetworkView.html?LoginID=<?=$_GET['ID']?>" target="_blank">Login as Network</a>
 
 <br /><br />
 
