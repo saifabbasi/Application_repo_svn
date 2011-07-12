@@ -31,7 +31,7 @@
 	<br /><br />
 	
 	<label for="AffiliateNetworkID">Affiliate Network:</label>
-	<?=$this->AffiliateNetwork?>
+	<?=isset($this->AffiliateNetwork)?$this->AffiliateNetwork:''?>
 	<br /><br />
 	
 	<label for="Name">Name:</label>
