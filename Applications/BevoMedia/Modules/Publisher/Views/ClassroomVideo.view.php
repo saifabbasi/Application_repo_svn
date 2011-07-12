@@ -30,6 +30,10 @@ function LoadChapter() {
 	
 	$strVideoID = $arrQuery['v'];
 }
+
+if (isset($_GET['videoId'])) {
+	$strVideoID = $_GET['videoId'];
+}
 ?>
 
 <?php 
