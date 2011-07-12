@@ -2426,6 +2426,11 @@ END;
 			
 			
 			if (isset($_POST['Save'])) {
+				
+				if (!isset($_POST['IsIntegrated'])) {
+					$_POST['IsIntegrated'] = 0;
+				}
+				
 				if ($ID==0) {
 					$InsertArray = array(
 											'Username' => $_POST['Username'],
