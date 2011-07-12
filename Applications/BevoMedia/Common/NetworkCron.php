@@ -75,6 +75,7 @@ $networks[] = networkArray('KonceptAds', 1073, 'HasOffers');
 $networks[] = networkArray('BMIElite', 1074, 'CakeMarketing');
 $networks[] = networkArray('CommissionJunction', 1038);
 $networks[] = networkArray('BlueGlobalMedia', 1075, 'Hitpath');
+$networks[] = networkArray('CrushAds', 1076, 'CakeMarketing');
 
 
 foreach($networks as $network)

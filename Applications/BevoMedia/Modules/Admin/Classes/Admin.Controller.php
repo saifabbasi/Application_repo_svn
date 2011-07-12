@@ -2948,6 +2948,8 @@ END;
 						title
 					FROM
 						bevomedia_aff_network
+					WHERE
+						(id = ?)
 					ORDER BY
 						title			
 					";
