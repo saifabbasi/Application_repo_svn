@@ -85,6 +85,8 @@ a.tbtn, input.formsubmit.tbtn { padding:3px 5px; margin:0 5px 0 0; background:#f
 a.tbtn:hover, input.formsubmit.tbtn:hover { background:#29abe2; color:#fff !important; border-color:#fff; border-right:1px solid #2E3192; border-bottom:1px solid #2E3192; }
 
 	table td a.tbtn { display:inline-block; margin:5px 0 3px 5px; }
+	a.tbtn.big { padding:10px 20px; font-size:1.4em; }
+	a.tbtn.aligncenter { display:block; margin:0 40% 25px; }
 
 	/*icon buttons*/
 .ibtn.ibtn_person { padding-left:15px; background:url(img_new/icon_person.png) no-repeat 0 1px; } 
@@ -767,6 +769,7 @@ html>body #ieBar { display: none }
 	width: 131px; height:24px; background:url(img/btn_track_submit.png) no-repeat;
 	border: 0px; 
 }
+
 
 
 
