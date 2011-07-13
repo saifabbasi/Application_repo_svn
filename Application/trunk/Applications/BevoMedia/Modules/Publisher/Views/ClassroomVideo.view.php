@@ -56,35 +56,6 @@ if (isset($_GET['videoId'])) {
 	<?php echo $this->PageDesc->ShowDesc($this->PageHelper); ?>
 
 
-<!-- BEGIN Newbies Package -->
-<div class="mpnewb-wrapper">
-	<a id="mpnewb_button" class="button isclosed" href="#" title="Click to view">Newbie Package</a>
-	
-	<div id="mpnewb">
-		<div class="mpnewb-box">
-			<div class="mpnewb-txtlarge">45</div>
-			<div class="mpnewb-txtsmall">min.</div>
-			<div class="mpnewb-txtnormal">Consulting Session</div>
-		</div>
-		<div class="mpnewb-box">
-			<div class="mpnewb-txtlarge">1</div>
-			<div class="mpnewb-txtsmall">premium</div>
-			<div class="mpnewb-txtnormal">Landing Page</div>
-		</div>
-		<div class="mpnewb-box mpnewb-third">
-			<div class="mpnewb-txtlarge">5</div>
-			<div class="mpnewb-txtsmall">keyword-rich</div>
-			<div class="mpnewb-txtnormal">Articles</div>
-		</div>
-		<div class="mpnewb-box mpnewb-rightmost">
-			<div class="mpnewb-oldprice">
-				799.00 <span class="mpnewb-txttiny">Value</span>
-			</div>
-			<div class="mpnewb-price">499</div>
-			<a class="button getinfo" href="<?=$this->{'System/BaseURL'};?><?=$this->{'Application/Theme'};?>/Marketplace/NewbiePackage.html">Get Info</a>
-		</div>
-	</div>
-</div>
 <link href="<?=$this->{'System/BaseURL'};?>Themes/<?=$this->{'Application/Theme'};?>/mpnewb.style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
 $(document).ready(function() {
