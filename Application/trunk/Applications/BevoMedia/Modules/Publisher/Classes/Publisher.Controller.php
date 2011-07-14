@@ -288,7 +288,7 @@
 					$this->Network2 = $this->CpaNetworks[$Key];  
 				}
 				
-				if ($this->CpaNetworks[$Key]->title=='DiabloMedia')
+				if ($this->CpaNetworks[$Key]->title=='CrushAds')
 				{
 					$this->Network3 = $this->CpaNetworks[$Key];  
 				}
