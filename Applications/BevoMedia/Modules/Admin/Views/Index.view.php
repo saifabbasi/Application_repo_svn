@@ -151,6 +151,11 @@
 				Network Payments
 			</a>
 		</li>
+		<li>
+			<a href='CommentRemove.html'>
+				Remove Network Comment
+			</a>
+		</li>
 	</ul>
 </div>
 

@@ -2957,6 +2957,15 @@ END;
 			
 		}
 		
+		Public Function CommentRemove()
+		{
+			if (isset($_POST['Submit']))
+			{
+				$UpdateArray = array( 'approved' => 0 );
+				$this->db->update('bevomedia_user_aff_network_rating', $UpdateArray, ' id = '.$_POST['CommentID']);
+			}
+		}
+		
 	}
 
 ?>
