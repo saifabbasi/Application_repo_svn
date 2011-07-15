@@ -68,11 +68,11 @@ li, div { font-family: Arial; font-size: 13px; }
 			if (!isset($_GET['FirstLogin'])) {
 		?>
 			Account Status: Unverified<br />
-			<span style="color: #f00;">LAST STEP: Verify your Bevo Media Account</span>
+			LAST STEP: Verify your Bevo Media Account
 		<?php 
 			} else {
 		?>
-			<span style="color: #f00;">Your network stats are not being pulled!</span>
+			Your network stats are not being pulled yet!
 		<?php 
 			}
 		?>
@@ -80,24 +80,24 @@ li, div { font-family: Arial; font-size: 13px; }
 	</div>                                                                                          
 	
 	<?php if($lpopVid)
-		echo ShowMovie($lpopVid, 300, 220); ?>
+		echo ShowMovie($lpopVid, 300, 220); 
+		else { ?>
+			
+		<div class="overaff">
+			<p>Overnight Affiliate is a step-by-step walkthrough of every aspect a beginner affiliate needs to get a profitable campaign. It's packed with videos, step-by-step instructions, example campaigns, and weekly webinars where verifed users can get personalized one-on-one help specifically for their own campaigns.</p>
+		</div>
+			
+	<?php } ?>	
 	
-	<ul class="iconlist iconlist_qmark">
-		<li><p>What is account verification?</p> 
-			<span>
-			An unverified account gives you access to the most basic Bevo Media
-			features, and offers limited functionality. To take full advantage of the
-			Bevo Interface, please verify your account. It only takes a minute!
-			</span>
-		</li>
-		<li><p>Why is it better to be verified?</p>
-			<span>With a verified account, users can track keyword and campaign performance with exact revenue and expense data. Verified Bevo users can auto-sync all of their Network Stats, access the Premium Research Tools and view and retrieve their specific network offers. Also, users gain optimum use of the analytics and PPC management pages as all stats will sync automatically.</span>
-		</li>
-	</ul>
+	<a class="btn btn_lpop_verify" id="VerifyLink" href="#">Verify Now!</a>
+
+	<div class="clear"></div>
 	
-	<a class="btn btn_lpop_verify" id="VerifyLink" href="#">Verify Now!</a>	
-	
-	<a href="#" class="btn_lpop_no_verify" onclick="parent.Shadowbox.close(); return false;">No Thanks, I'd like to continue with an unverified account</a>
+	<div class="butt">
+		<p class="title">What is account verification?</p>
+		<p>As soon as you become a verified user, you can start tracking keyword and campaign performance with exact revenue and expense data, use the Geo- and Day-Targeting features, access the Premium Research Tools, instantly retrieve offer tracking links from your affiliate networks, and sync all stats automatically.<br />
+		<small><a href="#" onclick="parent.Shadowbox.close();">No thanks, I'll continue with the limited, free version of Bevo Media.</a></small></p>
+	</div>
 
 </div><!--close lpop_verify-->
 
