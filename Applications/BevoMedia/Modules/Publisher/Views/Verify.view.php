@@ -90,7 +90,7 @@ li, div { font-family: Arial; font-size: 13px; }
 	
 	<div class="butt">
 		<p class="title">What is account verification?</p>
-		<p>As soon as you become a verified user, you can start tracking keyword and campaign performance with exact revenue and expense data, use the Geo- and Day-Targeting features, access the Premium Research Tools, instantly retrieve offer tracking links from your affiliate networks, and all stats will sync automatically.<br />
+		<p>As soon as you become a verified user, you can start tracking keyword and campaign performance with exact revenue and expense data, use the Geo- and Day-Targeting features, access the Premium Research Tools, instantly retrieve offer tracking links from your affiliate networks, and sync all stats automatically.<br />
 		<small><a href="#" onclick="parent.Shadowbox.close();">No thanks, I'll continue with the limited, free version of Bevo Media.</a></small></p>
 	</div>
 
