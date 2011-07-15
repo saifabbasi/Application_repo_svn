@@ -287,6 +287,12 @@ for ($i=date('Y'); $i<=(date('Y')+10); $i++)
 				<p>Automated Data</p>
 				<span>For verified members, network stats sync automatically. Also, members will get full functionality and optimal use from the analytics and PPC management pages as all data will synch automatically.</span>
 			</li>
+			<li class="icon icon_star_red">
+				<p>FREE Access to:</p>
+				<span>Get FREE instant access to <em>Overnight Affiliate</em>, a step-by-step walkthrough of every aspect a beginner affiliate needs to get a profitable campaign. It\'s packed with videos, step-by-step instructions, example campaigns, and weekly webinars where verifed users can get personalized one-on-one help specifically for their own campaigns.</span>
+				<br />
+				<img src="/Themes/BevoMedia/img/pagedesc_overaff.png" alt="Overnight Affiliate" />
+			</li>
 			<?php /*
 			<li>
 				<p>All for only</p>

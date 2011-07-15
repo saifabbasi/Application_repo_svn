@@ -577,6 +577,76 @@
 		</div><!--close appboxinside-->
 	</div><!--close appbox-->
 	
+	<?php
+	/*
+	
+	
+	overnight affiliate
+	
+	
+	*/	 
+	?>
+	<?php /* HIDDEN UNTIL LAUNCH
+	<div class="item">
+		<div class="apptitle">
+			<div class="apptitleleft"></div>
+			<h3>Overnight Affiliate</h3>
+			<div class="apptitleright"></div>
+			
+		</div>
+		
+		<div class="appboxinside">
+			<div class="img"><img src="<?php echo SCRIPT_ROOT; ?>img/pagedesc_overaff.png" alt="" /></div>
+			<div class="cont">			
+				<div class="desc">
+					<p>Overnight Affiliate is a step-by-step walkthrough of every aspect a beginner affiliate needs to get a profitable campaign. It\'s packed with videos, step-by-step instructions, example campaigns, and weekly webinars where verifed users can get personalized one-on-one help specifically for their own campaigns.</p>
+				</div>
+				
+				<ul class="soapchecklist">
+					<li><p>Step By Step Videos</p>
+						<span>A structured 18 video course, developed to make a beginner affiliate prepared with everything they need to get a profitable campaign.</span>
+					</li>
+					<li><p>Examples of Successful Campaigns</p>
+						<span>Get set up with example campaigns that have made big bucks. See exactly how the campaign were done, and use for your own campaigns.</span>
+					</li>
+					<li><p>Weekly Personalized Webinars</p>
+						<span>Weekly webinars to have successful internet marketers peronally help you with your campaigns. Get step by step directions on how to turn your campaigns profitable!</span>
+					</li>
+				</ul>
+				
+				<div class="add2cart">
+					<div class="cartdesc">
+						<h3>Overnight Affiliate</h3>
+						<p>The Geotargeting App is a premium app that is free to use for verified BevoMedia users!</p>
+					</div>
+					
+					<div class="cartaction">
+					
+						<?php if($this->User->vaultID == 0) { //if user is not verified
+						?>
+							<div class="icon icon_appstore_add2cart_buy"></div>
+							<a class="btn btn_appstore_verify" href="/BevoMedia/User/AddCreditCard.html?notifyNotPaying=2">Verify</a>
+							
+							<p>This app is FREE to use for verified Bevo users.</p>
+							
+						<?php } else { //if user is verified
+						?>
+							<div class="icon icon_appstore_add2cart_check"></div>
+							<a class="btn btn_appstore_launchapp" href="/BevoMedia/Publisher/OvernightAffiliate.html">Launch App</a>
+							
+							<h3>FREE</h3>
+							<p>This app is free to use!</p>
+							
+						<?php }
+						?>
+					</div><!--close cartaction-->
+				</div><!--close add2cart-->
+			</div><!--close cont-->
+			<div class="clear"></div>
+		</div><!--close appboxinside-->
+	</div><!--close appbox-->
+	*/ ?>
+	
 </div><!--close pagecontent-->
 
 <script type="text/javascript">
