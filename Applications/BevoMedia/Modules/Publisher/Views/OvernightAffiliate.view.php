@@ -463,7 +463,7 @@ ob_end_clean();
 	<div id="pagemenu">
 		<ul>
 			<li><a href="/BevoMedia/Publisher/Classroom.html">Classroom<span></span></a></li>
-			<li><a class="active" href="/BevoMedia/Publisher/NewbiePackage.html">Newbie Package<span></span></a></li>
+			<li><a class="active" href="/BevoMedia/Publisher/OvernightAffiliate.html">Overnight Affiliate<span></span></a></li>
 		</ul>
 	</div>
 	<?php echo $this->PageDesc->ShowDesc($this->PageHelper); ?>

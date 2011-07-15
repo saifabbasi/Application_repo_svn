@@ -366,7 +366,7 @@ Class PageHelper {
 			$PagePresets['Publisher/Classroom/Area'] = 
 			$PagePresets['Publisher/ClassroomVideo/Area'] = 
 			$PagePresets['Publisher/ClassroomChapter/Area'] = 
-			$PagePresets['Publisher/NewbiePackage/Area'] = 'Classroom';
+			$PagePresets['Publisher/OvernightAffiliate/Area'] = 'Classroom';
 			
 			$PagePresets['Publisher/Classroom/UniquePageName'] = 'pub_classroom';//group w kb
 			$PagePresets['Publisher/Classroom/HeadingImage'] = 'pagedesc_bevoclass.png';
@@ -396,10 +396,10 @@ Class PageHelper {
 			$PagePresets['Publisher/KBPost/Heading'] = 'The Knowledge Base';
 			$PagePresets['Publisher/KBPost/SubHeading'] = 'Read through our first-class articles to learn about anything you\'ve ever wanted to know about internet marketing.';
 			
-			$PagePresets['Publisher/NewbiePackage/UniquePageName'] = 'pub_newbpack';
-			$PagePresets['Publisher/NewbiePackage/HeadingImage'] = 'pagedesc_bevoclass.png';
-			$PagePresets['Publisher/NewbiePackage/Heading'] = 'The Bevo Newbie Package';
-			$PagePresets['Publisher/NewbiePackage/SubHeading'] = 'Be sure to take advantage of all of our free affiliate marketing resources. We have complied a wealth of informational material and are consistently updating it to ensure Bevo publisher\'s are the best and brightest.';
+			$PagePresets['Publisher/OvernightAffiliate/UniquePageName'] = 'pub_overnaff';
+			$PagePresets['Publisher/OvernightAffiliate/HeadingImage'] = 'pagedesc_overaff.png';
+			$PagePresets['Publisher/OvernightAffiliate/Heading'] = 'Overnight Affiliate';
+			$PagePresets['Publisher/OvernightAffiliate/SubHeading'] = 'Overnight Affiliate is a step-by-step walkthrough of every aspect a beginner affiliate needs to get a profitable campaign. It\'s packed with videos, step-by-step instructions, example campaigns, and weekly webinars where verifed users can get personalized one-on-one help specifically for their own campaigns.';
 			
 			//Tutorials
 			$PagePresets['Publisher/PPCTutorials/Area'] = 'PPCTutorials';

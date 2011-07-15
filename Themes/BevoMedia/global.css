@@ -26,6 +26,8 @@ ul.soapnumlist { list-style:none; margin:0 0 15px; padding:0; }
 	ul.soapnumlist li { padding:5px 0 2px 25px; color:#333; background-repeat:no-repeat; background-position:0px 8px; }
 	
 	ul.soapchecklist li { background-image:url(img/icon_checksmall.png); }
+		ul.soapchecklist li.icon_star_red { background-image:url(img/icon_star_red.png); background-position:-2px 3px; }
+	
 		ul.soapchecklist li p { margin:0 0 5px; color:#0071BC; font-size:1em; }
 		ul.soapchecklist li span { display:block; color:#808080; font-size:.85em; line-height:1em; }
 
@@ -769,6 +771,7 @@ html>body #ieBar { display: none }
 	width: 131px; height:24px; background:url(img/btn_track_submit.png) no-repeat;
 	border: 0px; 
 }
+
 
 
 
