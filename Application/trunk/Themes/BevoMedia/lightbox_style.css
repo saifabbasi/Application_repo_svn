@@ -21,17 +21,18 @@ body { font-family:Helvetica, Arial, sans-serif; color:#333; font-size:75%; back
 	.lpop_verify { background:url(img_new/lpop_verify.jpg) no-repeat; position:relative; border:1px solid #ccc}
 	.lpop_verify.lpop_withvid { background:url(img_new/lpop_verify_withvid.jpg) no-repeat; }
 	
-	.lpop_verify .lpop_veriquired { width:390px; height:33px; position:absolute; top:73px; left:125px; overflow:hidden; }
-		.lpop_verify .lpop_veriquired p { text-align:center; color:#2E3192; font-weight:bold; font-size:.9em; line-height:1em; }	
+	.lpop_verify .lpop_veriquired { width:390px; height:33px; position:absolute; top:9px; left:360px; overflow:hidden; }
+		.lpop_verify .lpop_veriquired p { color:#fff; font-weight:bold; font-size:.9em; line-height:1em; }	
 	.lpop_verify ul.iconlist_qmark { width:265px; height:220px; position:absolute; top:255px; left:58px; overflow:hidden;  }
-	.lpop_verify a.btn_lpop_verify { position:absolute; top:275px; left:340px; }
+	.lpop_verify a.btn_lpop_verify { position:absolute; top:215px; left:340px; }
 	.lpop_verify a.btn_lpop_no_verify { position:absolute; top:420px; left:340px; text-align: center; }
 	
-	.lpop_verify .overaff { width:265px; position:absolute; top:335px; left:20px; }
-		.lpop_verify .overaff p { color:#2E3192; font-size:.8em; line-height:1em; }
-	.lpop_verify .butt { width:600px; padding:5px 0 0; position:absolute; top:425px; left:20px; border-top:1px solid #ccc; }
-		.lpop_verify .butt p { font-size:.8em; color:#808080; line-height:.8em; }
-		.lpop_verify .butt p.title { margin:0; font-size:.9em; color:#0071bc; }
+	.lpop_verify .overaff { width:265px; position:absolute; top:245px; left:20px; }
+		.lpop_verify .overaff p { color:#2E3192; font-size:.9em; line-height:1.2em; }
+
+	.lpop_verify .butt { width:600px; padding:10px 0 0; position:absolute; top:385px; left:20px; border-top:1px solid #ccc; }
+		.lpop_verify .butt p { font-size:.9em; color:#808080; line-height:1em; }
+		.lpop_verify .butt p.title { margin:0 0 5px; font-size:1em; color:#0071bc; }
 	
 		/*withvid*/
         	.lpop_verify.lpop_withvid .lpop_veriquired { top:73px; left:20px; }
@@ -88,6 +89,8 @@ body { font-family:Helvetica, Arial, sans-serif; color:#333; font-size:75%; back
 			.lpop_cart .lpop_cartbox.last { border:none; margin:0; padding:0; }			
 			.lpop_cart .lpop_cartbox.last p { float:left; }			
 			.lpop_cart .lpop_cartbox a.btn_lpop_paynow { float:right; }
+
+
 
 
 
