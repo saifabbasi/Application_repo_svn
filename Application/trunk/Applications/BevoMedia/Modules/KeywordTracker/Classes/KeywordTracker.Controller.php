@@ -1046,7 +1046,7 @@
 					click.subId, clickTime
 				
 		  		";
-		  echo '<pre>'.$Sql; die;
+		  //echo '<pre>'.$Sql; die;
 //		  echo $q; die;
 		  
 //		  $q = "
