@@ -34,7 +34,7 @@
 	<div style='margin-left: 5px;'>
 
 		<br/>
-		Your account was created successfully! You may now proceed to log in.
+		Your account was created successfully!
 		<br/>
 		<br/>
 	</div>
