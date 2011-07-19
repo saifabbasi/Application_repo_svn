@@ -12,7 +12,7 @@ while($row = mysql_fetch_assoc($query))
 	require_once(PATH . 'User.class.php');
 	$user = new User($row['user__id']);
 	
-	if ( ($user->vaultID==0) && (!$user->IsSubscribed(User::PRODUCT_INSTALL_NETWORKS)) && ($user->membershipType!='premium') )
+	if ( ($user->vaultID==0) && (!$user->IsSubscribed(User::PRODUCT_INSTALL_NETWORKS))  )
 	{
 		echo "Account not verified...";
 		continue;
