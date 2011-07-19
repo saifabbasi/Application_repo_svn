@@ -635,6 +635,9 @@ Class UserController extends ClassComponent
 			{
 				$Mentor->AddUserToMentor($id);;
 			}
+			
+			setcookie('user_id', $id, 0, "/");
+			$_SESSION['User']['ID'] = $id;
 
             header('Location: /BevoMedia/Index/RegisterSuccess.html');
             die;
