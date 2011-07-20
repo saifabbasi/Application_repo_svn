@@ -350,6 +350,7 @@ a.btn_appstore_launchapp { width:187px; height:41px; background:url(img_new/btn_
 a.btn_appstore_subscribe { width:187px; height:41px; background:url(img_new/btn_appstore_subscribe.png) no-repeat; }
 a.btn_appstore_unsubscribe { width:187px; height:41px; background:url(img_new/btn_appstore_unsubscribe.png) no-repeat; }
 a.btn_appstore_verify { width:187px; height:41px; background:url(img_new/btn_appstore_verify.png) no-repeat; }
+a.btn_appstore_getinfo { width:187px; height:41px; background:url(img_new/btn_appstore_getinfo.png) no-repeat; }
 	
 	/*offervault*/
 .btn.odial_go { width:32px; height:32px; background:url(img_new/btn_odial_go.png) no-repeat; }

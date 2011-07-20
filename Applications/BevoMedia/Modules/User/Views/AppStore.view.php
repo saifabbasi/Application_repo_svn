@@ -669,6 +669,10 @@
 					<p>Bevo Verified users have the ability to get personalized one-on-one help in the weekly Coaching webinars. Feel free to ask any questions you may have and have our trained professionals take you through your campaigns!</p>
 				</div>
 				
+				<div class="soapyell simple">
+					<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+				</div>
+				
 				<ul class="soapchecklist">
 					<li><p>Personalized Help</p>
 						<span>Have one of our experienced internet marketers peronally help you with your campaigns, and help turn them into profit.</span>
@@ -698,20 +702,8 @@
 							
 						<?php } else { //if user is verified
 						?>
-							<div class="icon icon_appstore_add2cart_check"></div>
-							
-							<?php 	/*
-									EDIT HERE
-									
-									$userHasNiche below just copied from above
-									the if() here should be whether the user has subscribed to the webinar email or not 
-								*/
-								if(!$userHasNiche):
-							?>
-								<a class="btn btn_appstore_subscribe" href="#">Subscribe</a>
-							<?php else:?>
-								<a class="btn btn_appstore_unsubscribe" href="#">Unsubscribe</a>
-							<?php endif;?>
+							<div class="icon icon_appstore_add2cart_check"></div>							
+								<a class="btn btn_appstore_getinfo" href="#">Get Webinar Info</a>
 							
 							<h3>FREE</h3>
 							<p>This app is free to use!</p>
