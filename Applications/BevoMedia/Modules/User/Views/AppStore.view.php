@@ -645,6 +645,86 @@
 		</div><!--close appboxinside-->
 	</div><!--close appbox-->
 	
+	<?php
+	/*
+	
+	
+	coaching webinars
+	
+	
+	*/	 
+	?>
+	<div class="item">
+		<div class="apptitle">
+			<div class="apptitleleft"></div>
+			<h3>Coaching Webinars</h3>
+			<div class="apptitleright"></div>
+			
+		</div>
+		
+		<div class="appboxinside">
+			<div class="img"><img src="<?php echo SCRIPT_ROOT; ?>img/pagedesc_coachingwebinars.png" alt="" /></div>
+			<div class="cont">			
+				<div class="desc">
+					<p>Bevo Verified users have the ability to get personalized one-on-one help in the weekly Coaching webinars. Feel free to ask any questions you may have and have our trained professionals take you through your campaigns!</p>
+				</div>
+				
+				<ul class="soapchecklist">
+					<li><p>Personalized Help</p>
+						<span>Have one of our experienced internet marketers peronally help you with your campaigns, and help turn them into profit.</span>
+					</li>
+					<li><p>Campaigns Broken Down To Baby Steps</p>
+						<span>See step by step, every thing that must be done to your campaign to be turned successful.</span>
+					</li>
+					<li><p>Ask anything!</p>
+						<span>Ask your coach anything at all. No question too small! The Coaches will break down the most basic concepts so anyone can understand them.</span>
+					</li>
+				</ul>
+				
+				<div class="add2cart">
+					<div class="cartdesc">
+						<h3>Coaching Webinars</h3>
+						<p>The Coaching Webinars are regularly held premium webinar sessions that are free to join in to for verified BevoMedia users!</p>
+					</div>
+					
+					<div class="cartaction">
+					
+						<?php if($this->User->vaultID == 0) { //if user is not verified
+						?>
+							<div class="icon icon_appstore_add2cart_buy"></div>
+							<a class="btn btn_appstore_verify" href="/BevoMedia/User/AddCreditCard.html?notifyNotPaying=2">Verify</a>
+							
+							<p>This app is FREE to use for verified Bevo users.</p>
+							
+						<?php } else { //if user is verified
+						?>
+							<div class="icon icon_appstore_add2cart_check"></div>
+							
+							<?php 	/*
+									EDIT HERE
+									
+									$userHasNiche below just copied from above
+									the if() here should be whether the user has subscribed to the webinar email or not 
+								*/
+								if(!$userHasNiche):
+							?>
+								<a class="btn btn_appstore_subscribe" href="#">Subscribe</a>
+							<?php else:?>
+								<a class="btn btn_appstore_unsubscribe" href="#">Unsubscribe</a>
+							<?php endif;?>
+							
+							<h3>FREE</h3>
+							<p>This app is free to use!</p>
+							
+						<?php }
+						?>
+					</div><!--close cartaction-->
+				</div><!--close add2cart-->
+			</div><!--close cont-->
+			<div class="clear"></div>
+		</div><!--close appboxinside-->
+	</div><!--close appbox-->
+	
 </div><!--close pagecontent-->
 
 <script type="text/javascript">
