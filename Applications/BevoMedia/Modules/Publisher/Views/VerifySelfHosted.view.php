@@ -107,27 +107,40 @@ li, div { font-family: Arial; font-size: 13px; }
 	<div class="lpop_veriquired">
 		<p>This feature requires your Bevo Media account<br />
 		to be verified.</p>
-	</div>                                                                                          
+	</div>     
+	
+	<div class="top">
+		<p class="title">What is account verification?</p>
+		<p>Right now, you're a free Bevo user with access to basic features. But Bevo is more than that: as soon as you verify your account, you'll be able to use all of the following features that are reserved for verified users:</p>
+	</div>
 	
 	<?php if($lpopVid)
 		echo ShowMovie($lpopVid, 300, 220); 
 		else { ?>
-			
-		<div class="overaff">
-			<p>Overnight Affiliate is a step-by-step walkthrough of every aspect a beginner affiliate needs to get a profitable campaign. It's packed with videos, step-by-step instructions, example campaigns, and weekly webinars where verifed users can get personalized one-on-one help specifically for their own campaigns.</p>
+		
+		<div class="box">
+			<ul class="soapchecklist">
+				<li>Auto-sync your stats from affiliate networks</li>
+				<li>Retrieve your affiliate links right from the interface</li>
+				<li>Geotargeting and Day Targeting</li>
+				<li>Geoparting and Day Parting</li>
+				<li>Manage your PPC accounts</li>
+			</ul>
+			<ul class="soapchecklist nomargin">
+				<li>Access to Premium Research Tools</li>
+				<li>Access to list building technology</li>
+				<li>Overnight Affiliate Course</li>
+				<li>FREE COACHING</li>
+				<li>...and much, much more! </li>
+			</ul>
+			<div class="clear"></div>
 		</div>
 			
 	<?php } ?>	
 	
 	<a class="btn btn_lpop_verify" id="VerifyLink" href="#">Verify Now!</a>
-
-	<div class="clear"></div>
+	<a class="nolink" href="#" onclick="parent.Shadowbox.close();">No thanks, I'll continue with the limited, free version.</a>	
 	
-	<div class="butt">
-		<p class="title">What is account verification?</p>
-		<p>As soon as you become a verified user, you can start tracking keyword and campaign performance with exact revenue and expense data, use the Geo- and Day-Targeting features, access the Premium Research Tools, instantly retrieve offer tracking links from your affiliate networks, and sync all stats automatically.<br />
-		<small><a href="#" onclick="parent.Shadowbox.close();">No thanks, I'll continue with the limited, free version of Bevo Media.</a></small></p>
-	</div>
 
 </div><!--close lpop_verify-->
 
