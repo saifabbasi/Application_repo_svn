@@ -610,7 +610,7 @@
 					</li>
 					<li><p>Weekly Personalized Webinars</p>
 						<span>Weekly webinars to have successful internet marketers peronally help you with your campaigns. Get step by step directions on how to turn your campaigns profitable!</span>
-					</li>s
+					</li>
 				</ul>
 				
 				<div class="add2cart">
