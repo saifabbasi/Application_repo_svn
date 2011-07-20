@@ -669,10 +669,6 @@
 					<p>Bevo Verified users have the ability to get personalized one-on-one help in the weekly Coaching webinars. Feel free to ask any questions you may have and have our trained professionals take you through your campaigns!</p>
 				</div>
 				
-				<div class="soapyell simple">
-					<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-				</div>
-				
 				<ul class="soapchecklist">
 					<li><p>Personalized Help</p>
 						<span>Have one of our experienced internet marketers peronally help you with your campaigns, and help turn them into profit.</span>
