@@ -113,7 +113,7 @@ li, div { font-family: Arial; font-size: 13px; }
 	
 	<div class="top">
 		<p class="title">What is account verification?</p>
-		<p>Right now, you're a free Bevo user with access to basic features. But Bevo is more than that: as soon as you verify your account, you'll be able to use all of the following features that are reserved for verified users:</p>
+		<p>Right now, you're a free Bevo user with access to basic features. But Bevo is more than that! As soon as you verify your account, you'll be able to use all of the following features that are reserved for verified users:</p>
 	</div>
 	
 	<?php if($lpopVid)
