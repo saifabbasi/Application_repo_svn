@@ -639,7 +639,8 @@ Class UserController extends ClassComponent
 			setcookie('user_id', $id, 0, "/");
 			$_SESSION['User']['ID'] = $id;
 
-            header('Location: /BevoMedia/Index/RegisterSuccess.html');
+			
+            header('Location: /BevoMedia/User/Index.html?TUTORIAL=START');
             die;
 			
 		}
