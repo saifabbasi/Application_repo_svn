@@ -586,7 +586,6 @@
 	
 	*/	 
 	?>
-	<?php /* HIDDEN UNTIL LAUNCH
 	<div class="item">
 		<div class="apptitle">
 			<div class="apptitleleft"></div>
@@ -611,13 +610,13 @@
 					</li>
 					<li><p>Weekly Personalized Webinars</p>
 						<span>Weekly webinars to have successful internet marketers peronally help you with your campaigns. Get step by step directions on how to turn your campaigns profitable!</span>
-					</li>
+					</li>s
 				</ul>
 				
 				<div class="add2cart">
 					<div class="cartdesc">
 						<h3>Overnight Affiliate</h3>
-						<p>The Geotargeting App is a premium app that is free to use for verified BevoMedia users!</p>
+						<p>The Overnight Affiliate is an premium package that is free to use for verified BevoMedia users!</p>
 					</div>
 					
 					<div class="cartaction">
@@ -645,7 +644,6 @@
 			<div class="clear"></div>
 		</div><!--close appboxinside-->
 	</div><!--close appbox-->
-	*/ ?>
 	
 </div><!--close pagecontent-->
 

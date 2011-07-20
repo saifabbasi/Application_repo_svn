@@ -96,6 +96,10 @@ function ListPosts() {
 
 <?php /* ##################################################### OUTPUT ############### */ ?>
 	<div id="pagemenu">
+		<ul>
+			<li><a class="active" href="/BevoMedia/Publisher/Classroom.html">Classroom<span></span></a></li>
+			<li><a href="/BevoMedia/Publisher/OvernightAffiliate.html">Overnight Affiliate<span></span></a></li>
+		</ul>
 		<ul class="floatright">
 			<li class="liform"><form action="KB.html" method="GET">
 				<label>Search the Bevo Knowledge Base:</label>
