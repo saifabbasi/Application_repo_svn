@@ -1300,7 +1300,7 @@ table.btable#ootm { border:8px solid #FCEE21; border-left:none; border-right:non
 
 /*newbie package*/
         /*pagination*/
-.pub_newbpack .pagination { width:450px; padding:8px; margin:10px auto; background:url(img_new/body.png) repeat-x; font-size:.9em; overflow:hidden; 
+.pub_newbpack .pagination { width:350px; padding:8px; margin:10px auto; background:url(img_new/body.png) repeat-x; font-size:.9em; overflow:hidden; 
 		-moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px; }
         .pub_newbpack .pagination span, 
         .pub_newbpack .pagination a { padding:2px 6px; display:block; float:left; font-size:1em; color:#fff; border:none !important; text-decoration:none;

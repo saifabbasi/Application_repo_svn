@@ -20,13 +20,13 @@ if(!isset($_GET['chapter']) || !is_numeric($_GET['chapter']) || $_GET['chapter']
 $pagination = '<div class="pagination aligncenter">
 		<span>Chapter:</span>';
 		
-for($i=1; $i<=16; $i++) {
+for($i=1; $i<=14; $i++) {
 	if($chapter == $i)
 		$pagination .= '<span class="active">'.$i.'</span>';	
 	else	$pagination .= '<a class="page" href="?chapter='.$i.'">'.$i.'</a>';
 }
 
-if($chapter < 16) {
+if($chapter < 14) {
 	$nextpage = $chapter+1;
 	$nextpage = '<a class="tbtn big aligncenter" href="?chapter='.$nextpage.'">Next Chapter &raquo;</a>';
 }
@@ -37,25 +37,23 @@ $content = array();
 
 //videos for each chapter: youtube IDs
 $vid = array(
-	1 => '',
+	1 => 'HnDb3OjjeDA',
 	2 => 'NPYyx41i_60',
 	3 => 'NDoQjDLcd5o',
-	4 => 'omMJ5BlmxBo',
-	5 => '',
-	6 => '',
-	7 => 'X27-TES7y7k',
-	8 => 'jt2srH_2SEg',
-	9 => 'XZVvcLxrz8w',
-	10 => '',
+	4 => '',
+	5 => 'X27-TES7y7k',
+	6 => 'jt2srH_2SEg',
+	7 => 'XZVvcLxrz8w',
+	8 => 'XZVvcLxrz8w',
 	
-	11 => '0X-6GxOV5Ws',
-	12 => 'DQ1Lx61JLc8',
-	13 => 'CU8PBW8H_rg',
-	14 => 'wyrXl86jkuI',
-	15 => '',
-	16 => '',
-	17 => 'BSIIQnj1e_Y',
-	18 => 'BSIIQnj1e_Y'
+	9 => '0X-6GxOV5Ws',
+	10 => 'DQ1Lx61JLc8',
+	11 => 'CU8PBW8H_rg',
+	12 => 'wyrXl86jkuI',
+	13 => 'tWF8364Gh54',
+	14 => '',
+	15 => 'BSIIQnj1e_Y',
+	16 => 'BSIIQnj1e_Y'
 ); //$vid
 
 
@@ -198,49 +196,13 @@ ob_start();
 			</td>
 		</tr>
 	</table>
-	
-	
-	
+		
 	
 <?php
 $content[3] = ob_get_contents();
 ob_end_clean();
 
 ################# chapter 4
-ob_start();
-?>
-	<h3>Finding an offer</h3>	
-	<center><?php echo ShowMovie($vid[$chapter], 480, 360); ?></center><br />
-	
-	<table border="1" width="100%">
-		<tr>
-			<td>
-				<p>
-					Once you find niche:<br />
-					*Decide what kind offer you want to run based on niche. Browse offers in the `bevo offer hub`
-					Subscribe to ryanbuke.com for `Top Offers` reports throughout the industry
-				</p>
-				
-				<p>
-					Supporting Links:<br />
-					-Find from competitors
-				</p>
-				
-				<p>
-					Topical Offers<br />
-					**topical offers based on season, holiday etc. (eg fathers day offers <a target="_blank" href="http://affbuzz.com/x/af2526f3">http://affbuzz.com/x/af2526f3</a>)
-				</p>
-			</td>
-		</tr>
-	</table>
-	
-	
-	
-<?php
-$content[4] = ob_get_contents();
-ob_end_clean();
-
-################# chapter 5
 ob_start();
 ?>
 	<h3>What to look for in an offer</h3>	
@@ -279,76 +241,13 @@ ob_start();
 			</td>
 		</tr>
 	</table>
-	
 
-	
-
-	
 	
 <?php
-$content[5] = ob_get_contents();
+$content[4] = ob_get_contents();
 ob_end_clean();
 
-################# chapter 6
-ob_start();
-?>
-	<h3>Who to model after</h3>	
-	<center><?php echo ShowMovie($vid[$chapter], 480, 360); ?></center><br />
-	
-	<table border="1" width="100%">
-		<tr>
-			<td>
-				You can find competitors information by using the following research tools.			
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<ul>
-					<li>-Find a competitor aka, a spark.</li>
-					<li>-Alexa</li>
-					<li>-Quantcast</li>
-					<li>-Compete</li>
-					<li>-3rd party tools.</li>
-				</ul>
-				
-				<br />
-				
-				<a target="_blank" href="http://www.searchenginejournal.com/how-to-find-seo-competitor-keywords-social-media-backlinks/7827/">How to find competitors in SEO</a>
-				<br />
-				
-				<a target="_blank" href="http://www.ppchero.com/find-competitors-top-performing-keywords-and-use-them-to-your-advantage/">Find competitors keywords in PPC</a>
-				<br />
-				
-				<a target="_blank" href="http://technascent.com/reasons-why-alexa-rank-is-important/">Alexa Rank is importance</a>
-				<br />
-				
-				<a target="_blank" href="http://www.youtube.com/watch?v=o6QFGkEaqcE">Alexa Rank Toolbar</a>
-				<br />
-				
-				<a target="_blank" href="http://smartmoneymarketing.com/2007/11/29/keyword-research-how-to-find-related-terms-easily/">Research</a>
-				<br />
-				
-				<br />
-				
-				<p>
-					<b>
-						Research tools:<br /> 
-						
-						Bevo Media PPV Spy-only research tool for PPV<br />
-						Bevo Media FREE Keyword List Builder
-					</b>
-				</p>
-			</td>
-		</tr>
-	</table>
-	
-	
-	
-<?php
-$content[6] = ob_get_contents();
-ob_end_clean();
-
-################# chapter 7
+################# chapter 5
 ob_start();
 ?>
 	<h3>Choosing your Keywords - Generating KW List</h3>	
@@ -383,10 +282,10 @@ ob_start();
 	
 	
 <?php
-$content[7] = ob_get_contents();
+$content[5] = ob_get_contents();
 ob_end_clean();
 
-################# chapter 8
+################# chapter 6
 ob_start();
 ?>
 	<h3>Organizing KWs</h3>	
@@ -410,10 +309,10 @@ ob_start();
 	
 	
 <?php
-$content[8] = ob_get_contents();
+$content[6] = ob_get_contents();
 ob_end_clean();
 
-################# chapter 9
+################# chapter 7
 ob_start();
 ?>
 	<h3>Keyword Match types (some traffic sources only)</h3>	
@@ -443,10 +342,10 @@ ob_start();
 	
 	
 <?php
-$content[9] = ob_get_contents();
+$content[7] = ob_get_contents();
 ob_end_clean();
 
-################# chapter 10
+################# chapter 8
 ob_start();
 ?>
 	<h3>Keyword Match types (some traffic sources only)</h3>	
@@ -478,10 +377,10 @@ ob_start();
 	
 		
 <?php
-$content[10] = ob_get_contents();
+$content[8] = ob_get_contents();
 ob_end_clean();
 
-################# chapter 11
+################# chapter 9
 ob_start();
 ?>
 	<h3>Quality Score Explanation (some traffic sources only)</h3>	
@@ -523,10 +422,10 @@ ob_start();
 	
 	
 <?php
-$content[11] = ob_get_contents();
+$content[9] = ob_get_contents();
 ob_end_clean();
 
-################# chapter 12
+################# chapter 10
 ob_start();
 ?>
 	<h3>Facebook</h3>	
@@ -563,10 +462,10 @@ ob_start();
 	
 	
 <?php
-$content[12] = ob_get_contents();
+$content[10] = ob_get_contents();
 ob_end_clean();
 
-################# chapter 13
+################# chapter 11
 ob_start();
 ?>
 	<h3>Page Design</h3>	
@@ -607,10 +506,10 @@ ob_start();
 	
 	
 <?php
-$content[13] = ob_get_contents();
+$content[11] = ob_get_contents();
 ob_end_clean();
 
-################# chapter 14
+################# chapter 12
 ob_start();
 ?>
 	<h3>14. Ad variations</h3>	
@@ -623,10 +522,10 @@ ob_start();
 	</table>
 		
 <?php
-$content[14] = ob_get_contents();
+$content[12] = ob_get_contents();
 ob_end_clean();
 
-################# chapter 15
+################# chapter 13
 ob_start();
 ?>
 	<h3>Managing/Scaling</h3>	
@@ -657,10 +556,10 @@ ob_start();
 	
 	
 <?php
-$content[15] = ob_get_contents();
+$content[13] = ob_get_contents();
 ob_end_clean();
 
-################# chapter 16
+################# chapter 14
 ob_start();
 ?>
 	<h3>Your First hit</h3>	
@@ -698,7 +597,7 @@ ob_start();
 	
 	
 <?php
-$content[16] = ob_get_contents();
+$content[14] = ob_get_contents();
 ob_end_clean();
 
 ################# chapter 17
