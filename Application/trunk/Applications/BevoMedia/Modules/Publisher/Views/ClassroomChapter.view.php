@@ -33,6 +33,7 @@ function LoadChapter() {
 	<div id="pagemenu">
 		<ul>
 			<li><a href="/BevoMedia/Publisher/Classroom.html">&laquo; Back to the Classroom<span></span></a></li>
+			<li><a href="/BevoMedia/Publisher/OvernightAffiliate.html">Overnight Affiliate<span></span></a></li>
 		</ul>
 		<ul class="floatright">
 			<li class="liform"><form action="KB.html" method="GET">
