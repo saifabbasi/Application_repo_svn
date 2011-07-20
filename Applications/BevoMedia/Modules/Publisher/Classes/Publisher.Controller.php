@@ -54,6 +54,15 @@
 			$this->db = Zend_Registry::get('Instance/DatabaseObj');
 			
 			Zend_Registry::set('Instance/LayoutType', 'logged-in-layout');
+			
+			if (Zend_Registry::get('Instance/Function')=='OvernightAffiliate') 
+			{
+				if ( ($user->vaultID==0) )
+				{
+					header('Location: /BevoMedia/User/AddCreditCard.html');
+					die;
+				}
+			}
 		}
 		
 		Public Function CreatePPCSubmit()
