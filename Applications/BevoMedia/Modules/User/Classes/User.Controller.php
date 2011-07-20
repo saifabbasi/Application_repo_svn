@@ -639,6 +639,8 @@ Class UserController extends ClassComponent
 			setcookie('user_id', $id, 0, "/");
 			$_SESSION['User']['ID'] = $id;
 
+			$Sql = "UPDATE bevomedia_user SET lastLogin = NOW() WHERE id = ".$id;
+			$this->db->exec($Sql);
 			
             header('Location: /BevoMedia/User/Index.html?TUTORIAL=START');
             die;

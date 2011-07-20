@@ -40,7 +40,7 @@ $vid = array(
 	1 => 'HnDb3OjjeDA',
 	2 => 'NPYyx41i_60',
 	3 => 'NDoQjDLcd5o',
-	4 => '',
+	4 => 'omMJ5BlmxBo',
 	5 => 'X27-TES7y7k',
 	6 => 'jt2srH_2SEg',
 	7 => 'XZVvcLxrz8w',
@@ -212,6 +212,22 @@ ob_start();
 		<tr>
 			<td>
 				<ul>
+					<p>
+						Once you find niche:<br />
+						*Decide what kind offer you want to run based on niche. Browse offers in the `bevo offer hub`
+						Subscribe to ryanbuke.com for `Top Offers` reports throughout the industry
+					</p>
+					
+					<p>
+						Supporting Links:<br />
+						-Find from competitors
+					</p>
+					
+					<p>
+						Topical Offers<br />
+						**topical offers based on season, holiday etc. (eg fathers day offers <a target="_blank" href="http://affbuzz.com/x/af2526f3">http://affbuzz.com/x/af2526f3</a>)
+					</p>
+					
 					<li>-Payout</li>
 					<li>-Conversion %</li>
 					<li>-EPC</li>
