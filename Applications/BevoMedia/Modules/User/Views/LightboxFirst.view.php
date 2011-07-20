@@ -7,5 +7,5 @@
 	</map>
 
 	<br/>
-	<a href='/BevoMedia/User/Index.html'>Cancel Tutorial</a>
+	<a href='/BevoMedia/User/Index.html?VerifyBox'>Cancel Tutorial</a>
 </div>

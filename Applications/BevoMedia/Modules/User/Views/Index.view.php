@@ -1307,7 +1307,7 @@ function nwOtherClicked(chk)
 </script>
 
 <?php 
-	if (($this->VerifiedBoxFirstLogin) && !isset($_GET['TUTORIAL']) && !isset($_GET['STEP'])) {
+	if ( (($this->VerifiedBoxFirstLogin) && !isset($_GET['TUTORIAL']) && !isset($_GET['STEP'])) || (isset($_GET['VerifyBox'])) ) {
 ?>
 <script type="text/javascript">
 	$(document).ready(function() {

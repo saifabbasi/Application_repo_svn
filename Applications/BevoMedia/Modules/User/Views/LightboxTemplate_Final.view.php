@@ -15,7 +15,7 @@
 
 		<a <?php echo(isset($this->Presets[$this->PresetItem]['DONE']))?'onClick="Close();"':''?> href='<?php print $this->Presets[$this->PresetItem]['LINK']; ?>' style="width: 185px; height: 80px; margin-left: 390px; margin-top:5px; display: block;"></a>
 	</div>
-	<a href='#' onClick='javascript:firstlogin.close();'>Cancel Tutorial</a>
+	<a href='/BevoMedia/User/Index.html?VerifyBox'>Cancel Tutorial</a>
 </div>
 
 <script type="text/javascript">
