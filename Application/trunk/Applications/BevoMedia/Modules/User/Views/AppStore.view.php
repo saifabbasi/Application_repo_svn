@@ -688,7 +688,7 @@
 				<div class="add2cart">
 					<div class="cartdesc">
 						<h3>Coaching Webinars</h3>
-						<p>The Coaching Webinars are regularly held premium webinar sessions that are free to join in to for verified BevoMedia users!</p>
+						<p>The Coaching Webinars are regularly held personalized webinar sessions that are free to join in to for verified BevoMedia users!</p>
 					</div>
 					
 					<div class="cartaction">
