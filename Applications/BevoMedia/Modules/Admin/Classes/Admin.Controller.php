@@ -2966,6 +2966,32 @@ END;
 			}
 		}
 		
+		Public Function Webinars()
+		{			
+			if (isset($_POST['insert']))
+			{
+				$Array = array('Title' => $_POST['title'], 'Date' => date('Y-m-d G:i:s', strtotime($_POST['date'].' '.trim($_POST['time']).':00')), 'Password' => $_POST['password']);
+				$this->db->insert('bevomedia_webinars', $Array);
+				
+				header('Location: /BevoMedia/Admin/Webinars.html');
+				die;
+			}
+			
+			if (isset($_GET['DeleteID']))
+			{
+				$this->db->delete('bevomedia_webinars', ' ID = '.intval($_GET['DeleteID']));
+			}
+			
+			$Sql = "SELECT
+						*
+					FROM
+						bevomedia_webinars
+					ORDER BY
+						bevomedia_webinars.Date		
+					";
+			$this->webinarsData = $this->db->fetchAll($Sql);
+		}
+		
 	}
 
 ?>

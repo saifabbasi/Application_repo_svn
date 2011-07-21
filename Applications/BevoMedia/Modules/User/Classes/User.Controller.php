@@ -1293,6 +1293,120 @@ Class UserController extends ClassComponent
 		}
 	}
 	
+	Public Function PayAdWatcherYearly()
+	{
+		$Product = $this->User->GetProduct(User::PRODUCT_ADWATCHER_YEARLY);
+		$Price = $Product->Price;
+		
+		$Vault = new nmiCustomerVault();
+		$Vault->setCustomerVaultId($this->User->vaultID);
+		$Vault->charge($Price);
+		$Result = $Vault->execute();
+		
+		
+		
+		switch($Result['response'])
+		{
+			case 1: //Success
+				$TransactionID = $Result['transactionid'];
+				
+				$Array = array (
+								'UserID'		=> $this->User->id,
+								'ProductID'		=> $Product->ID,
+								'Price'			=> $Price,
+								'Date'			=> date('Y-m-d H:i:s'),
+								'Paid' 			=> 1,
+								'PaidDate'		=> date('Y-m-d H:i:s'),
+								'TransactionID' => $TransactionID,
+								
+								);
+				
+				$this->db->insert('bevomedia_user_payments', $Array);
+				
+				$Array = array (
+								'UserID'		=> $this->User->id,
+								'Registered'	=> 0,
+								);
+				$this->db->insert('bevomedia_product_adwatcher', $Array);
+
+				header('Location: /BevoMedia/User/VerifyAdWatcherFinish.html?ajax=true');
+				die;
+				break;
+			default:
+				
+				$Body = "Research payment for user \"{$UserID}\" has failed.<br /><br />
+		    			 Error: {$Result['responsetext']}<br /><br />
+		    			 Amount:  \${$Product->Price}		    	
+	    				";
+				 
+				$Headers  = 'MIME-Version: 1.0' . "\r\n";
+				$Headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+				 
+	//			mail('ryan@bevomedia.com', 'Recurring User Payment Failed', $Body, $Headers);
+	
+				header('Location: /BevoMedia/Publisher/VerifyAdWatcherConfirm.html?ajax=true&Error='.$Result['responsetext']);
+				die;
+				
+				break;
+		}
+	}
+	
+	Public Function PayAdWatcherMonthly()
+	{
+		$Product = $this->User->GetProduct(User::PRODUCT_ADWATCHER_MONTHLY);
+		
+		$Vault = new nmiCustomerVault();
+		$Vault->setCustomerVaultId($this->User->vaultID);
+		$Vault->charge($Product->Price);
+		$Result = $Vault->execute();
+		
+		
+		switch($Result['response'])
+		{
+			case 1: //Success
+				$TransactionID = $Result['transactionid'];
+				
+				$Array = array (
+								'UserID'		=> $this->User->id,
+								'ProductID'		=> $Product->ID,
+								'Price'			=> $Product->Price,
+								'Date'			=> date('Y-m-d H:i:s'),
+								'Paid' 			=> 1,
+								'PaidDate'		=> date('Y-m-d H:i:s'),
+								'TransactionID' => $TransactionID,
+								
+								);
+				
+				$this->db->insert('bevomedia_user_payments', $Array);
+
+				$Array = array (
+								'UserID'		=> $this->User->id,
+								'Registered'	=> 0,
+								);
+				$this->db->insert('bevomedia_product_adwatcher', $Array);
+				
+				header('Location: /BevoMedia/User/VerifyAdWatcherFinish.html?ajax=true&monthly=1');
+				die;
+				break;
+			default:
+				
+				$Body = "Research payment for user \"{$UserID}\" has failed.<br /><br />
+		    			 Error: {$Result['responsetext']}<br /><br />
+		    			 Amount:  \${$Product->Price}		    	
+	    				";
+				 
+				$Headers  = 'MIME-Version: 1.0' . "\r\n";
+				$Headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+				 
+	//			mail('ryan@bevomedia.com', 'Recurring User Payment Failed', $Body, $Headers);
+	
+				header('Location: /BevoMedia/Publisher/VerifyAdWatcherConfirm.html?ajax=true&Error='.$Result['responsetext']);
+				die;
+				
+				break;
+		}
+	}
+	
 	Public Function PaySelfHostedYearly()
 	{
 		$Product = $this->User->GetProduct(User::PRODUCT_SELF_HOSTED_YEARLY_CHARGE);
@@ -1532,6 +1646,55 @@ Public Function MyProducts()
 					(bevomedia_user_payments.Deleted = 0)
 				";
 		$this->Products = $this->db->fetchAll($Sql, $this->User->id);
+	}
+	
+	public function Webinar()
+	{
+		Zend_Registry::set('Instance/LayoutType', 'shadowbox-layout');
+		
+		$Sql = "SELECT
+					*
+				FROM	
+					bevomedia_webinars
+				WHERE
+					(bevomedia_webinars.Date >= NOW())
+				LIMIT 1
+				";
+		$this->WebinarInfo = $this->db->fetchRow($Sql);
+	}
+	
+	Public Function OpenAdWatcher()
+	{
+		$Sql = "SELECT
+					*
+				FROM
+					bevomedia_product_adwatcher
+				WHERE
+					(bevomedia_product_adwatcher.UserID = ?)		
+				";
+		$Row = $this->db->fetchRow($Sql, array($this->User->id));
+		if (!isset($Row->ID)) {
+			header('Location: /');
+			die;
+		}
+		
+		if ($Row->Registered==0) 
+		{
+			$Array = array('Registered' => 1);
+			$this->db->update('bevomedia_product_adwatcher', $Array, 'ID = '.$Row->ID);
+			
+			header('Location: http://www.example.com/register?email='.$Row->email);
+			die;
+		} else
+		{
+			$password = strrev($Row->email);
+			$hash = md5($password);
+
+			header('Location: http://www.example.com/login?u='.$Row->email.'&p='.$password);
+			die;
+		}
+		
+		die;
 	}
 	
 	

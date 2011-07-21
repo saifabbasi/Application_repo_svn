@@ -188,6 +188,9 @@ Class User {
 	const PRODUCT_PPVSPY_MONTHLY = 'PPVSpy Monthly';
 	const PRODUCT_PPVSPY_YEARLY = 'PPVSpy';
 	
+	const PRODUCT_ADWATCHER_MONTHLY = 'AdWatcher Monthly';
+	const PRODUCT_ADWATCHER_YEARLY = 'AdWatcher';
+	
 	const PRODUCT_DUMMY_PRODUCT = 'Dummy Product';
 	
 	const PRODUCT_FREE_SELF_HOSTED = 'Free Self-Hosted';

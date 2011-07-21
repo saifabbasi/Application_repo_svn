@@ -699,7 +699,7 @@
 						<?php } else { //if user is verified
 						?>
 							<div class="icon icon_appstore_add2cart_check"></div>							
-								<a class="btn btn_appstore_getinfo" href="#">Get Webinar Info</a>
+								<a class="btn btn_appstore_getinfo" rel="shadowbox;width=400;height=400;" href="/BevoMedia/User/Webinar.html">Get Webinar Info</a>
 							
 							<h3>FREE</h3>
 							<p>This app is free to use!</p>
@@ -712,6 +712,93 @@
 			<div class="clear"></div>
 		</div><!--close appboxinside-->
 	</div><!--close appbox-->
+	
+	
+	
+	<?php
+	/*
+	
+	
+	appbox adwatcher
+	
+	
+	?>
+	<div class="item">
+		<div class="apptitle">
+			<div class="apptitleleft"></div>
+			<h3>AdWatcher</h3>
+			<div class="apptitleright"></div>
+		</div>
+		
+		<div class="appboxinside">		
+			<div class="img"><img src="<?php echo SCRIPT_ROOT; ?>img/pagedesc_ppccampeditor.png" alt="" /></div>
+			<div class="cont">			
+				<div class="desc">
+					<p>
+						Some info about AdWatcher....
+					</p>
+				</div>
+				
+				<ul class="soapchecklist">
+					<li><p>Create Campaigns Faster than Ever</p>
+						<span>The Bevo Campaign Editor allows users to upload multiple campaigns, adgroups, keywords and ad variations all at once, requiring the least amout of time possible!</span>
+					</li>
+					<li><p>Edit Campaigns on the Fly</p>
+						<span>Edit your campaigns while browsing through your campaign performance, all on the Bevo interface.</span>
+					</li>
+					<li><p>Cross-post to Multiple PPC Accounts</p>
+						<span>Create a campaigns once and post to multiple Google, Yahoo and Bing accounts in the click of a button. Clone campaigns instantly!</span>
+					</li>
+				</ul>
+				
+				<div class="add2cart">
+					<div class="cartdesc">
+						<h3>AdWatcher</h3>
+						<p>
+							Full access to the Bevo AdWatcher App for only $200 /month or a $699 one-time payment.
+						</p>
+					</div>
+					
+					<div class="cartaction">
+						<?php if($this->User->vaultID == 0) { //if user is unverified
+						?>
+							<div class="icon icon_appstore_add2cart_buy"></div>
+							<a class="btn btn_appstore_verify" href="/BevoMedia/User/AddCreditCard.html?notifyNotPaying=1">Verify</a>
+							
+							<p>This App requires a verified Bevo account.</p>
+						
+						<?php } else { //if user is verified
+							
+							if($this->User->IsSubscribed(User::PRODUCT_ADWATCHER_MONTHLY) || $this->User->IsSubscribed(User::PRODUCT_ADWATCHER_YEARLY)) { //if user is subscribed to app
+							?>
+						
+								<div class="icon icon_appstore_add2cart_check"></div>
+								<a class="btn btn_appstore_launchapp" href="/BevoMedia/User/OpenAdWatcher.html">Launch App</a>
+								
+								<p>You have a valid license to use this app!</p>							
+							<?php } else { //if user is not subscribed to this app
+							?>
+								<div class="icon icon_appstore_add2cart_buy"></div>
+								<a class="btn j_add2cart btn_appstore_add2cart" href="#" rel="/BevoMedia/Publisher/VerifyAdWatcher.html">Add to Cart</a>
+								
+								<h3>$699</h3>
+								<p>One-time license fee</p>				
+							
+							<?php	} //endif user may use app 
+						} //endif user is verified
+						?>
+					</div><!--close cartaction-->
+				</div><!--close add2cart-->
+			</div><!--close cont-->
+			<div class="clear"></div>
+		</div><!--close appboxinside-->
+	</div><!--close appbox-->
+	
+	<?php 
+	*/
+	?>
+	
+	
 	
 </div><!--close pagecontent-->
 
