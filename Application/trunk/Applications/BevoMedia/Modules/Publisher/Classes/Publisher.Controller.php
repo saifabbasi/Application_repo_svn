@@ -287,7 +287,7 @@
 					$this->EpicDirect = $this->CpaNetworks[$Key];  
 				}
 				
-				if ($this->CpaNetworks[$Key]->title=='EWA')
+				if ($this->CpaNetworks[$Key]->title=='Blue Global Media')
 				{
 					$this->Network1 = $this->CpaNetworks[$Key];  
 				}
