@@ -10,7 +10,7 @@
 		if (strstr($date, '00:00:00')) {
 			
 		} else {
-			$time = date('g:i a', strtotime($date));
+			$time = date('g:i a', strtotime($date)).' Pacific Standard Time';
 		}
 		$date = date('m/d/Y', strtotime($date));
 ?>
