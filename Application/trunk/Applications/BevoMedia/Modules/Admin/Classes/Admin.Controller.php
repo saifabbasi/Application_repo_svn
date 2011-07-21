@@ -2970,7 +2970,13 @@ END;
 		{			
 			if (isset($_POST['insert']))
 			{
-				$Array = array('Title' => $_POST['title'], 'Date' => date('Y-m-d G:i:s', strtotime($_POST['date'].' '.trim($_POST['time']).':00')), 'Password' => $_POST['password']);
+				if (trim($_POST['time'])=="") {
+					$_POST['time'] = "00:00:00";
+				} else {
+					$_POST['time'] .= ":00";
+				}
+				
+				$Array = array('Title' => $_POST['title'], 'Date' => date('Y-m-d G:i:s', strtotime($_POST['date'].' '.$_POST['time'])), 'Password' => $_POST['password']);
 				$this->db->insert('bevomedia_webinars', $Array);
 				
 				header('Location: /BevoMedia/Admin/Webinars.html');
