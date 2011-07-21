@@ -287,12 +287,12 @@
 					$this->EpicDirect = $this->CpaNetworks[$Key];  
 				}
 				
-				if ($this->CpaNetworks[$Key]->title=='Blue Global Media')
+				if ($this->CpaNetworks[$Key]->title=='EWA')
 				{
 					$this->Network1 = $this->CpaNetworks[$Key];  
 				}
 				
-				if ($this->CpaNetworks[$Key]->title=='CPAProsperity')
+				if ($this->CpaNetworks[$Key]->title=='Blue Global Media')
 				{
 					$this->Network2 = $this->CpaNetworks[$Key];  
 				}
