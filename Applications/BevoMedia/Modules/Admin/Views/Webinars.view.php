@@ -9,10 +9,16 @@
 <?php	
 	foreach ($this->webinarsData as $webinar)
 	{
+		$date = $webinar->Date;
+		if (strstr($date, '00:00:00')) {
+			$date = date('m/d/Y', strtotime($date));
+		} else {
+			$date = date('m/d/Y g:i a', strtotime($date));
+		}
 ?>
 	<tr>
 		<td><?=$webinar->Title?></td>
-		<td><?=date('m/d/Y g:i a', strtotime($webinar->Date))?></td>
+		<td><?=$date?></td>
 		<td><?=$webinar->Password?></td>
 		<td>
 			<a href="/BevoMedia/Admin/Webinars.html?DeleteID=<?=$webinar->ID?>" onclick="return confirm('Are you sure you want to delete this webinar?');">Delete</a>
