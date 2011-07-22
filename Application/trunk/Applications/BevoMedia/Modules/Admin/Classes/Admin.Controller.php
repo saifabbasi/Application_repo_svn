@@ -2998,6 +2998,43 @@ END;
 			$this->webinarsData = $this->db->fetchAll($Sql);
 		}
 		
+		Public Function WebinarUsers()
+		{
+			$Sql = "SELECT
+						bevomedia_user.id,
+						bevomedia_user.email,
+						bevomedia_user_info.firstName,
+						bevomedia_user_info.lastName
+					FROM
+						bevomedia_webinar_users,
+						bevomedia_user,
+						bevomedia_user_info
+					WHERE
+						(bevomedia_user.id = bevomedia_webinar_users.UserID) AND
+						(bevomedia_user_info.id = bevomedia_user.id) 
+					ORDER BY
+						bevomedia_user_info.firstName
+					";
+			$this->Users = $this->db->fetchAll($Sql);
+			
+			if (isset($_GET['exportCSV']))
+			{
+				ob_clean();
+				ob_end_clean();
+				
+	            header( 'Content-Type: text/csv' );
+	            header( 'Content-Disposition: attachment;filename=WebinarUsers.csv');
+	            $fp = fopen('php://output', 'w');
+	            
+	            fputcsv($fp, array('ID', 'E-mail', 'First Name', 'Last Name'));
+	            foreach ($this->Users as $User)
+	            {
+	            	fputcsv($fp, array($User->id, $User->email, $User->firstName, $User->lastName));
+	            }
+	            die;	            
+			}
+		}
+		
 	}
 
 ?>
