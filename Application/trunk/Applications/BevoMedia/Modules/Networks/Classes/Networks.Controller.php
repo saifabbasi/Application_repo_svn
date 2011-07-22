@@ -122,6 +122,34 @@ Class NetworksController extends ClassComponent
 		$this->States = $this->db->fetchAll($Sql);
 	}
 	
+	Public Function SignUp300()
+	{
+		unset($_SESSION['LowPrices']);
+		unset($_SESSION['LowPrices']);
+		unset($_SESSION['Custom416']);
+		$_SESSION['OneTerm'] = true;
+		$_SESSION['Custom300'] = true;
+		
+		
+		$Sql = 'SELECT
+					*
+				FROM
+					bevomedia_adwords_countries
+				ORDER BY
+					(code <> "US"), country
+				';
+		$this->Countries = $this->db->fetchAll($Sql);
+		
+		$Sql = 'SELECT
+					*
+				FROM
+					bevomedia_state
+				ORDER BY
+					name
+				';
+		$this->States = $this->db->fetchAll($Sql);
+	}
+	
 	Public Function Register()
 	{
 		$_SESSION['OneTerm'] = true;
@@ -219,6 +247,9 @@ Class NetworksController extends ClassComponent
 		} else
 		if (isset($_SESSION['Custom416'])) {
 		    $AddTerms = " AND (ID = 12) ";
+		} else
+		if (isset($_SESSION['Custom300'])) {
+			$AddTerms = " AND (ID = 13) ";
 		} else
 		if (isset($_SESSION['OneTerm']) && ($_SESSION['OneTerm']==true)) 
 		{
