@@ -1661,6 +1661,37 @@ Public Function MyProducts()
 				LIMIT 1
 				";
 		$this->WebinarInfo = $this->db->fetchRow($Sql);
+		
+		if (isset($this->WebinarInfo->ID))
+		{
+			$Sql = "SELECT
+						ID
+					FROM
+						bevomedia_webinar_users
+					WHERE
+						(bevomedia_webinar_users.UserID = ?)		
+					";
+			$UserOptIn = $this->db->fetchRow($Sql, array($this->User->id));
+			if (!isset($UserOptIn->ID)) 
+			{
+				header('Location: /BevoMedia/User/WebinarOptIn.html');
+				die;
+			}
+		}
+	}
+	
+	Public Function WebinarOptIn()
+	{
+		Zend_Registry::set('Instance/LayoutType', 'shadowbox-layout');
+		
+		if (isset($_GET['optIn']))
+		{
+			$Array = array( 'UserID' => $this->User->id );
+			$this->db->insert('bevomedia_webinar_users', $Array);
+			
+			header('Location: /BevoMedia/User/Webinar.html');
+			die;
+		}
 	}
 	
 	Public Function OpenAdWatcher()

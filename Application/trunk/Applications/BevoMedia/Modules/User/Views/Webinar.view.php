@@ -27,3 +27,9 @@
 <?php 
 	}
 ?>
+
+	<br /><br />
+	
+	<div>
+		Have a question? Email <a href="mailto:coaching@bevomedia.com">coaching@bevomedia.com</a>
+	</div>
