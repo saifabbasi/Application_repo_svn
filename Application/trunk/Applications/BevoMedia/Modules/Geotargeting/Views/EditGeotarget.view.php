@@ -78,7 +78,7 @@
 		          address,
 		          function(point) {
 		            if (!point) {
-			            console.debug(address + " not found");
+
 		            } else {
 		              var marker = new GMarker(point);
 		              map.addOverlay(marker);
