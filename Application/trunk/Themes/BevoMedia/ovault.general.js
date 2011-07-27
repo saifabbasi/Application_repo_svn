@@ -119,7 +119,7 @@ $(document).ready(function() {
 			clean += '&sort_by='+params['sort_by'];
 		
 		if(!hasherror) {
-			doSearch('get=searchresults&'+clean, true, 'Showing URL hash search results.');
+			doSearch('get=searchresults&'+clean, true);
 		}
 	}//endif hash
 	
