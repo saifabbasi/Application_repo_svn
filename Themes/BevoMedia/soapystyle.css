@@ -348,7 +348,7 @@ ul#footermenu li { display:inline; margin:0 5px; }
 
 #networkotm { width:166px; height:71px; padding:26px 0 0 0px; position:absolute; top:28px; left:488px; background:url(img_new/networkotm.png) no-repeat; display:table; overflow:hidden; }
 	#networkotm a { display:table-cell; vertical-align:middle; text-align:center; }
-		#networkotm a img { max-width:120px; width:auto !important; width:120px; }
+		#networkotm a img { max-width:120px; width:auto !important; width:120px; padding-top: 2px; }
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 	#networkotm a { margin-top:8px; display:block; }
