@@ -457,7 +457,7 @@ if(userTimezoneOffset == false)
 			
 			<?php 
 			//change nw of the month id here
-			$NWotMid = 1052;
+			$NWotMid = 1077;
 			
 			$db = Zend_Registry::get('Instance/DatabaseObj');
 			$query = "SELECT n.*, u.status FROM bevomedia_aff_network AS n LEFT JOIN bevomedia_user_aff_network AS u ON n.id = u.network__id AND u.user__id = {$this->User->id} WHERE n.model = 'CPA' AND n.isValid = 'Y' AND n.id = '$NWotMid' ORDER BY n.title";
