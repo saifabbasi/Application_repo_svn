@@ -302,10 +302,21 @@ if(isset($_POST['init']))
 		$rdcode .= "\n\$Links[] = '$Link->link';";
 
 	$rdcode .= "\n\$Location = rand(1,sizeof(\$Links)) - 1;";
-	$rdcode .= "\nheader('Location: '. \$Links[\$Location].\$_COOKIE['bevo_sid']);";
+	$rdcode .= "\n\$LocationUrl = \$Links[\$Location];";
+	$rdcode .= "\nif (strstr(\$LocationUrl, '{bevosubid}')) {";
+	$rdcode .= "\n\$LocationUrl = str_replace('{bevosubid}', \$_COOKIE['bevo_sid'], \$LocationUrl);";
+	$rdcode .= "\nheader('Location: '. \$LocationUrl);";
+	$rdcode .= "\n} else {";	
+	$rdcode .= "\nheader('Location: '. \$LocationUrl.\$_COOKIE['bevo_sid']);";
+	$rdcode .= "\n}";
   } else {
   	$rdcode .= "\n".$clickThrough;
-	$rdcode .= "\nheader('Location: $offerUrl'.\$_COOKIE['bevo_sid']);";
+  	if (strstr($offerUrl, '{bevosubid}')) {
+  		$offerUrl = str_replace('{bevosubid}', "'.\$_COOKIE['bevo_sid'].'", $offerUrl);
+  		$rdcode .= "\nheader('Location: $offerUrl');";
+  	} else {
+  		$rdcode .= "\nheader('Location: $offerUrl'.\$_COOKIE['bevo_sid']);";
+  	}	
   }
   $rdcode .= "\n?>";
 
