@@ -454,11 +454,17 @@ setVisible($(".landingPageItems"), !CheckBox.checked);
 			<tr class="offerRotatorStuff">
 				<th><label for="offer">Offer URL:</label></th>
 				<td>
-					<input type="text" name="offurl" id="offer" value="<?php echo $fdb_offerurl?>" size="45" class="required url formtxt" /> <span class="suffix">[subid]</span>
+					<input type="text" name="offurl" id="offer" value="<?php echo $fdb_offerurl?>" size="45" class="required formtxt" /> <span class="suffix">[subid]</span>
 					<div id="errorDesc_offer" style='color:#ff0000; font-size: 10px; font-weight: bold; display:none;'>Please enter a valid URL in the format 'http://myurl.com'.</div>
 					<div class="example">Example: http://network.com/?&amp;subid=</div>
-
-					<p>The &quot;subid&quot; for each visitor will be added to the end of your offer's URL.</p>
+					<br />
+					<div>The &quot;subid&quot; for each visitor will be added to the end of your offer's URL.</div>
+					<div>or</div>
+					<div>
+						Use {bevosubid} to have the subid anywhere in the offer's url.<br />
+						Example: http://network.com/offer/{bevosubid}/affid	
+					</div>
+					
 				</td>
 			</tr>
 			
