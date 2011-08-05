@@ -2976,7 +2976,12 @@ END;
 					$_POST['time'] .= ":00";
 				}
 				
-				$Array = array('Title' => $_POST['title'], 'Date' => date('Y-m-d G:i:s', strtotime($_POST['date'].' '.$_POST['time'])), 'Password' => $_POST['password']);
+				$Array = array(
+								'Title' => $_POST['title'], 
+								'Date' => date('Y-m-d G:i:s', strtotime($_POST['date'].' '.$_POST['time'])), 
+								'Password' => $_POST['password'],
+								'Url' => $_POST['url']
+								);
 				$this->db->insert('bevomedia_webinars', $Array);
 				
 				header('Location: /BevoMedia/Admin/Webinars.html');

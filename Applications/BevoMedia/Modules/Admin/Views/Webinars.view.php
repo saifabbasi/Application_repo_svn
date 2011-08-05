@@ -4,6 +4,7 @@
 		<td>Title</td>
 		<td>Date</td>
 		<td>Password</td>
+		<td>Url</td>
 		<td>&nbsp;</td>
 	</tr>
 <?php	
@@ -20,6 +21,7 @@
 		<td><?=$webinar->Title?></td>
 		<td><?=$date?></td>
 		<td><?=$webinar->Password?></td>
+		<td><?=$webinar->Url?></td>
 		<td>
 			<a href="/BevoMedia/Admin/Webinars.html?DeleteID=<?=$webinar->ID?>" onclick="return confirm('Are you sure you want to delete this webinar?');">Delete</a>
 		</td>
@@ -58,6 +60,12 @@
 				<td>Password:</td>
 				<td>
 					<input type="text" name="password" value="" />
+				</td>
+			</tr>
+			<tr>
+				<td>Url:</td>
+				<td>
+					<input type="text" name="url" value="" />
 				</td>
 			</tr>
 			<tr>
