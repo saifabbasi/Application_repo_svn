@@ -19,6 +19,8 @@
 	Time: <?=$time?>
 	<br /><br />
 	Webinar Password: <?=$this->WebinarInfo->Password?>
+	<br /><br />
+	Webinar Url: <a href="<?=$this->WebinarInfo->Url?>"><?=$this->WebinarInfo->Url?></a>
 <?php 
 	} else 
 	{
