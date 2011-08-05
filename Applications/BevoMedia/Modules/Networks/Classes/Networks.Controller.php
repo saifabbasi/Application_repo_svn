@@ -77,6 +77,7 @@ Class NetworksController extends ClassComponent
 		unset($_SESSION['LowPrices']);
 		unset($_SESSION['OneTerm']);
 		unset($_SESSION['Custom416']);
+		unset($_SESSION['Custom320']);
 		
 		$Sql = 'SELECT
 					*
@@ -127,8 +128,68 @@ Class NetworksController extends ClassComponent
 		unset($_SESSION['LowPrices']);
 		unset($_SESSION['LowPrices']);
 		unset($_SESSION['Custom416']);
+		unset($_SESSION['Custom320']);
 		$_SESSION['OneTerm'] = true;
 		$_SESSION['Custom300'] = true;
+		
+		
+		$Sql = 'SELECT
+					*
+				FROM
+					bevomedia_adwords_countries
+				ORDER BY
+					(code <> "US"), country
+				';
+		$this->Countries = $this->db->fetchAll($Sql);
+		
+		$Sql = 'SELECT
+					*
+				FROM
+					bevomedia_state
+				ORDER BY
+					name
+				';
+		$this->States = $this->db->fetchAll($Sql);
+	}
+	
+	Public Function SignUp320()
+	{
+		unset($_SESSION['LowPrices']);
+		unset($_SESSION['LowPrices']);
+		unset($_SESSION['Custom416']);
+		unset($_SESSION['Custom300']);
+		$_SESSION['OneTerm'] = true;
+		$_SESSION['Custom320'] = true;
+		
+		
+		$Sql = 'SELECT
+					*
+				FROM
+					bevomedia_adwords_countries
+				ORDER BY
+					(code <> "US"), country
+				';
+		$this->Countries = $this->db->fetchAll($Sql);
+		
+		$Sql = 'SELECT
+					*
+				FROM
+					bevomedia_state
+				ORDER BY
+					name
+				';
+		$this->States = $this->db->fetchAll($Sql);
+	}
+	
+	Public Function SignUp395()
+	{
+		unset($_SESSION['LowPrices']);
+		unset($_SESSION['LowPrices']);
+		unset($_SESSION['Custom416']);
+		unset($_SESSION['Custom300']);
+		unset($_SESSION['Custom320']);
+		$_SESSION['OneTerm'] = true;
+		$_SESSION['Custom395'] = true;
 		
 		
 		$Sql = 'SELECT
@@ -250,6 +311,12 @@ Class NetworksController extends ClassComponent
 		} else
 		if (isset($_SESSION['Custom300'])) {
 			$AddTerms = " AND (ID = 13) ";
+		} else
+		if (isset($_SESSION['Custom320'])) {
+			$AddTerms = " AND (ID = 14) ";
+		} else
+		if (isset($_SESSION['Custom395'])) {
+			$AddTerms = " AND (ID = 15) ";
 		} else
 		if (isset($_SESSION['OneTerm']) && ($_SESSION['OneTerm']==true)) 
 		{
