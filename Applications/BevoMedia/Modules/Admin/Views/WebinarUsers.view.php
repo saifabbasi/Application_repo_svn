@@ -24,4 +24,4 @@
 
 <br />
 
-<a href="http://bevomedia/BevoMedia/Admin/WebinarUsers.html?exportCSV=1">Export to CSV</a>
+<a href="/BevoMedia/Admin/WebinarUsers.html?exportCSV=1">Export to CSV</a>
