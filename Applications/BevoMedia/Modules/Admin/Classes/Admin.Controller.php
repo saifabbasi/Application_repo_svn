@@ -3024,8 +3024,8 @@ END;
 			
 			if (isset($_GET['exportCSV']))
 			{
-				ob_clean();
-				ob_end_clean();
+				@ob_clean();
+				@ob_end_clean();
 				
 	            header( 'Content-Type: text/csv' );
 	            header( 'Content-Disposition: attachment;filename=WebinarUsers.csv');
