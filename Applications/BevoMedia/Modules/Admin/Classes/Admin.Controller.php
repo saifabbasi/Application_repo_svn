@@ -3018,7 +3018,7 @@ END;
 						(bevomedia_user.id = bevomedia_webinar_users.UserID) AND
 						(bevomedia_user_info.id = bevomedia_user.id) 
 					ORDER BY
-						bevomedia_user_info.firstName
+						bevomedia_webinar_users.id DESC
 					";
 			$this->Users = $this->db->fetchAll($Sql);
 			
