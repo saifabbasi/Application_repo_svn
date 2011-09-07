@@ -87,7 +87,7 @@
 	</tr>
 	
 	<?php endif; ?>
-	<?php if ( ($this->Network->passwordLabel != '') && (!in_array($this->Network->id, array(1028, 1038, 1044, 1070, 1062, 1064, 1069, 1072, 1073, 1076, 1077, 1078))) ): ?>
+	<?php if ( ($this->Network->passwordLabel != '') && (!in_array($this->Network->id, array(1028, 1038, 1044, 1070, 1062, 1064, 1069, 1072, 1073, 1076, 1077, 1078, 1080))) ): ?>
 	<tr>
 		<th><?php print htmlentities($this->Network->passwordLabel); ; ?></th>
 		<td>
