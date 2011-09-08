@@ -612,8 +612,8 @@ if(userTimezoneOffset == false)
 		//110401: added override to place a manual ad (BLAMads). if active, should be an array with 'img' (abspath to img location) and 'url' (http://).
 		//only for "left" right now... $sideAds['left'] seems to have been removed from the remapping below, so we'll just refill that for now as a temp solution.
 		$sideAdOverrideLeft = array(
-			'img' => $this->{'System/BaseURL'}.'Themes/'.$this->{'Application/Theme'}.'/sideads/override/blamads_left.jpg',
-			'url' => 'http://blamads.com/'
+			'img' => $this->{'System/BaseURL'}.'Themes/'.$this->{'Application/Theme'}.'/sideads/1080.jpg',
+			'url' => 'http://cpatank.com/'
 		);
 		
 		$db = Zend_Registry::get('Instance/DatabaseObj');
@@ -639,7 +639,7 @@ if(userTimezoneOffset == false)
 				/*TEMP 110401 start (remove later in favor of a scalable / dynamic solution)*/
 				if($side == 'left' && !empty($ad)) {
 					echo '<div class="sidead left">
-					<a href="'.$ad['url'].'" title="Visit BLAM!Ads.com" target="_blank"><img src="'.$ad['img'].'" alt="" /></a>
+					<a href="'.$ad['url'].'" title="Visit CPATank.com" target="_blank"><img src="'.$ad['img'].'" alt="" /></a>
 					</div>';
 				} else {
 				/*END TEMP 110401. be sure to remove the } on line 652! */
