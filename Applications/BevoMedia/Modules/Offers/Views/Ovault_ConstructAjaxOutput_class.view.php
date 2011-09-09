@@ -883,12 +883,17 @@ $out .= '</tr><!--close .orowbig-->';
 	/** formatPayout
 	  */
 	public function formatPayout($payout=false) {
+		$isPercent = strstr($payout, '%');
 		$payout = preg_replace('/[^0-9\.]/', '', $payout);
 		if($payout) {
 			$null_payouts = array('0','0.0','0.00');
 			if(in_array($payout, $null_payouts))
 				$payout = false;
-			else	$payout = '$'.number_format($payout, 2);
+			else {
+				if ($isPercent)
+					$payout = number_format($payout, 2).'%'; else 
+					$payout = '$'.number_format($payout, 2);
+			}
 		} else	$payout = false;
 		
 		$payout = $payout ? $payout : '<span class="small">Upon request</span>';
