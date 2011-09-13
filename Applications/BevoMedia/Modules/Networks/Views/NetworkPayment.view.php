@@ -160,7 +160,7 @@
 		
 		<label for="CVV">
 			<span class="label">[required] CVV:</span>
-			<input type="text" name="CVV" value="" id="CVV" class="required" size="3" maxlength="3" />
+			<input type="text" name="CVV" value="" id="CVV" class="required" size="3" maxlength="4" />
 		</label>
 		
 		<br /><br />
