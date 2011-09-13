@@ -80,6 +80,7 @@ $networks[] = networkArray('AboveAllOffers', 1077, 'CakeMarketing');
 $networks[] = networkArray('AdGate', 1078, 'HasOffers');
 $networks[] = networkArray('Essociate', 1079);
 $networks[] = networkArray('CPATank', 1080, 'CakeMarketing');
+$networks[] = networkArray('UniqueLeads', 1081, 'CakeMarketing');
 
 
 foreach($networks as $network)
