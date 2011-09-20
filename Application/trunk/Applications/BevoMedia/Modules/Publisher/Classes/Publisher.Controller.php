@@ -292,7 +292,7 @@
 					$this->Network1 = $this->CpaNetworks[$Key];  
 				}
 				
-				if ($this->CpaNetworks[$Key]->title=='Blue Global Media')
+				if ($this->CpaNetworks[$Key]->title=='NDemand')
 				{
 					$this->Network2 = $this->CpaNetworks[$Key];  
 				}
