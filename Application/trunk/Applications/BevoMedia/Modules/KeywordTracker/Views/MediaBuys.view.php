@@ -276,63 +276,70 @@ select
 	`campaign`.`name` AS `campaign_name`,
 	`adgroup`.`name` AS `adgroup_name`,
 	`creative`.`title` AS `ad_title`,
-	SUM(afs.revenue) AS `revenue`,
 	COUNT(DISTINCT click.id) AS `clicks`,
-	SUM(afs.conversions) as conversions,
-	advs.cost indivCost
+	creative.id as `creativeId`
 from
-(
-	(
-		(
-			(
-				(
-					`bevomedia_tracker_clicks` `click`
-					left join `bevomedia_tracker_clicks_optional` `optional` on
-					(
-						`click`.`id` = `optional`.`clickId`
-					)
-					join `bevomedia_ppc_advariations` `creative` on
-					(
-						(`click`.`creativeId` = `creative`.`apiAdId`)
-					)
-					
-					left join `bevomedia_user_aff_network_subid` `afs` on
-					(
-						afs.user__id = {$this->User->id} AND afs.subId = click.subId
-					)
-
-				)
-				join `bevomedia_ppc_adgroups` `adgroup` on
-				(
-					(`creative`.`adGroupId` = `adgroup`.`id`)
-				)
-			)
-			join `bevomedia_ppc_campaigns` `campaign` on
-			(
-				(
-					(`adgroup`.`campaignId` = `campaign`.`id`)
-					and
-					(`campaign`.`user__id` = `click`.`user__id`)
-				)
-			)
-		)
-	)
-)
-LEFT JOIN bevomedia_ppc_advariations_stats advs ON advs.advariationsId = creative.id
+	`bevomedia_tracker_clicks` `click`
+	join `bevomedia_tracker_clicks_optional` `optional` on (`click`.`id` = `optional`.`clickId`)
+	join `bevomedia_ppc_advariations` `creative` on (`click`.`creativeId` = `creative`.`apiAdId`)
+	join `bevomedia_ppc_adgroups` `adgroup` on (`creative`.`adGroupId` = `adgroup`.`id`)
+	join `bevomedia_ppc_campaigns` `campaign` on ((`adgroup`.`campaignId` = `campaign`.`id`) and (`campaign`.`user__id` = `click`.`user__id`))
 where
-	click.user__id = {$this->User->id} AND
-	clickDate between '{$this->StartDate}' AND '{$this->EndDate}' AND
-	campaign.user__id = {$this->User->id} AND
-	campaign.providerType = '4' AND
-	creative.apiAdId != 0
+	(click.user__id = {$this->User->id}) AND
+	(clickDate between '{$this->StartDate}' AND '{$this->EndDate}') AND
+	(campaign.user__id = {$this->User->id}) AND
+	(campaign.providerType = 4) AND
+	(creative.apiAdId > 0)
 	{$AndSql}
 group by optional.data
-";
+";echo '<pre>'.$sql;die;
 $query = mysql_query($sql);
 
 $AdRefs = array();
 while($row = mysql_fetch_assoc($query))
 {
+	$revenue = 0;
+	$conversions = 0;
+	$sql = "SELECT
+				bevomedia_tracker_clicks.subId,
+				bevomedia_tracker_clicks.user__id,
+				bevomedia_tracker_clicks.clickDate	
+			FROM
+				bevomedia_tracker_clicks,
+				bevomedia_tracker_clicks_optional
+			WHERE
+				(bevomedia_tracker_clicks_optional.clickId = bevomedia_tracker_clicks.id) AND
+				(bevomedia_tracker_clicks_optional.data = ?) AND
+				(bevomedia_tracker_clicks.user__id = ?) AND
+				(bevomedia_tracker_clicks.clickDate between ? AND ?)
+			";
+	$optionalDataClick = $this->db->fetchAll($sql, array($row['data'], $this->User->id, $row['clickDate'], $this->StartDate, $this->EndDate));
+	foreach ($optionalDataClick as $optionalDataClick)
+	{
+		$sql = "SELECT
+					SUM(bevomedia_user_aff_network_subid.revenue) AS revenue,
+					SUM(bevomedia_user_aff_network_subid.conversions) as conversions
+				FROM
+					bevomedia_user_aff_network_subid
+				WHERE
+					(bevomedia_user_aff_network_subid.statDate = ?) AND
+					(bevomedia_user_aff_network_subid.user__id = ?) AND
+					(bevomedia_user_aff_network_subid.subId = ?)
+				";
+		$optionalDataClickStatsRow = $this->db->fetchRow($sql, array($optionalDataClick['clickDate'], $optionalDataClick['user__id'], $optionalDataClick['subId']));
+		$revenue += floatval($optionalDataClickStatsRow['revenue']);
+		$conversions += floatval($optionalDataClickStatsRow['conversions']);
+	}	
+	$row['revenue'] = $revenue;
+	$row['conversions'] = $conversions;
+	
+	
+	$sql = "SELECT cost as indivCost FROM bevomedia_ppc_advariations_stats WHERE advariationsId = ? ";
+	$indivCost = $this->db->fetchOne($sql, $row['creativeId']);
+	$row['indivCost'] = $indivCost;
+	
+	
+	
 	$row['cost'] = $row['indivCost'] * $row['clicks'];
 	$row['profit'] = $row['revenue'] - $row['cost'];
 	if($row['clicks'] != 0)
