@@ -292,7 +292,7 @@ where
 	(creative.apiAdId > 0)
 	{$AndSql}
 group by optional.data
-";echo '<pre>'.$sql;die;
+";
 $query = mysql_query($sql);
 
 $AdRefs = array();
