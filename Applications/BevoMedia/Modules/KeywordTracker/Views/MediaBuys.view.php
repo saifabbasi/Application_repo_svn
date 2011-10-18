@@ -280,19 +280,18 @@ select
 	creative.id as `creativeId`
 from
 	`bevomedia_tracker_clicks` `click`
-	join `bevomedia_tracker_clicks_optional` `optional` on (`click`.`id` = `optional`.`clickId`)
-	join `bevomedia_ppc_advariations` `creative` on (`click`.`creativeId` = `creative`.`apiAdId`)
-	join `bevomedia_ppc_adgroups` `adgroup` on (`creative`.`adGroupId` = `adgroup`.`id`)
-	join `bevomedia_ppc_campaigns` `campaign` on ((`adgroup`.`campaignId` = `campaign`.`id`) and (`campaign`.`user__id` = `click`.`user__id`))
+	inner join `bevomedia_tracker_clicks_optional` `optional` on (`click`.`id` = `optional`.`clickId`)
+	inner join `bevomedia_ppc_advariations` `creative` on (`click`.`creativeId` = `creative`.`apiAdId`)
+	inner join `bevomedia_ppc_adgroups` `adgroup` on (`creative`.`adGroupId` = `adgroup`.`id`)
+	inner join `bevomedia_ppc_campaigns` `campaign` on (`adgroup`.`campaignId` = `campaign`.`id`)
 where
 	(click.user__id = {$this->User->id}) AND
 	(clickDate between '{$this->StartDate}' AND '{$this->EndDate}') AND
-	(campaign.user__id = {$this->User->id}) AND
 	(campaign.providerType = 4) AND
 	(creative.apiAdId > 0)
 	{$AndSql}
 group by optional.data
-";
+";//echo '<pre>'.$sql;die;
 $query = mysql_query($sql);
 
 $AdRefs = array();
