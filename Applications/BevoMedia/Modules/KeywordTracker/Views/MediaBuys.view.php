@@ -297,6 +297,7 @@ $query = mysql_query($sql);
 $AdRefs = array();
 while($row = mysql_fetch_assoc($query))
 {
+	continue;
 	$revenue = 0;
 	$conversions = 0;
 	$sql = "SELECT
@@ -312,7 +313,7 @@ while($row = mysql_fetch_assoc($query))
 				(bevomedia_tracker_clicks.user__id = ?) AND
 				(bevomedia_tracker_clicks.clickDate between ? AND ?)
 			";
-	$optionalDataClick = $this->db->fetchAll($sql, array($this->db->quote($row['data']), $this->User->id, $row['clickDate'], $this->StartDate, $this->EndDate));
+	$optionalDataClick = $this->db->fetchAll($sql, array($row['data'], $this->User->id, $row['clickDate'], $this->StartDate, $this->EndDate));
 	foreach ($optionalDataClick as $optionalDataClick)
 	{
 		$sql = "SELECT
@@ -325,7 +326,7 @@ while($row = mysql_fetch_assoc($query))
 					(bevomedia_user_aff_network_subid.user__id = ?) AND
 					(bevomedia_user_aff_network_subid.subId = ?)
 				";
-		$optionalDataClickStatsRow = $this->db->fetchRow($sql, array($optionalDataClick['clickDate'], $optionalDataClick['user__id'], $this->db->quote($optionalDataClick['subId'])));
+		$optionalDataClickStatsRow = $this->db->fetchRow($sql, array($optionalDataClick['clickDate'], $optionalDataClick['user__id'], $optionalDataClick['subId']));
 		$revenue += floatval($optionalDataClickStatsRow['revenue']);
 		$conversions += floatval($optionalDataClickStatsRow['conversions']);
 	}	
