@@ -297,9 +297,9 @@ $query = mysql_query($sql);
 $AdRefs = array();
 while($row = mysql_fetch_assoc($query))
 {
-	continue;
 	$revenue = 0;
 	$conversions = 0;
+	$row['data'] = mysql_real_escape_string($row['data']);
 	$sql = "SELECT
 				bevomedia_tracker_clicks.subId,
 				bevomedia_tracker_clicks.user__id,
@@ -309,12 +309,12 @@ while($row = mysql_fetch_assoc($query))
 				bevomedia_tracker_clicks_optional
 			WHERE
 				(bevomedia_tracker_clicks_optional.clickId = bevomedia_tracker_clicks.id) AND
-				(bevomedia_tracker_clicks_optional.data = ?) AND
-				(bevomedia_tracker_clicks.user__id = ?) AND
-				(bevomedia_tracker_clicks.clickDate between ? AND ?)
+				(bevomedia_tracker_clicks_optional.data = '{$row['data']}') AND
+				(bevomedia_tracker_clicks.user__id = {$this->User->id}) AND
+				(bevomedia_tracker_clicks.clickDate between '{$this->StartDate}' AND '{$this->EndDate}' )
 			";
-	$optionalDataClick = $this->db->fetchAll($sql, array($row['data'], $this->User->id, $row['clickDate'], $this->StartDate, $this->EndDate));
-	foreach ($optionalDataClick as $optionalDataClick)
+	$optionalDataClick = mysql_query($sql);
+	while ($optionalDataClick = mysql_fetch_assoc($optionalDataClicks))
 	{
 		$sql = "SELECT
 					SUM(bevomedia_user_aff_network_subid.revenue) AS revenue,
@@ -322,14 +322,38 @@ while($row = mysql_fetch_assoc($query))
 				FROM
 					bevomedia_user_aff_network_subid
 				WHERE
-					(bevomedia_user_aff_network_subid.statDate = ?) AND
-					(bevomedia_user_aff_network_subid.user__id = ?) AND
-					(bevomedia_user_aff_network_subid.subId = ?)
+					(bevomedia_user_aff_network_subid.statDate = '{$optionalDataClick['clickDate']}') AND
+					(bevomedia_user_aff_network_subid.user__id = {$optionalDataClick['user__id']}) AND
+					(bevomedia_user_aff_network_subid.subId = '{$optionalDataClick['subId']}')
 				";
-		$optionalDataClickStatsRow = $this->db->fetchRow($sql, array($optionalDataClick['clickDate'], $optionalDataClick['user__id'], $optionalDataClick['subId']));
+		$optionalDataClickStatsRow = mysql_query($sql);
+		$optionalDataClickStatsRow = mysql_fetch_assoc($optionalDataClickStatsRow);
+		
 		$revenue += floatval($optionalDataClickStatsRow['revenue']);
 		$conversions += floatval($optionalDataClickStatsRow['conversions']);
-	}	
+		
+//		$optionalDataClickStatsRow = $this->db->fetchRow($sql, array($optionalDataClick['clickDate'], $optionalDataClick['user__id'], $optionalDataClick['subId']));
+//		$revenue += floatval($optionalDataClickStatsRow['revenue']);
+//		$conversions += floatval($optionalDataClickStatsRow['conversions']);
+	}
+	
+//	$optionalDataClick = $this->db->fetchAll($sql, array($row['data'], $this->User->id, $this->StartDate, $this->EndDate));
+//	foreach ($optionalDataClick as $optionalDataClick)
+//	{
+//		$sql = "SELECT
+//					SUM(bevomedia_user_aff_network_subid.revenue) AS revenue,
+//					SUM(bevomedia_user_aff_network_subid.conversions) as conversions
+//				FROM
+//					bevomedia_user_aff_network_subid
+//				WHERE
+//					(bevomedia_user_aff_network_subid.statDate = ?) AND
+//					(bevomedia_user_aff_network_subid.user__id = ?) AND
+//					(bevomedia_user_aff_network_subid.subId = ?)
+//				";
+//		$optionalDataClickStatsRow = $this->db->fetchRow($sql, array($optionalDataClick['clickDate'], $optionalDataClick['user__id'], $optionalDataClick['subId']));
+//		$revenue += floatval($optionalDataClickStatsRow['revenue']);
+//		$conversions += floatval($optionalDataClickStatsRow['conversions']);
+//	}	
 	$row['revenue'] = $revenue;
 	$row['conversions'] = $conversions;
 	
