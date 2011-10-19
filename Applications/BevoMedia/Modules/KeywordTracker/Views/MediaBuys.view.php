@@ -313,7 +313,7 @@ while($row = mysql_fetch_assoc($query))
 				(bevomedia_tracker_clicks.user__id = {$this->User->id}) AND
 				(bevomedia_tracker_clicks.clickDate between '{$this->StartDate}' AND '{$this->EndDate}' )
 			";
-	$optionalDataClick = mysql_query($sql);
+	$optionalDataClicks = mysql_query($sql);
 	while ($optionalDataClick = mysql_fetch_assoc($optionalDataClicks))
 	{
 		$sql = "SELECT
