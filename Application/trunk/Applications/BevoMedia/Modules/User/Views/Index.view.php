@@ -775,8 +775,7 @@ while($Row = mysql_fetch_assoc($Query))
 			       'devicefont', 'false'
 			       );
 	       } else {
-		       var alternateContent = 'This content requires the Adobe Flash Player. '
-		       + '<u><a href=https://www.macromedia.com/go/getflash/>Get Flash</a></u>.';
+		       var alternateContent = 'This content requires the Adobe Flash Player. ';
 		       document.write(alternateContent);
 	       }
 	}
@@ -815,8 +814,7 @@ while($Row = mysql_fetch_assoc($Query))
 			       'devicefont', 'false'
 			       );
 	       } else {
-		       var alternateContent = 'This content requires the Adobe Flash Player. '
-			+ '<u><a href="https://www.macromedia.com/go/getflash/">Get Flash</a></u>.';
+		       var alternateContent = 'This content requires the Adobe Flash Player. ';
 		       document.write(alternateContent);
 	       }
 	}
