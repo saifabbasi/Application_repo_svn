@@ -350,7 +350,7 @@ function ListAdwordsAccounts() {
 ?>
   <tr <?php if ($blnAltRow) { echo 'class="AltRow"'; } ?>>
     <td class="border">&nbsp;</td>
-    <td><a href="/BevoMedia/Publisher/AccountStatsPPC.html?Provider=Adwords&ID=<?php echo $arrThisRow['ID']; ?>"><?php echo htmlspecialchars($arrThisRow['AdwordsEmail']); ?></a></td>
+    <td><a href="/BevoMedia/Publisher/AccountStatsPPC.html?Provider=Adwords&nbsp;ID=<?php echo $arrThisRow['ID']; ?>"><?php echo htmlspecialchars($arrThisRow['AdwordsEmail']); ?></a></td>
 	<td style="text-align: center;"><?php echo $arrThisStats['NetImpr']; ?></td>
 	<td style="text-align: center;"><?php echo $arrThisStats['NetClicks']; ?></td>
 	<td style="text-align: center;"><?php echo round($arrThisStats['NetCtr'] *100 , 2); ?>%</td>
@@ -417,7 +417,7 @@ function ListYahooAccounts() {
 ?>
   <tr <?php if ($blnAltRow) { echo 'class="AltRow"'; } ?>>
     <td class="border">&nbsp;</td>
-    <td><a href="/BevoMedia/Publisher/AccountStatsPPC.html?Provider=Yahoo&ID=<?php echo $arrThisRow['ID']; ?>"><?php echo htmlspecialchars($arrThisRow['Username']); ?></a></td>
+    <td><a href="/BevoMedia/Publisher/AccountStatsPPC.html?Provider=Yahoo&nbsp;ID=<?php echo $arrThisRow['ID']; ?>"><?php echo htmlspecialchars($arrThisRow['Username']); ?></a></td>
 	<td style="text-align: center;"><?php echo $arrThisStats['NetImpr']; ?></td>
 	<td style="text-align: center;"><?php echo $arrThisStats['NetClicks']; ?></td>
 	<td style="text-align: center;"><?php echo round($arrThisStats['NetCtr'] * 100, 2); ?>%</td>
@@ -485,7 +485,7 @@ function ListMSNAccounts() {
 ?>
   <tr <?php if ($blnAltRow) { echo 'class="AltRow"'; } ?>>
     <td class="border">&nbsp;</td>
-    <td><a href="/BevoMedia/Publisher/AccountStatsPPC.html?Provider=MSN&ID=<?php echo $arrThisRow['ID']; ?>"><?php echo htmlspecialchars($arrThisRow['Name']); ?></a></td>
+    <td><a href="/BevoMedia/Publisher/AccountStatsPPC.html?Provider=MSN&nbsp;ID=<?php echo $arrThisRow['ID']; ?>"><?php echo htmlspecialchars($arrThisRow['Name']); ?></a></td>
 	<td style="text-align: center;"><?php echo $arrThisStats['NetImpr']; ?></td>
 	<td style="text-align: center;"><?php echo $arrThisStats['NetClicks']; ?></td>
 	<td style="text-align: center;"><?php echo round($arrThisStats['NetCtr'] * 100, 2); ?>%</td>
@@ -762,7 +762,7 @@ while($Row = mysql_fetch_assoc($Query))
 			       'wmode', 'opaque',
 			       'movie', '<?=Zend_Registry::get('System/BaseURL');?>/Themes/BevoMedia/images/charts',
 			       'src', '<?=Zend_Registry::get('System/BaseURL');?>/Themes/BevoMedia/images/charts',
-			       'FlashVars', 'library_path=<?=urlencode("".Zend_Registry::get('System/BaseURL')."/Themes/BevoMedia/images/charts_library")."&xml_source=".urlencode(''.Zend_Registry::get('System/BaseURL').'Themes/BevoMedia/images/charts/welcome_graph_left_datagen.php?crStartDate='.date('Y-m-d', strtotime($crStartDate)).'&crEndDate='.date('Y-m-d', strtotime($crEndDate)).'&userId='.$userId)?>',
+			       'FlashVars', 'library_path=<?=urlencode("".Zend_Registry::get('System/BaseURL')."/Themes/BevoMedia/images/charts_library")."&nbsp;xml_source=".urlencode(''.Zend_Registry::get('System/BaseURL').'Themes/BevoMedia/images/charts/welcome_graph_left_datagen.php?crStartDate='.date('Y-m-d', strtotime($crStartDate)).'&nbsp;crEndDate='.date('Y-m-d', strtotime($crEndDate)).'&nbsp;userId='.$userId)?>',
 			       'id', 'my_chart',
 			       'name', 'my_chart',
 			       'menu', 'true',
@@ -801,7 +801,7 @@ while($Row = mysql_fetch_assoc($Query))
 			       'wmode', 'opaque',
 			       'movie', '<?=Zend_Registry::get('System/BaseURL');?>/Themes/BevoMedia/images/charts',
 			       'src', '<?=Zend_Registry::get('System/BaseURL');?>/Themes/BevoMedia/images/charts',
-			       'FlashVars', 'library_path=<?=urlencode("".Zend_Registry::get('System/BaseURL')."/Themes/BevoMedia/images/charts_library")."&xml_source=".urlencode(''.Zend_Registry::get('System/BaseURL').'/Themes/BevoMedia/images/charts/welcome_graph_right_datagen.php?crStartDate='.date('Y-m-d', strtotime($crStartDate)).'&crEndDate='.date('Y-m-d', strtotime($crEndDate)).'&userId='.$userId)?>',
+			       'FlashVars', 'library_path=<?=urlencode("".Zend_Registry::get('System/BaseURL')."/Themes/BevoMedia/images/charts_library")."&nbsp;xml_source=".urlencode(''.Zend_Registry::get('System/BaseURL').'/Themes/BevoMedia/images/charts/welcome_graph_right_datagen.php?crStartDate='.date('Y-m-d', strtotime($crStartDate)).'&nbsp;crEndDate='.date('Y-m-d', strtotime($crEndDate)).'&nbsp;userId='.$userId)?>',
 			       'id', 'my_chart',
 			       'name', 'my_chart',
 			       'menu', 'true',
@@ -844,8 +844,8 @@ while($Row = mysql_fetch_assoc($Query))
 <?php /*?>
 		<table width="100%" cellspacing="0" cellpadding="6" border="0">
 			<tr>
-				<td style="text-align: center;"><?= InsertChart ( SCRIPT_ROOT.'images/charts/welcome_graph_left_datagen.php?t='.time().'&userId='.$userId.'&crStartDate='.$crStartDate.'&crEndDate='.$crEndDate.makeGetArray($crNetworks, 'crNetworks[]'), 280, 220, 'ffffff' ); ?></td>
-				<td style="text-align: center;"><?= InsertChart ( SCRIPT_ROOT.'images/charts/welcome_graph_right_datagen.php?t='.time().'&userId='.$userId.'&crStartDate='.$crStartDate2.'&crEndDate='.$crEndDate2.makeGetArray($crNetworks, 'crNetworks[]'), 280, 220, 'ffffff' ); ?></td>
+				<td style="text-align: center;"><?= InsertChart ( SCRIPT_ROOT.'images/charts/welcome_graph_left_datagen.php?t='.time().'&nbsp;userId='.$userId.'&nbsp;crStartDate='.$crStartDate.'&nbsp;crEndDate='.$crEndDate.makeGetArray($crNetworks, 'crNetworks[]'), 280, 220, 'ffffff' ); ?></td>
+				<td style="text-align: center;"><?= InsertChart ( SCRIPT_ROOT.'images/charts/welcome_graph_right_datagen.php?t='.time().'&nbsp;userId='.$userId.'&nbsp;crStartDate='.$crStartDate2.'&nbsp;crEndDate='.$crEndDate2.makeGetArray($crNetworks, 'crNetworks[]'), 280, 220, 'ffffff' ); ?></td>
 			</tr>
 		</table>
 <?php */ ?>
@@ -1310,7 +1310,7 @@ function nwOtherClicked(chk)
 <script type="text/javascript">
 	$(document).ready(function() {
 		Shadowbox.open({
-	        content:    '/BevoMedia/Publisher/VerifyTutorial.html?ajax=true&FirstLogin=1',
+	        content:    '/BevoMedia/Publisher/VerifyTutorial.html?ajax=true&nbsp;FirstLogin=1',
 	        player:     "iframe",
 	        title:      "Verify",
 	        height:     480,

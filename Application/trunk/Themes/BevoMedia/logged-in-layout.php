@@ -281,8 +281,8 @@ if(userTimezoneOffset == false)
 		if(!empty($ootm)) { ?>
 			<div class="topdropbox topdropbox_ootm">
 				<div class="ootmpic">
-					<a class="picbtn" href="<?php echo $ootm->previewUrl; ?>" target="_blank" title="<?php echo htmlentities($ootm->title); ?> - Click to preview in a new tab">
-						<img src="<?php echo $ootm->imageUrl; ?>" alt="" />
+					<a class="picbtn" href="<?php echo htmlentities($ootm->previewUrl); ?>" target="_blank" title="<?php echo htmlentities($ootm->title); ?> - Click to preview in a new tab">
+						<img src="<?php echo htmlentities($ootm->imageUrl); ?>" alt="" />
 						<span class="picframe"></span>
 						<span class="btn ovault_visiticon_transyell"></span>
 					</a>

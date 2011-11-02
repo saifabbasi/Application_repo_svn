@@ -246,7 +246,7 @@ function getMonthlyData($XML = true, $SubChart = false) {
                                     <chart_type>Line</chart_type>
                                     
                                     <draw>
-                                        <image transition='dissolve' url='/Themes/BevoMedia/images/charts.swf?library_path=/Themes/BevoMedia/images/charts_library&xml_source=/BevoMedia/Analytics/AnalyticsDetail.html?XML=getMonthlyDataSubChart' />
+                                        <image transition='dissolve' url='/Themes/BevoMedia/images/charts.swf?library_path=/Themes/BevoMedia/images/charts_library&nbsp;xml_source=/BevoMedia/Analytics/AnalyticsDetail.html?XML=getMonthlyDataSubChart' />
                                     </draw>
                                     <filter>
                                     
