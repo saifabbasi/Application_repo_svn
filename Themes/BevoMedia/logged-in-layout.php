@@ -20,8 +20,8 @@
 
 <head>
 <title><?= $this->{'Instance/PageTitle'}; ?> </title>
-<meta name="keywords" content="<?=$this->{'Instance/PageKeywords'};?>" />
-<meta name="description" content="<?=$this->{'Instance/PageDescription'};?>" />
+<meta name="keywords" content="<?=$this->{'Instance/PageKeywords'};?>">
+<meta name="description" content="<?=$this->{'Instance/PageDescription'};?>">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <script src="/JS/Functions.js" type="text/javascript"></script>
 <script src="/JS/Ajax.js" type="text/javascript"></script>
@@ -71,21 +71,18 @@ if(userTimezoneOffset == false)
 ?>
 <!--[if IE]><script type="text/javascript" src="/JS/charts/excanvas.compiled.js"></script><![endif]-->
 <script type="text/javascript" src="/JS/charts/visualize.jQuery.js"></script>
-<link type="text/css" rel="stylesheet" href="/JS/charts/visualize.jQuery.css"/>
-<link type="text/css" rel="stylesheet" href="/JS/charts/demopage.css"/>
+<link type="text/css" rel="stylesheet" href="/JS/charts/visualize.jQuery.css">
+<link type="text/css" rel="stylesheet" href="/JS/charts/demopage.css">
 <!-- ENDOF New Chart System -->
 
-<!--  check these later, we may need some of the styles in here
-<link href="/Themes/BevoMedia/main.css" rel="stylesheet" type="text/css" />
-<link href="/Themes/BevoMedia/default.css" rel="stylesheet" type="text/css" />
-<link href="/Themes/BevoMedia/market.css" rel="stylesheet" type="text/css" /> -->
-<link href="/Themes/BevoMedia/style.css" rel="stylesheet" type="text/css" />
-<link href="/Themes/BevoMedia/ui.daterangepicker.css" rel="stylesheet" type="text/css" />
-<link href="/Themes/BevoMedia/jquery-ui-1.7.1.custom.css" rel="stylesheet" type="text/css" />
+
+<link href="/Themes/BevoMedia/style.css" rel="stylesheet" type="text/css">
+<link href="/Themes/BevoMedia/ui.daterangepicker.css" rel="stylesheet" type="text/css">
+<link href="/Themes/BevoMedia/jquery-ui-1.7.1.custom.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="/Themes/BevoMedia/shadowbox-source-3.0b/shadowbox.css">
-<link href="/Themes/BevoMedia/soapystyle.css" rel="stylesheet" type="text/css" />
-<link href="/Themes/BevoMedia/soapy_newcontent.css" rel="stylesheet" type="text/css" />
-<link href="/Themes/BevoMedia/global.css" rel="stylesheet" type="text/css" />
+<link href="/Themes/BevoMedia/soapystyle.css" rel="stylesheet" type="text/css">
+<link href="/Themes/BevoMedia/soapy_newcontent.css" rel="stylesheet" type="text/css">
+<link href="/Themes/BevoMedia/global.css" rel="stylesheet" type="text/css">
 
 <?php /*?>
 <script src="/Themes/BevoMedia/jquery.js" type="text/javascript"></script>
@@ -100,45 +97,7 @@ if(userTimezoneOffset == false)
 <script language="JavaScript" src="/Themes/BevoMedia/firstlogin.js"></script>
 <script type="text/javascript" src="/Themes/BevoMedia/shadowbox-source-3.0b/shadowbox.js"></script>
 <script type="text/javascript" src="/Themes/BevoMedia/soapylayout.js"></script>
-<!--[if lt IE 8]><link rel="stylesheet" href="/Themes/BevoMedia/ie7.css" type="text/css" media="screen" /><![endif]-->
-<script type="text/javascript">
-	Shadowbox.init({
-	    language: 'en',
-	    players:  ['html', 'iframe', 'img']
-	});
-	$(document).ready(function() {
-		//sapi tab switch
-		$('a.sapi-tab').click(function() {
-			if(!$(this).hasClass('active')) {
-				var sapiTarget = $(this).attr('href');
-				$('.sapi-box').each(function() {
-					$(this).slideUp(300).delay(300);
-				});
-				
-				//open target tab
-				$(sapiTarget).hide().slideDown(300);
-				
-				//handle red box
-				if($('.sapi-wrapper').hasClass('sapi-premium-user')) {}
-				else { //if this is a standard user
-					
-					$('#sapi-upsell-butt').delay(300).slideDown(300);
-					
-					//if he is opening the premium tab
-					if(sapiTarget == '#sapi-premium') {
-						$('#sapi-upsell-top').delay(1600).slideDown(600);
-						$('#sapi-preview').delay(3000).fadeIn(2000);
-					}
-				}
-				
-				$('a.sapi-tab.active').removeClass('active');
-				$(this).addClass('active');
-			}
-		}); //end sapi tab switch click function
-	});
-</script>
-
-
+<!--[if lt IE 8]><link rel="stylesheet" href="/Themes/BevoMedia/ie7.css" type="text/css" media="screen"><![endif]-->
 
 <?php /*?>
 <script src="/Themes/BevoMedia/Nextlines.js" type="text/javascript"></script>
@@ -147,6 +106,44 @@ if(userTimezoneOffset == false)
 
 </head>
 <body><?php /* ################################################################# BODY */ ?>
+
+	<script type="text/javascript">
+		Shadowbox.init({
+		    language: 'en',
+		    players:  ['html', 'iframe', 'img']
+		});
+		$(document).ready(function() {
+			//sapi tab switch
+			$('a.sapi-tab').click(function() {
+				if(!$(this).hasClass('active')) {
+					var sapiTarget = $(this).attr('href');
+					$('.sapi-box').each(function() {
+						$(this).slideUp(300).delay(300);
+					});
+					
+					//open target tab
+					$(sapiTarget).hide().slideDown(300);
+					
+					//handle red box
+					if($('.sapi-wrapper').hasClass('sapi-premium-user')) {}
+					else { //if this is a standard user
+						
+						$('#sapi-upsell-butt').delay(300).slideDown(300);
+						
+						//if he is opening the premium tab
+						if(sapiTarget == '#sapi-premium') {
+							$('#sapi-upsell-top').delay(1600).slideDown(600);
+							$('#sapi-preview').delay(3000).fadeIn(2000);
+						}
+					}
+					
+					$('a.sapi-tab.active').removeClass('active');
+					$(this).addClass('active');
+				}
+			}); //end sapi tab switch click function
+		});
+	</script>
+
 
 	<?php //financial + api data
 	//financial
@@ -726,7 +723,7 @@ if(userTimezoneOffset == false)
 		<li><a href="/InvestorsBevoMedia.html">Investors</a></li>
 		<li><a href="/AdNetworksBevoMedia.html">Affiliate Networks</a></li>
 	</ul>
-	<p>Copyright &copy; <?php echo date('Y'); ?> Bevo Media LLC. San Diego, CA 92130<p>
+	<p>Copyright &copy; <?php echo date('Y'); ?> Bevo Media LLC. San Diego, CA 92130</p>
 
 </div><!--close footer-->
 </div><!--close wrap-->

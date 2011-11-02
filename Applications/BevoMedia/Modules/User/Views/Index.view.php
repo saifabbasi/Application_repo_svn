@@ -816,7 +816,7 @@ while($Row = mysql_fetch_assoc($Query))
 			       );
 	       } else {
 		       var alternateContent = 'This content requires the Adobe Flash Player. '
-			+ '<u><a href=https://www.macromedia.com/go/getflash/>Get Flash</a></u>.';
+			+ '<u><a href="https://www.macromedia.com/go/getflash/">Get Flash</a></u>.';
 		       document.write(alternateContent);
 	       }
 	}
@@ -1118,7 +1118,7 @@ while($Row = mysql_fetch_assoc($Query))
                      <td class="tail" style=" background-color: #ffffff;">&nbsp;</td>
                     </tr>
 <?php ListAdwordsAccounts(); ?>
-                    </tr>
+                    
 
 <!-- Yahoo Accounts -->
                      <tr>
