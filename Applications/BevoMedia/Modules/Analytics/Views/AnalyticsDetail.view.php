@@ -465,10 +465,8 @@ if ($is_registerd) {
 		<?php /* <a class="btn pagedesc_toggle" title="Toggle page description for this page" href="#">Toggle page description for this page</a>* / ?>
 	</div> */ ?>
 	
-	
-<center>
 
-
+	<div style="text-align: center">
 
 <? 
 	if (Zend_Registry::get('Application/Mode') == 'SelfHosted')
@@ -519,18 +517,15 @@ if ($is_registerd) {
 ?>
 
 <!-- endif __SelfHosted__ -->
-    
-</center>
+    </div>
 
 <form method="get" action="" name="frmRange">
-<p align="right">
-<table align="right" cellspacing="0" cellpadding="0" class="datetable">
-  <tr>
-    <td><input class="formtxt" type="text" name="DateRange" id="datepicker" value="<?php echo LegacyAbstraction::$strDateRangeVal; ?>" /></td>
-	<td><input class="formsubmit" type="submit" /></td>
-  </tr>
-</table>
-</p>
+	<table align="right" cellspacing="0" cellpadding="0" class="datetable">
+	  <tr>
+	    <td><input class="formtxt" type="text" name="DateRange" id="datepicker" value="<?php echo LegacyAbstraction::$strDateRangeVal; ?>" /></td>
+		<td><input class="formsubmit" type="submit" /></td>
+	  </tr>
+	</table>
 </form>
 
 	<?php
@@ -802,6 +797,4 @@ if ($is_registerd) {
 	
 	?>
 	
-
-	</center>
 

@@ -47,7 +47,6 @@ function InsertChart( $php_source, $width=400, $height=250, $bg_color="666666" )
 	$html .= "			); \n";
 	$html .= "	} else { \n";
 	$html .= "		var alternateContent = 'This content requires the Adobe Flash Player. '\n";
-	$html .= "		+ '<u><a href=https://www.macromedia.com/go/getflash/>Get Flash</a></u>.';\n";
 	$html .= "		document.write(alternateContent); \n";
 	$html .= "	}\n";
 	$html .= "}\n";
