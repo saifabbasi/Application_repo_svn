@@ -319,9 +319,8 @@ $DateTo = $analytic_to;
 	
 	<?php echo $this->PageDesc->ShowDesc($this->PageHelper); ?>
 
-<div class="pagecontent analytics_page">	
-    <center>
-    
+<div class="pagecontent analytics_page" style="text-align: center">	
+        
 <?
     if (count(listDomains())==0)
     {
@@ -334,15 +333,13 @@ $DateTo = $analytic_to;
     
     
 <form method="get" name="frmRange">
-<input type='hidden' name='DomainID' value='<?php echo @$_GET['DomainID']?>'/>
-<p align="right">
-<table align="right" cellspacing="0" cellpadding="0" class="datetable">
-  <tr>
-    <td><input class="formtxt" type="text" name="DateRange" id="datepicker" value="<?php echo LegacyAbstraction::$strDateRangeVal; ?>" /></td>
-	<td><input class="formsubmit" type="submit" /></td>
-  </tr>
-</table>
-</p>
+	<input type='hidden' name='DomainID' value='<?php echo @$_GET['DomainID']?>'/>
+	<table align="right" cellspacing="0" cellpadding="0" class="datetable">
+	  <tr>
+	    <td><input class="formtxt" type="text" name="DateRange" id="datepicker" value="<?php echo LegacyAbstraction::$strDateRangeVal; ?>" /></td>
+		<td><input class="formsubmit" type="submit" /></td>
+	  </tr>
+	</table>
 </form>
 
 <div class="box">
@@ -528,7 +525,7 @@ Domain:
 	</tr>
 </table>
 
-</center>
+
 </div><!--close pagecontent-->
 
 

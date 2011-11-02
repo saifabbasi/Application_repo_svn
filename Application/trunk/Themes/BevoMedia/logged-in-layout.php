@@ -20,9 +20,9 @@
 
 <head>
 <title><?= $this->{'Instance/PageTitle'}; ?> </title>
-<meta name="keywords" content="<?=$this->{'Instance/PageKeywords'};?>">
-<meta name="description" content="<?=$this->{'Instance/PageDescription'};?>">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="keywords" content="<?=$this->{'Instance/PageKeywords'};?>" />
+<meta name="description" content="<?=$this->{'Instance/PageDescription'};?>" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script src="/JS/Functions.js" type="text/javascript"></script>
 <script src="/JS/Ajax.js" type="text/javascript"></script>
 <script src="/JS/Lock.js" type="text/javascript"></script>
@@ -71,18 +71,18 @@ if(userTimezoneOffset == false)
 ?>
 <!--[if IE]><script type="text/javascript" src="/JS/charts/excanvas.compiled.js"></script><![endif]-->
 <script type="text/javascript" src="/JS/charts/visualize.jQuery.js"></script>
-<link type="text/css" rel="stylesheet" href="/JS/charts/visualize.jQuery.css">
-<link type="text/css" rel="stylesheet" href="/JS/charts/demopage.css">
+<link type="text/css" rel="stylesheet" href="/JS/charts/visualize.jQuery.css" />
+<link type="text/css" rel="stylesheet" href="/JS/charts/demopage.css" />
 <!-- ENDOF New Chart System -->
 
 
-<link href="/Themes/BevoMedia/style.css" rel="stylesheet" type="text/css">
-<link href="/Themes/BevoMedia/ui.daterangepicker.css" rel="stylesheet" type="text/css">
-<link href="/Themes/BevoMedia/jquery-ui-1.7.1.custom.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" type="text/css" href="/Themes/BevoMedia/shadowbox-source-3.0b/shadowbox.css">
-<link href="/Themes/BevoMedia/soapystyle.css" rel="stylesheet" type="text/css">
-<link href="/Themes/BevoMedia/soapy_newcontent.css" rel="stylesheet" type="text/css">
-<link href="/Themes/BevoMedia/global.css" rel="stylesheet" type="text/css">
+<link href="/Themes/BevoMedia/style.css" rel="stylesheet" type="text/css" />
+<link href="/Themes/BevoMedia/ui.daterangepicker.css" rel="stylesheet" type="text/css" />
+<link href="/Themes/BevoMedia/jquery-ui-1.7.1.custom.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="/Themes/BevoMedia/shadowbox-source-3.0b/shadowbox.css" />
+<link href="/Themes/BevoMedia/soapystyle.css" rel="stylesheet" type="text/css" />
+<link href="/Themes/BevoMedia/soapy_newcontent.css" rel="stylesheet" type="text/css" />
+<link href="/Themes/BevoMedia/global.css" rel="stylesheet" type="text/css" />
 
 <?php /*?>
 <script src="/Themes/BevoMedia/jquery.js" type="text/javascript"></script>
@@ -97,7 +97,7 @@ if(userTimezoneOffset == false)
 <script language="JavaScript" src="/Themes/BevoMedia/firstlogin.js"></script>
 <script type="text/javascript" src="/Themes/BevoMedia/shadowbox-source-3.0b/shadowbox.js"></script>
 <script type="text/javascript" src="/Themes/BevoMedia/soapylayout.js"></script>
-<!--[if lt IE 8]><link rel="stylesheet" href="/Themes/BevoMedia/ie7.css" type="text/css" media="screen"><![endif]-->
+<!--[if lt IE 8]><link rel="stylesheet" href="/Themes/BevoMedia/ie7.css" type="text/css" media="screen" /><![endif]-->
 
 <?php /*?>
 <script src="/Themes/BevoMedia/Nextlines.js" type="text/javascript"></script>
