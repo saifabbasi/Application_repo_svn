@@ -367,10 +367,12 @@ Domain:
 
 <!-- BEGIN Chart -->
 <script type="text/javascript">
+//<![CDATA[
 	$(function(){
 		//make some charts
 		$('#JQueryChartData2').visualize({type: 'pie'}).appendTo('#JQueryChartDisplay2');
 	});
+//]]>
 </script>
 
 <?php
@@ -444,10 +446,12 @@ Domain:
 
 <!-- BEGIN Chart -->
 <script type="text/javascript">
+//<![CDATA[
 	$(function(){
 		//make some charts
 		$('#JQueryChartData').visualize({type: 'pie'}).appendTo('#JQueryChartDisplay');
 	});
+//]]>
 </script>
 
 <?php

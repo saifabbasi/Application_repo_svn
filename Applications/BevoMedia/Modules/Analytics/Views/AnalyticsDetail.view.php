@@ -475,10 +475,12 @@ if ($is_registerd) {
 
 <!-- BEGIN Chart -->
 <script type="text/javascript">
+//<![CDATA[
 	$(function(){
 		//make some charts
 		$('#JQueryChartData').visualize({type: 'line'}).appendTo('#JQueryChartDisplay');
 	});
+//]]>
 </script>
 
 <?php

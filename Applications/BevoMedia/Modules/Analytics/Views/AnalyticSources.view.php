@@ -297,10 +297,12 @@ Domain:
 ?>
 
 <script type="text/javascript">
+//<![CDATA[
 	$(function(){
 		//make some charts
 		$('#JQueryChartData').visualize({type: 'pie'}).appendTo('#JQueryChartDisplay');
 	});
+//]]>
 </script>
 <!-- ENDOF Chart -->
     
