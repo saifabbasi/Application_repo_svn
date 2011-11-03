@@ -27,6 +27,7 @@
 <script src="/JS/Ajax.js" type="text/javascript"></script>
 <script src="/JS/Lock.js" type="text/javascript"></script>
 <script language="JavaScript">
+//<![CDATA[
 var AC_FL_RunContent = 0;
 var DetectFlashVer = 0;
 var requiredMajorVersion = 9;
@@ -52,6 +53,7 @@ if(userTimezoneOffset == false)
 	var modToday = 'tomorrow';
 	var modYesterday = 'today';
 }
+//]]>
 </script>
 
 <script language="JavaScript" src="/Themes/BevoMedia/AC_RunActiveContent.js"></script>
@@ -108,6 +110,7 @@ if(userTimezoneOffset == false)
 <body><?php /* ################################################################# BODY */ ?>
 
 	<script type="text/javascript">
+	//<![CDATA[
 		Shadowbox.init({
 		    language: 'en',
 		    players:  ['html', 'iframe', 'img']
@@ -142,6 +145,7 @@ if(userTimezoneOffset == false)
 				}
 			}); //end sapi tab switch click function
 		});
+	//]]>
 	</script>
 
 
@@ -343,6 +347,7 @@ if(userTimezoneOffset == false)
 					<input type="submit" class="btn formsubmit odial_go_small" name="topdrop_quicksearch_submit" value="Go" />
 				</form>	
 				<script type="text/javascript">
+				//<![CDATA[
 				$('#topdrop_osearch').live('focus', function() {
 					if($(this).val() == $(this).prev().html())
 						$(this).val('');					
@@ -363,6 +368,7 @@ if(userTimezoneOffset == false)
 					}
 					return false;
 				});
+				//]]>
 				</script>
 				
 			<?php } ?>			
@@ -575,12 +581,15 @@ if(userTimezoneOffset == false)
 	
 	<?php if(isset($_GET['STEP'])):?>
 	<script language="javascript">
+	//<![CDATA[
 		firstlogin.loadstep('<?php echo $_GET['STEP']?>');
+	//]]>
 	</script>
 	<?php endif?>
 	
 	<?php if($this->PageHelper->Controller == 'KeywordTracker' && $this->User->vaultID == 0): ?>
 	<script language="javascript">
+	//<![CDATA[
 	    $(document).ready(function() {
 	        $('#pagemenu .li_geotargeting').click(function(){
 		        var a = document.createElement('a');
@@ -591,6 +600,7 @@ if(userTimezoneOffset == false)
 	            return false;
     	    });
         });
+    //]]>
 	</script>
 	<?php endif; ?>
 	
@@ -652,6 +662,7 @@ if(userTimezoneOffset == false)
 						?>
 						
 						<script language='javascript'>
+						//<![CDATA[
 							window.onload = function(){
 								// open a welcome message as soon as the window loads
 								Shadowbox.open({
@@ -662,6 +673,7 @@ if(userTimezoneOffset == false)
 									width:      640
 								});
 							};
+						//]]>
 						</script>
 						
 						<?php
@@ -677,6 +689,7 @@ if(userTimezoneOffset == false)
 						?>
 						
 						<script language='javascript'>
+						//<![CDATA[
 							window.onload = function(){
 								// open a welcome message as soon as the window loads
 								Shadowbox.open({
@@ -687,6 +700,7 @@ if(userTimezoneOffset == false)
 									width:      640
 								});
 							};
+						//]]>
 						</script>
 						
 						<?php
@@ -731,22 +745,28 @@ if(userTimezoneOffset == false)
 
 
 <script type="text/javascript">
+//<![CDATA[
 $(document).ready(function () {
 	if ($('#datepicker').length)
 	{
 		$('#datepicker').daterangepicker();
 	}
 });
+//]]>
 </script>
 
 <!--[if lt IE 7]><div id="srykthxbai">We're sorry, but your browser is too old for BevoMedia.<br />This application requires a modern browser to run smoothly and safely.<br />Please upgrade your browser.<br />Thank you.</div><![endif]-->
 <script type="text/javascript">
+//<![CDATA[
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+//]]>
 </script>
 <script type="text/javascript">
+//<![CDATA[
 var pageTracker = _gat._getTracker("UA-6678573-1");
 pageTracker._trackPageview();
+//]]>
 </script>
 
 
