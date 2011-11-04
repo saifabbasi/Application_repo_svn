@@ -97,6 +97,7 @@
 	<br />
 	
 	<script type="text/javascript">
+	//<![CDATA[
 	$('#signupForm #Continue').click(function() {
 		var Inputs = $('#signupForm .required');
 
@@ -116,9 +117,11 @@
 		
 		return true;
 	});
+	//]]>
 	</script>
 	
 	<script type="text/javascript">
+	//<![CDATA[
 		$(document).ready(function() {
 			$('#ContactCountry').val('');
 		});
@@ -147,6 +150,7 @@
 			}
 			
 		});
+	//]]>
 	</script>
 	
 	

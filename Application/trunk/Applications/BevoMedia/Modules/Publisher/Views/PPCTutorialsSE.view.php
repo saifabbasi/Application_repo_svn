@@ -36,7 +36,7 @@
 <h3 id="AdwordsScreenshot3">Adwords Screenshot #3</h3>
 <img src="/Themes/BevoMedia/img/adwordsexhibit3.jpg"/>
 
-<h3 id="YSMVideo">How to upload your Yahoo! Search Marketing account stats into Bevo</h2>
+<h3 id="YSMVideo">How to upload your Yahoo! Search Marketing account stats into Bevo</h3>
 	<?php echo ShowMovie('SItpb_FS0nI'); ?>	
 	<br /><br /><br /><br />
 	

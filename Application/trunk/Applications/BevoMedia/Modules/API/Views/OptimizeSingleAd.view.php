@@ -89,20 +89,17 @@ Are you sure you want to optimize the following ad?
 ?>
 <p id='ppp' style="text-align: left; width: 250px; margin: auto; line-height: 1.231; font-family: Arial; font-size: 13px;">
 	<a style="text-decoration: underline; font-size: 123.1%; color: rgb(0, 0, 222);" href="<?php print $Ad->url; ?>"><?php print $Ad->title; ?></a>
-	<br>
-	<span><?php echo $lineOne?></span><br>
+	<br />
+	<span><?php echo $lineOne?></span><br />
 	<?php if($lineTwo):?>
-		<span><?php echo $lineTwo?></span><br>
+		<span><?php echo $lineTwo?></span><br />
 	<?php endif?>
 	<span style="color: rgb(0, 128, 0);"><span style="font-weight: bolder;"><?php print $Ad->display_url; ?></span></span>
 </p>
 
 <br/>
-<?php if($notEnoughCred == false):?>
-<a onClick='javascript:document.getElementById("ppp").innerHTML = "<center><img src=\"/Themes/BevoMedia/img/loading2.gif\"></center>";' href='?ID=<?php echo $_GET['ID']?>&Confirm=TRUE'><b>Optimize Now</b></a><br/>
-<?php else:?>
-You currently do not have enough credit to process this operation.<br/>
-<?php endif?>
+
+
 <a href='javascript:parent.Shadowbox.close();'>Cancel</a>
 
 <?php }?>

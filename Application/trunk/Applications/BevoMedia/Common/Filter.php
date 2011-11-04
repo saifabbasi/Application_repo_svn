@@ -196,6 +196,7 @@ class Filter {
 </div>
 
 <script type="text/javascript">
+//<![CDATA[
 	jQuery(document).ready( function($) {
 
 		$('#ppccampaign').change( function() {
@@ -227,6 +228,7 @@ class Filter {
 		});
 
 	});
+//]]>
 </script>
 
 </form>
@@ -485,6 +487,7 @@ class Filter {
     </div>
     
     <script type="text/javascript">
+	//<![CDATA[
     	jQuery(document).ready( function($) {
     
     		$('#ppcprovider').change( function() {
@@ -521,6 +524,7 @@ class Filter {
     		});
     
     	});
+   	//]]>
     </script>
 					<script language="javascript" src="/Themes/BevoMedia/jquery_tooltip.js"></script> 
 <style type="text/css"> 

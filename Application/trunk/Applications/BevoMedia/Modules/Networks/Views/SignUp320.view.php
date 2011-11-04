@@ -119,6 +119,7 @@
 	</script>
 	
 	<script type="text/javascript">
+	//<![CDATA[
 		$(document).ready(function() {
 			$('#ContactCountry').val('');
 		});
@@ -147,6 +148,7 @@
 			}
 			
 		});
+	//]]>
 	</script>
 	
 	

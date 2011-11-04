@@ -190,6 +190,7 @@ function show_filtering_table()
 
 
 <script type="text/javascript">
+//<![CDATA[
 	jQuery(document).ready( function($) {
 
 		$('#ppccampaign').change( function() {
@@ -215,6 +216,7 @@ function show_filtering_table()
 		});
 
 	});
+//]]>
 </script>
 
 </form>

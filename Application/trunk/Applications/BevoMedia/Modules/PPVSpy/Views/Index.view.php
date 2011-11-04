@@ -92,6 +92,7 @@
 </div>
 
 <script type="text/javascript">
+//<![CDATA[
 $(document).ready(function() {
 		
 	var 	ppvs_panel ='#ppvpanel',
@@ -928,4 +929,5 @@ $(document).ready(function() {
 		return response;
 	}
 });
+//]]>
 </script>

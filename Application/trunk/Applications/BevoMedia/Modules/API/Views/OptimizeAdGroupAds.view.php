@@ -1,4 +1,3 @@
-<center style="background-color:#ffffff; height:100%;">
 <h2 style='margin:0'>Optimizing All Ad Variations in this AdGroup</h2>
 <?php
 
@@ -92,8 +91,10 @@ if(isset($_GET['Confirm']))
 	
 	<div id='LayoutAssist_Shadowbox_Close_Timer'></div>
 	<script language="Javascript">
+	//<![CDATA[
 		LayoutAssist.shadowboxCloseTimer(4);
 		LayoutAssist.parentLocationTimer(3.5, '[PARENT.LOCATION.HREF]');
+	//]]>
 	</script>
 
 	<?php 
@@ -137,11 +138,7 @@ Are you sure you want to optimize the following ads?
 <?php endforeach?>
 </div>
 
-<?php if($notEnoughCred == false):?>
-<a onClick='javascript:document.getElementById("ppp").innerHTML = "<center><img src=\"/Themes/BevoMedia/img/loading2.gif\"></center><br/>";' href='?ID=<?php echo $_GET['ID']?>&Confirm=TRUE'><b>Optimize Now</b></a><br/>
-<?php else:?>
-You currently do not have enough credit to process this operation.<br/>
-<?php endif?>
+
 <a href='javascript:parent.Shadowbox.close();'>Cancel</a>
 
 <?php }?>

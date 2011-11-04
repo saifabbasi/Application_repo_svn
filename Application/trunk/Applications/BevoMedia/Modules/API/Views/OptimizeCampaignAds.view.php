@@ -1,4 +1,3 @@
-<center style="background-color:#ffffff; height:100%;">
 <h2 style='margin:0'>Optimizing All Ad Variations in All Campaigns</h2>
 <?php
 
@@ -161,10 +160,10 @@ Are you sure you want to optimize the following ads?
 ?>
 <p style="float:left; text-align: left; width: 250px; margin: 10px; line-height: 1.231; font-family: Arial; font-size: 13px;">
 	<a style="text-decoration: underline; font-size: 123.1%; color: rgb(0, 0, 222);" href="<?php print $Ad->url; ?>"><?php print $Ad->title; ?></a>
-	<br>
-	<span><?php echo $lineOne?></span><br>
+	<br />
+	<span><?php echo $lineOne?></span><br />
 	<?php if($lineTwo):?>
-		<span><?php echo $lineTwo?></span><br>
+		<span><?php echo $lineTwo?></span><br />
 	<?php endif?>
 	<span style="color: rgb(0, 128, 0);"><span style="font-weight: bolder;"><?php print $Ad->display_url; ?></span></span>
 </p>
@@ -175,15 +174,11 @@ Are you sure you want to optimize the following ads?
 
 There are <?php print sizeOf($this->ads); ?> Ads that will be processed.
 <?php if(sizeOf($this->Ads)>25):?>
-<br><font color="#880000">Warning: This update make take several minutes to process!</font><br/>
+<br /><font color="#880000">Warning: This update make take several minutes to process!</font><br/>
 <?php endif?>
 <br/>
 
-<?php if($notEnoughCred == false):?>
-<a onClick='javascript:document.getElementById("ppp").innerHTML = "<center><img src=\"/Themes/BevoMedia/img/loading2.gif\"></center><br/>";' href='?ID=<?php echo $_GET['ID']?>&Confirm=TRUE'><b>Optimize Now</b></a><br/>
-<?php else:?>
-You currently do not have enough credit to process this operation.<br/>
-<?php endif?>
+
 <a href='javascript:parent.Shadowbox.close();'>Cancel</a>
 
 <?php }?>

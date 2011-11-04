@@ -34,6 +34,7 @@
 	</div>
 	
 	<script type="text/javascript">
+	//<![CDATA[
 		var EditRegionID_<?=$landingPageId?>_<?=$count?> = '<?=isset($this->Data->RegionID)?$this->Data->RegionID:''?>'; 
 		var EditCityID_<?=$landingPageId?>_<?=$count?> = '<?=isset($this->Data->CityID)?$this->Data->CityID:''?>';
 			
@@ -140,6 +141,6 @@
 				redrawMarkers();
 			}
 		}
-
+	//]]>
 	</script>
 	

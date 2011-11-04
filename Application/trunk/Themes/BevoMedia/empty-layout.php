@@ -8,14 +8,7 @@
 <script src="<?=$this->{'System/BaseURL'};?>JS/Functions.js" type="text/javascript"></script>
 <script src="<?=$this->{'System/BaseURL'};?>JS/Ajax.js" type="text/javascript"></script>
 <script src="<?=$this->{'System/BaseURL'};?>JS/Lock.js" type="text/javascript"></script>
-<script language="JavaScript">
-var AC_FL_RunContent = 0;
-var DetectFlashVer = 0;
-var requiredMajorVersion = 9;
-var requiredMinorVersion = 0;
-var requiredRevision = 45;
 
-</script>
 <script language="JavaScript" src="<?=$this->{'System/BaseURL'};?>Themes/<?=$this->{'Application/Theme'};?>/AC_RunActiveContent.js"></script>
 
 
@@ -26,22 +19,19 @@ var requiredRevision = 45;
 <script src="<?=$this->{'System/BaseURL'};?>Themes/<?=$this->{'Application/Theme'};?>/jquery.js" type="text/javascript"></script>
 <script src="<?=$this->{'System/BaseURL'};?>Themes/<?=$this->{'Application/Theme'};?>/FusionCharts.js" type="text/javascript"></script>
 <script src="<?=$this->{'System/BaseURL'};?>Themes/<?=$this->{'Application/Theme'};?>/RegisterForm.js" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="<?=$this->{'System/BaseURL'};?>Themes/<?=$this->{'Application/Theme'};?>/shadowbox-source-3.0b/shadowbox.css">
+<link rel="stylesheet" type="text/css" href="<?=$this->{'System/BaseURL'};?>Themes/<?=$this->{'Application/Theme'};?>/shadowbox-source-3.0b/shadowbox.css" />
 <script type="text/javascript" src="<?=$this->{'System/BaseURL'};?>Themes/<?=$this->{'Application/Theme'};?>/shadowbox-source-3.0b/shadowbox.js"></script>
+    
+</head>
+
 <script type="text/javascript">
+//<![CDATA[
 	Shadowbox.init({
 	    language: 'en',
 	    players:  ['html', 'iframe']
 	}); 
+//]]>
 </script>
-	    
-
-<?php /*?>
-<script src="<?=$this->{'System/BaseURL'};?>Themes/<?=$this->{'Application/Theme'};?>/Nextlines.js" type="text/javascript"></script>
-<script type="text/javascript" src="http://w.sharethis.com/button/sharethis.js#publisher=73e6ed73-10b8-4613-8d6b-680d01b68d3c&amp;type=website&amp;buttonText=Share%20It.&amp;linkfg=%23333333"></script>
-<?php */?>
-
-</head>
 
 <body>
     <div id="divPopWin" class="PopWin" style="display:none;">
@@ -50,7 +40,7 @@ var requiredRevision = 45;
            <table width="98%" height="92%" cellspacing="0" cellpadding="3" border="0">
 
                <tr>
-                   <td colspan="2" align="right"><div id="divPopWinTopClose"><a href="javascript:hidePop();"><img src="/Themes/BevoMedia/img/close_window.gif" width="100" height="20" border=0 alt=""></a></div></td>
+                   <td colspan="2" align="right"><div id="divPopWinTopClose"><a href="javascript:hidePop();"><img src="/Themes/BevoMedia/img/close_window.gif" width="100" height="20" border="0" alt="" /></a></div></td>
                </tr>
                <tr valign="top">
                    <td><div id="divPopWinIcon"></div></td>
@@ -59,7 +49,7 @@ var requiredRevision = 45;
                <tr>
                    <td colspan="2" align="center">
 
-                       <div id="divPopWinButtons"><input type="button" name="btnClosePopWin" value="Close" class="baseeffect" onClick="hidePop();"></div>
+                       <div id="divPopWinButtons"><input type="button" name="btnClosePopWin" value="Close" class="baseeffect" onClick="hidePop();" /></div>
                    </td>
                </tr>
            </table>
@@ -75,27 +65,27 @@ var requiredRevision = 45;
         	</div>
         	<div id="pub_headnav">
         		<a href="/BevoMedia/User/Index.html">
-        			<img src="/Themes/BevoMedia/img/home.gif">
+        			<img src="/Themes/BevoMedia/img/home.gif" />
         		</a> 
           		
           		<a href="https://www.bevomedia.com/contactus.php">
-          			<img src="/Themes/BevoMedia/img/mail.gif">
+          			<img src="/Themes/BevoMedia/img/mail.gif" />
 
           		</a> 
           		
           		<a href="#">
-          			<img src="/Themes/BevoMedia/img/setwap.gif">
+          			<img src="/Themes/BevoMedia/img/setwap.gif" />
           		</a> 
           		
           		<a href="Logout.html">
-          			<img src="/Themes/BevoMedia/img/logout_icon.jpg" height="20" border="0" width="24" title="Logout" align="absbottom">
+          			<img src="/Themes/BevoMedia/img/logout_icon.jpg" height="20" border="0" width="24" title="Logout" align="absbottom" />
           		</a>
           	</div>
 <!-- Network of Month -->
 <div id="pub_headclass">
 	<h1>Network of the Month</h1>
 
-<div style="text-align: center; padding-top: 30px;"><a href="publisher-networkofmonth.php?ID=7" style="size:0;color:#FFFFFF"><img src="/Themes/BevoMedia/img/networkoffers/1020.png" alt="Blue Lithium" style="background-color: #FFFFFF;"/><br />
+<div style="text-align: center; padding-top: 30px;"><a href="publisher-networkofmonth.php?ID=7" style="size:0;color:#FFFFFF"><img src="/Themes/BevoMedia/img/networkoffers/1020.png" alt="Blue Lithium" style="background-color: #FFFFFF;" /><br />
 			Blue Lithium</a></div></div>
 <!-- End Network of Month -->
         </div>
@@ -124,40 +114,34 @@ var requiredRevision = 45;
                             <td>
                                 <div class="BlueBox">
                                     <h3>Your Mentor Contact Info:</h3>
-									<?php $Mentor = $this->User->GetMyMentor()?>
-                                    <br>
-                                    <h5>
-                                        <b><?php echo $Mentor->Name?></b>
-                                        <br>
-                                        AIM: <?php echo $Mentor->AIM?><br>
-                                        Email: <?php echo $Mentor->Email?><br>
-                                    </h5><br />
-
-                                    Earnings:<br>
-                                    <font class="main">Today's: $0.00</font>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <font class="main">MTD: $0.00</font><br>
-                                    Expenses:<br>
-                                    <font class="main">Today's: $0.00</font>
-
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <font class="main">MTD: $0.00</font><br><br />
+									
                                     
-									<br><br>
+                                    Earnings:<br />
+                                    <font class="main">Today's: $0.00</font>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <font class="main">MTD: $0.00</font><br />
+                                    Expenses:<br />
+                                    <font class="main">Today's: $0.00</font>
+
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <font class="main">MTD: $0.00</font><br /><br />
+                                    
+									<br /><br />
                                     
                                     <p><a style="color:white;" href="publisher-market.php"><strong>Schedule a One on One Consulting Session</strong></a></p>
-                                                                    </div>                                
+                                </div>                                
                             </td>
                         </tr>
 						                                                <tr>
 
                             <td>
-                            	<a href='publisher-adwords-api-usage.php'>
-                                <div class="BlueBox" style='height:30px; background: url(/Themes/BevoMedia/img/blue-box2.gif)'>
-                                	<b>Remaining AdWords API Credit</b>
-                                	<br>
-                                	$65.00                                </div> 
-                                </a>                              
+                            	<div class="BlueBox" style='height:30px; background: url(/Themes/BevoMedia/img/blue-box2.gif)'>
+	                            	<a href='publisher-adwords-api-usage.php'>
+	                                	<b>Remaining AdWords API Credit</b>
+	                                	<br />
+	                                	$65.00                                
+	                                </a>
+                                </div>                              
                             </td>
                         </tr>
 
@@ -195,7 +179,7 @@ var requiredRevision = 45;
 
                                     			<li><a href="https://adwords.google.com/select/KeywordToolExternal" target="_blank">Google Keyword Tool</a></li>
 												<li><a href="http://bevomedia.bryxen4.hop.clickbank.net/?tid=KWELITE" target="_blank">Keyword Elite</a></li>
-												<li><a href="http://www.shareasale.com/r.cfm?b=100730&u=316208&m=14754&urllink=&afftrack=" target="_blank">SpyFu</a></li>
+												<li><a href="http://www.shareasale.com/r.cfm?b=100730&amp;u=316208&amp;m=14754&amp;urllink=&amp;afftrack=" target="_blank">SpyFu</a></li>
                                     		</ul>
                                     	</li>
                                     	<!-- <li class="rr3i"><a href="http://adwords.google.com/select/Login" target="_blank">Google Adwords</a></li>
@@ -228,7 +212,7 @@ var requiredRevision = 45;
     							</div>
                                 <div class="rr3db"></div>
                             </div>
-                            </div>
+                          
                             </td>
                             </tr>        
                                                                         <tr>
@@ -236,15 +220,15 @@ var requiredRevision = 45;
                             <td>
                                 <div class="LightBlueBoxTop">
                                     <h5>
-                                        <br>
-                                        <br>
+                                        <br />
+                                        <br />
                                         To Add a network not listed
-                                        <br>
-                                        <br>
-                                        <br>
+                                        <br />
+                                        <br />
+                                        <br />
 
                                     </h5>
-                                    <a href="javascript:showAddNewNetwork();"><img src="/Themes/BevoMedia/img/eng/btn-click-here.gif" width="73" height="29" border=0 alt=""></a>
+                                    <a href="javascript:showAddNewNetwork();"><img src="/Themes/BevoMedia/img/eng/btn-click-here.gif" width="73" height="29" border="0" alt="" /></a>
                                 </div>
                                 <div class="LightBlueBoxBot"></div>
                             </td>
@@ -263,12 +247,12 @@ var requiredRevision = 45;
 		<table width="550" cellspacing="0" cellpadding="5" border="0">
 			<tr valign="top">
 
-				<td width="127"><img src="/Themes/BevoMedia/img/<?php echo $this->{'PageHelper'}->HeadingImage?>" width="118" height="127" border=0 alt=""></td>
+				<td width="127"><img src="/Themes/BevoMedia/img/<?php echo $this->{'PageHelper'}->HeadingImage?>" width="118" height="127" border="0" alt=""></td>
 				<td class="main">
 					<h4><?php echo $this->{'PageHelper'}->Heading?></h4>
-					<br>
+					<br />
 					<?php echo $this->{'PageHelper'}->SubHeading?>
-					</td>
+				</td>
 			</tr>
 		</table>
 	</div></div></div></div></div>
@@ -309,12 +293,12 @@ var requiredRevision = 45;
 			<a href="https://www.bevomedia.com/press.php">Press</a> - 
 			<a href="https://www.bevomedia.com/investors.php">Investors</a> - 
 			<a href="https://www.bevomedia.com/ad-networks.php">Ad Networks</a>
-			<br>
+			<br />
 			Copyright &copy; 2009 BeVo Media LLC. 721 University Ave. Syracuse, NY 13244
 			| <a href="javascript:reportProblem();" class="linkWhite">Report an error on this page</a> -->
 			<a href="index.php">Home</a> - <a href="privacy-policy-bevo-media.htm">Privacy Policy</a> - <a href="terms-of-service-bevo-media.htm">Terms Of Service</a> - <a href="sitemap.htm">Site Map</a> - <a href="about-bevo-media.htm">About BeVo</a> - <a href="faqs-bevo-media.htm">FAQs</a> - <a href="careers-bevo-media.htm">Careers</a> - <a href="press-bevo-media.htm">Press</a> - <a href="investors-bevo-media.htm">Investors</a> - <a href="ad-networks-bevo-media.htm">Ad Networks</a><a href="networks.htm"></a>
 
-			<br>
+			<br />
 			Copyright &copy; 2009 BeVo Media LLC. 721 University Ave. Syracuse, NY 13244
 		</div>
 

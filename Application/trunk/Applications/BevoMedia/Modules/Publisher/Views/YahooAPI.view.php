@@ -92,7 +92,7 @@
 		</td>
 		<td class='textAlignCenter'>
 			<?php if($Account->verified):?>
-				<a href='?VerifyEmail=<?php print $Account->id; ?>' class='tooltip defaultLink' style="text-decoration: none; color: #0000000;" title="This account has been successfully<br/> verified using the API.<br/><br/>You may re-verify by clicking<br/> this link again.">Verified</i>
+				<a href='?VerifyEmail=<?php print $Account->id; ?>' class='tooltip defaultLink' style="text-decoration: none; color: #0000000;" title="This account has been successfully<br/> verified using the API.<br/><br/>You may re-verify by clicking<br/> this link again.">Verified</a>
 			<?php else:?>
 				<a class='tooltip defaultLink' title='Attempt to authenticate this<br/> account using the Yahoo API.' href='?VerifyEmail=<?php print $Account->id; ?>'>
 					Verify
