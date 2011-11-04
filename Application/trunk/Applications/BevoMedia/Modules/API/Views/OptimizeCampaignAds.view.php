@@ -118,7 +118,7 @@ if(isset($_GET['Confirm']))
 	{
 	?>
 	
-	</div>
+	
 
 	<?php 
 	}//if($this->Ad->ProviderType == '1' || $this->Ad->ProviderType == '3')
