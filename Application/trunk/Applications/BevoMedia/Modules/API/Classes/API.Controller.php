@@ -403,8 +403,8 @@ Campaigns you have created may take up to 15-20 minutes to appear in your PPC Ac
 	
 	Public Function MSNCronAllUsers()
 	{
-		Zend_Registry::set('Instance/LayoutType', 'blank-layout');
-		echo '<pre>';
+//		Zend_Registry::set('Instance/LayoutType', 'blank-layout');
+//		echo '<pre>';
 	}
 	
 	Public Function ListNetworks()
