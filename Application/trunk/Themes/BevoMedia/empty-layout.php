@@ -91,7 +91,7 @@
         </div>
         
         <div class="TabBar">
-            <!--<div style="float:left; width:50px;">&nbsp;</div>--> 
+           
             <div class="Tab<?php echo($this->PageHelper->Area == 'Overview')?'Over':''?>"><a href="/BevoMedia/User/Index.html">Overview</a></div>
             <div class="Tab<?php echo($this->PageHelper->Area == 'MyNetworks')?'Over':''?>"><a href="/BevoMedia/Publisher/Index.html">My Networks</a></div>
             <div class="Tab"><a href="https://www.bevomedia.com/publisher-offers.php">Codes/Offers</a></div>
@@ -182,19 +182,13 @@
 												<li><a href="http://www.shareasale.com/r.cfm?b=100730&amp;u=316208&amp;m=14754&amp;urllink=&amp;afftrack=" target="_blank">SpyFu</a></li>
                                     		</ul>
                                     	</li>
-                                    	<!-- <li class="rr3i"><a href="http://adwords.google.com/select/Login" target="_blank">Google Adwords</a></li>
-                                    	<li class="rr3i"><a href="https://marketingsolutions.login.yahoo.com" target="_blank">Yahoo Search Marketing</a></li>-->
+                                    	
                                     	<li class="rr3i"><a href="publisher-market.php?ServiceID=4">Programming Help</a></li>
 
                                     	<li class="rr3i"><a href="publisher-market.php?ServiceID=1">Article Writers</a></li>
                                     	<li class="rr3i"><a href="publisher-market.php?ServiceID=2">Landing Page Design</a></li>
                                     	<li class="rr3i"><a href="publisher-market.php?ServiceID=5">SEO Resources</a>
-<!--                                    		<ul>
-												<li>Guide to SEO</li>
-												<li>Basic SEO Service</li>
-												<li>Premium SEO</li>
-												<li><a href="http://bevomedia.bryxen1.hop.clickbank.net/?tid=SEOELITE" target="_blank">SEO Elite</a></li>
-                                    		</ul> -->
+
                                     	</li>
                                     	<li class="rr3i"><a>Web Hosting</a>
                                     		<ul>
@@ -283,19 +277,7 @@
 		</div>
 
 		<div class="Copyright">
-			<!-- <a href="https://www.bevomedia.com/index.php">Home</a> - 
-			<a href="https://www.bevomedia.com/privacy.php">Privacy Policy</a> - 
-			<a href="https://www.bevomedia.com/terms.php">Terms Of Service</a> - 
-			<a href="https://www.bevomedia.com/sitemap.php">Site Map</a> - 
-			<a href="https://www.bevomedia.com/aboutus.php">About BeVo</a> - 
-			<a href="https://www.bevomedia.com/faqs.php">FAQs</a> - 
-			<a href="https://www.bevomedia.com/careers.php">Careers</a> - 
-			<a href="https://www.bevomedia.com/press.php">Press</a> - 
-			<a href="https://www.bevomedia.com/investors.php">Investors</a> - 
-			<a href="https://www.bevomedia.com/ad-networks.php">Ad Networks</a>
-			<br />
-			Copyright &copy; 2009 BeVo Media LLC. 721 University Ave. Syracuse, NY 13244
-			| <a href="javascript:reportProblem();" class="linkWhite">Report an error on this page</a> -->
+		
 			<a href="index.php">Home</a> - <a href="privacy-policy-bevo-media.htm">Privacy Policy</a> - <a href="terms-of-service-bevo-media.htm">Terms Of Service</a> - <a href="sitemap.htm">Site Map</a> - <a href="about-bevo-media.htm">About BeVo</a> - <a href="faqs-bevo-media.htm">FAQs</a> - <a href="careers-bevo-media.htm">Careers</a> - <a href="press-bevo-media.htm">Press</a> - <a href="investors-bevo-media.htm">Investors</a> - <a href="ad-networks-bevo-media.htm">Ad Networks</a><a href="networks.htm"></a>
 
 			<br />
