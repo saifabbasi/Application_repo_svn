@@ -36,22 +36,22 @@ Please enter the code that you received in your email as well as your email addr
 	<tr><td class="td" colspan="2">&nbsp;</td></tr>
 					<tr>
 						<td class="td" width="100" align="right">Email:</td>
-						<td class="td"><input name="Email" size="30" maxlength="255" tabindex="1" class="effect" alt="email" value="<?php echo isset($_GET['Email'])?$_GET['Email']:''?>" type="text"></td>
+						<td class="td"><input name="Email" size="30" maxlength="255" tabindex="1" class="effect" alt="email" value="<?php echo isset($_GET['Email'])?$_GET['Email']:''?>" type="text" /></td>
 					</tr>
 
 					<tr>
 						<td class="td" width="100" align="right">Email Code:</td>
-						<td class="td"><input name="EmailCode" size="30" maxlength="255" tabindex="1" class="effect" alt="email" value='<?php echo isset($_GET['EmailCode'])?$_GET['EmailCode']:''?>' type="text"></td>
+						<td class="td"><input name="EmailCode" size="30" maxlength="255" tabindex="1" class="effect" alt="email" value='<?php echo isset($_GET['EmailCode'])?$_GET['EmailCode']:''?>' type="text" /></td>
 					</tr>
 					
 					<tr>
 						<td class="td" width="100" align="right">New Password:</td>
-						<td class="td"><input name="Password" size="30" maxlength="255" tabindex="1" class="effect" alt="email" type="password"></td>
+						<td class="td"><input name="Password" size="30" maxlength="255" tabindex="1" class="effect" alt="email" type="password" /></td>
 					</tr>
 					
 					<tr>
 						<td class="td" colspan="2" style="text-align: center;">
-							<input name="resetPasswordSubmit" class="baseeffectEx" type="submit">
+							<input name="resetPasswordSubmit" class="baseeffectEx" type="submit" />
 						
 						</td>
 					</tr>

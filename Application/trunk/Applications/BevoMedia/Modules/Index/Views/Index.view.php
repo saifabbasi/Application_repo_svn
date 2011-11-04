@@ -9,7 +9,7 @@
 		<param name="movie" value="http<?=$s?>://bevomedia-media.s3.amazonaws.com/mediaplayer-viral/player-viral.swf" />
 		<param name="allowfullscreen" value="true" />
 		<param name="allowscriptaccess" value="always" />
-		<param name="flashvars" value="file=http<?=$s?>://bevomedia-media.s3.amazonaws.com/BevoVid_320x240.flv&image=http<?=$s?>://bevomedia-media.s3.amazonaws.com/mediaplayer-viral/bevo-background-v1.1.jpg" />
+		<param name="flashvars" value="file=http<?=$s?>://bevomedia-media.s3.amazonaws.com/BevoVid_320x240.flv&amp;image=http<?=$s?>://bevomedia-media.s3.amazonaws.com/mediaplayer-viral/bevo-background-v1.1.jpg" />
 		<embed
 			type="application/x-shockwave-flash"
 			id="player2"
@@ -19,7 +19,7 @@
 			height="268"
 			allowscriptaccess="always" 
 			allowfullscreen="true"
-			flashvars="file=http<?=$s?>://bevomedia-media.s3.amazonaws.com/BevoVid_320x240.flv&image=http://bevomedia-media.s3.amazonaws.com/mediaplayer-viral/bevo-background-v1.1.jpg" 
+			flashvars="file=http<?=$s?>://bevomedia-media.s3.amazonaws.com/BevoVid_320x240.flv&amp;image=http://bevomedia-media.s3.amazonaws.com/mediaplayer-viral/bevo-background-v1.1.jpg" 
 		/>
 	</object>
 	</div>

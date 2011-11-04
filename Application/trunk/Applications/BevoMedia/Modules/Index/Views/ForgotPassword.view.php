@@ -28,14 +28,14 @@ instructions on reseting your password.
 	<tr><td class="td" colspan="2">&nbsp;</td></tr>
 					<tr>
 						<td class="td" width="100" align="right">Email:</td>
-						<td class="td"><input name="Email" size="30" maxlength="255" tabindex="1" class="effect" alt="email" type="text"></td>
+						<td class="td"><input name="Email" size="30" maxlength="255" tabindex="1" class="effect" alt="email" type="text" /></td>
 					</tr>
 
 					
 					<tr>
 						<td>&nbsp;</td>
 						<td class="td" style="text-align: center;">
-							<input name="forgotPasswordSubmit" class="formSubmit" type="submit">
+							<input name="forgotPasswordSubmit" class="formSubmit" type="submit" />
 						
 						</td>
 					</tr>
