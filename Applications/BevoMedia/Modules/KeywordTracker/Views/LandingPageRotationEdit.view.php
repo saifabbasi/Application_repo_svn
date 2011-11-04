@@ -98,7 +98,7 @@ p.descript {float: right; width: 60%;}
 </div>
 
 <script type="text/javascript">
-
+//<![CDATA[
 	function updatePercents() {
 
 		var totalRadios = 0;
@@ -168,6 +168,7 @@ p.descript {float: right; width: 60%;}
 
 		updatePercents();
 	});
+//]]>
 </script>
 
 

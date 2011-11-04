@@ -118,7 +118,7 @@
 					
 					<p>
 						<b>Disclosure Practices</b>
-						<p>Except under the following 
+						<p>Except under the following </p>
 						circumstances, BevoMedia will keep Your Personal Information private, 
 						and will not share it with third parties.
 					</p>
@@ -155,9 +155,7 @@
 						  collected after a transfer, however, may be subject to a new privacy 
 						  policy adopted by BevoMedia’ successor organization. 
 					</p>
-					  
-				  
-				</p>
+				</p>	
 				
 				
 			</li>

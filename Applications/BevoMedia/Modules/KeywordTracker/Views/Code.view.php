@@ -396,8 +396,8 @@ setVisible($(".landingPageItems"), !CheckBox.checked);
     				</select>
     				<br/>
     					<a rel='shadowbox;width=640;height=480;' href='LandingRotationNewAjax.html'>Click here to add a landing page rotation.</a>
-    				</td>
 				</span>
+				</td>
 			</tr>
 			
 			<tr class='hideOnDirectLink landingPageRotatorStuff'>
@@ -447,8 +447,8 @@ setVisible($(".landingPageItems"), !CheckBox.checked);
     				<br/>
     					<a rel='shadowbox;width=640;height=480;' href='OfferRotationNewAjax.html'>Click here to add an offer rotation.</a>
     					<p>Your offer URL will be automatically modified to be the one used from the Bevomedia offer rotator.</p>
-    				</td>
 				</span>
+				</td>
 			</tr>
 			
 			<tr class="offerRotatorStuff">
@@ -476,7 +476,7 @@ setVisible($(".landingPageItems"), !CheckBox.checked);
 					<p>
 						<input class="formcheck" type='checkbox' id='autotrack' name='autotrack' value='on' checked=checked onclick=' $("#saleAmtSpan").toggle(); $("#autoSpan").toggle();'>
 						<span id="autoSpan">Your conversion stats will be automatically retrieved from the network.<br />(Most accurate, you must first setup your affiliate networks on the My Networks page, uncheck for Pixel/Postback)</span>
-						<span id="saleAmtSpan" style="display: none">Conversions are worth: $<input type="text" name="saleAmt" size=4 value="3.00"></input></span>
+						<span id="saleAmtSpan" style="display: none">Conversions are worth: $<input type="text" name="saleAmt" size=4 value="3.00" /></span>
 					</p>
 				</td>
 			</tr>
@@ -506,6 +506,7 @@ $('#offerRotatorSelectionBox').change(function() {
 </script>
 	
 <script language="javascript">
+//<![CDATA[
 	function setDisabled(el, val) {
 		if(val)
 			el.attr('disabled', true);
@@ -782,6 +783,7 @@ $('#offerRotatorSelectionBox').change(function() {
 		obj.innerHTML = 'Checking strength...';
 		getContentFromUrl('ajax_check_pwd.php?pwd=' + escape(pwd), obj, 'GET', '', '');
 	}
+//]]>
 </script>
 
 

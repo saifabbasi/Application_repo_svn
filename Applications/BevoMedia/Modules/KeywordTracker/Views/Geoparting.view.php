@@ -146,6 +146,7 @@ if (!isset($_GET['sortBy'])) {
 </div>
 
 <script type="text/javascript">
+//<![CDATA[
 	jQuery(document).ready( function($) {
 
 		$('#campaign').change( function() {
@@ -163,6 +164,7 @@ if (!isset($_GET['sortBy'])) {
 		
 
 	});
+//]]>
 </script>
 </form>
 

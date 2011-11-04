@@ -328,16 +328,16 @@ function LoadAccountStats($intInProvider) {
 
 <div class="clear"></div>
 
+<div align="right">
 <form method="get" action="" name="frmRange">
-<p align="right">
 <table align="right" cellspacing="0" cellpadding="0" class="datetable">
   <tr>
     <td><input class="formtxt" type="text" name="DateRange" id="datepicker" value="<?php print isset($_GET['DateRange'])?$_GET['DateRange']:$this->defaultDateRange; ; ?>" /></td>
 	<td><input class="formsubmit" type="submit" /></td>
   </tr>
 </table>
-</p>
 </form>
+</div>
 
 <div style="clear: both; height: 5px; overflow: clip;">&nbsp;</div>
 
@@ -361,7 +361,7 @@ function LoadAccountStats($intInProvider) {
                      <td class="tail" style=" background-color: #ffffff;">&nbsp;</td>
                     </tr>
 <?php ListAdwordsAccounts(); ?>
-                    </tr>
+                    
 
 <!-- Yahoo Accounts -->
                      <tr>

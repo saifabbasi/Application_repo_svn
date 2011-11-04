@@ -301,7 +301,7 @@ function LoadAccountStats($intInProvider) {
                      <td class="tail" style=" background-color: #ffffff;">&nbsp;</td>
                     </tr>
 <?php ListAdwordsAccounts(); ?>
-                    </tr>
+                    
 
 <!-- Yahoo Accounts -->
                      <tr>
