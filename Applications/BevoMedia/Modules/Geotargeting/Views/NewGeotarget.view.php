@@ -15,7 +15,7 @@
 		
 		<label>
 			<span style="width: 50px; display: inline-block;">Name: </span>
-			<input class="formtxt" name='name' type='text' value=''>			
+			<input class="formtxt" name='name' type='text' value='' />			
 		</label>
 		
 		<br /><br />
