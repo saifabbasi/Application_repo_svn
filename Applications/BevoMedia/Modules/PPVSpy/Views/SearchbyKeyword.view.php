@@ -127,7 +127,7 @@ $a=$c+1;
 
 $form='<p><form method="get" action="SearchbyKeyword.html">
 
-<input type="text" name="q" value="'.$keyword.'">
+<input type="text" name="q" value="'.$keyword.'" />
 
 Search In:
 <select name="search_type">
