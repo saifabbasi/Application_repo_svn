@@ -36,7 +36,7 @@ $form= '<p>Thank you. Your target has been added to the queue. Please check back
 }
 else{
 $form= '<p>Suggest a target below to be checked for pop ups.</p><p><form method="post" action="SuggestATarget.html">
-<input type="text" name="target" value="">
+<input type="text" name="target" value="" />
 
 <input type="submit" />
 
