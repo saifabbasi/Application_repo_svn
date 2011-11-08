@@ -133,7 +133,7 @@ Search In:
 <select name="search_type">
 <option ';
 if ($search_type=='3'){$form.= 'selected';}
-$form.=' value="3">Target & Popped URLs</option>
+$form.=' value="3">Target &amp; Popped URLs</option>
 <option ';
 if ($search_type=='2'){$form.='selected';}
 $form.=' value="2">Popped URLs Only</option>
