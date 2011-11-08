@@ -67,7 +67,7 @@ $a++;
 }
 
 
-$results_table.='</p></table>';
+$results_table.='</table></p>';
 
 echo $results_table;
 
