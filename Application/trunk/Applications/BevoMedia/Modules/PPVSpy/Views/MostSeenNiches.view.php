@@ -54,8 +54,8 @@ $b=$a+1;
 
 $results_table.='<tr>
 <td>'.$b.') '.$niches[$a].'</td>
-<td><a href=Similar.html?search_for=pops&amp;search_by=niche&amp;url='.$short_popped_urls[$a].'&amp;offer_id='.$offer_ids[$a].'&amp;niche_id='.$niche_ids[$a].'>Niche</a></td>
-<td><a href=Similar.html?search_for=targets&amp;search_by=niche&amp;url='.$short_popped_urls[$a].'&amp;offer_id='.$offer_ids[$a].'&amp;niche_id='.$niche_ids[$a].'>Niche</a></td>
+<td><a href="Similar.html?search_for=pops&amp;search_by=niche&amp;url='.$short_popped_urls[$a].'&amp;offer_id='.$offer_ids[$a].'&amp;niche_id='.$niche_ids[$a].'">Niche</a></td>
+<td><a href="Similar.html?search_for=targets&amp;search_by=niche&amp;url='.$short_popped_urls[$a].'&amp;offer_id='.$offer_ids[$a].'&amp;niche_id='.$niche_ids[$a].'">Niche</a></td>
 </tr>';
 
 
