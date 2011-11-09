@@ -454,10 +454,10 @@
 						$out .= '<tr class="orow j_oright j_oid-'.$offer->id.'" data-oid="'.$offer->id.'" data-listid="'.$ovaultSavelist['righttable']->id.'" title="Click to expand or collapse this offer">';
 						
 						$out .= '<td class="border">&nbsp;</td>';
-						$out .= '<td class="td_offername"><p>'.$offer->title.$offer->dateAdded.'</p></td>';
+						$out .= '<td class="td_offername"><p>'.htmlentities($offer->title.$offer->dateAdded).'</p></td>';
 						$out .= '<td class="td_payout"><p>'.$offer->payout.'</p></td>';
 						$out .= '<td class="td_type"><p>'.$offer->type.'</p></td>';
-						$out .= '<td class="td_vertical"><p>'.$offer->categoryTitle.'</p></td>';
+						$out .= '<td class="td_vertical"><p>'.htmlentities($offer->categoryTitle).'</p></td>';
 						
 						$out .= '<td class="td_network"><p class="icon'.$offer->isNetworkMember.'">'.$offer->networkName.'</p></td>';
 						
