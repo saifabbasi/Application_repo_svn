@@ -31,10 +31,10 @@ $search_by=$_GET['search_by'];
 $search_for=$_GET['search_for'];
 $target=$_GET['target'];
 $currentpage=$_GET['currentpage'];
-$query_url_string="search_for=".$search_for."&search_by=".$search_by."&url=".$short_popped_url."&offer_id=".$offer_id."&niche_id=".$niche_id."&target=".$target;
+$query_url_string="search_for=".$search_for."&amp;search_by=".$search_by."&amp;url=".$short_popped_url."&amp;offer_id=".$offer_id."&amp;niche_id=".$niche_id."&amp;target=".$target;
 
 //load the xml file
-$xml = simplexml_load_file("http://distantsunmedia.com/api/similar.php?search_for=".$search_for."&search_by=".$search_by."&url=".$short_popped_url."&offer_id=".$offer_id."&niche_id=".$niche_id."&target=".$target."&key=".$key."&currentpage=".$currentpage);
+$xml = simplexml_load_file("http://distantsunmedia.com/api/similar.php?search_for=".$search_for."&amp;search_by=".$search_by."&amp;url=".$short_popped_url."&amp;offer_id=".$offer_id."&amp;niche_id=".$niche_id."&amp;target=".$target."&amp;key=".$key."&amp;currentpage=".$currentpage);
 
 //get summary details
 $total_results=$xml->summary->results;
@@ -120,15 +120,15 @@ $results_table=$results_table.'<p><table cellpadding="2" style="text-align: cent
 </tr>
 
 <tr>
-<td WIDTH="350">View All Pops For This: <a href=Similar.html?search_for=pops&search_by=popped_url&url='.$short_popped_urls[$a].'&offer_id='.$offer_ids[$a].'&niche_id='.$niche_ids[$a].'>Popped URL</a> | <a href=Similar.html?search_for=pops&search_by=niche&url='.$short_popped_urls[$a].'&offer_id='.$offer_ids[$a].'&niche_id='.$niche_ids[$a].'>Niche</a> | <a href=Similar.html?search_for=pops&search_by=offer&url='.$short_popped_urls[$a].'&offer_id='.$offer_ids[$a].'&niche_id='.$niche_ids[$a].'>Offer</a></td>
-<td WIDTH="350">View All Pops For This: <a href=Similar.html?search_for=pops&search_by=popped_url&url='.$short_popped_urls[$b].'&offer_id='.$offer_ids[$b].'&niche_id='.$niche_ids[$b].'>Popped URL</a> | <a href=Similar.html?search_for=pops&search_by=niche&url='.$short_popped_urls[$b].'&offer_id='.$offer_ids[$b].'&niche_id='.$niche_ids[$b].'>Niche</a> | <a href=Similar.html?search_for=pops&search_by=offer&url='.$short_popped_urls[$b].'&offer_id='.$offer_ids[$b].'&niche_id='.$niche_ids[$b].'>Offer</a></td>
-<td WIDTH="350">View All Pops For This: <a href=Similar.html?search_for=pops&search_by=popped_url&url='.$short_popped_urls[$c].'&offer_id='.$offer_ids[$c].'&niche_id='.$niche_ids[$c].'>Popped URL</a> | <a href=Similar.html?search_for=pops&search_by=niche&url='.$short_popped_urls[$c].'&offer_id='.$offer_ids[$c].'&niche_id='.$niche_ids[$c].'>Niche</a> | <a href=Similar.html?search_for=pops&search_by=offer&url='.$short_popped_urls[$c].'&offer_id='.$offer_ids[$c].'&niche_id='.$niche_ids[$c].'>Offer</a></td>
+<td WIDTH="350">View All Pops For This: <a href=Similar.html?search_for=pops&amp;search_by=popped_url&amp;url='.$short_popped_urls[$a].'&amp;offer_id='.$offer_ids[$a].'&amp;niche_id='.$niche_ids[$a].'>Popped URL</a> | <a href=Similar.html?search_for=pops&amp;search_by=niche&amp;url='.$short_popped_urls[$a].'&amp;offer_id='.$offer_ids[$a].'&amp;niche_id='.$niche_ids[$a].'>Niche</a> | <a href=Similar.html?search_for=pops&amp;search_by=offer&amp;url='.$short_popped_urls[$a].'&amp;offer_id='.$offer_ids[$a].'&amp;niche_id='.$niche_ids[$a].'>Offer</a></td>
+<td WIDTH="350">View All Pops For This: <a href=Similar.html?search_for=pops&amp;search_by=popped_url&amp;url='.$short_popped_urls[$b].'&amp;offer_id='.$offer_ids[$b].'&amp;niche_id='.$niche_ids[$b].'>Popped URL</a> | <a href=Similar.html?search_for=pops&amp;search_by=niche&amp;url='.$short_popped_urls[$b].'&amp;offer_id='.$offer_ids[$b].'&amp;niche_id='.$niche_ids[$b].'>Niche</a> | <a href=Similar.html?search_for=pops&amp;search_by=offer&amp;url='.$short_popped_urls[$b].'&amp;offer_id='.$offer_ids[$b].'&amp;niche_id='.$niche_ids[$b].'>Offer</a></td>
+<td WIDTH="350">View All Pops For This: <a href=Similar.html?search_for=pops&amp;search_by=popped_url&amp;url='.$short_popped_urls[$c].'&amp;offer_id='.$offer_ids[$c].'&amp;niche_id='.$niche_ids[$c].'>Popped URL</a> | <a href=Similar.html?search_for=pops&amp;search_by=niche&amp;url='.$short_popped_urls[$c].'&amp;offer_id='.$offer_ids[$c].'&amp;niche_id='.$niche_ids[$c].'>Niche</a> | <a href=Similar.html?search_for=pops&amp;search_by=offer&amp;url='.$short_popped_urls[$c].'&amp;offer_id='.$offer_ids[$c].'&amp;niche_id='.$niche_ids[$c].'>Offer</a></td>
 </tr>
 
 <tr>
-<td WIDTH="350">View All Targets For This: <a href=Similar.html?search_for=targets&search_by=popped_url&url='.$short_popped_urls[$a].'&offer_id='.$offer_ids[$a].'&niche_id='.$niche_ids[$a].'>Popped URL</a> | <a href=Similar.html?search_for=targets&search_by=niche&url='.$short_popped_urls[$a].'&offer_id='.$offer_ids[$a].'&niche_id='.$niche_ids[$a].'>Niche</a> | <a href=Similar.html?search_for=targets&search_by=offer&url='.$short_popped_urls[$a].'&offer_id='.$offer_ids[$a].'&niche_id='.$niche_ids[$a].'>Offer</a></td>
-<td WIDTH="350">View All Targets For This: <a href=Similar.html?search_for=targets&search_by=popped_url&url='.$short_popped_urls[$b].'&offer_id='.$offer_ids[$b].'&niche_id='.$niche_ids[$b].'>Popped URL</a> | <a href=Similar.html?search_for=targets&search_by=niche&url='.$short_popped_urls[$b].'&offer_id='.$offer_ids[$b].'&niche_id='.$niche_ids[$b].'>Niche</a> | <a href=Similar.html?search_for=targets&search_by=offer&url='.$short_popped_urls[$b].'&offer_id='.$offer_ids[$b].'&niche_id='.$niche_ids[$b].'>Offer</a></td>
-<td WIDTH="350">View All Targets For This: <a href=Similar.html?search_for=targets&search_by=popped_url&url='.$short_popped_urls[$c].'&offer_id='.$offer_ids[$c].'&niche_id='.$niche_ids[$c].'>Popped URL</a> | <a href=Similar.html?search_for=targets&search_by=niche&url='.$short_popped_urls[$c].'&offer_id='.$offer_ids[$c].'&niche_id='.$niche_ids[$c].'>Niche</a> | <a href=Similar.html?search_for=targets&search_by=offer&url='.$short_popped_urls[$c].'&offer_id='.$offer_ids[$c].'&niche_id='.$niche_ids[$c].'>Offer</a></td>
+<td WIDTH="350">View All Targets For This: <a href=Similar.html?search_for=targets&amp;search_by=popped_url&amp;url='.$short_popped_urls[$a].'&amp;offer_id='.$offer_ids[$a].'&amp;niche_id='.$niche_ids[$a].'>Popped URL</a> | <a href=Similar.html?search_for=targets&amp;search_by=niche&amp;url='.$short_popped_urls[$a].'&amp;offer_id='.$offer_ids[$a].'&amp;niche_id='.$niche_ids[$a].'>Niche</a> | <a href=Similar.html?search_for=targets&amp;search_by=offer&amp;url='.$short_popped_urls[$a].'&amp;offer_id='.$offer_ids[$a].'&amp;niche_id='.$niche_ids[$a].'>Offer</a></td>
+<td WIDTH="350">View All Targets For This: <a href=Similar.html?search_for=targets&amp;search_by=popped_url&amp;url='.$short_popped_urls[$b].'&amp;offer_id='.$offer_ids[$b].'&amp;niche_id='.$niche_ids[$b].'>Popped URL</a> | <a href=Similar.html?search_for=targets&amp;search_by=niche&amp;url='.$short_popped_urls[$b].'&amp;offer_id='.$offer_ids[$b].'&amp;niche_id='.$niche_ids[$b].'>Niche</a> | <a href=Similar.html?search_for=targets&amp;search_by=offer&amp;url='.$short_popped_urls[$b].'&amp;offer_id='.$offer_ids[$b].'&amp;niche_id='.$niche_ids[$b].'>Offer</a></td>
+<td WIDTH="350">View All Targets For This: <a href=Similar.html?search_for=targets&amp;search_by=popped_url&amp;url='.$short_popped_urls[$c].'&amp;offer_id='.$offer_ids[$c].'&amp;niche_id='.$niche_ids[$c].'>Popped URL</a> | <a href=Similar.html?search_for=targets&amp;search_by=niche&amp;url='.$short_popped_urls[$c].'&amp;offer_id='.$offer_ids[$c].'&amp;niche_id='.$niche_ids[$c].'>Niche</a> | <a href=Similar.html?search_for=targets&amp;search_by=offer&amp;url='.$short_popped_urls[$c].'&amp;offer_id='.$offer_ids[$c].'&amp;niche_id='.$niche_ids[$c].'>Offer</a></td>
 </tr>
 
 
@@ -178,11 +178,11 @@ $range = 10;
 // if not on page 1, don't show back links
 if ($currentpage > 1) {
    // show << link to go back to page 1
-$current_page_info.= " <a href='Similar.html?currentpage=1&$query_url_string'><<</a> ";
+$current_page_info.= " <a href='Similar.html?currentpage=1&amp;$query_url_string'><<</a> ";
    // get previous page num
    $prevpage = $currentpage - 1;
    // show < link to go back to 1 page
-$current_page_info.= " <a href='Similar.html?currentpage=$prevpage&$query_url_string'><</a> ";
+$current_page_info.= " <a href='Similar.html?currentpage=$prevpage&amp;$query_url_string'><</a> ";
 } // end if 
 
 // loop to show links to range of pages around current page
@@ -196,7 +196,7 @@ $current_page_info.= " [<b>$x</b>] ";
       // if not current page...
       } else {
          // make it a link
-$current_page_info.= " <a href='Similar.html?currentpage=$x&$query_url_string'>$x</a> ";
+$current_page_info.= " <a href='Similar.html?currentpage=$x&amp;$query_url_string'>$x</a> ";
       } // end else
    } // end if 
 } // end for
@@ -207,9 +207,9 @@ if ($currentpage != $totalpages) {
    // get next page
    $nextpage = $currentpage + 1;
     // echo forward link for next page 
-$current_page_info.= " <a href='Similar.html?currentpage=$nextpage&$query_url_string'>></a> ";
+$current_page_info.= " <a href='Similar.html?currentpage=$nextpage&amp;$query_url_string'>></a> ";
    // echo forward link for lastpage
-$current_page_info.= " <a href='Similar.html?currentpage=$totalpages&$query_url_string'>>></a> ";
+$current_page_info.= " <a href='Similar.html?currentpage=$totalpages&amp;$query_url_string'>>></a> ";
 } // end if
 /****** end build pagination links ******/
 }
