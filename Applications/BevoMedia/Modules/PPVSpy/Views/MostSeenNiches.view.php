@@ -30,7 +30,7 @@ $key='237f3f76g2f487gfiwvbbwwf7g34';
 
 
 //load the xml file
-$xml = simplexml_load_file("http://distantsunmedia.com/api/most-seen.php?search_for=niches&key=".$key);
+$xml = simplexml_load_file("http://distantsunmedia.com/api/most-seen.php?search_for=niches&amp;key=".$key);
 
 //build results array
 foreach ($xml->pops->pop_up as $pop){
@@ -54,8 +54,8 @@ $b=$a+1;
 
 $results_table.='<tr>
 <td>'.$b.') '.$niches[$a].'</td>
-<td><a href=Similar.html?search_for=pops&search_by=niche&url='.$short_popped_urls[$a].'&offer_id='.$offer_ids[$a].'&niche_id='.$niche_ids[$a].'>Niche</a></td>
-<td><a href=Similar.html?search_for=targets&search_by=niche&url='.$short_popped_urls[$a].'&offer_id='.$offer_ids[$a].'&niche_id='.$niche_ids[$a].'>Niche</a></td>
+<td><a href=Similar.html?search_for=pops&amp;search_by=niche&amp;url='.$short_popped_urls[$a].'&amp;offer_id='.$offer_ids[$a].'&amp;niche_id='.$niche_ids[$a].'>Niche</a></td>
+<td><a href=Similar.html?search_for=targets&amp;search_by=niche&amp;url='.$short_popped_urls[$a].'&amp;offer_id='.$offer_ids[$a].'&amp;niche_id='.$niche_ids[$a].'>Niche</a></td>
 </tr>';
 
 
