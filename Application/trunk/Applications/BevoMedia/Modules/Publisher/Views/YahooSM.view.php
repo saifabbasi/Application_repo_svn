@@ -1,25 +1,25 @@
-<img src='/Themes/<?php print $this->PageHelper->Application; ?>/img/yahoo2.gif'>
+<img src='/Themes/<?php print $this->PageHelper->Application; ?>/img/yahoo2.gif' />
 
 <br/><br/>
 
 <table align='center'>
 <tbody><tr>
 		<td>
-			<a href="YahooAPI.html"><img src="/Themes/<?php print $this->PageHelper->Application; ?>/img/icon-installvia-api.jpg" style="border: 0px none ;"></a>
+			<a href="YahooAPI.html"><img src="/Themes/<?php print $this->PageHelper->Application; ?>/img/icon-installvia-api.jpg" style="border: 0px none ;" /></a>
 		</td>
 		<td style="border-left: 1px solid rgb(239, 239, 239);">&nbsp;</td>
 		<td>
-			<a href="/BevoMedia/Publisher/YahooSelectXML.html"><img src="/Themes/<?php print $this->PageHelper->Application; ?>/img/icon-upload-daybyday.jpg" style="border: 0px none ;"></a>
+			<a href="/BevoMedia/Publisher/YahooSelectXML.html"><img src="/Themes/<?php print $this->PageHelper->Application; ?>/img/icon-upload-daybyday.jpg" style="border: 0px none ;" /></a>
 		</td>
 	</tr>
 
 	<tr>
 		<td>
-			<a href="YahooAPI.html"><img src="/Themes/<?php print $this->PageHelper->Application; ?>/img/button-clickhere.jpg" style="border: 0px none ;"></a>
+			<a href="YahooAPI.html"><img src="/Themes/<?php print $this->PageHelper->Application; ?>/img/button-clickhere.jpg" style="border: 0px none ;" /></a>
 		</td>
 		<td style="border-left: 1px solid rgb(239, 239, 239);">&nbsp;</td>
 		<td>
-			<a href="/BevoMedia/Publisher/YahooSelectXML.html"><img src="/Themes/<?php print $this->PageHelper->Application; ?>/img/button-manualupload.jpg" style="border: 0px none ;"></a>
+			<a href="/BevoMedia/Publisher/YahooSelectXML.html"><img src="/Themes/<?php print $this->PageHelper->Application; ?>/img/button-manualupload.jpg" style="border: 0px none ;" /></a>
 		</td>
 
 	</tr>

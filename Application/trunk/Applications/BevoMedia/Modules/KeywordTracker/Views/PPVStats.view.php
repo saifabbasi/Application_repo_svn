@@ -81,7 +81,7 @@ function get_column_sort_link($a, $b)
 	$tg['sort'] = $b;
 	foreach($tg as $k=>$g)
 	{
-		$qs .= $k . '=' . $g . '&';
+		$qs .= $k . '=' . $g . '&amp;';
 	}
 	echo "<a href='$qs'>$a</a>" . $img;
 }

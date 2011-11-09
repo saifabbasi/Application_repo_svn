@@ -427,7 +427,7 @@ END;
 
 
 		<h3>Step 2: Landing Page Code (Required for all tracking methods)</h3>
-		<p>This snippet of Javascript code should be placed on your landing page before the </body> tag at the bottom of your page.</p>
+		<p>This snippet of Javascript code should be placed on your landing page before the &lt;/body&gt; tag at the bottom of your page.</p>
 		<p>
 			<textarea class="code" rows="5" readonly="readonly" wrap="off"><script type="text/javascript">
 			var jsHost = (("https:" == document.location.protocol) ? "https://" : "http://");
@@ -469,8 +469,8 @@ document.write(unescape("%3Cscript src='" + jsHost + "<?php echo $trackHostBaseJ
 	<br />
 	<br />
 	<h3 style="color: #f00">You MUST pass a SubID to the pixel or postback URL.</h3>
-	<p style="color: #F00">The pixels below end in "<b>&subid=</b>" but THIS IS NOT COMPLETE! Depending on the offer, this value must be a macro to dynamically insert a SubID value per visitor.
-	<br />For example, if your offer is running through Azoogle, you must change the pixel URL to "<b>&subid=%%SUB_ID%%</b>".
+	<p style="color: #F00">The pixels below end in "<b>&amp;subid=</b>" but THIS IS NOT COMPLETE! Depending on the offer, this value must be a macro to dynamically insert a SubID value per visitor.
+	<br />For example, if your offer is running through Azoogle, you must change the pixel URL to "<b>&amp;subid=%%SUB_ID%%</b>".
 	<br />If you are unsure, ask your affiliate manager at the network for help.</p>
 	<h3>Conversion Pixel</h3>
 	<p>Place the following pixel on the conversion (or "thank you") page that appears when the visitor completes an action.</p>

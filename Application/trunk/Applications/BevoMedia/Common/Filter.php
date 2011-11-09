@@ -478,10 +478,10 @@ class Filter {
 		</a>
     		<?php if($showCostViews && $this->costView == 'static') { ?>
     			<div class="floatleft margintop">
-				Estimate your static CPC:&nbsp;&nbsp;$<input class="formtxt wide_number" type='text' name="staticCost" value="<?php echo htmlentities(number_format($this->staticCost, 2, '.', '')); ?>">
+				Estimate your static CPC:&nbsp;&nbsp;$<input class="formtxt wide_number" type='text' name="staticCost" value="<?php echo htmlentities(number_format($this->staticCost, 2, '.', '')); ?>" />
 			</div>
     		<?php } ?>
-    		<input class="formsubmit track_apply floatright" type="submit" value="Apply">
+    		<input class="formsubmit track_apply floatright" type="submit" value="Apply" />
     		<div class="clear"></div>
     	</div>
     </div>

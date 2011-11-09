@@ -284,7 +284,7 @@ include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.p
 				<div class="olay_container"></div>
 			</td>
 			<td class="td_offername">
-				<p><?php echo $offer->title.$offer->dateAdded; ?></p>
+				<p><?php echo htmlentities($offer->title.$offer->dateAdded); ?></p>
 			</td>
 			<td class="td_payout">
 				<p><?php echo $offer->payout; ?></p>
@@ -313,7 +313,7 @@ include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.p
 						
 						//preview url
 						if(property_exists($offer, 'previewUrl') && $offer->previewUrl && $offer->previewUrl != '') { ?>
-							<a class="ovault_othumb" href="<?php echo $offer->previewUrl; ?>" title="Preview offer in a new tab" target="_blank">
+							<a class="ovault_othumb" href="<?php echo htmlentities($offer->previewUrl); ?>" title="Preview offer in a new tab" target="_blank">
 								<?php echo $imageTag; ?>
 								<span class="btn ovault_visiticon_transyell"></span>
 							</a>
@@ -351,7 +351,7 @@ include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.p
 						
 						<div class="otitle otitle_onwid noborder"></div>
 						<div class="clear"></div>
-						<input type="text" class="formtxt onwid j_hiliteall" readonly value="<?php echo $offer->offer__id; ?>" />
+						<input type="text" class="formtxt onwid j_hiliteall" readonly="readonly" value="<?php echo $offer->offer__id; ?>" />
 						<p class="nolineheight">This offer's ID in <?php echo $offer->networkName; ?>'s interface</p>
 						<div class="clear"></div>
 						
@@ -377,7 +377,7 @@ include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.p
 							<?php for($i=1; $i<=5; $i++) {
 								$ratingstate = $offer->userRating >= $i ? 'on' : 'off'; 		
 								//echo '<img src="/Themes/BevoMedia/img/star-'.$ratingstate.'.gif" align="absbottom" />';
-								echo '<a class="ovault_nw_ratebystar j_shadowbox" href="/BevoMedia/Publisher/NetworkRating.html?Rating='.$i.'&ID='.$offer->network__id.'" title="Share your experience with this network">
+								echo '<a class="ovault_nw_ratebystar j_shadowbox" href="/BevoMedia/Publisher/NetworkRating.html?Rating='.$i.'&amp;ID='.$offer->network__id.'" title="Share your experience with this network">
 									<img src="/Themes/BevoMedia/img/star-'.$ratingstate.'.gif" id="img_rating_top_month_'.$offer->network__id.'_'.$i.'" onmouseover="ratingTill(\'img_rating_top_month_'.$offer->network__id.'\', '.$i.')" onmouseout="ratingRst(\'img_rating_top_month_'.$offer->network__id.'\', '.$offer->userRating.')" align="absbottom" />
 								</a>';
 							} ?>
@@ -441,11 +441,11 @@ include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.p
 				<td class="hhl">&nbsp;</td>
 				<td class="td_saved2list" style="width:15px;">&nbsp;</td>
 				<td class="td_savelist" style="width:40px;">&nbsp;</td>
-				<td class="td_offername" style="width:465px;"><a class="tcol tcol_sortby <?php /*asc*/?>" href="/BevoMedia/Offers/BestPerformers.html?sort_by=offername&sort_direction=<?=($_GET['sort_by']=='offername')?(($_GET['sort_direction']=='asc')?'desc':'asc'):('asc') ?>" data-value="offername">Offer Name <span class="nobold">(Date Added)</span></a></td>
-				<td class="td_payout" style="width:54px;"><a class="tcol tcol_sortby" href="/BevoMedia/Offers/BestPerformers.html?sort_by=payout&sort_direction=<?=($_GET['sort_by']=='payout')?(($_GET['sort_direction']=='asc')?'desc':'asc'):('asc') ?>" data-value="payout">Payout</a></td>
-				<td class="td_type" style="width:41px;"><a class="tcol tcol_sortby" href="/BevoMedia/Offers/BestPerformers.html?sort_by=type&sort_direction=<?=($_GET['sort_by']=='type')?(($_GET['sort_direction']=='asc')?'desc':'asc'):('asc') ?>" data-value="type">Type</a></td>
-				<td class="td_vertical" style="width:123px;"><a class="tcol tcol_sortby" href="/BevoMedia/Offers/BestPerformers.html?sort_by=vertical&sort_direction=<?=($_GET['sort_by']=='vertical')?(($_GET['sort_direction']=='asc')?'desc':'asc'):('asc') ?>" data-value="vertical">Vertical</a></td>
-				<td class="td_network" style="width:120px;"><a class="tcol tcol_sortby" href="/BevoMedia/Offers/BestPerformers.html?sort_by=network&sort_direction=<?=($_GET['sort_by']=='network')?(($_GET['sort_direction']=='asc')?'desc':'asc'):('asc') ?>" data-value="network">Network</a></td>
+				<td class="td_offername" style="width:465px;"><a class="tcol tcol_sortby <?php /*asc*/?>" href="/BevoMedia/Offers/BestPerformers.html?sort_by=offername&amp;sort_direction=<?=($_GET['sort_by']=='offername')?(($_GET['sort_direction']=='asc')?'desc':'asc'):('asc') ?>" data-value="offername">Offer Name <span class="nobold">(Date Added)</span></a></td>
+				<td class="td_payout" style="width:54px;"><a class="tcol tcol_sortby" href="/BevoMedia/Offers/BestPerformers.html?sort_by=payout&amp;sort_direction=<?=($_GET['sort_by']=='payout')?(($_GET['sort_direction']=='asc')?'desc':'asc'):('asc') ?>" data-value="payout">Payout</a></td>
+				<td class="td_type" style="width:41px;"><a class="tcol tcol_sortby" href="/BevoMedia/Offers/BestPerformers.html?sort_by=type&amp;sort_direction=<?=($_GET['sort_by']=='type')?(($_GET['sort_direction']=='asc')?'desc':'asc'):('asc') ?>" data-value="type">Type</a></td>
+				<td class="td_vertical" style="width:123px;"><a class="tcol tcol_sortby" href="/BevoMedia/Offers/BestPerformers.html?sort_by=vertical&amp;sort_direction=<?=($_GET['sort_by']=='vertical')?(($_GET['sort_direction']=='asc')?'desc':'asc'):('asc') ?>" data-value="vertical">Vertical</a></td>
+				<td class="td_network" style="width:120px;"><a class="tcol tcol_sortby" href="/BevoMedia/Offers/BestPerformers.html?sort_by=network&amp;sort_direction=<?=($_GET['sort_by']=='network')?(($_GET['sort_direction']=='asc')?'desc':'asc'):('asc') ?>" data-value="network">Network</a></td>
 				<td class="hhr">&nbsp;</td>
 			</tr>
 		</thead>
@@ -463,7 +463,7 @@ include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.p
 						<div class="olay_container"></div>
 					</td>
 					<td class="td_offername">
-						<p><?php echo $o->title.$o->dateAdded; ?></p>
+						<p><?php echo htmlentities($o->title.$o->dateAdded); ?></p>
 					</td>
 					<td class="td_payout">
 						<p><?php echo $o->payout; ?></p>
@@ -472,7 +472,7 @@ include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.p
 						<p><?php echo $o->offerType; ?></p>
 					</td>
 					<td class="td_vertical">
-						<p><?php echo $o->categoryTitle; ?></p>
+						<p><?php echo htmlentities($o->categoryTitle); ?></p>
 					</td>
 					<td class="td_network" colspan="2">
 						<p class="icon<?php if($o->isNetworkMember) echo ' icon_nwmember'; ?>"><?php echo $o->networkName; ?></p>

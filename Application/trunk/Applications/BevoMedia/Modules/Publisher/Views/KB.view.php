@@ -35,7 +35,7 @@ function ListPosts() {
 		// Write Some Highlighter Code Here
 		
 ?>
-  <li><a href="KBPost.html?ID=<?php echo $arrThisRow['id']; ?>" title="<?php echo $arrThisRow['Feedtitle'] . ': ' . $arrThisRow['title']; ?>"><?php echo $arrThisRow['title']; ?></a>
+  <li><a href="KBPost.html?ID=<?php echo $arrThisRow['id']; ?>" title="<?php echo htmlentities($arrThisRow['Feedtitle']) . ': ' . htmlentities($arrThisRow['title']); ?>"><?php echo htmlentities($arrThisRow['title']); ?></a>
 	<div class="cl-excerpt"><?php echo $strThisContent; ?></div></li>
 <?php
 	}

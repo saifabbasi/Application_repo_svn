@@ -56,7 +56,7 @@ $isTrackerPage    = true;
 	<form method="post" id="fTs" class="appform">
 		<input type="hidden" name="init" value="1" />
 		<table class="dataentry">
-			<tr><td colspan=2><h3>Traffic Source</h3></td></tr>
+			<tr><td colspan="2"><h3>Traffic Source</h3></td></tr>
 			<tr>
 				<th><label for="se"></label></th>
 				<td>
@@ -87,7 +87,7 @@ $isTrackerPage    = true;
 					<label for="campaign_input_id">Campaign Name:</label>
 				</th>
 				<td>
-					<input class="formtxt" autocomplete='off' type='text' size='50' id="ppv_campaign_input_id" name='ppv_campaign'>
+					<input class="formtxt" autocomplete='off' type='text' size='50' id="ppv_campaign_input_id" name='ppv_campaign' />
 					<input type='hidden' id='ppv_campaign_input_id-id' name='ppv_campaign_input_id-id' value=''/>
 				</td>
 			</tr>
@@ -97,7 +97,7 @@ $isTrackerPage    = true;
 					<label>Average CPC:</label>
 				</th>
 				<td>
-					<input class="formtxt wide_number" autocomplete='off' type='text' size='5' id="ppv_cpm_input_id" name='ppv_cpm'>
+					<input class="formtxt wide_number" autocomplete='off' type='text' size='5' id="ppv_cpm_input_id" name='ppv_cpm' />
 					<input type='hidden' id='ppv_cpm_input_id-id' name='ppv_cpm_input_id-id' value=''/>
 				</td>
 			</tr>
@@ -116,7 +116,7 @@ $isTrackerPage    = true;
 					<label for="campaign_input_id">Campaign Name:</label>
 				</th>
 				<td>
-					<input class="formtxt" autocomplete='off' type='text' size='50' id="adon_campaign_input_id" name='adon_campaign'>
+					<input class="formtxt" autocomplete='off' type='text' size='50' id="adon_campaign_input_id" name='adon_campaign' />
 					<input type='hidden' id='adon_campaign_input_id-id' name='adon_campaign_input_id-id' value=''/>
 				</td>
 			</tr>
@@ -126,7 +126,7 @@ $isTrackerPage    = true;
 					<label>Average CPC:</label>
 				</th>
 				<td>
-					<input class="formtxt wide_number" autocomplete='off' type='text' size='5' id="adon_cpm_input_id" name='adon_cpm'>
+					<input class="formtxt wide_number" autocomplete='off' type='text' size='5' id="adon_cpm_input_id" name='adon_cpm' />
 					<input type='hidden' id='adon_cpm_input_id-id' name='adon_cpm_input_id-id' value=''/>
 				</td>
 			</tr>
@@ -148,7 +148,7 @@ $isTrackerPage    = true;
 					<label for="campaign_input_id">Campaign Name:</label>
 				</th>
 				<td>
-					<input class="formtxt" autocomplete='off' type='text' size='50' id="medtraf_campaign_input_id" name='medtraf_campaign'>
+					<input class="formtxt" autocomplete='off' type='text' size='50' id="medtraf_campaign_input_id" name='medtraf_campaign' />
 					<input type='hidden' id='medtraf_campaign_input_id-id' name='medtraf_campaign_input_id-id' value=''/>
 				</td>
 			</tr>
@@ -158,7 +158,7 @@ $isTrackerPage    = true;
 					<label>Average CPC:</label>
 				</th>
 				<td>
-					<input class="formtxt wide_number" autocomplete='off' type='text' size='5' id="medtraf_cpm_input_id" name='medtraf_cpm'>
+					<input class="formtxt wide_number" autocomplete='off' type='text' size='5' id="medtraf_cpm_input_id" name='medtraf_cpm' />
 					<input type='hidden' id='medtraf_cpm_input_id-id' name='medtraf_cpm_input_id-id' value=''/>
 				</td>
 			</tr>
@@ -178,7 +178,7 @@ $isTrackerPage    = true;
 					<label for="campaign_input_id">Campaign Name:</label>
 				</th>
 				<td>
-					<input class="formtxt" autocomplete='off' type='text' size='50' id="leadimpact_campaign_input_id" name='leadimpact_campaign'>
+					<input class="formtxt" autocomplete='off' type='text' size='50' id="leadimpact_campaign_input_id" name='leadimpact_campaign' />
 					<input type='hidden' id='leadimpact_campaign_input_id-id' name='leadimpact_campaign_input_id-id' value=''/>
 				</td>
 			</tr>
@@ -188,7 +188,7 @@ $isTrackerPage    = true;
 					<label>Average CPC:</label>
 				</th>
 				<td>
-					<input class="formtxt wide_number" autocomplete='off' type='text' size='5' id="leadimpact_cpm_input_id" name='leadimpact_cpm'>
+					<input class="formtxt wide_number" autocomplete='off' type='text' size='5' id="leadimpact_cpm_input_id" name='leadimpact_cpm' />
 					<input type='hidden' id='leadimpact_cpm_input_id-id' name='leadimpact_cpm_input_id-id' value=''/>
 				</td>
 			</tr>
@@ -210,7 +210,7 @@ $isTrackerPage    = true;
 					<label for="campaign_input_id">Campaign Name:</label>
 				</th>
 				<td>
-					<input class="formtxt" autocomplete='off' type='text' size='50' id="dircpv_campaign_input_id" name='dircpv_campaign'>
+					<input class="formtxt" autocomplete='off' type='text' size='50' id="dircpv_campaign_input_id" name='dircpv_campaign' />
 					<input type='hidden' id='dircpv_campaign_input_id-id' name='dircpv_campaign_input_id-id' value=''/>
 				</td>
 			</tr>
@@ -220,7 +220,7 @@ $isTrackerPage    = true;
 					<label>Average CPC:</label>
 				</th>
 				<td>
-					<input class="formtxt wide_number" autocomplete='off' type='text' size='5' id="dircpv_cpm_input_id" name='dircpv_cpm'>
+					<input class="formtxt wide_number" autocomplete='off' type='text' size='5' id="dircpv_cpm_input_id" name='dircpv_cpm' />
 					<input type='hidden' id='dircpv_cpm_input_id-id' name='dircpv_cpm_input_id-id' value=''/>
 				</td>
 			</tr>
@@ -242,7 +242,7 @@ $isTrackerPage    = true;
 					<label for="campaign_input_id">Campaign Name:</label>
 				</th>
 				<td>
-					<input class="formtxt" autocomplete='off' type='text' size='50' id="campaign_input_id" name='mediabuy_campaign'>
+					<input class="formtxt" autocomplete='off' type='text' size='50' id="campaign_input_id" name='mediabuy_campaign' />
 					<input type='hidden' id='campaign_input_id-id' name='campaign_input_id-id' value=''/>
 				</td>
 			</tr>
@@ -260,7 +260,7 @@ $isTrackerPage    = true;
 					<label for="adgroup_input_id">Ad Group Name:</label>
 				</th>
 				<td>
-					<input class="formtxt" autocomplete='off' type='text' size='50' id="adgroup_input_id" name='mediabuy_adgroup'>
+					<input class="formtxt" autocomplete='off' type='text' size='50' id="adgroup_input_id" name='mediabuy_adgroup' />
 					<input type='hidden' id='adgroup_input_id-id' name='adgroup_input_id-id' value=''/>
 				</td>
 			</tr>
@@ -270,7 +270,7 @@ $isTrackerPage    = true;
 					<label for="advar_input_id">Ad Variation:</label>
 				</th>
 				<td>
-					<input class="formtxt" type='text' size='50' id="advar_input_id" name='mediabuy_advar'>
+					<input class="formtxt" type='text' size='50' id="advar_input_id" name='mediabuy_advar' />
 				</td>
 			</tr>
 			
@@ -279,15 +279,15 @@ $isTrackerPage    = true;
 					<label for="mediabuy_cost_id">Cost:</label>
 				</th>
 				<td>
-					<input class="formtxt wide_number" type='text' size='5' id="mediabuy_cost_id" name='mediabuy_cost'>
+					<input class="formtxt wide_number" type='text' size='5' id="mediabuy_cost_id" name='mediabuy_cost' />
 					&nbsp;&nbsp;
-					<input style="display:none;" type='radio' name='mediabuy_cost_type' value='CPM'>
-					<input style="display:none;" type='radio' name='mediabuy_cost_type' value='CPC' checked="checked">
+					<input style="display:none;" type='radio' name='mediabuy_cost_type' value='CPM' />
+					<input style="display:none;" type='radio' name='mediabuy_cost_type' value='CPC' checked="checked" />
 					<br/><br/>
 				</td>
 			</tr>
 			<!-- ENDOF Additional Media Buy Fields -->
-			<tr><td colspan=2><h3>Landing Page</h3></td></tr>
+			<tr><td colspan="2"><h3>Landing Page</h3></td></tr>
 		
 <script type="text/javascript">
 	function DirectLinkClick(CheckBox)
@@ -338,7 +338,7 @@ setVisible($(".landingPageItems"), !CheckBox.checked);
 				<th><label for="directlink">Don't use landing page:</label></th>
 				<td>
 					<p>
-						<input type='checkbox' id='directlink' name='directlink' value='on' onclick='DirectLinkClick(this);'>
+						<input type='checkbox' id='directlink' name='directlink' value='on' onclick='DirectLinkClick(this);' />
 						<span class='hideOnDirectLink'>Enable this to generate a direct link to the offer page.</span>
 						<span class='hideOnDirectLink' style='display: none'>Disable this to configure a landing page (or "pre-sell page").</span>
 					</p>
@@ -372,7 +372,7 @@ setVisible($(".landingPageItems"), !CheckBox.checked);
 				<th><label for="geotargeting">Geotargetting <font color="red">(Verified Only):</font></label></th>
 				<td>
 					<p id='geotargetcheckbox'>
-						<input type='checkbox' value='on'>
+						<input type='checkbox' value='on' />
 						<span>Display different landing pages based on location.</span>
 					</p>
 				</td>
@@ -382,7 +382,7 @@ setVisible($(".landingPageItems"), !CheckBox.checked);
 			<tr class="landingPageItems">
 				<th><label for="landing">Landing Page Rotator:</label></th>
 				<td>
-				<input type='checkbox' id='enableLandingPageRotatorCheckbox' onClick='$(".landingPageRotatorStuff").toggle(); setDisabled($("#landing"), this.checked); setDisabled($("#landingPageRotatorSelectionBox"), !this.checked); if (!this.checked) { $("#landingPageRotatorSelectionBox").val(""); if ($("#landing").val().indexOf("ROTATE")==0) $("#landing").val("");  } '>
+				<input type='checkbox' id='enableLandingPageRotatorCheckbox' onClick='$(".landingPageRotatorStuff").toggle(); setDisabled($("#landing"), this.checked); setDisabled($("#landingPageRotatorSelectionBox"), !this.checked); if (!this.checked) { $("#landingPageRotatorSelectionBox").val(""); if ($("#landing").val().indexOf("ROTATE")==0) $("#landing").val("");  } ' />
 				<span class="landingPageRotatorStuff">Enable this to rotate multiple landing pages</span>
 				<span class="landingPageRotatorStuff" style="display: none">
 					Disable this to use a single landing page destination
@@ -390,7 +390,7 @@ setVisible($(".landingPageItems"), !CheckBox.checked);
     				<select class="formselect" id='landingPageRotatorSelectionBox' style='width:90%;' onChange="if (this.value!='') { document.getElementById('landing').disabled='disabled'; document.getElementById('landing').value='ROTATE.'+this.value; } else { document.getElementById('landing').disabled=''; } ">
     				<option value='' onClick='' style='font-weight:bold;'>Select a Landing Page Rotation Group below...</option>
     				<?php foreach($this->LandingPageGroups as $LandingPageGroup):?>
-    					<option value='<?=$LandingPageGroup->id?>'><?php print $LandingPageGroup->label; ?>
+    					<option value='<?=$LandingPageGroup->id?>'><?php print $LandingPageGroup->label; ?></option>
     				<?php endforeach?>
     			
     				</select>
@@ -409,13 +409,12 @@ setVisible($(".landingPageItems"), !CheckBox.checked);
 			</tr>
 
 						
-			<tr><td colspan=2><h3>Offer</h3></td></tr>
-			<tr>
+			<tr><td colspan="2"><h3>Offer</h3></td></tr>
 			<tr>
 				<th><label for="unique">Unique visitors:</label></th>
 				<td>
 					<p>
-						<input class="formcheck" type='checkbox' id='unique' name='unique' value='on'>
+						<input class="formcheck" type='checkbox' id='unique' name='unique' value='on' />
 						Each visitor's click will only be counted once.
 					</p>
 				</td>
@@ -424,7 +423,7 @@ setVisible($(".landingPageItems"), !CheckBox.checked);
 				<th><label for="cloak">Cloak Referrers:</label></th>
 				<td>
 					<p>
-						<input class="formcheck" type='checkbox' id='cloak' name='cloak' value='on'>
+						<input class="formcheck" type='checkbox' id='cloak' name='cloak' value='on' />
 						Referrers will not pass through to the offer page.
 					</p>
 				</td>
@@ -432,7 +431,7 @@ setVisible($(".landingPageItems"), !CheckBox.checked);
 			<tr>
 				<th><label for="offer">Offer Rotator:</label></th>
 				<td>
-				<input class="formcheck" type='checkbox' id='enableOfferRotatorCheckbox' onClick='$(".offerRotatorStuff").toggle(); setDisabled($("#offer"), this.checked);'>
+				<input class="formcheck" type='checkbox' id='enableOfferRotatorCheckbox' onClick='$(".offerRotatorStuff").toggle(); setDisabled($("#offer"), this.checked);' />
 				<span class="offerRotatorStuff">Enable this to rotate multiple offers</span>
 				<span class="offerRotatorStuff" style="display: none">
 					Disable this to use a single offer destination
@@ -440,7 +439,7 @@ setVisible($(".landingPageItems"), !CheckBox.checked);
     				<option value='' style='font-weight:bold;'>Select an Offer Rotation Group below...</option>
     			
     				<?php foreach($this->OfferGroups as $OfferGroup):?>
-    					<option value="<?php print $OfferGroup->id; ?>" ><?php print $OfferGroup->label; ?>
+    					<option value="<?php print $OfferGroup->id; ?>" ><?php print $OfferGroup->label; ?></option>
     				<?php endforeach?>
     			
     				</select>
@@ -467,16 +466,14 @@ setVisible($(".landingPageItems"), !CheckBox.checked);
 					
 				</td>
 			</tr>
-			
-			
-			<tr><td colspan=2><h3>Sales Tracking</h3></td></tr>
+			<tr><td colspan="2"><h3>Sales Tracking</h3></td></tr>
 			<tr>
 				<th><label for="cloak">Automatic Conversion Tracking:</label></th>
 				<td>
 					<p>
-						<input class="formcheck" type='checkbox' id='autotrack' name='autotrack' value='on' checked=checked onclick=' $("#saleAmtSpan").toggle(); $("#autoSpan").toggle();'>
+						<input class="formcheck" type="checkbox" id="autotrack" name="autotrack" value="on" checked="checked" onclick=' $("#saleAmtSpan").toggle(); $("#autoSpan").toggle();' />
 						<span id="autoSpan">Your conversion stats will be automatically retrieved from the network.<br />(Most accurate, you must first setup your affiliate networks on the My Networks page, uncheck for Pixel/Postback)</span>
-						<span id="saleAmtSpan" style="display: none">Conversions are worth: $<input type="text" name="saleAmt" size=4 value="3.00" /></span>
+						<span id="saleAmtSpan" style="display: none">Conversions are worth: $<input type="text" name="saleAmt" size="4" value="3.00" /></span>
 					</p>
 				</td>
 			</tr>

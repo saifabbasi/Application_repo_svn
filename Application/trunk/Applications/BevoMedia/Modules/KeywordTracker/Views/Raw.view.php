@@ -1,9 +1,9 @@
 <?php
-print '<pre>';
+//print '<pre>';
 //print_r($this->TrackerRows);
-print '</pre>';
+//print '</pre>';
 ?>
-
+<div>
 <b>Date Range:</b>
 <?php print $this->dateRange; ?>
 &nbsp;
@@ -16,7 +16,7 @@ print '</pre>';
 
 <br/>
 
-<table cellpadding=0 cellspacing=0 >
+<table cellpadding="0" cellspacing="0" >
 <tr>
 	<th>
 		#
@@ -270,3 +270,4 @@ print '</pre>';
 	</th>
 </tr>
 </table>
+</div>

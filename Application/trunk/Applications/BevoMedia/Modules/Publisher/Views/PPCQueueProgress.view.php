@@ -12,7 +12,7 @@
 <?php
 $CPQ = new CreatePPCQueue();
 $Favicons = array('ADWORDS'=>'/Themes/BevoMedia/img/googlefavicon.png', 'YAHOO'=>'/Themes/BevoMedia/img/yahoofavicon.png', 'MSN'=>'/Themes/BevoMedia/img/msnfavicon.png');
-$link = $this->{'System/BaseURL'}.'BevoMedia/Publisher/PPCQueueProgress.html?' . $_SERVER['QUERY_STRING'];
+$link = $this->{'System/BaseURL'}.'BevoMedia/Publisher/PPCQueueProgress.html?' . htmlentities($_SERVER['QUERY_STRING']);
 ?>
   <?php if(empty($this->QueueItems)): ?><h4>You have no queued items.</h4><? endif ?>
 <div id="ppcqueueprogresstable" class="statusDivs">
@@ -41,7 +41,7 @@ $link = $this->{'System/BaseURL'}.'BevoMedia/Publisher/PPCQueueProgress.html?' .
 	echo "<img src='{$Favicons[$p]}' title='This job will affect campaigns on your {$P} account'/>&nbsp;";
 } ?>
 <?= !empty($subcounts['queued']) ? 'Queued' : 'Completed' ?> Job
-<?= empty($subcounts['queued']) ? '<small><a href="'.$link.'&hide='.$Item->id.'">Clear completed job</a></small>' : '' ?>
+<?= empty($subcounts['queued']) ? '<small><a href="'.$link.'&amp;hide='.$Item->id.'">Clear completed job</a></small>' : '' ?>
 	  <span style='float: right'><?= count($SubProcesses) ?> Items</span></h3>
 	<div style='display: block; height: 10px; width: 98%; border: 1px solid grey; margin: 7px 0px;'>
 	<? foreach($subcounts as $status => $count){

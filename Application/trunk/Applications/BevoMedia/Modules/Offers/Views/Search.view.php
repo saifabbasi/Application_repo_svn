@@ -217,7 +217,7 @@ $i=0;
 		<tr>
 			<? if ( !$isNetwork ) { ?><td class="border" style="padding: 3px;">&nbsp;</td><td  style="padding: 3px;"><?=$row['NETWORK']?></td><? } else { ?><td class="border" style="padding: 3px;">&nbsp;</td><? } ?>
             
-			<td  style="padding: 3px;"><a href="Detail.html?id=<?=$row['ID']?>"><?=$row['title']?></a><br><?=html_entity_decode(LegacyAbstraction::getPartialString($row['DETAIL'], 200))?>&nbsp;</td>
+			<td  style="padding: 3px;"><a href="Detail.html?id=<?=$row['ID']?>"><?=$row['title']?></a><br /><?=(LegacyAbstraction::getPartialString($row['DETAIL'], 200))?>&nbsp;</td>
 			<td style="text-align: center; padding: 3px;" ><?=$row['PAYOUT']?>&nbsp;</td>
             <td class="tail" style="padding: 3px;">&nbsp;</td>
 		</tr>

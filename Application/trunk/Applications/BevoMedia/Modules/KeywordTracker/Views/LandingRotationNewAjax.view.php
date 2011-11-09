@@ -50,7 +50,7 @@ p.descript {float: right; width: 60%;}
 		Set a label for the group of links you are going to create so that you can easily reference it later on.
 	</p>
 	<label>Landing Page Group Label<br/>
-	<input name='groupLabel' type='text'>
+	<input name='groupLabel' type='text' />
 	</label>
 
 </fieldset>

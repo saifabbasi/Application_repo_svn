@@ -121,12 +121,12 @@ class LegacyAbstraction {
         if ( $isCritical == 1 )
         {
             $sqlResult = mysql_query($qry)
-                or die ("<font face='verdana' color='red' size='1'>Could not execute query</font><br><br>".(DO_SHOW_ERRORS==1?" [".$qry."] - ".mysql_error():""));
+                or die ("<font face='verdana' color='red' size='1'>Could not execute query</font><br /><br />".(DO_SHOW_ERRORS==1?" [".$qry."] - ".mysql_error():""));
         }
         else
         {
             $sqlResult  = mysql_query($qry)
-                or $err = ("<font face='verdana' color='red' size='1'>Could not execute query</font><br><br>".(DO_SHOW_ERRORS==1?" [".$qry."] - ".mysql_error():""));
+                or $err = ("<font face='verdana' color='red' size='1'>Could not execute query</font><br /><br />".(DO_SHOW_ERRORS==1?" [".$qry."] - ".mysql_error():""));
         }
 
         if ( isset($err) && $err != '' )
@@ -174,7 +174,7 @@ class LegacyAbstraction {
 				if ( $i == $curPage )
 					$page .= $i.($i==$endPage?"":" | ");
 				else
-					$page .= "<a href='#' onclick=\"location.href='".$pageName."t=".$t."&x=".($y)."'".($locJS==""?"":"+".$locJS)."\">".$i."</a>".($i==$endPage?"":" | ");
+					$page .= "<a href='#' onclick=\"location.href='".$pageName."t=".$t."&amp;x=".($y)."'".($locJS==""?"":"+".$locJS)."\">".$i."</a>".($i==$endPage?"":" | ");
 
 				$y+=$pageSize;
 			}
@@ -195,7 +195,7 @@ class LegacyAbstraction {
 
 			if ( trim($couple[0]) == $var || trim($couple[0]) == '' ) continue;
 
-			$ret	.= $couple[0].'='.$couple[1].'&';
+			$ret	.= $couple[0].'='.$couple[1].'&amp;';
 		}
 
 		return $ret;
@@ -265,7 +265,7 @@ class LegacyAbstraction {
             foreach ( $arr as $val )
             {
                 if ( $val != '' )
-                    $ret .= '&'.urlencode($name).'='.$val;
+                    $ret .= '&amp;'.urlencode($name).'='.$val;
             }
         }
 
@@ -438,12 +438,12 @@ class LegacyAbstraction {
         $endPage = $endPage>$numOfPages?$numOfPages:$endPage;
         if ( $numOfPages > 1 )
         {
-            $page .= "<br>";
+            $page .= "<br />";
 
             if ( $curPage == 1 )
                 $page .= "Prev | ";
             else
-                $page .= "<a href='".$pageName."t=".$t."&x=".($x-$pageSize)."'>Prev</a> | ";
+                $page .= "<a href='".$pageName."t=".$t."&amp;x=".($x-$pageSize)."'>Prev</a> | ";
 
             $y=($startPage-1)*$pageSize;
             for ( $i=$startPage; $i<=$endPage; $i++ )
@@ -451,7 +451,7 @@ class LegacyAbstraction {
                 if ( $i == $curPage )
                     $page .= $i." | ";
                 else
-                    $page .= "<a href='".$pageName."t=".$t."&x=".($y)."'>".$i."</a> | ";
+                    $page .= "<a href='".$pageName."t=".$t."&amp;x=".($y)."'>".$i."</a> | ";
 
                 $y+=$pageSize;
             }
@@ -459,11 +459,11 @@ class LegacyAbstraction {
             if ( $curPage == $numOfPages )
                 $page .= "Next";
             else
-                $page .= "<a href='".$pageName."t=".$t."&x=".($x+$pageSize)."'>Next</a>";
+                $page .= "<a href='".$pageName."t=".$t."&amp;x=".($x+$pageSize)."'>Next</a>";
 
         }
-        $page .= "<br><input type='text' name='pgno' size='3' value='".$curPage."' class='effect' style='text-align:center' onkeypress=\"if(event.keyCode==13){location.href='".$pageName."t=".$t."&x='+((pgno.value-1)*".$pageSize.")}\">";
-        $page .= "<br><br>Page ".$curPage." of ".$numOfPages."<br><b>Total Record(s) : $t</b><br><br></font></center>";
+        $page .= "<br /><input type='text' name='pgno' size='3' value='".$curPage."' class='effect' style='text-align:center' onkeypress=\"if(event.keyCode==13){location.href='".$pageName."t=".$t."&amp;x='+((pgno.value-1)*".$pageSize.")}\" />";
+        $page .= "<br /><br />Page ".$curPage." of ".$numOfPages."<br /><b>Total Record(s) : $t</b><br /><br /></font></center>";
         return $page;
     }
     public static function getFormattedPriceEx($price, $decimals=2)

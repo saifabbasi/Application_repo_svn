@@ -73,7 +73,7 @@ function ListAdwordsAccounts() {
 ?>
   <tr <?php if ($blnAltRow) { echo 'class="AltRow"'; } ?>>
     <td class="border">&nbsp;</td>
-    <td><a href="AccountStatsPPC.html?Provider=Adwords&ID=<?php echo $arrThisRow['ID']?><?=LegacyAbstraction::$strDateRangeVal?>"><?php echo htmlspecialchars($arrThisRow['AdwordsEmail']); ?></a></td>
+    <td><a href="AccountStatsPPC.html?Provider=Adwords&amp;ID=<?php echo $arrThisRow['ID']?><?=(LegacyAbstraction::$strDateRangeVal)?>"><?php echo htmlspecialchars($arrThisRow['AdwordsEmail']); ?></a></td>
 	<td style="text-align: center;"><?php echo $arrThisStats['NetImpr']; ?></td>
 	<td style="text-align: center;"><?php echo $arrThisStats['NetClicks']; ?></td>
 	<td style="text-align: center;"><?php echo round($arrThisStats['NetCtr'] *100 , 2); ?>%</td>
@@ -149,7 +149,7 @@ function ListYahooAccounts() {
 ?>
   <tr <?php if ($blnAltRow) { echo 'class="AltRow"'; } ?>>
     <td class="border">&nbsp;</td>
-    <td><a href="AccountStatsPPC.html?Provider=Yahoo&ID=<?php echo $arrThisRow['ID']?><?=LegacyAbstraction::$strDateRangeVal?>"><?php echo htmlspecialchars($arrThisRow['Username']); ?></a></td>
+    <td><a href="AccountStatsPPC.html?Provider=Yahoo&amp;ID=<?php echo $arrThisRow['ID']?><?=(LegacyAbstraction::$strDateRangeVal)?>"><?php echo htmlspecialchars($arrThisRow['Username']); ?></a></td>
 	<td style="text-align: center;"><?php echo $arrThisStats['NetImpr']; ?></td>
 	<td style="text-align: center;"><?php echo $arrThisStats['NetClicks']; ?></td>
 	<td style="text-align: center;"><?php echo round($arrThisStats['NetCtr'] * 100, 2); ?>%</td>
@@ -227,7 +227,7 @@ function ListMSNAccounts() {
 ?>
   <tr <?php if ($blnAltRow) { echo 'class="AltRow"'; } ?>>
     <td class="border">&nbsp;</td>
-    <td><a href="AccountStatsPPC.html?Provider=MSN&ID=<?php echo $arrThisRow['ID']?><?=LegacyAbstraction::$strDateRangeVal?>"><?php echo htmlspecialchars($arrThisRow['Name']); ?></a></td>
+    <td><a href="AccountStatsPPC.html?Provider=MSN&amp;ID=<?php echo $arrThisRow['ID']?><?=(LegacyAbstraction::$strDateRangeVal)?>"><?php echo htmlspecialchars($arrThisRow['Name']); ?></a></td>
 	<td style="text-align: center;"><?php echo $arrThisStats['NetImpr']; ?></td>
 	<td style="text-align: center;"><?php echo $arrThisStats['NetClicks']; ?></td>
 	<td style="text-align: center;"><?php echo round($arrThisStats['NetCtr'] * 100, 2); ?>%</td>
@@ -290,7 +290,7 @@ function LoadAccountStats($intInProvider) {
         
 //        include(PATH.'templates/publisher-ppcmanager.tpl.php');
 ?>
-<?php if(!isset($_GET['DateRange'])){LegacyAbstraction::$strDateRangeVal = '';}else{LegacyAbstraction::$strDateRangeVal = '&DateRange=' . LegacyAbstraction::$strDateRangeVal;}?>
+<?php if(!isset($_GET['DateRange'])){LegacyAbstraction::$strDateRangeVal = '';}else{LegacyAbstraction::$strDateRangeVal = '&amp;DateRange=' . LegacyAbstraction::$strDateRangeVal;}?>
 
 <?php /* ##################################################### OUTPUT ############### */ ?>
 
@@ -357,7 +357,7 @@ function LoadAccountStats($intInProvider) {
                     <tr>
                     <td class="border" style=" background-color: #ffffff;">&nbsp;</td>
                      <td colspan="5" style=" background-color: #ffffff;" >
-                     <span><img src="<?=SCRIPT_ROOT?>img/galogo.jpg"></span></td>
+                     <span><img src="<?=SCRIPT_ROOT?>img/galogo.jpg" /></span></td>
                      <td class="tail" style=" background-color: #ffffff;">&nbsp;</td>
                     </tr>
 <?php ListAdwordsAccounts(); ?>
@@ -366,7 +366,7 @@ function LoadAccountStats($intInProvider) {
 <!-- Yahoo Accounts -->
                      <tr>
 						<td class="border" style=" background-color: #ffffff;">&nbsp;</td>
-						<td style="border-left: none; background-color: #ffffff;" colspan="5"  ><span><img style="margin-left: 5px;" src="<?=SCRIPT_ROOT?>img/ysmlogo.gif"></span></td>
+						<td style="border-left: none; background-color: #ffffff;" colspan="5"  ><span><img style="margin-left: 5px;" src="<?=SCRIPT_ROOT?>img/ysmlogo.gif" /></span></td>
 						<td class="tail" style=" background-color: #ffffff;">&nbsp;</td>
                     </tr>
 <?php ListYahooAccounts(); ?>
@@ -374,7 +374,7 @@ function LoadAccountStats($intInProvider) {
                     <tr>
                     <td class="border" style=" background-color: #ffffff;">&nbsp;</td>
                      <td colspan="5" style=" background-color: #ffffff;" >
-                     <span><img src="<?=SCRIPT_ROOT?>img/adcentersmall.gif"></span></td>
+                     <span><img src="<?=SCRIPT_ROOT?>img/adcentersmall.gif" /></span></td>
                      <td class="tail" style=" background-color: #ffffff;">&nbsp;</td>
                     </tr>
 <?php ListMSNAccounts(); ?>

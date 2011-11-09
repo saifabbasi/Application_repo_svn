@@ -8,7 +8,7 @@
 
 <br class='clearBoth'/>
 
-<table class='adminPublisherTable' cellpadding=0 cellspacing=0>
+<table class='adminPublisherTable' cellpadding="0" cellspacing="0">
 <tr class='textAlignRight'>
 	<th class='textAlignLeft'>
 		Date 
@@ -66,7 +66,7 @@
 
 <br/><br/>
 
-<table class='adminPublisherTable' cellpadding=0 cellspacing=0>
+<table class='adminPublisherTable' cellpadding="0" cellspacing="0">
 <tr class='textAlignRight'>
 	<th class='textAlignLeft'>
 		Date 

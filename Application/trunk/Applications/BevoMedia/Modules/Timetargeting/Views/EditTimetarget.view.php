@@ -15,7 +15,7 @@
 	
 	<label>
 		<span  style="width: 50px; display: inline-block;">Name: </span>
-		<input class="formtxt" name='name' type='text' value='<?php echo $this->Name;?>'>			
+		<input class="formtxt" name='name' type='text' value='<?php echo $this->Name;?>' />			
 	</label>
 	
 	<br /><br />

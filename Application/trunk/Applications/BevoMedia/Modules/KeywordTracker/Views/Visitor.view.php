@@ -125,10 +125,10 @@ $isSelfHosted = $this->User->IsSelfHosted();
 <div class="SkyBox"><div class="SkyBoxTopLeft"><div class="SkyBoxTopRight"><div class="SkyBoxBotLeft"><div class="SkyBoxBotRight">
     <table width="550" cellspacing="0" cellpadding="5" border="0">
         <tr valign="top">
-            <td><img src="<?=SCRIPT_ROOT?>img/bevotracklogo.png" style="padding-left: 5px; padding-right: 10px;" border=0 alt=""></td>
+            <td><img src="<?=SCRIPT_ROOT?>img/bevotracklogo.png" style="padding-left: 5px; padding-right: 10px;" border="0" alt="" /></td>
             <td class="main">
                 <h4>Keyword Tracker- Visitor Info</h4>
-                <br>
+                <br />
                 Here you can review the visitors who are clicking on your ads.  Check out who is clicking on what.  <br /><br />
             </td>
         </tr>

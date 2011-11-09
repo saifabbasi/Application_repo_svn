@@ -22,7 +22,7 @@
 
 <div class="clear"></div>
 
-<table id="live" cellspacing=0 class="btable" width="600">
+<table id="live" cellspacing="0" class="btable" width="600">
 	<tr class="table_header">
 		<td class="hhl">&nbsp;</td>
 		<td class="clickTime">At</td>

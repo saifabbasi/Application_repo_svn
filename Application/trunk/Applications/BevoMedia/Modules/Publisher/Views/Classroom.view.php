@@ -53,9 +53,9 @@ function ListchaptersBySection($intInSectionID) {
 	while ($arrThisRow = $objchapters->GetRow()) {
 ?>
 	<?php if(in_array($arrThisRow['title'], $staticLinks)):?>
-			<li><span class="chapter"><?php if (!$intSectionCount) { ?>chapter<?php } ?> <?php echo $arrThisRow['chapter']; ?></span><span><a href="<?php echo $staticURL[$arrThisRow['title']]?>"><?php echo $arrThisRow['title']; ?> <img src="/Themes/BevoMedia/img/button-clsmall-text.gif" alt="chapter Text" border="0"/></a> <?php if ($arrThisRow['videoUrl']) { ?><a href="<?php echo $staticURL[$arrThisRow['title']]?>&videoId=<?=$arrThisRow['videoUrl']?>"><img src="/Themes/BevoMedia/img/button-clsmall-vid.gif" alt="chapter Video" border="0"/></a><?php } ?></span></li>
+			<li><span class="chapter"><?php if (!$intSectionCount) { ?>chapter<?php } ?> <?php echo $arrThisRow['chapter']; ?></span><span><a href="<?php echo htmlentities($staticURL[$arrThisRow['title']]);?>"><?php echo htmlentities($arrThisRow['title']); ?> <img src="/Themes/BevoMedia/img/button-clsmall-text.gif" alt="chapter Text" border="0"/></a> <?php if ($arrThisRow['videoUrl']) { ?><a href="<?php echo $staticURL[$arrThisRow['title']]?>&amp;videoId=<?=$arrThisRow['videoUrl']?>"><img src="/Themes/BevoMedia/img/button-clsmall-vid.gif" alt="chapter Video" border="0"/></a><?php } ?></span></li>
 	<?php else:?>
-			<li><span class="chapter"><?php if (!$intSectionCount) { ?>chapter<?php } ?> <?php echo $arrThisRow['chapter']; ?></span><span><a href="ClassroomChapter.html?ID=<?php echo $arrThisRow['id']; ?>"><?php echo $arrThisRow['title']; ?> <img src="/Themes/BevoMedia/img/button-clsmall-text.gif" alt="chapter Text" border="0"/></a> <?php if ($arrThisRow['videoUrl']) { ?><a href="ClassroomVideo.html?ID=<?php echo $arrThisRow['id']; ?>&videoId=<?=$arrThisRow['videoUrl']?>"><img src="/Themes/BevoMedia/img/button-clsmall-vid.gif" alt="chapter Video" border="0"/></a><?php } ?></span></li>
+			<li><span class="chapter"><?php if (!$intSectionCount) { ?>chapter<?php } ?> <?php echo $arrThisRow['chapter']; ?></span><span><a href="ClassroomChapter.html?ID=<?php echo $arrThisRow['id']; ?>"><?php echo htmlentities($arrThisRow['title']); ?> <img src="/Themes/BevoMedia/img/button-clsmall-text.gif" alt="chapter Text" border="0"/></a> <?php if ($arrThisRow['videoUrl']) { ?><a href="ClassroomVideo.html?ID=<?php echo $arrThisRow['id']; ?>&amp;videoId=<?=$arrThisRow['videoUrl']?>"><img src="/Themes/BevoMedia/img/button-clsmall-vid.gif" alt="chapter Video" border="0"/></a><?php } ?></span></li>
 	<?php endif?>
 <?php
 	}
@@ -75,7 +75,7 @@ function ListPosts() {
 	
 	while ($arrThisRow = $objPosts->GetRow()) {
 ?>
-  <li><a href="KBPost.html?ID=<?php echo $arrThisRow['id']; ?>" title="<?php echo $arrThisRow['Feedtitle'] . ': ' . $arrThisRow['title']; ?>"><?php echo $arrThisRow['title']; ?></a><div class="cl-excerpt"><?= $arrThisRow['content']?></div></li>
+  <li><a href="KBPost.html?ID=<?php echo $arrThisRow['id']; ?>" title="<?php echo htmlentities($arrThisRow['Feedtitle']) . ': ' . htmlentities($arrThisRow['title']); ?>"><?php echo htmlentities($arrThisRow['title']); ?></a><div class="cl-excerpt"><?=htmlentities($arrThisRow['content'])?></div></li>
 <?php
 	}
 	
@@ -121,7 +121,7 @@ function ListPosts() {
 
 <?php ListSections(); ?>
 	<!-- 100608 ADDED: ppv playbook banner -->
-	<a class="cl-banner" href="http://www.ppvplaybook.com/amember/go.php?r=1307&i=l0"><img src="/Themes/BevoMedia/img/cl-ppvplaybook-widget.jpg" alt="Find out more about PPV Playbook Now" /></a>
+	<a class="cl-banner" href="http://www.ppvplaybook.com/amember/go.php?r=1307&amp;i=l0"><img src="/Themes/BevoMedia/img/cl-ppvplaybook-widget.jpg" alt="Find out more about PPV Playbook Now" /></a>
 	<div class="clear"></div>
 <!-- KB -->
 	<ul class="cl-list fullwidth">

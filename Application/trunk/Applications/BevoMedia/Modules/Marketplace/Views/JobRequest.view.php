@@ -15,7 +15,7 @@ function validate()
 <form action="JobSubmit.html" method="post" onSubmit="return validate();">
 <input type="hidden" name="projectType" id="projectType" value="<?= @$_GET['type'] ?>" />
 <input type="hidden" name="user__id" id="user__id" value="<?= $this->User->id ?>" />
-<table border=0>
+<table border="0">
 	<tr>
 		<td>
 			Your name:
@@ -62,8 +62,8 @@ function validate()
 		</td>
 	</tr>
 	<tr>
-		<td colspan=2>
-			<textarea cols=55 rows=7 name="description" id="description"></textarea>
+		<td colspan="2">
+			<textarea cols="55" rows="7" name="description" id="description"></textarea>
 		</td>
 	</tr>
 	<tr>

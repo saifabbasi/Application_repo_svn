@@ -121,13 +121,13 @@ require_once(PATH . "Legacy.Abstraction.class.php");
         <tr>
             <td class="border">&nbsp;</td>
 			<td class="GridRowHead">Offer&nbsp;</td>
-			<td class="GridRowCol"><?=$offer['title']?>&nbsp;</td>
+			<td class="GridRowCol"><?=htmlentities($offer['title'])?>&nbsp;</td>
             <td class="tail">&nbsp;</td>
 		</tr>
 		<tr>
             <td class="border">&nbsp;</td>
 			<td class="GridRowHead">Detail&nbsp;</td>
-			<td class="GridRowCol"><?=html_entity_decode($offer['detail'])?>&nbsp;</td>
+			<td class="GridRowCol"><?=htmlentities($offer['detail'])?>&nbsp;</td>
             <td class="tail">&nbsp;</td>
 		</tr>
 		<tr>
@@ -170,13 +170,13 @@ require_once(PATH . "Legacy.Abstraction.class.php");
 		</tr>
 		<tr>
             <td class="border">&nbsp;</td>
-			<td class="GridRowHead" colspan="2" style="text-align:center;"><a href="<?=$OfferUrl?>" target="_blank">Click Here To Retreive Tracking Codes</a></td>
+			<td class="GridRowHead" colspan="2" style="text-align:center;"><a href="<?=htmlentities($OfferUrl)?>" target="_blank">Click Here To Retreive Tracking Codes</a></td>
             <td class="tail">&nbsp;</td>
 		</tr>
 
 		<tr> <td class="border">&nbsp;</td>
 			<td class="GridRowHead" colspan="2">
-				<input type="button" value="Back" class="baseeffect" onclick="history.back(1);" style="color: #fff;">
+				<input type="button" value="Back" class="baseeffect" onclick="history.back(1);" style="color: #fff;" />
 			</td>
             <td class="tail">&nbsp;</td>
 		</tr>

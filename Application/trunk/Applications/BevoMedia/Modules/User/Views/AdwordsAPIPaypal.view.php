@@ -24,7 +24,7 @@
 <div class='floatLeft' style='margin-right: 50px;'>
 	
 	<label class='radioItem'>
-		<input name='radioAmnt' value='20' checked="checked" type='radio'>
+		<input name='radioAmnt' value='20' checked="checked" type='radio' />
 		<span>
 			$20
 		</span>
@@ -33,7 +33,7 @@
 	<br/>
 	
 	<label class='radioItem'>
-		<input name='radioAmnt' value='30' checked="checked" type='radio'>
+		<input name='radioAmnt' value='30' checked="checked" type='radio' />
 		<span>
 			$30
 		</span>
@@ -42,7 +42,7 @@
 	<br/>
 	
 	<label class='radioItem'>
-		<input name='radioAmnt' value='50' type='radio'>
+		<input name='radioAmnt' value='50' type='radio' />
 		<span>
 			$50
 		</span>
@@ -53,7 +53,7 @@
 
 <div class='floatLeft'>
 	<label class='radioItem'>
-		<input name='radioAmnt' value='100' type='radio'>
+		<input name='radioAmnt' value='100' type='radio' />
 		<span>
 			$100
 		</span>
@@ -62,7 +62,7 @@
 	<br/>
 	
 	<label class='radioItem'>
-		<input name='radioAmnt' value='200' checked="checked" type='radio'>
+		<input name='radioAmnt' value='200' checked="checked" type='radio' />
 		<span>
 			$200
 		</span>
@@ -71,7 +71,7 @@
 	<br/>
 	
 	<label class='radioItem'>
-		<input name='radioAmnt' value='custom' checked="checked" type='radio'>
+		<input name='radioAmnt' value='custom' checked="checked" type='radio' />
 		<span>
 			Other $<input id="user_amount_id" type="text" value="20.00"/>
 		</span>
@@ -82,24 +82,24 @@
 </div>
 </form>
 
-<a class='floatRight' style="position: relative; top: 40px;" class="buttonPay" href="javascript:doForm();"><img style='border:none;' src='/Themes/BevoMedia/img/btn-purchase.png'/></a>
+<a style="position: relative; top: 40px;" class="buttonPay" href="javascript:doForm();"><img style='border:none;' src='/Themes/BevoMedia/img/btn-purchase.png'/></a>
 
 <br class='clearBoth'/>
 
 *All sales are final.
 
 <form action='https://www.paypal.com/cgi-bin/webscr' method='post' name='paypal'>
-	<input type='hidden' name='cmd' value='_xclick'>
-	<input type='hidden' name='business' value='payments@bevomedia.com'>
-	<input type='hidden' name='item_name' value='ADWORDS_API_CREDIT'>
-	<input type='hidden' name='currency_code' value='USD'>
-	<input type='hidden' name='item_number' value='ADWORDS_API_CREDIT'>
+	<input type='hidden' name='cmd' value='_xclick' />
+	<input type='hidden' name='business' value='payments@bevomedia.com' />
+	<input type='hidden' name='item_name' value='ADWORDS_API_CREDIT' />
+	<input type='hidden' name='currency_code' value='USD' />
+	<input type='hidden' name='item_number' value='ADWORDS_API_CREDIT' />
 
-	<input type='hidden' id='amount_id' name='amount' value='20'>
-	<input type='hidden' name='tax' value='0'>
-	<input type='hidden' name='invoice' value='<?php echo md5(time())?>'>
-	<input type='hidden' name='rm' value='2'>
-	<input type='hidden' id='return_id' name='return' value='http://<?php echo $_SERVER['HTTP_HOST']?>/BevoMedia/User/AdwordsAPIPaypalReturn.html?PAID=true&AMOUNT=20'>
+	<input type='hidden' id='amount_id' name='amount' value='20' />
+	<input type='hidden' name='tax' value='0' />
+	<input type='hidden' name='invoice' value='<?php echo md5(time())?>' />
+	<input type='hidden' name='rm' value='2' />
+	<input type='hidden' id='return_id' name='return' value='http://<?php echo $_SERVER['HTTP_HOST']?>/BevoMedia/User/AdwordsAPIPaypalReturn.html?PAID=true&amp;AMOUNT=20' />
 </form>
 
 </div>

@@ -22,7 +22,7 @@
 		Your Name:
 	</td>
 	<td class='textAlignLeft'>
-		<input type='text' disabled value='<?php print $this->User->firstName; ?> <?php print $this->User->lastName; ?>'/>
+		<input type='text' disabled="disabled" value='<?php print $this->User->firstName; ?> <?php print $this->User->lastName; ?>'/>
 	</td>
 	<td rowspan='3'>
 		<img src='/Themes/BevoMedia/img/info.gif' />
@@ -33,7 +33,7 @@
 		Your Email:
 	</td>
 	<td class='textAlignLeft'>
-		<input type='text' disabled value='<?php print $this->User->email; ?>'/>
+		<input type='text' disabled="disabled" value='<?php print $this->User->email; ?>'/>
 	</td>
 </tr>
 <tr>
@@ -53,7 +53,7 @@
 	</td>
 </tr>
 
-<tr><td colspan='3'><input type='submit' name='submitTicketSubmit'></td></tr>
+<tr><td colspan='3'><input type='submit' name='submitTicketSubmit' /></td></tr>
 </table>
 </form>
 <?php endif?>

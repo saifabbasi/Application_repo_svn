@@ -164,8 +164,8 @@ if(isset($_GET['ExportCSV']) && $_GET['ExportCSV'] == 'FILE')
 <form method="get">
 <div class="option" align="right" style="line-height: 24px;">
 	<label for="datepicker">Date(s)</label>
-	<input type="text" value="<?=$this->DateRangeString?>" id="datepicker" name="DateRange" class="formtxt">
-	<input class="formsubmit track_apply floatright" type="submit" value="Apply">
+	<input type="text" value="<?=$this->DateRangeString?>" id="datepicker" name="DateRange" class="formtxt" />
+	<input class="formsubmit track_apply floatright" type="submit" value="Apply" />
 </div>
 </form>
 
@@ -304,7 +304,7 @@ $(document).ready(function(){
 </table>
 
 
-<a class="tbtn floatright" href='?<?php echo $_SERVER['QUERY_STRING']?>&ExportCSV=FILE'>Export to CSV</a>
+<a class="tbtn floatright" href='?<?php echo $_SERVER['QUERY_STRING']?>&amp;ExportCSV=FILE'>Export to CSV</a>
 
 <br />
 <br />

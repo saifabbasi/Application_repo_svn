@@ -261,7 +261,7 @@ function LoadAccountStats($intInProvider) {
 <div class="SkyBox"><div class="SkyBoxTopLeft"><div class="SkyBoxTopRight"><div class="SkyBoxBotLeft"><div class="SkyBoxBotRight">
         <table width="550" cellspacing="0" cellpadding="5" border="0">
             <tr valign="top">
-                <td width="127"><img src="<?=SCRIPT_ROOT?>img/ppcicon.gif" border=0 alt=""></td>
+                <td width="127"><img src="<?=SCRIPT_ROOT?>img/ppcicon.gif" border="0" alt="" /></td>
                 <td class="main">
                     <h4>Pay Per Click Management</h4>
                     <br/>
@@ -285,7 +285,7 @@ function LoadAccountStats($intInProvider) {
 
 <center>
 <h3>Select an Account to Create a New Campaign To:</h3>
-<br>
+<br />
 <div class="left_box2_bg">
                  <table border="0" cellspacing="0" cellpadding="0" width="600" class="btable">
                     <tr class="table_header">
@@ -297,7 +297,7 @@ function LoadAccountStats($intInProvider) {
                     <tr>
                     <td class="border" style=" background-color: #ffffff;">&nbsp;</td>
                      <td colspan="1" style=" background-color: #ffffff;" >
-                     <span><img src="<?=SCRIPT_ROOT?>img/galogo.jpg"></span><a name='adwordscreate'/></td>
+                     <span><img src="<?=SCRIPT_ROOT?>img/galogo.jpg" /></span><a name='adwordscreate'/></td>
                      <td class="tail" style=" background-color: #ffffff;">&nbsp;</td>
                     </tr>
 <?php ListAdwordsAccounts(); ?>
@@ -307,7 +307,7 @@ function LoadAccountStats($intInProvider) {
                      <tr>
 						<td class="border" style=" background-color: #ffffff;">&nbsp;</td>
 						<td style="border-left: none; background-color: #ffffff;" colspan="1"  >
-						<span><img style="margin-left: 5px;" src="<?=SCRIPT_ROOT?>img/ysmlogo.gif"></span><a name='yahoocreate'/></td>
+						<span><img style="margin-left: 5px;" src="<?=SCRIPT_ROOT?>img/ysmlogo.gif" /></span><a name='yahoocreate'/></td>
 						<td class="tail" style=" background-color: #ffffff;">&nbsp;</td>
                     </tr>
 <?php ListYahooAccounts(); ?>
@@ -315,7 +315,7 @@ function LoadAccountStats($intInProvider) {
                     <tr>
                     <td class="border" style=" background-color: #ffffff;">&nbsp;</td>
                      <td colspan="1" style=" background-color: #ffffff;" >
-                     <span><img src="<?=SCRIPT_ROOT?>img/adcentersmall.gif"><a name='msncreate'/></span></td>
+                     <span><img src="<?=SCRIPT_ROOT?>img/adcentersmall.gif" /><a name='msncreate'/></span></td>
                      <td class="tail" style=" background-color: #ffffff;">&nbsp;</td>
                     </tr>
 <?php ListMSNAccounts(); ?>

@@ -54,7 +54,7 @@
     	</div>
     </div>
 
-<input type="hidden" name="ppvfind" value="1">
+<input type="hidden" name="ppvfind" value="1" />
 </form>
 
 <SCRIPT LANGUAGE="JavaScript">

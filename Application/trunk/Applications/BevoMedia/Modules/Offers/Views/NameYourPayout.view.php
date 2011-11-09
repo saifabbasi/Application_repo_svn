@@ -26,7 +26,7 @@
 							$selected = '';
 							if ($Niche->ID==$_GET['NicheID']) $selected = 'selected';
 					?>
-								<option value="<?php echo $Niche->ID?>" <?php echo $selected;?>><?php echo $Niche->Name?></option>
+								<option value="<?php echo $Niche->ID?>" <?php echo $selected;?>><?php echo htmlentities($Niche->Name);?></option>
 					<?php 
 						}
 					?>

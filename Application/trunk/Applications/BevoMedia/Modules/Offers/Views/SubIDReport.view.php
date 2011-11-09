@@ -151,16 +151,16 @@ function customRepRange(objCheckbox)
 	<div class="SkyBox"><div class="SkyBoxTopLeft"><div class="SkyBoxTopRight"><div class="SkyBoxBotLeft"><div class="SkyBoxBotRight">
 		<table width="550" cellspacing="0" cellpadding="5" border="0">
 			<tr valign="top">
-				<td width="127"><img src="/Themes/BevoMedia/img/icon-sub.gif" width="127" height="116" border=0 alt=""></td>
+				<td width="127"><img src="/Themes/BevoMedia/img/icon-sub.gif" width="127" height="116" border="0" alt="" /></td>
 				<td class="main">
 					<h4>Subid Report</h4>
-					<br>
+					<br />
 Keep track of your sub ids for your campaigns from all of your ad networks. Use the Custom Reporting Tool to adjust the time frame of your report. For more information about how to automatically insert keywords into your sub id line, click the Google and Yahoo information boxes to the right.				</td>
 			</tr>
 		</table>
 	</div></div></div></div></div>
 
-	<br>
+	<br />
 
 	<table width="100%" cellspacing="0" cellpadding="5" border="0">
 		<tr valign="top">
@@ -213,7 +213,7 @@ foreach ( $arrNetworks as $network )
 				</table>
 				<?=LegacyAbstraction::makePagesEx($_SERVER['PHP_SELF'].'?'.LegacyAbstraction::removeQueryStringVar($_SERVER['QUERY_STRING'], 'x'))?>
 
-				<br>
+				<br />
 
 				<form action="" method="GET">
 				<h2>Custom Subid Report</h2>
@@ -223,7 +223,7 @@ foreach ( $arrNetworks as $network )
 $model = 'CPA';
 ?>
 						<td width="33%" class="main">
-							<input type="checkbox" name="crNetworks[]" id="model_<?=$model?>" value="<?=$model?>" <?=in_array($model, $crNetworks)?'checked':''?> onclick="customRepModel(this, '<?=$model?>')"><label for="model_<?=$model?>">All <?=$model?> Companies</label><br>
+							<input type="checkbox" name="crNetworks[]" id="model_<?=$model?>" value="<?=$model?>" <?=in_array($model, $crNetworks)?'checked="checked"':''?> onclick="customRepModel(this, '<?=$model?>')" /><label for="model_<?=$model?>">All <?=$model?> Companies</label><br />
 <?
 	$modelNets = '';
 	foreach ( $arrCRNetworks as $network )
@@ -233,7 +233,7 @@ $model = 'CPA';
 
 		$modelNets .= ','.$network['id'];
 ?>
-							<input type="checkbox" name="crNetworks[]" id="network_<?=$network['id']?>" value="<?=$network['id']?>" <?=in_array($network['id'], $crNetworks)?'checked':''?> onclick="customRepNetwork(this, '<?=$model?>')"><label for="network_<?=$network['id']?>"><?=$network['TITLE']?></label><br>
+							<input type="checkbox" name="crNetworks[]" id="network_<?=$network['id']?>" value="<?=$network['id']?>" <?=in_array($network['id'], $crNetworks)?'checked="checked"':''?> onclick="customRepNetwork(this, '<?=$model?>')" /><label for="network_<?=$network['id']?>"><?=$network['TITLE']?></label><br />
 <?
 	}
 ?>
@@ -245,19 +245,19 @@ $model = 'CPA';
 						</td>
 						<td width="33%" class="main">
 							<h3>&nbsp;</h3>
-							<input type="radio" name="crRange" id="range_today" value="today" <?=$crRange=='today'?'checked':''?> onclick="customRepRange(this)"><label for="range_today">Today</label><br>
-							<input type="radio" name="crRange" id="range_yesterday" value="yesterday" <?=$crRange=='yesterday'?'checked':''?> onclick="customRepRange(this)"><label for="range_yesterday">Yesterday</label><br>
-							<input type="radio" name="crRange" id="range_thisweek" value="thisweek" <?=$crRange=='thisweek'?'checked':''?> onclick="customRepRange(this)"><label for="range_thisweek">This Week</label><br>
-							<input type="radio" name="crRange" id="range_thismonth" value="thismonth" <?=$crRange=='thismonth'?'checked':''?> onclick="customRepRange(this)"><label for="range_thismonth">This Month</label><br>
-							<input type="radio" name="crRange" id="range_thisyear" value="thisyear" <?=$crRange=='thisyear'?'checked':''?> onclick="customRepRange(this)"><label for="range_thisyear">This Year</label><br>
+							<input type="radio" name="crRange" id="range_today" value="today" <?=$crRange=='today'?'checked="checked"':''?> onclick="customRepRange(this)" /><label for="range_today">Today</label><br />
+							<input type="radio" name="crRange" id="range_yesterday" value="yesterday" <?=$crRange=='yesterday'?'checked="checked"':''?> onclick="customRepRange(this)" /><label for="range_yesterday">Yesterday</label><br />
+							<input type="radio" name="crRange" id="range_thisweek" value="thisweek" <?=$crRange=='thisweek'?'checked="checked"':''?> onclick="customRepRange(this)" /><label for="range_thisweek">This Week</label><br />
+							<input type="radio" name="crRange" id="range_thismonth" value="thismonth" <?=$crRange=='thismonth'?'checked="checked"':''?> onclick="customRepRange(this)" /><label for="range_thismonth">This Month</label><br />
+							<input type="radio" name="crRange" id="range_thisyear" value="thisyear" <?=$crRange=='thisyear'?'checked="checked"':''?> onclick="customRepRange(this)" /><label for="range_thisyear">This Year</label><br />
 						</td>
 						<td width="33%" class="main">
-							<br>
-							<input type="radio" name="crRange" id="range_custom" value="custom" <?=$crRange=='custom'?'checked':''?> onclick="customRepRange(this)"><label for="range_custom">Custom</label><br>
+							<br />
+							<input type="radio" name="crRange" id="range_custom" value="custom" <?=$crRange=='custom'?'checked="checked"':''?> onclick="customRepRange(this)" /><label for="range_custom">Custom</label><br />
 
 							<div id="customRepRangeCustom" style="visibility:<?=$crRange=='custom'?'visible':'hidden'?>;">
-								<input id="crStartDate" name="crStartDate" value="<?=$crStartDate?>" size="8" type="text" class="smalleffect" maxlength="10"> - 
-								<input id="crEndDate" name="crEndDate" value="<?=$crEndDate?>" size="8" type="text" class="smalleffect" maxlength="10">
+								<input id="crStartDate" name="crStartDate" value="<?=$crStartDate?>" size="8" type="text" class="smalleffect" maxlength="10" /> - 
+								<input id="crEndDate" name="crEndDate" value="<?=$crEndDate?>" size="8" type="text" class="smalleffect" maxlength="10" />
 								<script language="JavaScript">
 								<!--
 								Calendar.setup({
@@ -278,10 +278,10 @@ $model = 'CPA';
 								//-->
 								</script>
 							</div>
-							<br>
-							<input type="image" name="btnSubmit" src="/Themes/BevoMedia/img/btn-submit.gif" border=0 alt="">
-							<br>
-							<a href="/Themes/BevoMedia/img/btn-default.gif" border=0 alt=""></a>
+							<br />
+							<input type="image" name="btnSubmit" src="/Themes/BevoMedia/img/btn-submit.gif" border="0" alt="" />
+							<br />
+							<a href="/Themes/BevoMedia/img/btn-default.gif" border="0" alt="" />
 						</td>
 					</tr>
 				</table>

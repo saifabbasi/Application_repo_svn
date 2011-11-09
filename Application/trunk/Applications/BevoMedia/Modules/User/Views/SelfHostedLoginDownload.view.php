@@ -48,7 +48,7 @@
 <h3>Selfhost Server Requirements</h3>
 <p>Because of library requirements and database permissions, <b>BevoMedia won't run on most 'shared' hosts</b>. While some shared hosts may provide all the needed extensions, we recommend a VPS or a dedicated server for your BevoMedia Selfhost installation.</p>
 
-<p><b>Trouble installing? Can't find a host?</b> BevoMedia recommends Rackspace Cloud for simple, secure, reliable hosting, starting as low as $10/mo. <a href="RackspaceWizard.html">Click here for our one-click wizard for launching, configuring and installing Bevo Selfhost on a Rackspace Cloud server.</a>
+<p><b>Trouble installing? Can't find a host?</b> BevoMedia recommends Rackspace Cloud for simple, secure, reliable hosting, starting as low as $10/mo. <a href="RackspaceWizard.html">Click here for our one-click wizard for launching, configuring and installing Bevo Selfhost on a Rackspace Cloud server.</a></p>
 	
 <ul>
 	<li>BevoMedia was developed and tested on Ubuntu Linux. Most Linux servers should be supported, but we haven't tried them all. We haven't tested Windows servers at all, but theoretically it "should" work.</li>
@@ -66,7 +66,7 @@
 			<li>Zend Framework</li>
 		</ul>
 	To test if you have these extensions, open a text editor like Notepad and enter the following:
-	<input class="formtxt wide_half" type="text" value="&lt;?php phpinfo(); ?&gt;">
+	<input class="formtxt wide_half" type="text" value="&lt;?php phpinfo(); ?&gt;" />
 	Save it as '<b>info.php</b>' and upload it to your server. Open <b>http://mysite.com/info.php</b> and search through the file for the above extensions to verify that they are all installed.
 	<br />Alternatively, our automated installer will check for the presence of dependencies and alert you to any that you are missing.
 </li>

@@ -285,7 +285,7 @@ if(isset($_GET['ExportCSV']) && $_GET['ExportCSV'] == 'FILE')
 	<div align="right">
 		<label for="datepicker">Date(s)</label>
 		<input class="formtxt" type="text" name="DateRange" id="datepicker" value="<?= isset($_REQUEST['DateRange'])?htmlentities($_REQUEST['DateRange']):date('m/d/Y', strtotime('-1 day')).' - '.date('m/d/Y') ; ?>" />
-		<input class="formsubmit btn_go_flush" type="submit">
+		<input class="formsubmit btn_go_flush" type="submit" />
 	</div>
 </form>
 
@@ -398,6 +398,6 @@ if(isset($_GET['ExportCSV']) && $_GET['ExportCSV'] == 'FILE')
 	</tfoot>
 </table>
 
-<a class="tbtn floatright" href='?<?php echo $_SERVER['QUERY_STRING']?>&ExportCSV=FILE' >Export to CSV</a>
+<a class="tbtn floatright" href='?<?php echo $_SERVER['QUERY_STRING']?>&amp;ExportCSV=FILE' >Export to CSV</a>
 
 <br/><br/>
