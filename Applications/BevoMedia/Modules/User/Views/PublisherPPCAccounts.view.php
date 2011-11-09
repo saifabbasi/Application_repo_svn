@@ -2,7 +2,7 @@
 
 <br/>
 
-<table class='adminPublisherTable width30Pct floatLeft marginRight5Pct' cellpadding=0 cellspacing=0 >
+<table class='adminPublisherTable width30Pct floatLeft marginRight5Pct' cellpadding="0" cellspacing="0" >
 <tr class='splitHeadingRow'>
 	<th class='nameCell'>
 		Google Adwords
@@ -34,7 +34,7 @@
 </table>
 
 
-<table class='adminPublisherTable width30Pct floatLeft marginRight5Pct' cellpadding=0 cellspacing=0>
+<table class='adminPublisherTable width30Pct floatLeft marginRight5Pct' cellpadding="0" cellspacing="0">
 <tr class='splitHeadingRow'>
 	<th class='nameCell'>
 		Yahoo Search Marketing
@@ -66,7 +66,7 @@
 </table>
 
 
-<table class='adminPublisherTable width30Pct floatLeft' cellpadding=0 cellspacing=0>
+<table class='adminPublisherTable width30Pct floatLeft' cellpadding="0" cellspacing="0">
 <tr class='splitHeadingRow'>
 	<th class='nameCell'>
 		MSN Ad Center

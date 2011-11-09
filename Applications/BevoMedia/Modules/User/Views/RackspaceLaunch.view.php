@@ -118,6 +118,7 @@ Thanks for using Rackspace and Bevo!<br />
 	<span id="extra"></span><br />
 	<p width="90%"><b>DO NOT</b> refresh the browser. <b>DO NOT</b> close this window.<br />
 	If you close this window, or the installer fails, you need to log into Rackspace and shut down the node we just launched, <b>or you will be billed for extra servers.</b>
+	</p>
 <script>
 $(function() { 
 	$.getScript('RackspaceLaunch.html?user=<?= $user ?>&key=<?= $key ?>&size=<?= $size ?>&cmd=start');

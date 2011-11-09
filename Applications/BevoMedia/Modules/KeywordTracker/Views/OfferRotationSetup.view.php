@@ -44,7 +44,7 @@
 		</td>
 		<td>
 			<?php foreach($OfferGroup->Links as $Itm):?>
-				<span><?php echo $Itm?></span><br/>
+				<span><?php echo htmlentities($Itm);?></span><br/>
 			<?php endforeach?>
 		</td>
 		<td>

@@ -48,9 +48,9 @@
 ?>
     		<div class="option">
     			<label for="pcccampaign">Keyword Types:</label><div style="display:inline-block; vertical-align: text-top;">
-			<input type="checkbox" name="keyw1" value="1" <?php if($kw_check1 == 1) echo 'CHECKED'; ?>> Single Word Keywords<br />
-			<input type="checkbox" name="keyw2" value="1" <?php if($kw_check2 == 1) echo 'CHECKED'; ?>> Two Word Keywords<br />
-			<input type="checkbox" name="keyw3" value="1" <?php if($kw_check3 == 1) echo 'CHECKED'; ?>> Three Word Keywords</div>
+			<input type="checkbox" name="keyw1" value="1" <?php if($kw_check1 == 1) echo 'CHECKED'; ?> /> Single Word Keywords<br />
+			<input type="checkbox" name="keyw2" value="1" <?php if($kw_check2 == 1) echo 'CHECKED'; ?> /> Two Word Keywords<br />
+			<input type="checkbox" name="keyw3" value="1" <?php if($kw_check3 == 1) echo 'CHECKED'; ?> /> Three Word Keywords</div>
     		</div>
 
     	</div>
@@ -59,7 +59,7 @@
     	</div>
     </div>
 
-<input type="hidden" name="ppvfind" value="1">
+<input type="hidden" name="ppvfind" value="1" />
 </form>
 
 <SCRIPT LANGUAGE="JavaScript">

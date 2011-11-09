@@ -16,7 +16,7 @@ $userId = $this->User->id;
 
 <script type="text/javascript" src="/Themes/BevoMedia/jquery.liveTables.js"></script>
 <script type="text/javascript" src="/Themes/BevoMedia/jquery.json-2.2.min.js"></script>
-<script>
+<script type="text/javascript">
 	Object.size = function(obj) {
 	      var size = 0, key;
 		      for (key in obj) {
@@ -142,16 +142,16 @@ $(function() {
 
 
 <div>
-	<span style="width: 5%; display: inline:block;";>Page:&nbsp;</span>
+	<span style="width: 5%; display: inline-block;">Page:&nbsp;</span>
 	<span style="width: auto; display: inline-block; " id="pages"></span>
 	<span style="width: 250px; float: right; text-align: right;">
-		Date(s): <input class="formtxt" type="text" name="DateRange" id="datepickerVS" value="<?php echo date('m/d/Y');?>" readonly="true">
+		Date(s): <input class="formtxt" type="text" name="DateRange" id="datepickerVS" value="<?php echo date('m/d/Y');?>" readonly="true" />
 	</span>
 </div>
 
 <br /><br />
 
-<table id="live" cellspacing=0 class="btable" width="600">
+<table id="live" cellspacing="0" class="btable" width="600">
 </table>
 <br/>
 <center>

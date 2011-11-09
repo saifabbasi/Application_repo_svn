@@ -44,7 +44,7 @@
 	a { font-size: 12px }
 </style>
 
-<img src='/Themes/<?php print $this->PageHelper->Application; ?>/img/analytics.jpg'>
+<img src='/Themes/<?php print $this->PageHelper->Application; ?>/img/analytics.jpg' />
 
 <br/><br/>
 
@@ -91,7 +91,7 @@
 			<?php if($Account->verified):?>
 				<a href='?VerifyEmail=<?php print $Account->id; ?>' class='tooltip defaultLink' style="text-decoration: none; color: #0000000;" title="This account has been successfully<br/> verified using the API.<br/><br/>You may re-verify by clicking<br/> this link again.">Verified</a>
 			<?php else:?>
-				<a class='tooltip defaultLink' title='Attempt to authenticate this<br/> account using the Analytics API.' href='?VerifyEmail=<?php print $Account->id; ?>'>
+				<a class='tooltip defaultLink' title="Attempt to authenticate this<br/> account using the Analytics API." href='?VerifyEmail=<?php print $Account->id; ?>'>
 					Verify
 				</a>
 			<?php endif?>
@@ -190,7 +190,7 @@
 			Email:
 		</td>
 		<td colspan='3' class='textAlignLeft width80Pct'>
-			<input type='text' name='Username' value='<?php print $this->usernameFormValue; ?>'>
+			<input type='text' name='Username' value='<?php print $this->usernameFormValue; ?>' />
 			<?php if($this->UsernameInvalid):?><span class='validation'>Please provide a valid username.</span><?php endif?>
 		</td>
 	</tr>
@@ -200,14 +200,14 @@
 			Password:
 		</td>
 		<td colspan='3' class='textAlignLeft width80Pct'>
-			<input type='password' name='Password' value='<?php print $this->passwordFormValue; ?>'>
+			<input type='password' name='Password' value='<?php print $this->passwordFormValue; ?>' />
 			<?php if($this->PasswordInvalid):?><span class='validation'>Please provide a valid password.</span><?php endif?>
 		</td>
 	</tr>
 	
 	<tr>
 		<td colspan='5' class='textAlignLeft'>
-			<input type='submit' name='analyticsAddAccountSubmit'>
+			<input type='submit' name='analyticsAddAccountSubmit' />
 		</td>
 	</tr>
 	</form>
@@ -221,13 +221,13 @@
 		</th>
 	</tr>
 	<form method='post'>
-	<input type='hidden' name='id' value='<?php print $this->idFormValue; ?>'>
+	<input type='hidden' name='id' value='<?php print $this->idFormValue; ?>' />
 	<tr>
 		<td class='textAlignLeft'>
 			Email:
 		</td>
 		<td colspan='3' class='textAlignLeft width80Pct'>
-			<input type='text' name='Username' value='<?php print $this->usernameFormValue; ?>'>
+			<input type='text' name='Username' value='<?php print $this->usernameFormValue; ?>' />
 			<?php if($this->UsernameInvalid):?><span class='validation'>Please provide a valid username.</span><?php endif?>
 		</td>
 	</tr>
@@ -237,14 +237,14 @@
 			Password:
 		</td>
 		<td colspan='3' class='textAlignLeft width80Pct'>
-			<input type='password' name='Password' value='<?php print $this->passwordFormValue; ?>'>
+			<input type='password' name='Password' value='<?php print $this->passwordFormValue; ?>' />
 			<?php if($this->PasswordInvalid):?><span class='validation'>Please provide a valid password.</span><?php endif?>
 		</td>
 	</tr>
 	
 	<tr>
 		<td colspan='5' class='textAlignLeft'>
-			<input type='submit' name='analyticsEditAccountSubmit'>
+			<input type='submit' name='analyticsEditAccountSubmit' />
 		</td>
 	</tr>
 	</form>

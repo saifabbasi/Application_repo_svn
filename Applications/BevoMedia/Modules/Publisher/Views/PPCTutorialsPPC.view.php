@@ -26,7 +26,7 @@
 	<h3>The API Calls  breakdown is as follows:</h3>
 	<ul>
 		<li><strong>Affiliate Networks:</strong> 2 Calls per network, per hourly update.</li>
-		<li><strong>Pay Per Click Accounts:</strong> Varies based on and campaign size. Calls used for writing campaigns as well using the Bevo Editor.<li>
+		<li><strong>Pay Per Click Accounts:</strong> Varies based on and campaign size. Calls used for writing campaigns as well using the Bevo Editor.</li>
 		<li><strong>Analytic Accounts:</strong> 500 Calls per account, per day.</li>
 	</ul>
 </div><!--close pagecontent-->

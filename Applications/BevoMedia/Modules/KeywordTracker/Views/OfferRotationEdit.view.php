@@ -47,7 +47,7 @@ p.descript {float: right; width: 60%;}
 			
 			<label>
 				<span>Offer Group Label</span>
-				<input class="formtxt" name='groupLabel' type='text' value='<?php print $this->OfferGroup->label; ?>'>			
+				<input class="formtxt" name='groupLabel' type='text' value='<?php print $this->OfferGroup->label; ?>' />			
 			</label>
 		</div>
 		<div class="box boxfull bordertop">

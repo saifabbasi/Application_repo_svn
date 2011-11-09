@@ -112,7 +112,7 @@ function get_column_sort_link($a, $b)
 	$tg['sort'] = $b;
 	foreach($tg as $k=>$g)
 	{
-		$qs .= $k . '=' . $g . '&';
+		$qs .= $k . '=' . $g . '&amp;';
 	}
 	echo "<a href='$qs'>$a</a>";
 }
@@ -232,7 +232,7 @@ function get_column_sort_link($a, $b)
 	</tr>
 </table>
 
-<a class="tbtn floatright" href='?<?php echo $_SERVER['QUERY_STRING']?>&ExportCSV=FILE' >Export to CSV</a>
+<a class="tbtn floatright" href='?<?php echo $_SERVER['QUERY_STRING']?>&amp;ExportCSV=FILE' >Export to CSV</a>
 
 <br/><br/>
 

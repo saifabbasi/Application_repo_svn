@@ -7,7 +7,7 @@
 	<h3 id="createviewserror">I am getting a "CREATE VIEWS" error</h3>
 	<p>This is usually caused by a bug in cPanel/WHM. When you create a database user in cPanel/WHM, even if you select "Grant all privileges", not all privileges are granted. You must have 'root' access to WHM, or ask your host to do the following: Log into WHM, and open PHPMyAdmin as root database user. Click the "Users" tab on the top of the screen, then click the edit icon next to your desired Bevo MySQL username. Check all the boxes for permissions, then click Save. To finish, follow the instructions below, under <em>How do I reinstall Bevo? Installer says "Bevo is Already Installed"?</em>.</p>
 		
-	<h3 id=""internalerror>I am getting a 500 Internal error</h3>
+	<h3 id="internalerror">I am getting a 500 Internal error</h3>
 	<p>This 500 error is a common server problem in your .htaccess file. To fix it, just delete the two lines that start with "php_value" from .htaccess, should be lines 2 and 3. If you delete these lines from .htaccess, you must make sure PHP is configured with "Magic quotes = Off" and "short open tags = on"</p>
 	
 	<h3 id="outofmemoryerror">I am getting a PHP out of memory error message</h3>

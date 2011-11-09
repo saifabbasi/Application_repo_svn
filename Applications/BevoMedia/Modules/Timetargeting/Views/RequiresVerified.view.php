@@ -10,7 +10,6 @@
 
 <div class="">
 		<a class="shs" href="https://bevomedia.localhost/BevoMedia/User/AddCreditCard.html">Get Verified!</a>
-	</div>
 </div>
 
 <script type="text/javascript">

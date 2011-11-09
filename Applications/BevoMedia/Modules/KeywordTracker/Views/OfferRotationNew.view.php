@@ -53,7 +53,7 @@ function validate() {
 			
 			<label>
 				<span>Offer Group Label</span>
-				<input class="formtxt" name='groupLabel' type='text'>			
+				<input class="formtxt" name='groupLabel' type='text' />			
 			</label>
 		</div>
 		<div class="box boxfull bordertop">

@@ -18,7 +18,7 @@ var modYesterday = 'yesterday';
 <link href="<?=$this->{'System/BaseURL'};?>Themes/<?=$this->{'Application/Theme'};?>/default.css" rel="stylesheet" type="text/css" />
 <script src="<?=$this->{'System/BaseURL'};?>Themes/<?=$this->{'Application/Theme'};?>/LayoutAssist.js" type="text/javascript"></script>
 
-<link rel="stylesheet" type="text/css" href="<?=$this->{'System/BaseURL'};?>Themes/<?=$this->{'Application/Theme'};?>/shadowbox-source-3.0b/shadowbox.css">
+<link rel="stylesheet" type="text/css" href="<?=$this->{'System/BaseURL'};?>Themes/<?=$this->{'Application/Theme'};?>/shadowbox-source-3.0b/shadowbox.css" />
 <script type="text/javascript" src="<?=$this->{'System/BaseURL'};?>Themes/<?=$this->{'Application/Theme'};?>/shadowbox-source-3.0b/shadowbox.js"></script>
 <script type="text/javascript">
 	Shadowbox.init({

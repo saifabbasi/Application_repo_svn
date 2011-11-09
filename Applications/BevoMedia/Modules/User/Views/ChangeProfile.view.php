@@ -123,7 +123,7 @@
 		<div class="radioFloat">
 			<?php $Messengers = PageHelper::GetMessengersViewLabels()?>
 			<?php foreach($this->PageHelper->GetMessengers() as $Messenger):?>
-				<input <?php print ($this->User->messenger==$Messenger)?'checked="checked"':''; ?> type="radio" name="Messenger" value="<?php echo $Messenger?>"><?php echo $Messengers[$Messenger]?><br/>
+				<input <?php print ($this->User->messenger==$Messenger)?'checked="checked"':''; ?> type="radio" name="Messenger" value="<?php echo $Messenger?>" /><?php echo $Messengers[$Messenger]?><br/>
 			<?php endforeach?>
 		</div>
 	</label>
@@ -138,7 +138,7 @@
 		<div class="radioFloat">
 			<?php $Methods = PageHelper::GetMarketingMethodsViewLabels()?>
 			<?php foreach($this->PageHelper->GetMarketingMethods() as $Method):?>
-				<input <?php print ($this->User->marketingMethod==$Method)?'checked="checked"':''; ?> type="radio" name="MarketingMethod" value="<?php echo $Method?>"><?php echo $Methods[$Method]?><br/>
+				<input <?php print ($this->User->marketingMethod==$Method)?'checked="checked"':''; ?> type="radio" name="MarketingMethod" value="<?php echo $Method?>" /><?php echo $Methods[$Method]?><br/>
 			<?php endforeach?>
 		</div>
 	</label>
@@ -164,16 +164,17 @@
 		<select class="formselect" name="Timezone" id="timezone_id">
 		<?php $tz = new TimezoneHelper()?>
 		<?php foreach($tz->getTimezones() as $timezone):?>
-			<option <?php echo($timezone->PHPTimezone == $this->User->timezone)?'selected="SELECTED"':''?> value="<?php print $timezone->PHPTimezone; ?>"><?php print $timezone->GMTLabel; ?></option>
+			<option <?php echo($timezone->PHPTimezone == $this->User->timezone)?'selected="SELECTED"':''?> value="<?php print $timezone->PHPTimezone; ?>"><?php print htmlentities($timezone->GMTLabel); ?></option>
 		<?php endforeach?>
 		</select>
 	</label>
 	
 	<?php $userHasNiche = (count($this->UserNicheIDs) > 0);?>
+	<div id="perfconn" style="<?php echo ($userHasNiche)?'':'display:none;'?>;" >
 	<label for="X">
 	<span class="label">Bevo Performance Connector: <br/>(Optional) <br/><br/></span>
 	<input type="checkbox" name="bevoPerformanceConnector" id ="bpc" <?php echo ($userHasNiche)?'checked="checked"':''?>/> &nbsp; Enable<br/>
-	<div id="perfconn" style="<?php echo ($userHasNiche)?'':'display:none;'?>;" >
+	
 	Hold down Ctrl to select multiple niches.<br/>
 	<select name="niche[]" size="10" id="niche" class="required formselect" rel="Niche" multiple="multiple">
 		<?php 
@@ -183,7 +184,7 @@
 					$selected = 'selected="selected"';
 				}
 		?>
-				<option value="<?php echo $Niche->ID?>" <?php echo $selected;?>><?php echo $Niche->Name?></option>
+				<option value="<?php echo $Niche->ID?>" <?php echo $selected;?>><?php echo htmlentities($Niche->Name);?></option>
 		<?php 
 			}
 		?>
@@ -191,6 +192,7 @@
 	<br/>
 	
 	<br/>
+	
 	</label>
 	
 	<label for="Y">

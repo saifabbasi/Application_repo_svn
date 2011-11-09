@@ -31,9 +31,7 @@ $(function() {
 		<li><a href="<?= Zend_Registry::get('System/BaseURL') ?>BevoMedia/Publisher/PPCQueueProgress.html">Campaign Editor Queue<span></span></a></li>
 		<li><a class="active" href="<?= Zend_Registry::get('System/BaseURL') ?>BevoMedia/User/ManageStats.html">Delete Stats<span></span></a></li>
 	</ul>
-	<ul class="floatright">
-		<li><a href="http://ryanbuke.com/" target="_blank">Official Bevo Blog<span></span></a></li>
-	</ul>
+	<ul class="floatright"><li><a href="http://ryanbuke.com/" target="_blank">Official Bevo Blog<span></span></a></li></ul>
 </div>
 <?php echo $this->PageDesc->ShowDesc($this->PageHelper); ?>
 
@@ -70,9 +68,9 @@ $(function() {
 	<div id="PPCAccts" class="subdelete">
 		<table width='100%'>
 			<tr>
-				<td width="33%"><img src='/Themes/BevoMedia/img/adwords_logo.png'></td>
-				<td width="33%"><img src='/Themes/BevoMedia/img/ysm_logo.png'></td>
-				<td width="33%"><img src='/Themes/BevoMedia/img/adcenter.jpg'></td>
+				<td width="33%"><img src='/Themes/BevoMedia/img/adwords_logo.png' /></td>
+				<td width="33%"><img src='/Themes/BevoMedia/img/ysm_logo.png' /></td>
+				<td width="33%"><img src='/Themes/BevoMedia/img/adcenter.jpg' /></td>
 			</tr>
 			<tr>
 				<td>
@@ -80,7 +78,7 @@ $(function() {
 					if (is_array($this->AdwordsResults)) 
 					foreach($this->AdwordsResults as $Result):
 				?>
-					<input type="checkbox" checked=checked class="PPCAcct Adwords" name="Adwords[<?=$Result->id?>]" /><?php print $Result->username?><br />
+					<input type="checkbox" checked="checked" class="PPCAcct Adwords" name="Adwords[<?=$Result->id?>]" /><?php print $Result->username?><br />
 				<?php endforeach?>
 				<?php if(!sizeOf($this->AdwordsResults)):?>
 					<br/>
@@ -94,7 +92,7 @@ $(function() {
 					if (is_array($this->YahooResults)) 
 					foreach($this->YahooResults as $Result):
 				?>
-					<input type="checkbox" checked=checked class="PPCAcct Yahoo" name="Yahoo[<?=$Result->id?>]" /><?php print $Result->username?><br />
+					<input type="checkbox" checked="checked" class="PPCAcct Yahoo" name="Yahoo[<?=$Result->id?>]" /><?php print $Result->username?><br />
 				<?php endforeach?>
 				<?php if(!sizeOf($this->YahooResults)):?>
 					<br/>
@@ -108,7 +106,7 @@ $(function() {
 					if (is_array($this->MSNResults)) 
 					foreach($this->MSNResults as $Result):
 				?>
-					<input type="checkbox" checked=checked class="PPCAcct MSN" name="MSN[<?=$Result->id?>]" /><?php print $Result->username?><br />
+					<input type="checkbox" checked="checked" class="PPCAcct MSN" name="MSN[<?=$Result->id?>]" /><?php print $Result->username?><br />
 				<?php endforeach?>
 				<?php if(!sizeOf($this->MSNResults)):?>
 					<br/>
@@ -133,7 +131,7 @@ $(function() {
 			<th>Account</th>
 		  </tr>
 		  <tr>
-		  	<td><input type="checkbox" checked=checked name="AffNetwork[0]" /></td>
+		  	<td><input type="checkbox" checked="checked" name="AffNetwork[0]" /></td>
 		  	<td>Manually Uploaded SubIDs</td>
 		  	<td>&nbsp;</td>
 		  </tr>
@@ -142,7 +140,7 @@ $(function() {
 		  	foreach($this->AffResults as $Result) { 
 	  	  ?>
 		  <tr>
-		  	<td><input type="checkbox" checked=checked name="AffNetwork[<?=$Result->network__id?>]" /></td>
+		  	<td><input type="checkbox" checked="checked" name="AffNetwork[<?=$Result->network__id?>]" /></td>
 		  	<td>
 				<img src="/Themes/BevoMedia/img/networklogos/<?php print $Result->network__id; ; ?>.png" alt="<?php print htmlentities($Result->title); ; ?>" />
 			</td>
@@ -163,7 +161,7 @@ $(function() {
 		{
 	?>
 		<label>
-			<input type="checkbox" name="deleteCampaigns[]" value="<?=$Campaign->id?>" /> <?=$Campaign->name?>
+			<input type="checkbox" name="deleteCampaigns[]" value="<?=$Campaign->id?>" /> <?=htmlentities($Campaign->name)?>
 		</label>
 		<br />
 	<?php 
@@ -183,7 +181,7 @@ $(function() {
 		{
 	?>
 		<label>
-			<input type="checkbox" name="deleteCampaignStats[]" value="<?=$Campaign->id?>" /> <?=$Campaign->name?>
+			<input type="checkbox" name="deleteCampaignStats[]" value="<?=$Campaign->id?>" /> <?=htmlentities($Campaign->name)?>
 		</label>
 		<br />
 	<?php 

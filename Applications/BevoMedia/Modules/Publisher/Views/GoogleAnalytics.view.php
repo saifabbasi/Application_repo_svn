@@ -1,11 +1,11 @@
-<img src='/Themes/<?php print $this->PageHelper->Application; ?>/img/analytics.jpg'>
+<img src='/Themes/<?php print $this->PageHelper->Application; ?>/img/analytics.jpg' />
 
 <br/><br/>
 
 <table align='center'>
 <tbody><tr>
 	<td>
-		<a href="/BevoMedia/Publisher/GoogleAnalyticsAPI.html"><img src="/Themes/<?php print $this->PageHelper->Application; ?>/img/icon-installvia-api.jpg" style="border: 0px none ;"></a>
+		<a href="/BevoMedia/Publisher/GoogleAnalyticsAPI.html"><img src="/Themes/<?php print $this->PageHelper->Application; ?>/img/icon-installvia-api.jpg" style="border: 0px none ;" /></a>
 	</td>
 	<td style="border-left: 1px solid rgb(239, 239, 239);">&nbsp;</td>
 	<?php /*?>
@@ -21,7 +21,7 @@
 </tr>
 <tr>
 	<td>
-		<a href="/BevoMedia/Publisher/GoogleAnalyticsAPI.html"><img src="/Themes/<?php print $this->PageHelper->Application; ?>/img/button-clickhere.jpg" style="border: 0px none ;"></a>
+		<a href="/BevoMedia/Publisher/GoogleAnalyticsAPI.html"><img src="/Themes/<?php print $this->PageHelper->Application; ?>/img/button-clickhere.jpg" style="border: 0px none ;" /></a>
 	</td>
 	<?php /*?>
 	<td style="border-left: 1px solid rgb(239, 239, 239);">&nbsp;</td>

@@ -194,21 +194,21 @@
     		</div><!--close option-->
 
     		<div class="box checkoptions floatleft">
-			<input type="checkbox" name="addexact" value="1"> Add Exact Match<br />
-			<input type="checkbox" name="addphrase" value="1"> Add Phrase Match<br />
-			<input type="checkbox" name="addstates" value="1"> Add States<br />
-			<input type="checkbox" name="addcountr" value="1"> Add Countries<br />
-			<input type="checkbox" name="addnames" value="1"> Add Common First Names<br />
-			<input type="checkbox" name="addkeywords" value="1"> Add Common Keywords
+			<input type="checkbox" name="addexact" value="1" /> Add Exact Match<br />
+			<input type="checkbox" name="addphrase" value="1" /> Add Phrase Match<br />
+			<input type="checkbox" name="addstates" value="1" /> Add States<br />
+			<input type="checkbox" name="addcountr" value="1" /> Add Countries<br />
+			<input type="checkbox" name="addnames" value="1" /> Add Common First Names<br />
+			<input type="checkbox" name="addkeywords" value="1" /> Add Common Keywords
 		</div>
     	
 		<div class="clear"></div>
     		
 		<div class="option">
-    			<input type="checkbox" name="shrinkto40" value="1"> Shrink To Max Length of 40 Characters
+    			<input type="checkbox" name="shrinkto40" value="1" /> Shrink To Max Length of 40 Characters
     		</div>
     		<div class="option">
-    			<input type="checkbox" name="urlroots" value="1"> Root URLs Only
+    			<input type="checkbox" name="urlroots" value="1" /> Root URLs Only
     		</div>
 
     	<div class="actions">

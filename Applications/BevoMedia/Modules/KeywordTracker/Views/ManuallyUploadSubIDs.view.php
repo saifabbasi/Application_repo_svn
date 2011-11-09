@@ -17,7 +17,7 @@ echo $this->PageDesc->ShowDesc($this->PageHelper,false); ?>
 		<br />
 		
 		<label>
-			Default revenue per conversion: $<input class="formtxt wide_number" type="text" size="4" name="amount" value="0.00">
+			Default revenue per conversion: $<input class="formtxt wide_number" type="text" size="4" name="amount" value="0.00" />
 		</label>
 		
 		<label>

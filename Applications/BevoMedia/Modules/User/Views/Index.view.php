@@ -1112,7 +1112,7 @@ while($Row = mysql_fetch_assoc($Query))
                     <tr>
                     <td class="border" style=" background-color: #ffffff;">&nbsp;</td>
                      <td colspan="5" style=" background-color: #ffffff;" >
-                     <span><img src="<?=SCRIPT_ROOT?>img/galogo.jpg"></span></td>
+                     <span><img src="<?=SCRIPT_ROOT?>img/galogo.jpg" /></span></td>
                      <td class="tail" style=" background-color: #ffffff;">&nbsp;</td>
                     </tr>
 <?php ListAdwordsAccounts(); ?>
@@ -1121,7 +1121,7 @@ while($Row = mysql_fetch_assoc($Query))
 <!-- Yahoo Accounts -->
                      <tr>
 						<td class="border" style=" background-color: #ffffff;">&nbsp;</td>
-						<td style="border-left: none; background-color: #ffffff;" colspan="5"  ><span><img style="margin-left: 5px;" src="<?=SCRIPT_ROOT?>img/ysmlogo.gif"></span></td>
+						<td style="border-left: none; background-color: #ffffff;" colspan="5"  ><span><img style="margin-left: 5px;" src="<?=SCRIPT_ROOT?>img/ysmlogo.gif" /></span></td>
 						<td class="tail" style=" background-color: #ffffff;">&nbsp;</td>
                     </tr>
 <?php ListYahooAccounts(); ?>
@@ -1129,7 +1129,7 @@ while($Row = mysql_fetch_assoc($Query))
                     <tr>
                     <td class="border" style=" background-color: #ffffff;">&nbsp;</td>
                      <td colspan="5" style=" background-color: #ffffff;" >
-                     <span><img src="<?=SCRIPT_ROOT?>img/adcentersmall.gif"></span></td>
+                     <span><img src="<?=SCRIPT_ROOT?>img/adcentersmall.gif" /></span></td>
                      <td class="tail" style=" background-color: #ffffff;">&nbsp;</td>
                     </tr>
 <?php ListMSNAccounts(); ?>
@@ -1250,13 +1250,13 @@ while($Row = mysql_fetch_assoc($Query))
                     
                     
 
-					<br>
+					<br />
 
 
 					
 								<font class="main">
-									* Most CPA Network Stats Update Once An Hour.<br>
-									* PPC and Analytics accounts update once a day.<br>
+									* Most CPA Network Stats Update Once An Hour.<br />
+									* PPC and Analytics accounts update once a day.<br />
 								</font>
 							
 

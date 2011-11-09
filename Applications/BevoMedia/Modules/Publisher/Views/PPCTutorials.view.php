@@ -52,7 +52,7 @@
 	<br /><br />
 	Our user end agreement clearly states that no keyword or traffic source related information will be used or observed by anyone on the Bevo Media team. It is not required for us to have a this in our terms of service, however, if a company does have one, they must abide by it to the fullest extent. Violating your own terms of service is major security offense and is considered a federal violation by the state of law. We would not have created such a strict terms of service if we didn't truly comply with what it states, and put ourselves at risk for no reason. That being said, I thought it was important to point out these rules to our users, and make it clear that we do, in fact, have a legal obligation to make sure their data is secure. If you take a look at some of our competitor's privacy policies and terms of use, they do not address this issue, meaning they are technically free to do as they want with your data. BeVo Media, on the other hand, goes above and beyond to ensure our publishers have the reassurance that their data is safe. 
 	<br /><br />
-	If there are any questions, or any other ideas of how we can prove to our users that their data is 100% safe, please email me personally at <strong><a href="mailto:ryan@bevomedia.com" target="_blank">ryan@bevomedia.com</a></strong>.  Your security is of the utmost importance to our company. <br> <br>
+	If there are any questions, or any other ideas of how we can prove to our users that their data is 100% safe, please email me personally at <strong><a href="mailto:ryan@bevomedia.com" target="_blank">ryan@bevomedia.com</a></strong>.  Your security is of the utmost importance to our company. <br /> <br />
 	</p>
 	
 </div>

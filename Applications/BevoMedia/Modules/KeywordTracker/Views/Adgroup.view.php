@@ -574,7 +574,7 @@ if(isset($_GET['ExportCSV']) && $_GET['ExportCSV'] == 'FILE')
 	</tr>
 </table>
 
-<a class="tbtn floatright" href='?<?php echo $_SERVER['QUERY_STRING']?>&ExportCSV=FILE' >Export to CSV</a>
+<a class="tbtn floatright" href='?<?php echo $_SERVER['QUERY_STRING']?>&amp;ExportCSV=FILE' >Export to CSV</a>
 
 <br/>
 

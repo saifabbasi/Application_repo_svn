@@ -113,11 +113,11 @@
 	<label>
 		<span class="label">Instant Messenger Service:</span>
 		<div class="radioFloat">
-			<input type="radio" name="Messenger" value="AIM">AIM<br/>
-			<input type="radio" name="Messenger" value="YAHOO_MESSENGER">Yahoo Messenger<br/>
-			<input type="radio" name="Messenger" value="MSN_MESSENGER">MSN Messenger<br/>
-			<input type="radio" name="Messenger" value="GTALK">Gtalk<br/>		
-			<input type="radio" name="Messenger" value="SKYPE">Skype<br/>		
+			<input type="radio" name="Messenger" value="AIM" />AIM<br/>
+			<input type="radio" name="Messenger" value="YAHOO_MESSENGER" />Yahoo Messenger<br/>
+			<input type="radio" name="Messenger" value="MSN_MESSENGER" />MSN Messenger<br/>
+			<input type="radio" name="Messenger" value="GTALK" />Gtalk<br/>		
+			<input type="radio" name="Messenger" value="SKYPE" />Skype<br/>		
 		</div>
 	</label>
 	
@@ -129,10 +129,10 @@
 	<label>
 		<span class="label">Marketing Method:</span>
 		<div class="radioFloat">
-			<input type="radio" name="MarketingMethod" value="EMAIL">Email<br/>
-			<input type="radio" name="MarketingMethod" value="KEYWORD">Keyword<br/>
-			<input type="radio" name="MarketingMethod" value="WEB">Web / Seo<br/>
-			<input type="radio" name="MarketingMethod" value="OTHER">Other<br/>		
+			<input type="radio" name="MarketingMethod" value="EMAIL" />Email<br/>
+			<input type="radio" name="MarketingMethod" value="KEYWORD" />Keyword<br/>
+			<input type="radio" name="MarketingMethod" value="WEB" />Web / Seo<br/>
+			<input type="radio" name="MarketingMethod" value="OTHER" />Other<br/>		
 		</div>
 	</label>
 	
@@ -163,7 +163,7 @@
 		<select name="Timezone" id="timezone_id">
 		<?php $tz = new TimezoneHelper()?>
 		<?php foreach($tz->getTimezones() as $timezone):?>
-			<option value="<?php print $timezone->PHPTimezone; ?>"><?php print $timezone->GMTLabel; ?></option>
+			<option value="<?php print $timezone->PHPTimezone; ?>"><?php print htmlentities($timezone->GMTLabel); ?></option>
 		<?php endforeach?>
 		</select>
 	</label>
@@ -387,7 +387,7 @@ $(document).ready(function(){
 	<a class="tooltip" title="The Bevo Performance Connector is a free service connecting networks with publishers who want the best opportunity of promoting an offer. Bevo Media has close relationships with all of its partnered networks. If you want to be a part of the Bevo Performance Connector program, you will simply tell Bevo Media what niches you are interested in, and a Bevo Representative will get you in touch with one of their networks that will do whatever it takes to get you on their network, make sure you are satisfied, including Top payouts and guaranteed EPC's. Bevo Performance Connector ensures that publishers are getting the best performance from their offers and from the networks they run with, on a personal level. You will receive periodic intro emails from a Bevo representative connecting you with high potential opportunities.">
 		<br/>
 		<input type="checkbox" name="bevoPerformanceConnector" id ="bpc" /> &nbsp; I would like to be a part of the Bevo Performance Connector
-		<img width="12" height="12" src="/Themes/BevoMedia/img/questionMarkIcon.png">
+		<img width="12" height="12" src="/Themes/BevoMedia/img/questionMarkIcon.png" />
 	</a>
 	</label>
 	
@@ -399,7 +399,7 @@ $(document).ready(function(){
 			$selected = '';
 			foreach ($this->Niches as $Niche) {
 		?>
-				<option value="<?php echo $Niche->ID?>" <?php echo $selected;?>><?php echo $Niche->Name?></option>
+				<option value="<?php echo $Niche->ID?>" <?php echo $selected;?>><?php echo htmlentities($Niche->Name);?></option>
 		<?php 
 			}
 		?>
@@ -411,7 +411,7 @@ $(document).ready(function(){
 	<?php foreach($this->PromoMethods as $PromoMethod):?>
 	<input type="checkbox" name="promomethod[]" value="<?php echo $PromoMethod->id;?>" <?php echo $selected;?>/>
 	
-	<?php echo $PromoMethod->promomethod;?>
+	<?php echo htmlentities($PromoMethod->promomethod);?>
 	&nbsp;
 	<?php endforeach;?>
 	</label>
@@ -497,7 +497,7 @@ $(document).ready(function(){
 	<br/>
 	
 	
-	<input type='submit' name='registerFormSubmit' class='formRegister' onclick="if ($$('EULAAccepted').checked==false) { alert('You must accept the END USER SOFTWARE AGREEMENT in order to continue.'); return false;} ">
+	<input type='submit' name='registerFormSubmit' class='formRegister' onclick="if ($$('EULAAccepted').checked==false) { alert('You must accept the END USER SOFTWARE AGREEMENT in order to continue.'); return false;} " />
 	<br/>
 	
 	<img src='/Themes/BevoMedia/img/Signup_18.gif' style='position: relative; left: -2px;'/>

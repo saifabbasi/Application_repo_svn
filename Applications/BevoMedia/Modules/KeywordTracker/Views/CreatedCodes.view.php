@@ -36,7 +36,7 @@ function shorten($text, $len = 30)
 	</td>
 	<td style='padding-top: 5px; padding-bottom: 5px;'>
 		<span title="<?php print htmlentities($Row->destinationUrl); ?>">
-		<?php print shorten($Row->destinationUrl); ?>
+		<?php print htmlentities(shorten($Row->destinationUrl)); ?>
 		</span>
 	</td>
 	<td class="textAlignCenter">

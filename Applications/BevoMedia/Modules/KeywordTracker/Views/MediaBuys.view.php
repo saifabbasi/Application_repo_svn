@@ -477,23 +477,20 @@ if(isset($_GET['ExportCSV']) && $_GET['ExportCSV'] == 'FILE')
 <?php
 	$qString = $_SERVER['QUERY_STRING'];
 	$qString = @str_replace('?sortBy='.$_GET['sortBy'], '', $qString);
-	$qString = @str_replace('&sortByOrder='.$_GET['sortByOrder'], '', $qString);
+	$qString = @str_replace('&amp;sortByOrder='.$_GET['sortByOrder'], '', $qString);
 ?>
 
 <table cellspacing="0" class="btable" width="600">
 	<tr class="table_header">
 	    <td class="hhl">&nbsp;</td>
-<!--
-		<td style="text-align: center;"><a href='?<?php echo $qString?>&sortBy=title<?php echo (isset($_GET['sortByOrder'])?'':'&sortByOrder=desc')?>'>Ad Title</a></td>
- -->
-		<td style="text-align: center;"><a href='?<?php echo $qString?>&sortBy=custom<?php echo (isset($_GET['sortByOrder'])?'':'&sortByOrder=desc')?>'>Ad Variation</a></td>
-		<td style="text-align: center;"><a href='?<?php echo $qString?>&sortBy=referrer<?php echo (isset($_GET['sortByOrder'])?'':'&sortByOrder=desc')?>'>Referrer URL</a></td>
-		<td style="text-align: center;"><a href='?<?php echo $qString?>&sortBy=clicks<?php echo (isset($_GET['sortByOrder'])?'':'&sortByOrder=desc')?>'>Clicks</a></td>
-		<td style="text-align: center;"><a href='?<?php echo $qString?>&sortBy=conversions<?php echo (isset($_GET['sortByOrder'])?'':'&sortByOrder=desc')?>'>Conv</a></td>
-		<td style="text-align: center;"><a href='?<?php echo $qString?>&sortBy=revenue<?php echo (isset($_GET['sortByOrder'])?'':'&sortByOrder=desc')?>'>Revenue</a></td>
-		<td style="text-align: center;"><a href='?<?php echo $qString?>&sortBy=cost<?php echo (isset($_GET['sortByOrder'])?'':'&sortByOrder=desc')?>'>Cost</a></td>
-		<td style="text-align: center;"><a href='?<?php echo $qString?>&sortBy=profit<?php echo (isset($_GET['sortByOrder'])?'':'&sortByOrder=desc')?>'>Profit</a></td>
-		<td style="text-align: center;"><a href='?<?php echo $qString?>&sortBy=epc<?php echo (isset($_GET['sortByOrder'])?'':'&sortByOrder=desc')?>'>EPC</a></td>
+		<td style="text-align: center;"><a href='?<?php echo $qString?>&amp;sortBy=custom<?php echo (isset($_GET['sortByOrder'])?'':'&amp;sortByOrder=desc')?>'>Ad Variation</a></td>
+		<td style="text-align: center;"><a href='?<?php echo $qString?>&amp;sortBy=referrer<?php echo (isset($_GET['sortByOrder'])?'':'&amp;sortByOrder=desc')?>'>Referrer URL</a></td>
+		<td style="text-align: center;"><a href='?<?php echo $qString?>&amp;sortBy=clicks<?php echo (isset($_GET['sortByOrder'])?'':'&amp;sortByOrder=desc')?>'>Clicks</a></td>
+		<td style="text-align: center;"><a href='?<?php echo $qString?>&amp;sortBy=conversions<?php echo (isset($_GET['sortByOrder'])?'':'&amp;sortByOrder=desc')?>'>Conv</a></td>
+		<td style="text-align: center;"><a href='?<?php echo $qString?>&amp;sortBy=revenue<?php echo (isset($_GET['sortByOrder'])?'':'&amp;sortByOrder=desc')?>'>Revenue</a></td>
+		<td style="text-align: center;"><a href='?<?php echo $qString?>&amp;sortBy=cost<?php echo (isset($_GET['sortByOrder'])?'':'&amp;sortByOrder=desc')?>'>Cost</a></td>
+		<td style="text-align: center;"><a href='?<?php echo $qString?>&amp;sortBy=profit<?php echo (isset($_GET['sortByOrder'])?'':'&amp;sortByOrder=desc')?>'>Profit</a></td>
+		<td style="text-align: center;"><a href='?<?php echo $qString?>&amp;sortBy=epc<?php echo (isset($_GET['sortByOrder'])?'':'&amp;sortByOrder=desc')?>'>EPC</a></td>
 		<td class="hhr">&nbsp;</td>
 	</tr>
 	<tbody>
@@ -596,6 +593,6 @@ if(isset($_GET['ExportCSV']) && $_GET['ExportCSV'] == 'FILE')
 
 
 <div class='floatRight'>
-	<a href='?<?php echo $_SERVER['QUERY_STRING']?>&ExportCSV=FILE' >Export to CSV</a>
+	<a href='?<?php echo $_SERVER['QUERY_STRING']?>&amp;ExportCSV=FILE' >Export to CSV</a>
 </div>
 

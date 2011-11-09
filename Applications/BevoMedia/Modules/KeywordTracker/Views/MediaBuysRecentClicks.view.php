@@ -372,10 +372,10 @@ if(isset($_GET['ExportCSV']) && $_GET['ExportCSV'] == 'FILE')
 <div class="SkyBox"><div class="SkyBoxTopLeft"><div class="SkyBoxTopRight"><div class="SkyBoxBotLeft"><div class="SkyBoxBotRight">
     <table width="570" cellspacing="0" cellpadding="5" border="0">
         <tr valign="top">
-            <td width="127"><img src="<?=SCRIPT_ROOT?>img/bevotracklogo.png" style="padding-left: 5px; padding-right: 10px;" border=0 alt=""></td>
+            <td width="127"><img src="<?=SCRIPT_ROOT?>img/bevotracklogo.png" style="padding-left: 5px; padding-right: 10px;" border="0" alt="" /></td>
             <td class="main">
                 <h4>Recent Media Buy Click Statistics</h4>
-                <br>
+                <br />
                 View the detailed statistics of your Media Buys. Easily track which pages are getting your clicks, and conversions, giving you all the information you need to optimize. Be sure to have your tracking pixel or postback url placed to track your conversions.
 <br /><br />
 </td>

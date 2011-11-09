@@ -102,7 +102,7 @@ function ratingRst(id, amnt)
 							if (!$SelfHosted)
 							{
 						?>
-							<a href='/BevoMedia/Publisher/NetworkRating.html?Rating=<?php print $i?>&ID=<?php print $this->Network1->id; ; ?>' rel='shadowbox;width=400;height=400;options={animate:true,showOverlay:true};player=iframe;'>
+							<a href='/BevoMedia/Publisher/NetworkRating.html?Rating=<?php print $i?>&amp;ID=<?php print $this->Network1->id; ; ?>' rel='shadowbox;width=400;height=400;options={animate:true,showOverlay:true};player=iframe;'>
 								<img src="/Themes/BevoMedia/img/star-<?php echo $state?>.gif" id="img_rating_top_month_<?php print $this->Network1->id; ; ?>_<?php print $i?>" onmouseover="ratingTill('img_rating_top_month_<?php print $this->Network1->id; ; ?>', <?php print $i?>)" onmouseout="ratingRst('img_rating_top_month_<?php print $this->Network1->id; ; ?>', <?php print $this->Network1->rating; ?>)" style="" align="absbottom" border="0" />
 							</a>
 						<?
@@ -280,7 +280,7 @@ function ratingRst(id, amnt)
 							if (!$SelfHosted)
 							{
 						?>
-							<a href='/BevoMedia/Publisher/NetworkRating.html?Rating=<?php print $i?>&ID=<?php print $this->Network2->id; ; ?>' rel='shadowbox;width=400;height=400;options={animate:true,showOverlay:true};player=iframe;'>
+							<a href='/BevoMedia/Publisher/NetworkRating.html?Rating=<?php print $i?>&amp;ID=<?php print $this->Network2->id; ; ?>' rel='shadowbox;width=400;height=400;options={animate:true,showOverlay:true};player=iframe;'>
 								<img src="/Themes/BevoMedia/img/star-<?php echo $state?>.gif" id="img_rating_top_<?php print $this->Network2->id; ; ?>_<?php print $i?>" onmouseover="ratingTill('img_rating_top_<?php print $this->Network2->id; ; ?>', <?php print $i?>)" onmouseout="ratingRst('img_rating_top_<?php print $this->Network2->id; ; ?>', <?php print $this->Network2->rating; ?>)" style="" align="absbottom" border="0" />
 							</a>
 						<?
@@ -397,7 +397,7 @@ function ratingRst(id, amnt)
 							if (!$SelfHosted)
 							{
 						?>
-							<a href='/BevoMedia/Publisher/NetworkRating.html?Rating=<?php print $i?>&ID=<?php print $this->Network3->id; ; ?>' rel='shadowbox;width=400;height=400;options={animate:true,showOverlay:true};player=iframe;'>
+							<a href='/BevoMedia/Publisher/NetworkRating.html?Rating=<?php print $i?>&amp;ID=<?php print $this->Network3->id; ; ?>' rel='shadowbox;width=400;height=400;options={animate:true,showOverlay:true};player=iframe;'>
 								<img src="/Themes/BevoMedia/img/star-<?php echo $state?>.gif" id="img_rating_top_<?php print $this->Network3->id; ; ?>_<?php print $i?>" onmouseover="ratingTill('img_rating_top_<?php print $this->Network3->id; ; ?>', <?php print $i?>)" onmouseout="ratingRst('img_rating_top_<?php print $this->Network3->id; ; ?>', <?php print $this->Network3->rating; ?>)" style="" align="absbottom" border="0" />
 							</a>
 						<?
@@ -485,7 +485,7 @@ function ratingRst(id, amnt)
 							if (!$SelfHosted)
 							{
 						?>
-							<a href='/BevoMedia/Publisher/NetworkRating.html?Rating=<?php print $i?>&ID=<?php print $CpaNetwork->id; ; ?>' rel='shadowbox;width=400;height=400;options={animate:true,showOverlay:true};player=iframe;'>
+							<a href='/BevoMedia/Publisher/NetworkRating.html?Rating=<?php print $i?>&amp;ID=<?php print $CpaNetwork->id; ; ?>' rel='shadowbox;width=400;height=400;options={animate:true,showOverlay:true};player=iframe;'>
 								<img src="/Themes/BevoMedia/img/star-<?php echo $state?>.gif" id="img_rating_<?php print $CpaNetwork->id; ; ?>_<?php print $i?>" onmouseover="ratingTill('img_rating_<?php print $CpaNetwork->id; ; ?>', <?php print $i?>)" onmouseout="ratingRst('img_rating_<?php print $CpaNetwork->id; ; ?>', <?php print $CpaNetwork->rating; ?>)" style="" align="absbottom" border="0" />
 							</a>
 						<?
@@ -586,7 +586,7 @@ function ratingRst(id, amnt)
 		<tr style="">
 			<td class="border">&nbsp;</td>
 			<td class="GridRowHead" style="text-align: center;">
-				<img class="nwpic small" src="/Themes/BevoMedia/img/networklogos/uni/1032.png">
+				<img class="nwpic small" src="/Themes/BevoMedia/img/networklogos/uni/1032.png" />
 			</td>
 			
 			<?php $CpaNetwork = $this->AdwordsRating?>
@@ -599,7 +599,7 @@ function ratingRst(id, amnt)
 							if (!$SelfHosted)
 							{
 						?>
-							<a href='/BevoMedia/Publisher/_RateNetwork.html?Rating=<?php print $i?>&ID=<?php print $CpaNetwork->ID?>' rel='shadowbox;width=0;height=0;options={animate:false,showOverlay:false,overlayOpacity:0};player=iframe;'>
+							<a href='/BevoMedia/Publisher/_RateNetwork.html?Rating=<?php print $i?>&amp;ID=<?php print $CpaNetwork->ID?>' rel='shadowbox;width=0;height=0;options={animate:false,showOverlay:false,overlayOpacity:0};player=iframe;'>
 								<img src="/Themes/BevoMedia/img/star-<?php echo $state?>.gif" id="img_rating_<?php print $CpaNetwork->ID?>_<?php print $i?>" onmouseover="ratingTill('img_rating_<?php print $CpaNetwork->ID?>', <?php print $i?>)" onmouseout="ratingRst('img_rating_<?php print $CpaNetwork->ID ?>', <?php print $CpaNetwork->rating; ?>)" style="" align="absbottom" border="0" />
 							</a>
 						<?
@@ -621,7 +621,7 @@ function ratingRst(id, amnt)
 			</td>
 			<td class="GridRowCol" style="white-space: nowrap;" width="120">
 				<span>
-					<a class="btn nw_create" href='https://www.google.com/accounts/ServiceLogin?service=adwords&cd=null&hl=en-US&ltmpl=signup&passive=false&ifr=false&alwf=true&continue=https%3A%2F%2Fadwords.google.com%2Fum%2FSignupToken' target='_blank'>
+					<a class="btn nw_create" href='https://www.google.com/accounts/ServiceLogin?service=adwords&amp;cd=null&amp;hl=en-US&amp;ltmpl=signup&amp;passive=false&amp;ifr=false&amp;alwf=true&amp;continue=https%3A%2F%2Fadwords.google.com%2Fum%2FSignupToken' target='_blank'>
 						Apply for Google AdWords
 					</a>
 					<a class="btn nw_addedit" title='Google Adwords' href='/BevoMedia/Publisher/GoogleAdwordsAPI.html' rel='shadowbox;width=640;height=480;player=iframe'>
@@ -638,7 +638,7 @@ function ratingRst(id, amnt)
 			<td class="border">&nbsp;</td>
 			
 			<td class="GridRowHead" style="text-align: center;">
-				<img class="nwpic small" src="/Themes/BevoMedia/img/networklogos/uni/1043.png" >
+				<img class="nwpic small" src="/Themes/BevoMedia/img/networklogos/uni/1043.png" />
 			</td>
 
 			<?php $CpaNetwork = $this->YahooRating?>
@@ -651,7 +651,7 @@ function ratingRst(id, amnt)
 							if (!$SelfHosted)
 							{
 						?>
-						<a href='/BevoMedia/Publisher/_RateNetwork.html?Rating=<?php print $i?>&ID=<?php print $CpaNetwork->ID?>' rel='shadowbox;width=0;height=0;options={animate:false,showOverlay:false,overlayOpacity:0};player=iframe;'>
+						<a href='/BevoMedia/Publisher/_RateNetwork.html?Rating=<?php print $i?>&amp;ID=<?php print $CpaNetwork->ID?>' rel='shadowbox;width=0;height=0;options={animate:false,showOverlay:false,overlayOpacity:0};player=iframe;'>
 							<img src="/Themes/BevoMedia/img/star-<?php echo $state?>.gif" id="img_rating_<?php print $CpaNetwork->ID ?>_<?php print $i?>" onmouseover="ratingTill('img_rating_<?php print $CpaNetwork->ID?>', <?php print $i?>)" onmouseout="ratingRst('img_rating_<?php print $CpaNetwork->ID?>', <?php print $CpaNetwork->rating; ?>)" style="" align="absbottom" border="0" />
 						</a>
 						<?
@@ -680,6 +680,7 @@ function ratingRst(id, amnt)
 					<a class="btn nw_addedit" title='MSN AdCenter' href='/BevoMedia/Publisher/MSNAdCenterAPI.html' rel='shadowbox;width=640;height=480;player=iframe'>
 						Edit MSN Search Marketing
 					</a>
+					</span>
 			</td>
 			<td class="tail">&nbsp;</td>
 		</tr>
@@ -707,7 +708,7 @@ function ratingRst(id, amnt)
 		<tr style="">
 			<td class="border">&nbsp;</td>
 			<td class="GridRowHead" style="text-align: center;">
-				<img class="nwpic medium" src="/Themes/BevoMedia/img/networklogos/uni/1008.png">
+				<img class="nwpic medium" src="/Themes/BevoMedia/img/networklogos/uni/1008.png" />
 			</td>
 
 			<?php $CpaNetwork = $this->MSNRating?>
@@ -720,7 +721,7 @@ function ratingRst(id, amnt)
 							if (!$SelfHosted)
 							{
 						?>
-						<a href='/BevoMedia/Publisher/_RateNetwork.html?Rating=<?php print $i?>&ID=<?php print $CpaNetwork->ID?>' rel='shadowbox;width=0;height=0;options={animate:false,showOverlay:false,overlayOpacity:0};player=iframe;'>
+						<a href='/BevoMedia/Publisher/_RateNetwork.html?Rating=<?php print $i?>&amp;ID=<?php print $CpaNetwork->ID?>' rel='shadowbox;width=0;height=0;options={animate:false,showOverlay:false,overlayOpacity:0};player=iframe;'>
 							<img src="/Themes/BevoMedia/img/star-<?php echo $state?>.gif" id="img_rating_<?php print $CpaNetwork->ID?>_<?php print $i?>" onmouseover="ratingTill('img_rating_<?php print $CpaNetwork->ID?>', <?php print $i?>)" onmouseout="ratingRst('img_rating_<?php print $CpaNetwork->ID?>', <?php print $CpaNetwork->rating; ?>)" style="" align="absbottom" border="0" />
 						</a>
 						<?
@@ -747,6 +748,7 @@ function ratingRst(id, amnt)
 					<a class="btn nw_addedit" title='Yahoo Search Marketing' href='/BevoMedia/Publisher/YahooAPI.html' rel='shadowbox;width=640;height=480;player=iframe'>
 						Edit Yahoo Search Marketing
 					</a>
+					</span>
             </td>
 			<td class="tail">&nbsp;</td>
 
@@ -768,7 +770,7 @@ function ratingRst(id, amnt)
             <td class="STYLE2">Web Analytics</td>
             
             <td style="width: 90px;" class="STYLE2">Publisher's Rating</td>
-            <td style="width: 100px;" class="STYLE2" text-align:="" center;=""></td>
+            <td style="width: 100px;" class="STYLE2"></td>
 
             <td class="hhr"></td>
         </tr>
@@ -776,9 +778,9 @@ function ratingRst(id, amnt)
 
 		<tr style="">
 			<td class="border">&nbsp;</td>
-			</td>
+			
 			<td class="GridRowHead" style="text-align: center;">
-				<img class="nwpic medium" src="/Themes/BevoMedia/img/networklogos/uni/1017.png" >
+				<img class="nwpic medium" src="/Themes/BevoMedia/img/networklogos/uni/1017.png" />
 			</td>
 
 			<?php $CpaNetwork = $this->AnalyticsRating?>
@@ -792,7 +794,7 @@ function ratingRst(id, amnt)
 							if (!$SelfHosted)
 							{
 						?>
-						<a href='/BevoMedia/Publisher/_RateNetwork.html?Rating=<?php print $i?>&ID=<?php print $CpaNetwork->ID?>' rel='shadowbox;width=0;height=0;options={animate:false,showOverlay:false,overlayOpacity:0};player=iframe;'>
+						<a href='/BevoMedia/Publisher/_RateNetwork.html?Rating=<?php print $i?>&amp;ID=<?php print $CpaNetwork->ID?>' rel='shadowbox;width=0;height=0;options={animate:false,showOverlay:false,overlayOpacity:0};player=iframe;'>
 							<img src="/Themes/BevoMedia/img/star-<?php echo $state?>.gif" id="img_rating_<?php print $CpaNetwork->ID?>_<?php print $i?>" onmouseover="ratingTill('img_rating_<?php print $CpaNetwork->ID?>', <?php print $i?>)" onmouseout="ratingRst('img_rating_<?php print $CpaNetwork->ID?>', <?php print $CpaNetwork->rating; ?>)" style="" align="absbottom" border="0" />
 						</a>
 						<?
@@ -840,6 +842,7 @@ function ratingRst(id, amnt)
 					<a class="btn nw_addedit" title='Google Analytics' href='/BevoMedia/Publisher/GoogleAnalyticsAPI.html' rel='shadowbox;width=640;height=480;player=iframe'>
 						Edit Google Analytics Accounts
 					</a>
+					</span>
 			</td>
 			<td class="tail">&nbsp;</td>
 		</tr>

@@ -729,7 +729,7 @@ Class UserController extends ClassComponent
 	Public Function EmptyPage()
 	{
 		Zend_Registry::set('Instance/LayoutType', 'shadowbox-layout');
-		print_r($_SESSION);
+		
 		$_SESSION['extendSessionHack'] = time();
 	}
 	

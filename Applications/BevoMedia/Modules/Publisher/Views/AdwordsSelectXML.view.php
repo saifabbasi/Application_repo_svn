@@ -1,4 +1,4 @@
-<img src='/Themes/<?php print $this->PageHelper->Application; ?>/img/adwordswhite.jpg'>
+<img src='/Themes/<?php print $this->PageHelper->Application; ?>/img/adwordswhite.jpg' />
 
 <br/><br/>
 

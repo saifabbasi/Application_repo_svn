@@ -45,7 +45,7 @@
 .ppcAddNow { width:81px; height:26px; display:block; text-indent:-9999px; outline:none; cursor:pointer; font-size:0px; line-height:0px; background:url(/Themes/BevoMedia/img/submit.jpg) no-repeat; border:none; float:left; margin:-2px 0 0 0; }
 </style>
 
-<img src='/Themes/<?php print $this->PageHelper->Application; ?>/img/yahoo.jpg'>
+<img src='/Themes/<?php print $this->PageHelper->Application; ?>/img/yahoo.jpg' />
 
 <br/><br/>
 
@@ -94,7 +94,7 @@
 			<?php if($Account->verified):?>
 				<a href='?VerifyEmail=<?php print $Account->id; ?>' class='tooltip defaultLink' style="text-decoration: none; color: #0000000;" title="This account has been successfully<br/> verified using the API.<br/><br/>You may re-verify by clicking<br/> this link again.">Verified</a>
 			<?php else:?>
-				<a class='tooltip defaultLink' title='Attempt to authenticate this<br/> account using the Yahoo API.' href='?VerifyEmail=<?php print $Account->id; ?>'>
+				<a class='tooltip defaultLink' title="Attempt to authenticate this<br/> account using the Yahoo API." href='?VerifyEmail=<?php print $Account->id; ?>'>
 					Verify
 				</a>
 			<?php endif?>
@@ -240,7 +240,7 @@
 			Username:
 		</td>
 		<td colspan='3' class='textAlignLeft width80Pct'>
-			<input type='text' name='username' value='<?php print $this->usernameFormValue; ?>'>
+			<input type='text' name='username' value='<?php print $this->usernameFormValue; ?>' />
 			<?php if($this->UsernameInvalid):?><span class='validation'>Please provide a valid username.</span><?php endif?>
 		</td>
 	</tr>
@@ -250,7 +250,7 @@
 			Password:
 		</td>
 		<td colspan='3' class='textAlignLeft width80Pct'>
-			<input type='password' name='password' value='<?php print $this->passwordFormValue; ?>'>
+			<input type='password' name='password' value='<?php print $this->passwordFormValue; ?>' />
 			<?php if($this->PasswordInvalid):?><span class='validation'>Please provide a valid password.</span><?php endif?>
 		</td>
 	</tr>
@@ -260,7 +260,7 @@
 			MasterAccountID:
 		</td>
 		<td colspan='3' class='textAlignLeft width80Pct'>
-			<input type='text' name='masterAccountId' value='<?php print $this->masterAccountIdFormValue ?>'>
+			<input type='text' name='masterAccountId' value='<?php print $this->masterAccountIdFormValue ?>' />
 			<?php if($this->MasterAccountIDInvalid):?><span class='validation'>Please provide a valid MasterAccountID.</span><?php endif?>
 			
 		<a class="tooltip" title="You can find your
@@ -272,7 +272,7 @@
 	
 	<tr>
 		<td colspan='5' class='textAlignLeft'>
-			<input type='submit' name='adwordsAddAccountSubmit' class='ppcAddNow'>
+			<input type='submit' name='adwordsAddAccountSubmit' class='ppcAddNow' />
 		</td>
 	</tr>
 	</form>
@@ -286,13 +286,13 @@
 		</th>
 	</tr>
 	<form method='post'>
-	<input type='hidden' name='id' value='<?php print $this->idFormValue; ?>'>
+	<input type='hidden' name='id' value='<?php print $this->idFormValue; ?>' />
 	<tr>
 		<td class='textAlignLeft'>
 			Username:
 		</td>
 		<td colspan='3' class='textAlignLeft width80Pct'>
-			<input type='text' name='Username' value='<?php print $this->usernameFormValue; ?>'>
+			<input type='text' name='Username' value='<?php print $this->usernameFormValue; ?>' />
 			<?php if($this->UsernameInvalid):?><span class='validation'>Please provide a valid username.</span><?php endif?>
 		</td>
 	</tr>
@@ -302,7 +302,7 @@
 			Password:
 		</td>
 		<td colspan='3' class='textAlignLeft width80Pct'>
-			<input type='password' name='Password' value='<?php print $this->passwordFormValue; ?>'>
+			<input type='password' name='Password' value='<?php print $this->passwordFormValue; ?>' />
 			<?php if($this->PasswordInvalid):?><span class='validation'>Please provide a valid password.</span><?php endif?>
 		</td>
 	</tr>
@@ -312,14 +312,14 @@
 			MasterAccountID:
 		</td>
 		<td colspan='3' class='textAlignLeft width80Pct'>
-			<input type='text' name='MasterAccountID' value='<?php print $this->masterAccountIdFormValue; ?>'>
+			<input type='text' name='MasterAccountID' value='<?php print $this->masterAccountIdFormValue; ?>' />
 			<?php if($this->MasterAccountIDInvalid):?><span class='validation'>Please provide a valid MasterAccountID.</span><?php endif?>
 		</td>
 	</tr>
 	
 	<tr>
 		<td colspan='5' class='textAlignLeft'>
-			<input type='submit' name='adwordsEditAccountSubmit' class='ppcAddNow'>
+			<input type='submit' name='adwordsEditAccountSubmit' class='ppcAddNow' />
 		</td>
 	</tr>
 	</form>

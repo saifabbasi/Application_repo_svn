@@ -2,17 +2,17 @@
 <form method='post' class='addMentorForm'>
 
 	<label>Old Password:
-	<input type='password' name='OldPassword'>
+	<input type='password' name='OldPassword' />
 	</label>
 	<br/>
 	
 	<label>New Password:
-	<input type='password' name='NewPassword'>
+	<input type='password' name='NewPassword' />
 	</label>
 	<br/>
 	
 	<label>Re-Enter New Password:
-	<input type='password' name='ReNewPassword'>
+	<input type='password' name='ReNewPassword' />
 	</label>
 	<br/>
 	
