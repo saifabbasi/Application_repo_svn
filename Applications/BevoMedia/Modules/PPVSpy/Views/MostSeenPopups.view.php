@@ -59,21 +59,21 @@ $results_table=$results_table.'<p><table cellpadding="2" style="text-align: cent
 </tr>
 
 <tr>
-<td WIDTH="350">Pop: '.$short_popped_urls[$a].'...</td>
-<td WIDTH="350">Pop: '.$short_popped_urls[$b].'...</td>
-<td WIDTH="350">Pop: '.$short_popped_urls[$c].'...</td>
+<td WIDTH="350">Pop: '.htmlentities($short_popped_urls[$a]).'...</td>
+<td WIDTH="350">Pop: '.htmlentities($short_popped_urls[$b]).'...</td>
+<td WIDTH="350">Pop: '.htmlentities($short_popped_urls[$c]).'...</td>
 </tr>
 
 <tr>
-<td WIDTH="350">Offer: '.$offers[$a].'</td>
-<td WIDTH="350">Offer: '.$offers[$b].'</td>
-<td WIDTH="350">Offer: '.$offers[$c].'</td>
+<td WIDTH="350">Offer: '.htmlentities($offers[$a]).'</td>
+<td WIDTH="350">Offer: '.htmlentities($offers[$b]).'</td>
+<td WIDTH="350">Offer: '.htmlentities($offers[$c]).'</td>
 </tr>
 
 <tr>
-<td WIDTH="350">Niche: '.$niches[$a].'</td>
-<td WIDTH="350">Niche: '.$niches[$b].'</td>
-<td WIDTH="350">Niche: '.$niches[$c].'</td>
+<td WIDTH="350">Niche: '.htmlentities($niches[$a]).'</td>
+<td WIDTH="350">Niche: '.htmlentities($niches[$b]).'</td>
+<td WIDTH="350">Niche: '.htmlentities($niches[$c]).'</td>
 </tr>
 
 <tr>
