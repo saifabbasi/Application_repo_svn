@@ -94,7 +94,7 @@ $results_table=$results_table.'<p><table cellpadding="2" style="text-align: cent
 <td WIDTH="350"></td>
 </tr>
 
-</p></table>';
+</table></p>';
 $a=$c+1;
 }
 
