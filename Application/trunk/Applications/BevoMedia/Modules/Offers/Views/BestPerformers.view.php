@@ -327,7 +327,7 @@ include 'Applications/BevoMedia/Modules/Offers/Views/Ovault.Viewheader.include.p
 						<?php if($offer->affUrl) { ?>
 							<div class="otitle otitle_olink noborder"></div>
 							<?php echo ($offer->affUrlNotice ? '' : '<a class="btn ovault_transgray_testit_link" href="'.$offer->affUrl.'" target="_blank" title="Test your Affilate URL (opens in a new tab)">Test Link</a>'); ?>
-							<textarea class="formtxtarea j_hiliteall" rows="1" cols="1" readonly><?php echo $offer->affUrl; ?></textarea>
+							<textarea class="formtxtarea j_hiliteall" rows="1" cols="1" readonly="readonly"><?php echo htmlentities($offer->affUrl); ?></textarea>
 							<?php echo ($offer->affUrlNotice ? '<p class="affurlnotice">'.$offer->affUrlNotice.'</p>' : ''); ?>
 							<p class="disclaimer">Note: Make sure your link works! If it does't, it means that this offer requires network approval before running.</p>
 						
