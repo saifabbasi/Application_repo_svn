@@ -31,7 +31,7 @@ class nmi
      * This can be overridden when instantiating the class
      * Override using nmi_password in the options() array
      */
-    private $nmi_password = 'n6g5b3_$hip_Yoyoyo1025';
+    private $nmi_password = '$hip_Nev0traz9895';
 
     /*
      * @param array $options
