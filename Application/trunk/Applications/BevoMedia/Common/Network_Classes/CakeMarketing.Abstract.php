@@ -208,6 +208,8 @@ abstract class CakeMarketingAbstract Extends NetworksAbstract {
 			$thumbnailImageUrl = $offer->thumbnail_image_url;
 			$offerContract = $offer->offer_contract_id;
 			$cakeStatus = $offer->status_name;
+			$advertiserExtendedTerms = $offer->tags->advertiser_extended_terms;
+			
 			
 //			echo $offerId."\n";
 //			echo $offerName."\n";
@@ -241,6 +243,7 @@ abstract class CakeMarketingAbstract Extends NetworksAbstract {
 			$OfferObj->dateAdded = date('Y-m-d');
 			$OfferObj->countries = $countries;
 			$OfferObj->category = $categories;
+			$OfferObj->advertiserExtendedTerms = $advertiserExtendedTerms;
 			$Output->addOfferObject($OfferObj);
 		}
 		
