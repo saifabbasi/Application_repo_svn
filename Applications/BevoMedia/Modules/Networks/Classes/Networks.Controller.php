@@ -52,6 +52,7 @@ Class NetworksController extends ClassComponent
 		$_SESSION['LowPrices'] = true;
 		unset($_SESSION['OneTerm']);
 		unset($_SESSION['Custom416']);
+		unset($_SESSION['Custom350']);
 		
 		$Sql = 'SELECT
 					*
@@ -78,6 +79,7 @@ Class NetworksController extends ClassComponent
 		unset($_SESSION['OneTerm']);
 		unset($_SESSION['Custom416']);
 		unset($_SESSION['Custom320']);
+		unset($_SESSION['Custom350']);
 		
 		$Sql = 'SELECT
 					*
@@ -129,6 +131,7 @@ Class NetworksController extends ClassComponent
 		unset($_SESSION['LowPrices']);
 		unset($_SESSION['Custom416']);
 		unset($_SESSION['Custom320']);
+		unset($_SESSION['Custom350']);
 		$_SESSION['OneTerm'] = true;
 		$_SESSION['Custom300'] = true;
 		
@@ -158,8 +161,39 @@ Class NetworksController extends ClassComponent
 		unset($_SESSION['LowPrices']);
 		unset($_SESSION['Custom416']);
 		unset($_SESSION['Custom300']);
+		unset($_SESSION['Custom350']);
 		$_SESSION['OneTerm'] = true;
 		$_SESSION['Custom320'] = true;
+		
+		
+		$Sql = 'SELECT
+					*
+				FROM
+					bevomedia_adwords_countries
+				ORDER BY
+					(code <> "US"), country
+				';
+		$this->Countries = $this->db->fetchAll($Sql);
+		
+		$Sql = 'SELECT
+					*
+				FROM
+					bevomedia_state
+				ORDER BY
+					name
+				';
+		$this->States = $this->db->fetchAll($Sql);
+	}
+	
+	Public Function SignUp350()
+	{
+		unset($_SESSION['LowPrices']);
+		unset($_SESSION['LowPrices']);
+		unset($_SESSION['Custom416']);
+		unset($_SESSION['Custom300']);
+		unset($_SESSION['Custom320']);
+		$_SESSION['OneTerm'] = true;
+		$_SESSION['Custom350'] = true;
 		
 		
 		$Sql = 'SELECT
@@ -188,6 +222,7 @@ Class NetworksController extends ClassComponent
 		unset($_SESSION['Custom416']);
 		unset($_SESSION['Custom300']);
 		unset($_SESSION['Custom320']);
+		unset($_SESSION['Custom350']);
 		$_SESSION['OneTerm'] = true;
 		$_SESSION['Custom395'] = true;
 		
@@ -321,6 +356,10 @@ Class NetworksController extends ClassComponent
 		if (isset($_SESSION['OneTerm']) && ($_SESSION['OneTerm']==true)) 
 		{
 			$AddTerms = " AND (ID = 11) ";
+		} else
+		if (isset($_SESSION['Custom320']))
+		{
+			$AddTerms = " AND (ID = 16) ";			
 		} else
 		{
 			$AddTerms = " AND (ID BETWEEN 6 AND 10) ";
