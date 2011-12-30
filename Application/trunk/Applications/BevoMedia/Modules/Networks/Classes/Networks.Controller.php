@@ -192,7 +192,7 @@ Class NetworksController extends ClassComponent
 		unset($_SESSION['Custom416']);
 		unset($_SESSION['Custom300']);
 		unset($_SESSION['Custom320']);
-		$_SESSION['OneTerm'] = true;
+		unset($_SESSION['OneTerm']);
 		$_SESSION['Custom350'] = true;
 		
 		
@@ -353,13 +353,13 @@ Class NetworksController extends ClassComponent
 		if (isset($_SESSION['Custom395'])) {
 			$AddTerms = " AND (ID = 15) ";
 		} else
-		if (isset($_SESSION['OneTerm']) && ($_SESSION['OneTerm']==true)) 
-		{
-			$AddTerms = " AND (ID = 11) ";
-		} else
 		if (isset($_SESSION['Custom320']))
 		{
 			$AddTerms = " AND (ID = 16) ";			
+		} else
+		if (isset($_SESSION['OneTerm']) && ($_SESSION['OneTerm']==true)) 
+		{
+			$AddTerms = " AND (ID = 11) ";
 		} else
 		{
 			$AddTerms = " AND (ID BETWEEN 6 AND 10) ";
