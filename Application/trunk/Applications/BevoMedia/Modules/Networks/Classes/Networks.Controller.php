@@ -192,7 +192,7 @@ Class NetworksController extends ClassComponent
 		unset($_SESSION['Custom416']);
 		unset($_SESSION['Custom300']);
 		unset($_SESSION['Custom320']);
-		unset($_SESSION['OneTerm']);
+		$_SESSION['OneTerm'] = true;
 		$_SESSION['Custom350'] = true;
 		
 		
