@@ -353,7 +353,7 @@ Class NetworksController extends ClassComponent
 		if (isset($_SESSION['Custom395'])) {
 			$AddTerms = " AND (ID = 15) ";
 		} else
-		if (isset($_SESSION['Custom320']))
+		if (isset($_SESSION['Custom350']))
 		{
 			$AddTerms = " AND (ID = 16) ";			
 		} else
