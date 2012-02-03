@@ -105,6 +105,12 @@
 	
 	<div class="moreapps"></div>
 	
+	
+	
+<?php 
+	if (!isset($_COOKIE['v3apps']))
+	{
+?>
 	<?php
 	/*
 	
@@ -192,7 +198,11 @@
 			<div class="clear"></div>
 		</div><!--close appboxinside-->
 	</div><!--close appbox-->
-	
+
+<?php 
+	}
+?>
+
 	<?php
 	/*
 	
@@ -241,8 +251,20 @@
 						<?php } else { //if user is verified
 						?>
 							<div class="icon icon_appstore_add2cart_check"></div>
-							<a class="btn btn_appstore_launchapp" href="/BevoMedia/Geotargeting/Index.html">Launch App</a>
 							
+						<?php 
+							if (!isset($_COOKIE['v3apps']))
+							{
+						?>
+							<a class="btn btn_appstore_launchapp" href="/BevoMedia/Geotargeting/Index.html">Launch App</a>
+						<?php 
+							} else 
+							{
+						?>
+							<a class="btn btn_appstore_launchapp" href="http://<?php echo $_COOKIE['v3domain']; ?>/geotarget/list/" target="_blank">Launch App</a>
+						<?php 	
+							}
+						?>
 							<h3>FREE</h3>
 							<p>This app is free to use!</p>
 							
@@ -307,7 +329,20 @@
 						<?php } else { //if user is verified
 						?>
 							<div class="icon icon_appstore_add2cart_check"></div>
+							
+						<?php 
+							if (!isset($_COOKIE['v3apps']))
+							{
+						?>
 							<a class="btn btn_appstore_launchapp" href="/BevoMedia/Timetargeting/Index.html">Launch App</a>
+						<?php 
+							} else 
+							{
+						?>
+							<a class="btn btn_appstore_launchapp" href="http://<?php echo $_COOKIE['v3domain']; ?>/daytarget/list/" target="_blank">Launch App</a>						
+						<?php 
+							}
+						?>
 							
 							<h3>FREE</h3>
 							<p>This app is free to use!</p>
@@ -385,6 +420,11 @@
 		</div><!--close appboxinside-->
 	</div><!--close appbox-->
 	
+	
+<?php 
+	if (!isset($_COOKIE['v3apps']))
+	{
+?>
 	<?php
 	/*
 	
@@ -463,6 +503,10 @@
 			<div class="clear"></div>
 		</div><!--close appboxinside-->
 	</div><!--close appbox-->
+	
+<?php 
+	}
+?>
 	
 	<?php
 	/*

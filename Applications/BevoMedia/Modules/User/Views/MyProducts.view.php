@@ -1,19 +1,54 @@
 <div id="pagemenu">
 	<ul>
 		<li class="haskids">
+<?php 
+	if (!isset($_COOKIE['v3apps']))
+	{
+?>
 			<a href="/BevoMedia/User/ChangeProfile.html">My Account <img src="/Themes/BevoMedia/img_new/icon_arrsmall_down_w.png" alt="" /><span></span></a>
+<?php 
+	} else
+	{
+?>
+			<a href="/BevoMedia/User/CreditCard.html">My Account <img src="/Themes/BevoMedia/img_new/icon_arrsmall_down_w.png" alt="" /><span></span></a>
+<?php 
+	}
+?>
 			<ul>
+<?php 
+	if (!isset($_COOKIE['v3apps']))
+	{
+?>
 				<li><a href="/BevoMedia/User/ChangeProfile.html">My Profile</a></li>
+<?php 
+	}
+?>
 				<?php if($this->User->vaultID > 0) { ?>
 					<li><a href="/BevoMedia/User/CreditCard.html">My Payment Options</a></li>
 				<?php } ?>
 				<li><a href="/BevoMedia/User/Invoice.html">Billing</a></li>
+				
+<?php 
+	if (!isset($_COOKIE['v3apps']))
+	{
+?>
 				<li><a href="/BevoMedia/User/ChangePassword.html" rel="shadowbox;width=320;height=200;player=iframe" title="Change Password">Change Password</a></li>
 				<li><a href="/BevoMedia/User/CancelAccount.html" rel="shadowbox;width=480;height=250;player=iframe" title="Cancel Bevo Account">Cancel Account</a></li>
+<?php 
+	}
+?>
 			</ul>
 		</li>
-		<li><a class="active" href="/BevoMedia/User/MyProducts.html">My Apps<span></span></a></li>
+		<li><a class="active" href="/BevoMedia/User/AppStore.html">My Apps<span></span></a></li>
+		
+<?php 
+	if (!isset($_COOKIE['v3apps']))
+	{
+?>
 		<li><a href="/BevoMedia/Publisher/Index.html#PPC">My PPC Accounts<span></span></a></li>
+<?php 
+	}
+?>
 	</ul>
 	
 	<?php if($this->User->vaultID == 0) { //if UNverified, show verify link on right

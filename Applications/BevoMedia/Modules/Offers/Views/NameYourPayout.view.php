@@ -1,6 +1,13 @@
 <div id="pagemenu">
 	<ul>
+<?php 
+	if (!isset($_COOKIE['v3apps']))
+	{
+?>
 		<li><a href="/BevoMedia/Offers/Index.html">Offers<span></span></a></li>
+<?php 
+	}
+?>
 		<li><a class="active" href="/BevoMedia/Offers/NameYourPayout.html">Name Your Payout<span></span></a></li>
 	</ul>
 </div>

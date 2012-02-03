@@ -31,6 +31,10 @@
 			Zend_Registry::set('Instance/LayoutType', 'logged-in-layout');
 			
 			$this->db = Zend_Registry::get('Instance/DatabaseObj');
+			
+			if (isset($_COOKIE['v3apps'])) {
+				Zend_Registry::set('Instance/LayoutType', 'apps-layout');
+			}
 		}
 		
 		Public Function _SetPageSize()

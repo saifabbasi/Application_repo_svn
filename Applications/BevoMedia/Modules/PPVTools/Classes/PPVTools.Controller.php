@@ -95,6 +95,10 @@ Class PPVToolsController extends ClassComponent
 //		  header('Location: /BevoMedia/Marketplace/Premium.html');
 //		  die;
 		}
+		
+		if (isset($_COOKIE['v3apps'])) {
+			Zend_Registry::set('Instance/LayoutType', 'apps-layout');
+		}
 	}
 	
 	Public Function Tools()

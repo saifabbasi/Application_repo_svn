@@ -84,6 +84,15 @@ Class UserController extends ClassComponent
 //		  die;
 //		}
 		
+		if (isset($_GET['v3apps'])) { 
+			setcookie('v3apps', true, time()+3600*24*365, '/');
+			setcookie('v3domain', $_GET['v3domain'], time()+3600*24*365, '/');
+		}
+		
+		if (isset($_COOKIE['v3apps'])) {
+			Zend_Registry::set('Instance/LayoutType', 'apps-layout');
+		}
+		
 	}
 	Public Function SelfHostedChangelog()
   {
@@ -972,7 +981,7 @@ Class UserController extends ClassComponent
 	
 	Public Function AddCreditCard()
 	{
-		if (!isset($_SERVER['HTTPS'])) {
+		if (!isset($_SERVER['HTTPS']) && ($_SERVER['SERVER_NAME']!='bevomedia')) {
 			header('Location: https://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
 			die;
 		}

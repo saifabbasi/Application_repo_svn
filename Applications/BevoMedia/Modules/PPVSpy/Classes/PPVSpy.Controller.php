@@ -57,6 +57,10 @@ Class PPVSpyController {
 			header('Location: /');
 			die;
 		}
+		
+		if (isset($_COOKIE['v3apps'])) {
+			Zend_Registry::set('Instance/LayoutType', 'apps-layout');
+		}
 	}
 	
 	public function MostSeenPopups()
