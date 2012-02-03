@@ -1,9 +1,23 @@
 <?php /* ################################################################################# OUTPUT ############################ */ ?>
 <div id="pagemenu">
 	<ul>
+<?php 
+	if (!isset($_COOKIE['v3apps']))
+	{
+?>
 		<li><a class="active" href='/BevoMedia/User/ChangeProfile.html'>My Account<span></span></a></li>
-		<li><a href="/BevoMedia/User/MyProducts.html">My Apps<span></span></a></li>
+<?php 
+	}
+?>
+		<li><a href="/BevoMedia/User/AppStore.html">My Apps<span></span></a></li>
+<?php 
+	if (!isset($_COOKIE['v3apps']))
+	{
+?>
 		<li><a href="/BevoMedia/Publisher/Index.html#PPC">My PPC Accounts<span></span></a></li>
+<?php 
+	}
+?>
 	</ul>
 	
 	<?php if($this->User->vaultID == 0) { //if UNverified, show verify link on right
@@ -15,13 +29,27 @@
 </div>
 <div id="pagesubmenu">
 	<ul>
+<?php 
+	if (!isset($_COOKIE['v3apps']))
+	{
+?>
 		<li><a href="/BevoMedia/User/ChangeProfile.html">My Profile</a></li>
+<?php 
+	}
+?>
 		<?php if($this->User->vaultID > 0) { ?>
 			<li><a href="/BevoMedia/User/CreditCard.html">My Payment Options</a></li>
 		<?php } ?>
 		<li><a href="/BevoMedia/User/Invoice.html">Billing</a></li>
+<?php 
+	if (!isset($_COOKIE['v3apps']))
+	{
+?>
 		<li><a class="active" href="/BevoMedia/User/Referrals.html">Referrals</a></li>
 		<li><a href="/BevoMedia/User/ChangePassword.html" rel="shadowbox;width=320;height=200;player=iframe" title="Change Password">Change Password</a></li>
+<?php 
+	}
+?>
 	</ul>
 </div>
 	<?php echo $this->PageDesc->ShowDesc($this->PageHelper, false); //2nd param to hide toggle btn, as there is nothing else on this page

@@ -670,7 +670,14 @@ ob_end_clean();
 <?php /* ##################################################### OUTPUT ############### */ ?>
 	<div id="pagemenu">
 		<ul>
+<?php 
+	if (!isset($_COOKIE['v3apps']))
+	{
+?>
 			<li><a href="/BevoMedia/Publisher/Classroom.html">Classroom<span></span></a></li>
+<?php 
+	}
+?>
 			<li><a class="active" href="/BevoMedia/Publisher/OvernightAffiliate.html">Overnight Affiliate<span></span></a></li>
 		</ul>
 	</div>
@@ -686,7 +693,14 @@ ob_end_clean();
 		//echo $pagination;
 	?>
 	
+<?php 
+	if (!isset($_COOKIE['v3apps']))
+	{
+?>
 	<a href="<?=$this->{'System/BaseURL'};?><?=$this->{'Application/Theme'};?>/Marketplace/MentorshipProgram.html">
 		<img style="display:block; margin:30px auto 0;" src="/Themes/BevoMedia/img/mentorshipprogram_banner.jpg" />
 	</a>
+<?php 
+	}
+?>
 </div>
