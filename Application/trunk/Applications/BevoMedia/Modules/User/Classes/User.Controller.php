@@ -87,6 +87,7 @@ Class UserController extends ClassComponent
 		if (isset($_GET['v3apps']) && ($_SERVER['SERVER_NAME']=='apps.bevomedia.com')) { 
 			setcookie('v3apps', true, time()+3600*24*365, '/');
 			setcookie('v3domain', $_GET['v3domain'], time()+3600*24*365, '/');
+			Zend_Registry::set('Instance/LayoutType', 'apps-layout');
 		}
 		
 		if (isset($_COOKIE['v3apps'])) {
