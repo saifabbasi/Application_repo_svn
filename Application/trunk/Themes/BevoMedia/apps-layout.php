@@ -109,7 +109,7 @@ if(userTimezoneOffset == false)
 <?php */?>
 
 
-<link rel="stylesheet" href="/Themes/Bevomedia/apps-layout/apps_global.css" type="text/css" />
+<link rel="stylesheet" href="/Themes/BevoMedia/apps-layout/apps_global.css" type="text/css" />
 
 </head>
 <body><?php /* ################################################################# BODY */ ?>
