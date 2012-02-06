@@ -1,4 +1,5 @@
 <?php 
+	/*
 	require 'soap_functions.php'; //outsource to controller or so later
 	
 	//hooks used in the markup
@@ -13,6 +14,7 @@
 //		header('Location: /BevoMedia/User/AddCreditCard.html');
 //		die;
 //	}
+	*/		
 	
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -106,6 +108,9 @@ if(userTimezoneOffset == false)
 <script type="text/javascript" src="http://w.sharethis.com/button/sharethis.js#publisher=73e6ed73-10b8-4613-8d6b-680d01b68d3c&amp;type=website&amp;buttonText=Share%20It.&amp;linkfg=%23333333"></script>
 <?php */?>
 
+
+<link rel="stylesheet" href="/Themes/Bevomedia/apps-layout/apps_global.css" type="text/css" />
+
 </head>
 <body><?php /* ################################################################# BODY */ ?>
 
@@ -115,6 +120,41 @@ if(userTimezoneOffset == false)
 		    language: 'en',
 		    players:  ['html', 'iframe', 'img']
 		});
+	
+	$(document).ready(function() {
+		//form input default
+		$('form input.defaultvalue').focus(function() {
+			if($(this).val() == $(this).attr('data-defaultvalue')) {
+				$(this).val('');
+			}
+		}).blur(function() {
+			if($(this).val() == '') {
+				$(this).val($(this).attr('data-defaultvalue'));
+			}
+		});
+		
+		//expand
+		$('.j_expand').live('click', function() {
+			var target = $('#'+$(this).attr('data-target'));
+				
+			if(target.is(':visible')) {
+				target.slideUp(200);	
+			} else {
+				target.slideDown(200);
+			}
+			return false;
+		});
+		
+		//header offer search
+		$('#topDropSearch').submit(function() {		
+			window.location = '/offer/offerhub/search/'+$('#topsearchInput').val();
+			return false;			
+		});		
+	});
+		
+	/*	DO WE NEED THIS IN APPS?
+	
+	
 		$(document).ready(function() {
 			//sapi tab switch
 			$('a.sapi-tab').click(function() {
@@ -145,102 +185,242 @@ if(userTimezoneOffset == false)
 				}
 			}); //end sapi tab switch click function
 		});
+	*/
+	
 	//]]>
 	</script>
 
 
 
-<div id="body">
-	<div id="wrap">
+<div id="body">	 
+	<div id="body">
+		<div id="wrap">
+			<div id="wrapbg"></div>
+			
+			 <div id="header">
+			 
+			 <?php //echo $this->topDrop();
+			 ?>
+			 
+			 <div id="topdrop">
+				<a class="btn toplogout" href="#">Logout</a>
+			
+				<div id="toptoday">
+					<div class="part title">
+						<div class="label oneline">Today</div>
+					</div>
+					<div class="part prominent noborder">
+						<div class="label">Earnings</div>
+						<div class="data">$7,123,456.78</div>
+					</div>
+					<div class="part">
+						<div class="label">Clicks to Offer</div>
+						<div class="data">7,123,456</div>
+					</div>
+					<div class="part">
+						<div class="label">Conversions</div>
+						<div class="data">7,123,456</div>	
+					</div>
+					<div class="part">
+						<div class="label">Conv Rate</div>
+						<div class="data">70.26%</div>
+					</div>
+					
+				<?php if($this->User->getVaultID() > 0) : ?>
+				
+					<div class="part">
+						<div class="label">Last Update</div>
+						<div class="data">2 hours ago</div>
+					</div>
+				
+				<?php else : //if unverified
+				?>
+				
+					<div id="topverify">
+						<a class="btn topverify j_expand" data-target="topverifybutt" href="#">Verify Your Bevo</a>
+						<div class="clear"></div>
+						
+						<div id="topverifybutt" class="hide">
+						
+							<div class="part title">
+								<div class="label">
+									Verify&nbsp;&nbsp;&nbsp;&nbsp;<br />
+									Your&nbsp;&nbsp;<br />
+									Bevo
+								</div>
+							</div>
+							<div class="part noborder">
+								<div class="data ticon checksharp_white">
+									Get access to<br />
+									all features
+								</div>
+							</div>
+							<div class="part">
+								<div class="data ticon checksharp_white">
+									Get premium<br />
+									on-demand support
+								</div>
+							</div>
+							<div class="part">
+								<div class="data ticon checksharp_white">
+									Sync up with<br />
+									auto updates
+								</div>
+							</div>
+								
+							<a class="btn topverify_clickhere" href="#" title="Click to verify your Bevo now!">Click Here</a>
+							
+							<div class="clear"></div>					
+						</div><!--close topverifybutt-->					
+					</div><!--close topverify-->
+				
+				<?php endif; //verified
+				?>
+				
+					<div class="clear"></div>			
+				</div><!--close today-->
+				
+				<div id="topsearch">
+					<div class="part title">
+						<div class="label">Offer Search</div>
+					</div>
+					<form method="post" action="#">
+						<input type="text" class="formtxt defaultvalue" name="topsearch" value="type here to search offers" data-defaultvalue="type here to search offers" />
+						<input type="submit" class="btn topsearch_formsubmit" value="Go" />
+						<div class="clear"></div>
+					</form>
+					
+					<div class="clear"></div>
+				</div><!--close topsearch-->
+				
+				<div class="clear"></div>
+			</div><!--close topdrop-->
+			
+			<div class="clear"></div>
+		    	
+			 <div id="subhead">
+				<a class="btn headlogo" href="#Link-To-Dashboard">BevoMedia Exchange</a>
+					
+					<a class="subheadfeat network" href="#">
+						<span class="part title">
+							<span class="label">
+								<strong>Network</strong><br />of the month
+							</span>
+						</span>
+						<img src="http://s3.amazonaws.com/bevomedia-media/public/images/best-for-month/network-of-the-month.png" alt="" />
+					</a>
+					
+					<a class="subheadfeat" href="#">
+						<span class="part title">
+							<span class="bg"></span>
+							<span class="label">
+								<strong>Offer</strong><br />of the month
+							</span>
+						</span>
+						<span class="part noborder">
+							<span class="data oneline">$58 <span class="txtsmall">/sale</span></span>
+						</span>
+						<span class="part">
+							<span class="data txtsmall">60 Minute Payday<br />(1 page form)</span>
+						</span>
+					</a>
+					
+					<a class="subheadfeat" href="#">
+						<span class="part title">
+							<span class="bg"></span>
+							<span class="label">
+								<strong>App</strong><br />of the month
+							</span>
+						</span>
+						<img src="https://s3.amazonaws.com/bevomedia-media/public/images/best-for-month/appliation-of-the-month.png" alt="" />
+					</a>
+					
+					<div class="clear"></div>			
+				</div><!--close subhead-->
+		    	
+    			<div class="clear"></div>
+			</div><!--close header-->
 		
 
-<?php 	/** container class
-	  * allowed values:
-	  * cont_ppc		==> PPC
-	  * cont_tracker	==> Tracker
-	  * cont_analytics	==> Analytics
-	  * cont_setup		==> Networks, Offers, and Self-Hosted (setup menu)
-	  * cont_top		==> Classroom, Tutorials, Support, Dashboard, and My Account (top menu)
-	  * cont_market		==> Marketplace
-	  */
-	  
-	if(	$this->PageHelper->Area == 'Classroom'
-	||	$this->PageHelper->Function == 'KB'
-	||	$this->PageHelper->Area == 'PPCTutorials' //tutorials
-	||	$this->PageHelper->Area == 'Overview' //dashboard
-	||	$this->PageHelper->Function == 'AccountInformation' //my account
-	||	$this->PageHelper->Function == 'AddCreditCard'
-	||	$this->PageHelper->Function == 'ChangeProfile'
-	||	$this->PageHelper->Function == 'ApiCalls'
-	||	$this->PageHelper->Function == 'ManageStats'
-	||	$this->PageHelper->Function == 'CreditCard'
-	||	$this->PageHelper->Function == 'Invoice'
-	||	$this->PageHelper->Function == 'Referrals'
-	||	$this->PageHelper->Function == 'MyProducts'
-	)
-		$soap_containerclass = 'cont_top';
-	
-	elseif($this->PageHelper->Area == 'Marketplace')
-		$soap_containerclass = 'cont_market';
-	
-	elseif(	$this->PageHelper->Controller == 'PPVTools'
-	|| 	$this->PageHelper->Controller == 'PPVSpy'
-	|| 	$this->PageHelper->Controller == 'Geotargeting'
-	|| 	$this->PageHelper->Controller == 'Timetargeting'
-	||	$this->PageHelper->Function == 'AppStore'
-	)
-		$soap_containerclass = 'cont_apps';
-		
-	elseif(	$this->PageHelper->Area == 'PPCManager'
-	||	$this->PageHelper->Function == 'CreatePPC'
-	||	$this->PageHelper->Function == 'CreatePPCSubmit'
-	||	$this->PageHelper->Function == 'CreatePPCSaved'
-	||	$this->PageHelper->Function == 'PPCQueueProgress'
-	||	$this->PageHelper->Function == 'AccountStatsPPC'
-	||	$this->PageHelper->Function == 'AdwordsManualUpload'
-	||	$this->PageHelper->Function == 'CampaignStatsPPC'
-	||	$this->PageHelper->Function == 'AdGroupStatsPPC'
-	||	$this->PageHelper->Function == 'AdGroupAdVariationsPPC'
-	)
-		$soap_containerclass = 'cont_ppc';
-	
-	elseif($this->PageHelper->Area == 'KeywordTracker')
-		$soap_containerclass = 'cont_tracker';
-	
-	elseif($this->PageHelper->Area == 'Analytics')
-		$soap_containerclass = 'cont_analytics';
-	
-	elseif(	$this->PageHelper->Function == 'SelfHostedLogin'
-	||	$this->PageHelper->Area == 'Offers'
-	||	$this->PageHelper->Area == 'MyNetworks'
-	||	$this->PageHelper->Function == 'Reviews'
-	||	$this->PageHelper->Function == 'RackspaceWizard'
-	||	$this->PageHelper->Function == 'ServerScript'
-	||	$this->PageHelper->Function == 'SelfHostedLoginDownload'
-	||	$this->PageHelper->Function == 'NameYourPrice'
-	||	$this->PageHelper->Function == 'NameYourPriceResult'
-	)
-		$soap_containerclass = 'cont_setup';
 
-?>
+			<div id="container">
+				<div class="containertop"></div><div class="containerinside"></div>
+				
+				<div id="nav">
+					<div class="navtop"></div>
+					<ul class="parent">
+						<li class="navli nav_networks"><a class="navbtn" href="#">Networks</a></li>
+						<li class="navli nav_tracker"><a class="navbtn" href="#">Tracker</a></li>
+						<li class="navli nav_classroom"><a class="navbtn" href="#">Classroom</a></li>
+						<li class="navli nav_apps active">
+							<a class="navbtn" href="#">Apps</a>
+							<div class="kids">
+								<ul class="kidgroup">
+									<li class="active"><a href="#">App Store</a></li>
+								</ul>
+							</div>
+						</li>
+						<li class="navli nav_tools"><a class="navbtn" href="#">Tools</a></li>
+						
+						<li class="navli nav_dashboard floatright"><a class="navbtn" href="#">Dashboard</a></li>
+						<li class="navli nav_help floatright"><a class="navbtn" href="#">Help</a></li>
+						<li class="navli nav_account floatright"><a class="navbtn" href="#">My Account</a></li>
+					</ul>
+				</div><!--close nav-->
+				
+				<div class="sidead left">
+					<a href="#"><img src="http://s3.amazonaws.com/bevomedia-media/public/images/side-banners/left.jpg" alt=""></a>
+				</div>
+				<div class="sidead right">
+					<a href="#"><img src="http://s3.amazonaws.com/bevomedia-media/public/images/side-banners/right.jpg" alt=""></a>
+				</div>
+				
+				<div id="content" class="content">
+					<?=$this->{'Instance/ViewContent'};?>
+					<div class="clear"></div>	
+				</div><!--close content-->
+				<div class="containerbutt"></div>
+					
+			</div><!--close container-->
 
+			
+			
+			<div id="footer">
+		    	<ul class="footlist txtblack">
+					<li><a href="http://exchange.bevomedia.com/">The BevoMedia Exchange</a></li>
+					<li><a href="http://networks.bevomedia.com/">Bevo for Networks</a></li>
+					<li><a href="http://blog.bevomedia.com/">Official Blog</a></li>
+				</ul>
+				
+				<br />
+				
+				<ul class="footlist txtmgray">
+					<li><a href="#">Networks</a></li>
+					<li><a href="#">Tracker</a></li>
+					<li><a href="#">Offers</a></li>
+					<li><a href="#">Classroom</a></li>
+					<li><a href="#">Apps</a></li>
+					<li><a href="#">Tools</a></li>
+				</ul>
+				
+				<ul class="footlist txtmgray">
+					<li><a href="#">Dashboard</a></li>
+					<li><a href="#">Help</a></li>
+					<li><a href="#">My Bevo Account</a></li>
+				</ul>
+				
+				<br />
+				
+				<ul class="footlist txtlgray">
+					<li><a href="http://beta.bevomedia.com/TermsOfServiceBevoMedia.html">Terms &amp; Conditions</a></li>
+					<li><a href="http://beta.bevomedia.com/PrivacyPolicyBevoMedia.html">Privacy Policy</a></li>
+				</ul>
+		    
+		    	<p>&copy; <?php echo date('Y'); ?> by BevoMedia. All Rights Reserved.</p>
+		    	
+			</div><!--close footer-->
+			
 
-<div id="container" class="<?php echo $soap_containerclass; ?>">
-	<div class="containertop"></div><div class="containerinside"></div>
-	
-	
-	
-	<div class="content">
-		<?=$this->{'Instance/ViewContent'};?>
-		<div class="clear"></div>	
-	</div><!--close content-->
-	<div class="containerbutt"></div>
-		
-</div><!--close container-->
-
-<div id="footer">
-	
-</div><!--close footer-->
 </div><!--close wrap-->
 </div><!--close body-->
 
