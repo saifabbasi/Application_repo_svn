@@ -86,8 +86,11 @@ Class UserController extends ClassComponent
 		
 		if (isset($_GET['v3apps']) && ($_SERVER['SERVER_NAME']=='apps.bevomedia.com')) { 
 			setcookie('v3apps', true, time()+3600*24*365, '/');
-			setcookie('v3domain', $_GET['v3domain'], time()+3600*24*365, '/');
+			setcookie('v3domain', $_GET['domain'], time()+3600*24*365, '/');
 			Zend_Registry::set('Instance/LayoutType', 'apps-layout');
+			
+			header('Location: /BevoMedia/User/AppStore.html');
+			die;
 		}
 		
 		if (isset($_COOKIE['v3apps'])) {
@@ -1052,7 +1055,23 @@ Class UserController extends ClassComponent
 		    		$this->User->AddUserServerCharge($result['transactionid']);
 		    	}
 		    	
-		    	$this->User->setVaultID($result['customer_vault_id'], $vaultLast4Digits);		    	
+		    	$this->User->setVaultID($result['customer_vault_id'], $vaultLast4Digits);
+
+		    	$v3result = file_get_contents('http://affportal.bevomedia.com/user/verify-user/user/'.$_SESSION['User']['ID'].'/vault/'.$result['customer_vault_id'].'/last4digits/'.$vaultLast4Digits);
+		    	$v3result = json_decode($v3result);
+		    	
+		    	if ($v3result->success==false) {
+		    		$Body = "Error occurred while trying to verify user on v3.<br />
+		    				{$v3result->error}
+		    				";
+					 
+					$Headers  = 'MIME-Version: 1.0' . "\r\n";
+					$Headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+				 
+					mail('error@bevomedia.com', 'V3 verify error', $Body, $Headers);
+		    	}
+		    	
+		    	
 		    	header('Location: /BevoMedia/User/CreditCardVerified.html');
 		    	die;
 		        break;
@@ -1084,7 +1103,23 @@ Class UserController extends ClassComponent
 		    	
 		    	$vaultLast4Digits = '';
 		    	
-		    	$this->User->setVaultID(0, $vaultLast4Digits);		    	
+		    	$this->User->setVaultID(0, $vaultLast4Digits);
+
+				$v3result = file_get_contents('http://affportal.bevomedia.com/user/unverify-user/user/'.$_SESSION['User']['ID']);
+		    	$v3result = json_decode($v3result);
+		    	
+		    	if ($v3result->success==false) {
+		    		$Body = "Error occurred while trying to unverify user on v3.<br />
+		    				{$v3result->error}
+		    				";
+					 
+					$Headers  = 'MIME-Version: 1.0' . "\r\n";
+					$Headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+				 
+					mail('error@bevomedia.com', 'V3 unverify error', $Body, $Headers);
+		    	}
+		    	
+		    	
 		    	header('Location: /BevoMedia/User/CreditCard.html?RemovedSuccess');
 		    	die;
 		        break;
