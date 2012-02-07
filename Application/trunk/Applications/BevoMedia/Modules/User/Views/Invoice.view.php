@@ -1,3 +1,8 @@
+<?php 
+	if (!isset($_COOKIE['v3apps']))
+	{
+?>
+
 <div id="pagemenu">
 	<ul>
 <?php 
@@ -53,6 +58,10 @@
 ?>
 	</ul>
 </div>
+
+<?php 
+	}
+?>
 
 <?php echo $this->PageDesc->ShowDesc($this->PageHelper, false); //2nd param to hide toggle btn, as there is nothing else on this page
 ?>
