@@ -199,8 +199,105 @@ if(userTimezoneOffset == false)
 			
 			 <div id="header">
 			 
-			 <?php //echo $this->topDrop();
+			 <?php 
+			 	$statsObject = json_decode(file_get_contents('http://'.$_COOKIE['v3domain'].'/user/json-top-drop-stats/apiKey/'.$this->User->apiKey));
 			 ?>
+			 
+ 			 <div id="topdrop">
+				<a class="btn toplogout" href="#">Logout</a>
+			
+				<div id="toptoday">
+					<div class="part title">
+						<div class="label oneline">Today</div>
+					</div>
+					<div class="part prominent noborder">
+						<div class="label">Earnings</div>
+						<div class="data">$<?php echo $statsObject->revenueMonth; ?></div>
+					</div>
+					<div class="part">
+						<div class="label">Clicks to Offer</div>
+						<div class="data"><?php echo $statsObject->clicksToday; ?></div>
+					</div>
+					<div class="part">
+						<div class="label">Conversions</div>
+						<div class="data"><?php echo $statsObject->conversionsToday; ?></div>	
+					</div>
+					<div class="part">
+						<div class="label">Conv Rate</div>
+						<div class="data"><?php echo $statsObject->conversionRate; ?>%</div>
+					</div>
+					
+				<?php if($this->User->getVaultID() > 0) : ?>
+				
+					<div class="part">
+						<div class="label">Last Update</div>
+						<div class="data"><?php echo $statsObject->lastNetworkUpdateDate; ?> <?php echo $statsObject->lastNetworkUpdateHour; ?></div>
+					</div>
+				
+				<?php else : //if unverified
+				?>
+				
+					<div id="topverify">
+						<a class="btn topverify j_expand" data-target="topverifybutt" href="#">Verify Your Bevo</a>
+						<div class="clear"></div>
+						
+						<div id="topverifybutt" class="hide">
+						
+							<div class="part title">
+								<div class="label">
+									Verify&nbsp;&nbsp;&nbsp;&nbsp;<br />
+									Your&nbsp;&nbsp;<br />
+									Bevo
+								</div>
+							</div>
+							<div class="part noborder">
+								<div class="data ticon checksharp_white">
+									Get access to<br />
+									all features
+								</div>
+							</div>
+							<div class="part">
+								<div class="data ticon checksharp_white">
+									Get premium<br />
+									on-demand support
+								</div>
+							</div>
+							<div class="part">
+								<div class="data ticon checksharp_white">
+									Sync up with<br />
+									auto updates
+								</div>
+							</div>
+								
+							<a class="btn topverify_clickhere" href="#" title="Click to verify your Bevo now!">Click Here</a>
+							
+							<div class="clear"></div>					
+						</div><!--close topverifybutt-->					
+					</div><!--close topverify-->
+				
+				<?php endif; //verified
+				?>
+				
+					<div class="clear"></div>			
+				</div><!--close today-->
+				
+				<div id="topsearch">
+					<div class="part title">
+						<div class="label">Offer Search</div>
+					</div>
+					<form method="post" action="#" id="topDropSearch">
+						<input type="text" id="topsearchInput" class="formtxt defaultvalue" name="topsearch" value="type here to search offers" data-defaultvalue="type here to search offers" />
+						<input type="submit" class="btn topsearch_formsubmit" value="Go" />
+						<div class="clear"></div>
+					</form>
+					
+					<div class="clear"></div>
+				</div><!--close topsearch-->
+				
+				<div class="clear"></div>
+			</div><!--close topdrop-->
+			
+			<div class="clear"></div>
 			 
 			 
 		    	
@@ -316,16 +413,16 @@ if(userTimezoneOffset == false)
 				<br />
 				
 				<ul class="footlist txtmgray">
-					<li><a href="#">Networks</a></li>
-					<li><a href="#">Tracker</a></li>
-					<li><a href="#">Offers</a></li>
-					<li><a href="#">Classroom</a></li>
+					<li><a href="http://<?php echo $_COOKIE['v3domain']; ?>/affiliate_network/list">Networks</a></li>
+					<li><a href="http://<?php echo $_COOKIE['v3domain']; ?>/tracker_click/cumulative-stats">Tracker</a></li>
+					<li><a href="http://<?php echo $_COOKIE['v3domain']; ?>/offer/offerhub">Offers</a></li>
+					<li><a href="http://<?php echo $_COOKIE['v3domain']; ?>/classroom_section/list">Classroom</a></li>
 					<li><a href="#">Apps</a></li>
 					<li><a href="#">Tools</a></li>
 				</ul>
 				
 				<ul class="footlist txtmgray">
-					<li><a href="#">Dashboard</a></li>
+					<li><a href="http://<?php echo $_COOKIE['v3domain']; ?>/tracker_click/dashboard">Dashboard</a></li>
 					<li><a href="#">Help</a></li>
 					<li><a href="#">My Bevo Account</a></li>
 				</ul>
@@ -353,6 +450,12 @@ $(document).ready(function () {
 	{
 		$('#datepicker').daterangepicker();
 	}
+
+	$('#topDropSearch').submit(function() {
+
+		window.location = 'http://<?php echo $_COOKIE["v3domain"]; ?>/offer/offerhub/search/'+$('#topsearchInput').val();
+
+	});
 });
 //]]>
 </script>
