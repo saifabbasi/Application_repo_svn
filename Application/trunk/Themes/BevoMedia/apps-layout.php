@@ -204,7 +204,7 @@ if(userTimezoneOffset == false)
 			 ?>
 			 
  			 <div id="topdrop">
-				<a class="btn toplogout" href="#">Logout</a>
+				<a class="btn toplogout" href="http://<?php echo $_COOKIE['v3domain']?>/user/logout">Logout</a>
 			
 				<div id="toptoday">
 					<div class="part title">
