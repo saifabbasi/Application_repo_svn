@@ -387,10 +387,10 @@ if(userTimezoneOffset == false)
 				</div><!--close nav-->
 				
 				<div class="sidead left">
-					<a href="#"><img src="http://s3.amazonaws.com/bevomedia-media/public/images/side-banners/left.jpg" alt=""></a>
+					<a href="http://<?php echo $_COOKIE['v3domain']; ?>/user_affiliate_network/edit/network/1080"><img src="http://s3.amazonaws.com/bevomedia-media/public/images/side-banners/left.jpg" alt=""></a>
 				</div>
 				<div class="sidead right">
-					<a href="#"><img src="http://s3.amazonaws.com/bevomedia-media/public/images/side-banners/right.jpg" alt=""></a>
+					<a href="http://<?php echo $_COOKIE['v3domain']; ?>/user_affiliate_network/edit/network/1080"><img src="http://s3.amazonaws.com/bevomedia-media/public/images/side-banners/right.jpg" alt=""></a>
 				</div>
 				
 				<div id="content" class="content">
