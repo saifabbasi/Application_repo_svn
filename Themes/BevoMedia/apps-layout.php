@@ -202,104 +202,10 @@ if(userTimezoneOffset == false)
 			 <?php //echo $this->topDrop();
 			 ?>
 			 
-			 <div id="topdrop">
-				<a class="btn toplogout" href="#">Logout</a>
-			
-				<div id="toptoday">
-					<div class="part title">
-						<div class="label oneline">Today</div>
-					</div>
-					<div class="part prominent noborder">
-						<div class="label">Earnings</div>
-						<div class="data">$7,123,456.78</div>
-					</div>
-					<div class="part">
-						<div class="label">Clicks to Offer</div>
-						<div class="data">7,123,456</div>
-					</div>
-					<div class="part">
-						<div class="label">Conversions</div>
-						<div class="data">7,123,456</div>	
-					</div>
-					<div class="part">
-						<div class="label">Conv Rate</div>
-						<div class="data">70.26%</div>
-					</div>
-					
-				<?php if($this->User->getVaultID() > 0) : ?>
-				
-					<div class="part">
-						<div class="label">Last Update</div>
-						<div class="data">2 hours ago</div>
-					</div>
-				
-				<?php else : //if unverified
-				?>
-				
-					<div id="topverify">
-						<a class="btn topverify j_expand" data-target="topverifybutt" href="#">Verify Your Bevo</a>
-						<div class="clear"></div>
-						
-						<div id="topverifybutt" class="hide">
-						
-							<div class="part title">
-								<div class="label">
-									Verify&nbsp;&nbsp;&nbsp;&nbsp;<br />
-									Your&nbsp;&nbsp;<br />
-									Bevo
-								</div>
-							</div>
-							<div class="part noborder">
-								<div class="data ticon checksharp_white">
-									Get access to<br />
-									all features
-								</div>
-							</div>
-							<div class="part">
-								<div class="data ticon checksharp_white">
-									Get premium<br />
-									on-demand support
-								</div>
-							</div>
-							<div class="part">
-								<div class="data ticon checksharp_white">
-									Sync up with<br />
-									auto updates
-								</div>
-							</div>
-								
-							<a class="btn topverify_clickhere" href="#" title="Click to verify your Bevo now!">Click Here</a>
-							
-							<div class="clear"></div>					
-						</div><!--close topverifybutt-->					
-					</div><!--close topverify-->
-				
-				<?php endif; //verified
-				?>
-				
-					<div class="clear"></div>			
-				</div><!--close today-->
-				
-				<div id="topsearch">
-					<div class="part title">
-						<div class="label">Offer Search</div>
-					</div>
-					<form method="post" action="#">
-						<input type="text" class="formtxt defaultvalue" name="topsearch" value="type here to search offers" data-defaultvalue="type here to search offers" />
-						<input type="submit" class="btn topsearch_formsubmit" value="Go" />
-						<div class="clear"></div>
-					</form>
-					
-					<div class="clear"></div>
-				</div><!--close topsearch-->
-				
-				<div class="clear"></div>
-			</div><!--close topdrop-->
-			
-			<div class="clear"></div>
+			 
 		    	
 			 <div id="subhead">
-				<a class="btn headlogo" href="#Link-To-Dashboard">BevoMedia Exchange</a>
+				<a class="btn headlogo" href="http://<?php echo $_COOKIE['v3domain']; ?>/tracker_click/dashboard">BevoMedia Exchange</a>
 					
 					<a class="subheadfeat network" href="#">
 						<span class="part title">
@@ -349,20 +255,35 @@ if(userTimezoneOffset == false)
 				<div id="nav">
 					<div class="navtop"></div>
 					<ul class="parent">
-						<li class="navli nav_networks"><a class="navbtn" href="#">Networks</a></li>
-						<li class="navli nav_tracker"><a class="navbtn" href="#">Tracker</a></li>
-						<li class="navli nav_classroom"><a class="navbtn" href="#">Classroom</a></li>
+						<li class="navli nav_networks"><a class="navbtn" href="http://<?php echo $_COOKIE['v3domain']; ?>/affiliate_network/list">Networks</a></li>
+						<li class="navli nav_tracker"><a class="navbtn" href="http://<?php echo $_COOKIE['v3domain']; ?>/tracker_click/cumulative-stats">Tracker</a></li>
+						<li class="navli nav_classroom"><a class="navbtn" href="http://<?php echo $_COOKIE['v3domain']; ?>/classroom_section/list">Classroom</a></li>
 						<li class="navli nav_apps active">
 							<a class="navbtn" href="#">Apps</a>
 							<div class="kids">
 								<ul class="kidgroup">
-									<li class="active"><a href="#">App Store</a></li>
+									<li class="<?php echo (strstr($_SERVER['REQUEST_URI'], 'AppStore.html'))?'active':'' ?>"><a href="/BevoMedia/User/AppStore.html">App Store</a></li>
+									<li class="<?php echo (strstr($_SERVER['REQUEST_URI'], 'MyProducts.html'))?'active':'' ?>"><a href="/BevoMedia/User/MyProducts.html">Manage My Apps</a></li>
+								<?php 
+									if($this->User->vaultID > 0) 
+									{
+								?>
+									<li class="<?php echo (strstr($_SERVER['REQUEST_URI'], 'Invoice.html'))?'active':'' ?>"><a href="/BevoMedia/User/Invoice.html">Billing</a></li>
+									<li class="<?php echo (strstr($_SERVER['REQUEST_URI'], 'CreditCard.html'))?'active':'' ?>"><a href="/BevoMedia/User/CreditCard.html">My Payment Options</a></li>
+								<?php 
+									} else
+									{
+								?>
+									<li><a class="<?php echo (strstr($_SERVER['REQUEST_URI'], 'AddCreditCard.html'))?'active':'' ?>" title='Verfiy My Account' href='/BevoMedia/User/AddCreditCard.html'><strong>Verify Account Now</strong><span></span></a></li>
+								<?php 
+									}
+								?>
 								</ul>
 							</div>
 						</li>
 						<li class="navli nav_tools"><a class="navbtn" href="#">Tools</a></li>
 						
-						<li class="navli nav_dashboard floatright"><a class="navbtn" href="#">Dashboard</a></li>
+						<li class="navli nav_dashboard floatright"><a class="navbtn" href="http://<?php echo $_COOKIE['v3domain']; ?>/tracker_click/dashboard">Dashboard</a></li>
 						<li class="navli nav_help floatright"><a class="navbtn" href="#">Help</a></li>
 						<li class="navli nav_account floatright"><a class="navbtn" href="#">My Account</a></li>
 					</ul>
