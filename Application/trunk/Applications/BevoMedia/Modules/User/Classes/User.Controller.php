@@ -89,7 +89,7 @@ Class UserController extends ClassComponent
 			setcookie('v3domain', $_GET['domain'], time()+3600*24*365, '/');
 			Zend_Registry::set('Instance/LayoutType', 'apps-layout');
 			
-			header('Location: /BevoMedia/User/AppStore.html');
+			header('Location: '.$_SERVER['SCRIPT_NAME']);
 			die;
 		}
 		
