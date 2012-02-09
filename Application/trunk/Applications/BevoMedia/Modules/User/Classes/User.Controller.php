@@ -89,7 +89,7 @@ Class UserController extends ClassComponent
 			setcookie('v3domain', $_GET['domain'], time()+3600*24*365, '/');
 			Zend_Registry::set('Instance/LayoutType', 'apps-layout');
 			
-			header('Location: '.$_SERVER['SCRIPT_NAME']);
+			header('Location: /'.Zend_Registry::Get('Instance/Application').'/'.Zend_Registry::Get('Instance/Module').'/'.Zend_Registry::Get('Instance/Function').'.html');
 			die;
 		}
 		
