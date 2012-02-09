@@ -1775,7 +1775,7 @@ Public Function MyProducts()
 	
 
 	public function jsonUserPerformanceConnector()
-	{
+	{ 
 		$promoMethodsMapper = array(1 => 3, 2 => 5, 3 => 2, 4 => 1, 5 => 4);//key = v2, value = v3
 		$promoMethodsMapper = array_flip($promoMethodsMapper);
 		$experienceLevelsMapper = array(1 => 1, 2 => 2, 3 => 3);//key = v2, value = v3
@@ -1791,26 +1791,26 @@ Public Function MyProducts()
 								
 		$messengers = array(1 => 'AIM', 2 => 'Gtalk', 3 => 'ICQ', 4 => 'MSN', 5 => 'Skype', 6 => 'Yahoo');
 								
-		$data = base64_decode($_GET['data']);
-		$data = json_decode($data);
 		
+		$jsonData = urldecode($_POST['data']);
+		$data = (array)json_decode($jsonData); 
+
 		$this->User->clearPerformanceConnectorNiches();
-		foreach ($data['niches'] as $nicheId) {
+		foreach ($data['performanceConnector']->niches as $nicheId) {
 			$nicheId = $nichesMapper[$nicheId];
 			$this->User->insertPerformanceConnectorNiche($nicheId);
 		}
 		
 		$this->User->clearPerformanceConnectorPromoMethod();
-		foreach ($promomethods as $promoId) {
+		foreach ($data['performanceConnector']->promotionMethods as $promoId) {
 			$promoId = $promoMethodsMapper[$promoId];
 			$this->User->insertPerformanceConnectorPromoMethod($promoId);
 		}
 		
 		$this->User->clearPerformanceConnectorExpLevel();
-		foreach ($explevels as $expId) {
-			$expId = $experienceLevelsMapper[$expId];
-			$this->User->insertPerformanceConnectorExpLevel($expId);
-		}
+		$expId = $experienceLevelsMapper[$data['performanceConnector']->promotionExperience];
+		$this->User->insertPerformanceConnectorExpLevel($expId);
+		
 		
 		$this->User->clearPerformanceConnectorContactEntries();	
 		$this->User->insertPerformanceConnectorContactEntry($messengers[$data['userMessenger']['_messenger']], $data['userMessenger']['_userName'], $data['userMessenger']['_phone']);
