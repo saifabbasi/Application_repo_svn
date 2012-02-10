@@ -378,11 +378,11 @@ if(userTimezoneOffset == false)
 								</ul>
 							</div>
 						</li>
-						<li class="navli nav_tools"><a class="navbtn" href="#">Tools</a></li>
+						<li class="navli nav_tools"><a class="navbtn" href="http://<?php echo $_COOKIE['v3domain']; ?>/tracker_click/delete-stats">Tools</a></li>
 						
 						<li class="navli nav_dashboard floatright"><a class="navbtn" href="http://<?php echo $_COOKIE['v3domain']; ?>/tracker_click/dashboard">Dashboard</a></li>
-						<li class="navli nav_help floatright"><a class="navbtn" href="#">Help</a></li>
-						<li class="navli nav_account floatright"><a class="navbtn" href="#">My Account</a></li>
+						<li class="navli nav_help floatright"><a class="navbtn" href="http://<?php echo $_COOKIE['v3domain']; ?>/tutorial_section/list">Help</a></li>
+						<li class="navli nav_account floatright"><a class="navbtn" href="http://<?php echo $_COOKIE['v3domain']; ?>/user/my-profile">My Account</a></li>
 					</ul>
 				</div><!--close nav-->
 				
