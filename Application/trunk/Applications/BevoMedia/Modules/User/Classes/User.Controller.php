@@ -1818,6 +1818,45 @@ Public Function MyProducts()
 		die;
 	}
 	
+	public function jsonUpdateNicheTopOffer()
+	{ 
+		$nichesMapper = array(
+								1 => 3, 2 => 7, 3 => 30, 4 => 8, 5 => 19, 
+								6 => 4, 7 => 1, 8 => 20, 9 => 29, 10 => 9, 
+								11 => 2, 12 => 6, 13 => 13, 14 => 10, 15 => 23, 
+								16 => 27, 17 => 16, 18 => 26, 19 => 12, 20 => 15, 
+								21 => 17, 22 => 11, 23 => 25, 24 => 14, 25 => 28, 
+								26 => 22, 27 => 5, 28 => 24, 29 => 18, 30 => 21, 
+								);//key = v3, value = v2
+		
+		$jsonData = urldecode($_POST['data']);
+		$data = json_decode($jsonData);
+		
+		$nicheId = $nichesMapper[$data->nicheId];
+		$networkOfferId = $data->networkOfferId;
+		$networkId = $data->networkId;
+		
+		$sql = "SELECT id FROM bevomedia_offers WHERE network__id = ? AND offer__id = ?";
+		$offerInfo = $this->db->fetchRow($sql, array($networkId, $networkOfferId));
+
+		if (!isset($offerInfo->id)) {
+			die;
+		}
+		
+		$sql = "SELECT id, offerId FROM bevomedia_niche_top_offers WHERE nicheId = ?";
+		$row = $this->db->fetchRow($sql, array($nicheId));
+		
+		if (isset($row->id))
+		{
+			$this->db->update('bevomedia_niche_top_offers', array('offerId'=> $offerInfo->id), " id = {$row->id}");
+		} else
+		{
+			$this->db->insert('bevomedia_niche_top_offers', array('nicheId' => $nicheId, 'offerId' => $offerInfo->id));
+		}
+		
+		die;
+	}
+	
 }
 
 ?>
