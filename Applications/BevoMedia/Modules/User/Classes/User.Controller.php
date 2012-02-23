@@ -1893,10 +1893,11 @@ Public Function MyProducts()
 	}
 	
 	public function jsonInsertUser()
-	{ 
+	{
+		print_r($_POST);
 		$jsonData = urldecode($_POST['data']);
 		$data = json_decode($jsonData);
-		
+		print_r($data);
 		$postData = array();
 		$postData['FirstName'] = $data->user->_firstName;
 		$postData['LastName'] = $data->user->_lastName;
