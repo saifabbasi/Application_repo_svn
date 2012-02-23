@@ -37,6 +37,13 @@ Class UserController extends ClassComponent
 		$this->{'PageDesc'} = new PageDesc();
 		$_db = Zend_Registry::get('Instance/DatabaseObj');
 		$useApiKey = false;
+		
+		if(isset($_GET['apiKeyCreateUser']))
+		{
+			$this->jsonInsertUser();
+			die;
+		}
+		
 		if(isset($_GET['apiKey']))
 		{
 		    $useApiKey = true;
@@ -1818,7 +1825,7 @@ Public Function MyProducts()
 		die;
 	}
 	
-	public function jsonUpdateNicheTopOffer()
+	public function jsonInsertNicheTopOffer()
 	{ 
 		$nichesMapper = array(
 								1 => 3, 2 => 7, 3 => 30, 4 => 8, 5 => 19, 
@@ -1843,18 +1850,79 @@ Public Function MyProducts()
 			die;
 		}
 		
-		$sql = "SELECT id, offerId FROM bevomedia_niche_top_offers WHERE nicheId = ?";
-		$row = $this->db->fetchRow($sql, array($nicheId));
+		$sql = "SELECT id, offerId FROM bevomedia_niche_top_offers WHERE nicheId = ? AND offerId = ?";
+		$row = $this->db->fetchRow($sql, array($nicheId, $offerInfo->id));
 		
-		if (isset($row->id))
-		{
-			$this->db->update('bevomedia_niche_top_offers', array('offerId'=> $offerInfo->id), " id = {$row->id}");
-		} else
+		if (!isset($row->id))
 		{
 			$this->db->insert('bevomedia_niche_top_offers', array('nicheId' => $nicheId, 'offerId' => $offerInfo->id));
 		}
 		
 		die;
+	}
+	
+	public function jsonDeleteNicheTopOffer()
+	{ 
+		$nichesMapper = array(
+								1 => 3, 2 => 7, 3 => 30, 4 => 8, 5 => 19, 
+								6 => 4, 7 => 1, 8 => 20, 9 => 29, 10 => 9, 
+								11 => 2, 12 => 6, 13 => 13, 14 => 10, 15 => 23, 
+								16 => 27, 17 => 16, 18 => 26, 19 => 12, 20 => 15, 
+								21 => 17, 22 => 11, 23 => 25, 24 => 14, 25 => 28, 
+								26 => 22, 27 => 5, 28 => 24, 29 => 18, 30 => 21, 
+								);//key = v3, value = v2
+		
+		$jsonData = urldecode($_POST['data']);
+		$data = json_decode($jsonData);
+		
+		$nicheId = $nichesMapper[$data->nicheId];
+		$networkOfferId = $data->networkOfferId;
+		$networkId = $data->networkId;
+		
+		$sql = "SELECT id FROM bevomedia_offers WHERE network__id = ? AND offer__id = ?";
+		$offerInfo = $this->db->fetchRow($sql, array($networkId, $networkOfferId));
+
+		if (!isset($offerInfo->id)) {
+			die;
+		}
+		
+		$sql = "DELETE FROM bevomedia_niche_top_offers WHERE nicheId = {$nicheId} AND offerId = {$offerInfo->id} ";
+		$this->db->exec($sql);
+		
+		die;
+	}
+	
+	public function jsonInsertUser()
+	{ 
+		$jsonData = urldecode($_POST['data']);
+		$data = json_decode($jsonData);
+		
+		$postData = array();
+		$postData['FirstName'] = $data->user->_firstName;
+		$postData['LastName'] = $data->user->_lastName;
+		$postData['Email'] = $data->user->_email;
+		$postData['Password'] = $data->user->_password1;
+		$postData['re-enter_password'] = $data->user->_password1;
+		$postData['CompanyName'] = $data->user->_companyName;
+		$postData['Address'] = $data->user->_address;
+		$postData['City'] = $data->user->_city;
+		$postData['State'] = $data->user->_state;
+		$postData['Zip'] = $data->user->_zip;
+		$postData['Country'] = $data->user->_country;
+		$postData['Phone'] = '';
+		$postData['Website'] = '';
+		$postData['MarketingMethodOther'] = $data->user_messenger->_messenger;
+		$postData['MessengerHandle'] = $data->user_messenger->_userName;
+		$postData['Username'] = $data->user->_username;
+		$postData['HowHeard'] = $data->how_heard->_howHeard;
+		$postData['Comments'] = $data->how_heard->_comment;
+		
+		$postData['Timezone'] = 'Etc/GMT+12';
+		
+		$postData['EULAAccepted'] = '1';
+		$postData['registerFormSubmit'] = 'Submit Query';
+		
+		$this->Register();
 	}
 	
 }
