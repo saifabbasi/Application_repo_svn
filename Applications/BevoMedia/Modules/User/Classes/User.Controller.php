@@ -1924,7 +1924,7 @@ Public Function MyProducts()
 		$postData['registerFormSubmit'] = 'Submit Query';
 		
 		$_POST = $postData;
-		
+		print_r($_POST);
 //		print_r($postData);
 		$this->Register();
 	}
