@@ -1894,7 +1894,7 @@ Public Function MyProducts()
 	
 	public function jsonInsertUser()
 	{
-		print_r($_POST);
+//		print_r($_POST);
 		$jsonData = urldecode($_POST['data']);
 		$data = json_decode($jsonData);
 		print_r($data);
@@ -1923,6 +1923,9 @@ Public Function MyProducts()
 		$postData['EULAAccepted'] = '1';
 		$postData['registerFormSubmit'] = 'Submit Query';
 		
+		$_POST = $postData;
+		
+//		print_r($postData);
 		$this->Register();
 	}
 	
