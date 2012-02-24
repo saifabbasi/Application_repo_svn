@@ -559,7 +559,7 @@ Class UserController extends ClassComponent
 	 * Register Page Functionality
 	 */
 	Public Function Register()
-	{
+	{ echo 'Register()'."<br />\n";
 		Zend_Registry::set('Instance/LayoutType', 'main-layout');
 		
 		$Token = Zend_Registry::get('Instance/URI_Token');
