@@ -560,23 +560,26 @@ Class UserController extends ClassComponent
 	 */
 	Public Function Register()
 	{ echo 'Register()'."<br />\n";
-		Zend_Registry::set('Instance/LayoutType', 'main-layout');
-		
-		$Token = Zend_Registry::get('Instance/URI_Token');
-		
-		if (isset($Token[4]) && (strlen($Token[4])==32)) 
+	
+		if (!isset($_GET['apiKeyCreateUser']))
 		{
-			if (isset($Token[5]) && ($Token[5]=='s'))
-			{
-				setcookie('BevoReferralS', $Token[4], time()+365*24*60*60, '/');
-			} else {
-				setcookie('BevoReferral', $Token[4], time()+365*24*60*60, '/');
-			}
+			Zend_Registry::set('Instance/LayoutType', 'main-layout');
 			
-			header('Location: /BevoMedia/User/Register.html');
-			die;
+			$Token = Zend_Registry::get('Instance/URI_Token');
+			
+			if (isset($Token[4]) && (strlen($Token[4])==32)) 
+			{
+				if (isset($Token[5]) && ($Token[5]=='s'))
+				{
+					setcookie('BevoReferralS', $Token[4], time()+365*24*60*60, '/');
+				} else {
+					setcookie('BevoReferral', $Token[4], time()+365*24*60*60, '/');
+				}
+				
+				header('Location: /BevoMedia/User/Register.html');
+				die;
+			}
 		}
-		
 		$Sql = "SELECT
 			bevomedia_name_your_price_niche.*
 		FROM
