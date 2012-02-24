@@ -560,7 +560,7 @@ Class UserController extends ClassComponent
 	 * Register Page Functionality
 	 */
 	Public Function Register()
-	{ echo 'Register()'."<br />\n";
+	{ 
 	
 		if (!isset($_GET['apiKeyCreateUser']))
 		{
@@ -608,11 +608,11 @@ Class UserController extends ClassComponent
 		";
 		$this->ExpLevels = $this->db->fetchAll($Sql);
 		
-		echo "register() _POST<br />\n";
-		print_r($_POST);
+//		echo "register() _POST<br />\n";
+//		print_r($_POST);
 		
 		if(isset($_POST['registerFormSubmit']))
-		{ echo 'registerFormSubmit'."<br >\n";
+		{ //echo 'registerFormSubmit'."<br >\n";
 			$user = new User();
 			$niche = $_POST['niche'];
 			unset($_POST['niche']);
@@ -1902,7 +1902,7 @@ Public Function MyProducts()
 //		print_r($_POST);
 		$jsonData = urldecode($_POST['data']);
 		$data = json_decode($jsonData);
-		print_r($data);
+//		print_r($data);
 		$postData = array();
 		$postData['FirstName'] = $data->user->_firstName;
 		$postData['LastName'] = $data->user->_lastName;
@@ -1930,12 +1930,12 @@ Public Function MyProducts()
 		$postData['EULAAccepted'] = '1';
 		$postData['registerFormSubmit'] = 'Submit Query';
 		
-		echo "postData:<br />\n";
-		print_r($postData);
+//		echo "postData:<br />\n";
+//		print_r($postData);
 		
-		echo "_POST:<br />\n";
+//		echo "_POST:<br />\n";
 		$_POST = $postData;
-		print_r($_POST);
+//		print_r($_POST);
 //		print_r($postData);
 		$this->Register();
 		die('end jsonInsertUser');
