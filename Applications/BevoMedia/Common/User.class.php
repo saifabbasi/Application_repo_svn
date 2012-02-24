@@ -556,7 +556,8 @@ Class User {
 			$this->id = $this->_db->lastInsertId();
 			
 			if (isset($Insert['apiKey'])) {
-				$Sql = "UPDATE bevomedia_user SET apiKey = '{$Insert['apiKey']}' WHERE id = {$this->id} ";
+				$Sql = "UPDATE bevomedia_user SET apiKey = {$Insert['apiKey']} WHERE id = {$this->id} ";
+				echo $Sql."<br />\n";
 				$this->_db->exec($Sql);
 			}
 		}else{
