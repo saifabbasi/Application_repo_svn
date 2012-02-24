@@ -867,6 +867,7 @@ Class User {
 		unset($Data['EULAAccepted']);
 		unset($Data['Timezone']);
 		unset($Data['Username']);
+		unset($Data['apiKey']);
 		foreach($Data as $Key=>$Value)
 		{
 			$Insert[$Key] = $Value;

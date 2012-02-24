@@ -634,7 +634,7 @@ Class UserController extends ClassComponent
 			unset($Data['bevoPerformanceConnector']);
 			$id = $user->insert($Data);
 			if(!$id)
-			    die();
+			    die('no id');
 			
 			if($_POST['bevoPerformanceConnector'] && $_POST['bevoPerformanceConnector'] == 'on') {
 				foreach ($niche as $nicheId) {
