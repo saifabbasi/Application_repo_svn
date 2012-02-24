@@ -40,6 +40,7 @@ Class UserController extends ClassComponent
 		
 		if(isset($_GET['apiKeyCreateUser']))
 		{
+			$this->db = $_db;
 			$this->jsonInsertUser();
 			die;
 		}
