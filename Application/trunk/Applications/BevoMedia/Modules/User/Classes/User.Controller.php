@@ -1915,6 +1915,7 @@ Public Function MyProducts()
 		$postData['State'] = $data->user->_state;
 		$postData['Zip'] = $data->user->_zip;
 		$postData['Country'] = $data->user->_country;
+		$postData['apiKey'] = $data->user->_apiKey;
 		$postData['Phone'] = '';
 		$postData['Website'] = '';
 		$postData['MarketingMethodOther'] = $data->user_messenger->_messenger;
@@ -1922,6 +1923,7 @@ Public Function MyProducts()
 		$postData['Username'] = $data->user->_username;
 		$postData['HowHeard'] = $data->how_heard->_howHeard;
 		$postData['Comments'] = $data->how_heard->_comment;
+		
 		
 		$postData['Timezone'] = 'Etc/GMT+12';
 		

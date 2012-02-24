@@ -554,6 +554,11 @@ Class User {
 			$Sql = "Insert INTO bevomedia_user (email, username, password) VALUES ($Insert[Email], $Insert[Username], md5($Insert[Password]))";
 			$this->_db->exec($Sql);
 			$this->id = $this->_db->lastInsertId();
+			
+			if (isset($Insert['apiKey'])) {
+				$Sql = "UPDATE bevomedia_user SET apiKey = '{$Insert['apiKey']}' WHERE id = {$this->id} ";
+				$this->_db->exec($Sql);
+			}
 		}else{
 			echo 'ERROR EMAIL ALREADY TAKEN';
 			return 0;
