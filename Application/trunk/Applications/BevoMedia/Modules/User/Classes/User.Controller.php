@@ -604,7 +604,8 @@ Class UserController extends ClassComponent
 		";
 		$this->ExpLevels = $this->db->fetchAll($Sql);
 		
-		
+		echo "register() _POST<br />\n";
+		print_r($_POST);
 		
 		if(isset($_POST['registerFormSubmit']))
 		{ echo 'registerFormSubmit'."<br >\n";
@@ -1931,6 +1932,7 @@ Public Function MyProducts()
 		print_r($_POST);
 //		print_r($postData);
 		$this->Register();
+		die('end jsonInsertUser');
 	}
 	
 }
