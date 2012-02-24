@@ -607,7 +607,7 @@ Class UserController extends ClassComponent
 		
 		
 		if(isset($_POST['registerFormSubmit']))
-		{
+		{ echo 'registerFormSubmit'."<br >\n";
 			$user = new User();
 			$niche = $_POST['niche'];
 			unset($_POST['niche']);
