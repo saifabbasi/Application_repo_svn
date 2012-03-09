@@ -200,7 +200,7 @@ if(userTimezoneOffset == false)
 			 <div id="header">
 			 
 			 <?php 
-			 	$statsObject = json_decode(file_get_contents('http://'.$_COOKIE['v3domain'].'/user/json-top-drop-stats/apiKey/'.$this->User->apiKey));
+			 	$statsObject = json_decode(file_get_contents('http://affportal.bevomedia.com/user/json-top-drop-stats/apiKey/'.$this->User->apiKey));
 			 ?>
 			 
  			 <div id="topdrop">
@@ -304,7 +304,7 @@ if(userTimezoneOffset == false)
 			 <div id="subhead">
 				<a class="btn headlogo" href="http://<?php echo $_COOKIE['v3domain']; ?>/tracker_click/dashboard">BevoMedia Exchange</a>
 					
-					<a class="subheadfeat network" href="#">
+					<a class="subheadfeat network" href="http://<?php echo $_COOKIE['v3domain']; ?>/user_affiliate_network/edit/network/1052">
 						<span class="part title">
 							<span class="label">
 								<strong>Network</strong><br />of the month
@@ -313,7 +313,7 @@ if(userTimezoneOffset == false)
 						<img src="http://s3.amazonaws.com/bevomedia-media/public/images/best-for-month/network-of-the-month.png" alt="" />
 					</a>
 					
-					<a class="subheadfeat" href="#">
+					<a class="subheadfeat" href="http://offers.bevomedia.com/Offer.html?id=65645" target="_blank">
 						<span class="part title">
 							<span class="bg"></span>
 							<span class="label">
