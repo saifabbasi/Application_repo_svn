@@ -1069,7 +1069,7 @@ Class UserController extends ClassComponent
 		    	
 		    	$this->User->setVaultID($result['customer_vault_id'], $vaultLast4Digits);
 
-		    	$v3result = file_get_contents('http://affportal.bevomedia.com/user/verify-user/user/'.$_SESSION['User']['ID'].'/vault/'.$result['customer_vault_id'].'/last4digits/'.$vaultLast4Digits);
+		    	$v3result = file_get_contents('http://affportal.bevomedia.com/user/verify-user/apiKey/'.$this->User->apiKey.'/vault/'.$result['customer_vault_id'].'/last4digits/'.$vaultLast4Digits);
 		    	$v3result = json_decode($v3result);
 		    	
 		    	if ($v3result->success==false) {
@@ -1117,7 +1117,7 @@ Class UserController extends ClassComponent
 		    	
 		    	$this->User->setVaultID(0, $vaultLast4Digits);
 
-				$v3result = file_get_contents('http://affportal.bevomedia.com/user/unverify-user/user/'.$_SESSION['User']['ID']);
+				$v3result = file_get_contents('http://affportal.bevomedia.com/user/unverify-user/apiKey/'.$this->User->apiKey);
 		    	$v3result = json_decode($v3result);
 		    	
 		    	if ($v3result->success==false) {
