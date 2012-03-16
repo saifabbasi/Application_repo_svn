@@ -212,7 +212,7 @@ if(userTimezoneOffset == false)
 					</div>
 					<div class="part prominent noborder">
 						<div class="label">Earnings</div>
-						<div class="data">$<?php echo $statsObject->revenueMonth; ?></div>
+						<div class="data">$<?php echo $statsObject->revenueToday; ?></div>
 					</div>
 					<div class="part">
 						<div class="label">Clicks to Offer</div>
