@@ -1,3 +1,14 @@
+<?php 
+	//if v3
+	if(	isset($_GET['v3apps']) && $_GET['v3apps'] == 'true'
+	&&	isset($_GET['v3domain']) && $_GET['v3domain'] == 'ec2-50-17-32-244.compute-1.amazonaws.com'
+	) {
+		$bevoversion = 3;
+	//v2
+	} else {
+		$bevoversion = 2;
+	}
+?>
 <div id="pagemenu">
 	<?php if($vaultID > 0) { //if verified, show pagemenu, else hide it
 	?>
@@ -133,7 +144,15 @@ foreach ($this->Countries as $CountryItt)
 			</label>
 			
 			<div class="soapyell simple">
-				<p class="soapyell-exmark">There is NO setup cost to verify your account. Verified users incur a $19.95/month server fee.</p>
+				<?php if($bevoversion == 3) {
+				?>
+					<p class="soapyell-exmark">Verified users incur a $19.95/month server fee.</p>
+				
+				<?php } else { ?>		
+					
+					<p class="soapyell-exmark">There is NO setup cost to verify your account. Verified users incur a $19.95/month server fee.</p>
+				
+				<?php }	?>
 			</div>
 			
 			<div class="ccnumber">
@@ -274,36 +293,69 @@ for ($i=date('Y'); $i<=(date('Y')+10); $i++)
 	
 		<h3>FEATURES</h3>
 		
-		<ul class="soapchecklist">
-			<li>
-				<p>Unlimited Access</p>
-				<span>Get unlimited access to all of Bevo's greatest features. Bevo is constantly creating and launching new features, verified users get to experience all of them.</span>
-			</li>
-			<li>
-				<p>Exact Keyword Tracking</p>
-				<span>Verified users have everything automated. Keyword tracking and campaign performance data is exact. Users are able to measure exact revenue and expense data allowing them all the information needed to fully optimize their campaigns.</span>
-			</li>
-			<li>
-				<p>Automated Data</p>
-				<span>For verified members, network stats sync automatically. Also, members will get full functionality and optimal use from the analytics and PPC management pages as all data will synch automatically.</span>
-			</li>
-			<li class="icon icon_star_red">
-				<p>FREE Access to:</p>
-				<span>Get FREE instant access to <em>Overnight Affiliate</em>, a step-by-step walkthrough of every aspect a beginner affiliate needs to get a profitable campaign. It\'s packed with videos, step-by-step instructions, example campaigns, and weekly webinars where verifed users can get personalized one-on-one help specifically for their own campaigns.</span>
-				<br />
-				<img src="/Themes/BevoMedia/img/pagedesc_overaff.png" alt="Overnight Affiliate" />
-			</li>
-			<?php /*
-			<li>
-				<p>All for only</p>
-				<div class="sideprice">
-					<span class="sideprice_pre">$</span>
-					<span class="sideprice_price">19.95</span>
-					<span class="sideprice_trail">/mo.</span>
-				</div>
-			</li>
-			*/ ?>
-		</ul>
+		<?php if($bevoversion == 3) { //v3
+		?>		
+		
+			<ul class="soapchecklist">
+				<li>
+					<p>Unlimited Access</p>
+					<span>Get unlimited access to all of Bevo's greatest features. Bevo is constantly creating and launching new features, verified users get to experience all of them.</span>
+				</li>
+				<li>
+					<p>Bevo Self-Hosted with waived setup fee</p>
+					<span>Verified users may download and run the self-hosted version of the Bevo Affiliate Tracker on their own servers without any setup fees.</span>
+				</li>
+				<li>
+					<p>Automated Data</p>
+					<span>For verified users, network stats sync automatically. Also, members will get full functionality and optimal use from the analytics and PPC management pages as all data will synch automatically.</span>
+				</li>
+				<li>
+					<p>One-Step Affiliate Links</p>
+					<span>Verified users can retrieve their affiliate links from the networks they have added to Bevo with one click. No need to log in to the network's interface and hunt down offers anymore!</span>
+				</li>
+				<li>
+					<p>Access to Premium Research Tools</p>
+					<span>As a verified user, you will receive instant access to some of the best research tools in the industry that normally cost a fee. These premium tools are a must for any professional internet marketer's arsenal.</span>
+				</li>
+				<li class="icon icon_star_red">
+					<p>FREE Access to:</p>
+					<span>Get FREE instant access to <em>Overnight Affiliate</em>, a step-by-step walkthrough of every aspect a beginner affiliate needs to get a profitable campaign. It\'s packed with videos, step-by-step instructions, example campaigns, and weekly webinars where verifed users can get personalized one-on-one help specifically for their own campaigns.</span>
+					<br />
+					<img src="/Themes/BevoMedia/img/pagedesc_overaff.png" alt="Overnight Affiliate" />
+				</li>
+				<li>
+					<p>Live Chat Support</p>
+					<span>Stuck? Need some help? It happens to all of us, but do not worry: Bevo's Support Team is ready to take your problem and give you the solution. Instant live chat support is available to all verified users for free.</span>
+				</li>
+			</ul>
+			
+		<?php } else { //v2
+		?>
+			
+			<ul class="soapchecklist">
+				<li>
+					<p>Unlimited Access</p>
+					<span>Get unlimited access to all of Bevo's greatest features. Bevo is constantly creating and launching new features, verified users get to experience all of them.</span>
+				</li>
+				<li>
+					<p>Exact Keyword Tracking</p>
+					<span>Verified users have everything automated. Keyword tracking and campaign performance data is exact. Users are able to measure exact revenue and expense data allowing them all the information needed to fully optimize their campaigns.</span>
+				</li>
+				<li>
+					<p>Automated Data</p>
+					<span>For verified members, network stats sync automatically. Also, members will get full functionality and optimal use from the analytics and PPC management pages as all data will synch automatically.</span>
+				</li>
+				<li class="icon icon_star_red">
+					<p>FREE Access to:</p>
+					<span>Get FREE instant access to <em>Overnight Affiliate</em>, a step-by-step walkthrough of every aspect a beginner affiliate needs to get a profitable campaign. It\'s packed with videos, step-by-step instructions, example campaigns, and weekly webinars where verifed users can get personalized one-on-one help specifically for their own campaigns.</span>
+					<br />
+					<img src="/Themes/BevoMedia/img/pagedesc_overaff.png" alt="Overnight Affiliate" />
+				</li>
+			</ul>
+			
+		<?php } ?>
+			
+			
 	</div><!--close sidecontent-->
 	<div class="sidebutt"></div>
 </div><!--close right-->
