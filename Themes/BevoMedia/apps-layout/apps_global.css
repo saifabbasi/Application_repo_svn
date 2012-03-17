@@ -71,7 +71,7 @@ body { font-family:Helvetica, Arial, sans-serif; color:#333; font-size:75%; back
 
 	/*header - subhead*/
 #subhead a.btn.headlogo { margin:-14px 20px 0 -20px; float:left; }
-#subhead a.subheadfeat { height:44px; margin:0 10px 0 0; float:left; background:#f2f2f2; border:1px solid #f2f2f2; overflow:hidden;
+#subhead a.subheadfeat { height:44px; margin:0 10px 0 0; float:left; background:#fff; border:1px solid #ccc; overflow:hidden;
 		-moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px; }
         #subhead a.subheadfeat:hover { background:#f9f9f9; border-color:#e1e1e1; }
 
@@ -79,20 +79,20 @@ body { font-family:Helvetica, Arial, sans-serif; color:#333; font-size:75%; back
                 	#subhead a.subheadfeat.network:hover { background:#FFE87A; }
 	
 	#subhead .subheadfeat .part { border-color:#E6E6E6; }
-		#subhead .subheadfeat .title { width:70px; height:100%; padding:14px 0 0 10px; margin:0 9px 0 0; background:#e6e6e6; position:relative; }
+		#subhead .subheadfeat .title { width:80px; height:100%; padding:14px 0 0 10px; margin:0 9px 0 0; background:#b3b3b3; position:relative; }
                 #subhead .subheadfeat .title .bg { width:10px; height:58px; position:absolute; top:-8px; right:-9px; display:block; background:url(http://s3.amazonaws.com/bevomedia-media/public/images/header/subheadfeat_title.png) no-repeat; }
 			#subhead .subheadfeat.network .title { width:86px; height:42px; padding:19px 0 0 22px; margin:-6px 0 0 -13px; color:#fff !important; background:url(http://s3.amazonaws.com/bevomedia-media/public/images/header/subheadfeat_title_network.png) no-repeat;}
 
-			#subhead .subheadfeat .title .label { color:#b3b3b3; }
-			#subhead .subheadfeat .title .label strong { color:#999; }
+			#subhead .subheadfeat .title .label { color:#fff; font-size:.75em; }
+			#subhead .subheadfeat .title .label strong { color:#fff; }
 
-			#subhead .subheadfeat.network .title .label,
-			#subhead .subheadfeat.network .title .label strong { color:#fff; }
+			#subhead .subheadfeat.network .title .label {}
+			#subhead .subheadfeat.network .title .label strong {}
 			
-		#subhead .subheadfeat .part .data { color:#999; }
+		#subhead .subheadfeat .part .data { color:#333; }
 			#subhead .subheadfeat .part .data.txtsmall { padding:4px 2px; display:block; font-size:10px; }
 			#subhead .subheadfeat .part .data.oneline { padding-top:10px; display:block; }
-				#subhead .subheadfeat .part .data.oneline .txtsmall { margin:; color:#ccc; }
+				#subhead .subheadfeat .part .data.oneline .txtsmall { margin:; color:#666; }
 				
 		#subhead .subheadfeat img { margin:5px 8px; }
 
