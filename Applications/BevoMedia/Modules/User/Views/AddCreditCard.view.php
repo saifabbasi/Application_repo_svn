@@ -1,8 +1,6 @@
 <?php 
 	//if v3
-	if(	isset($_GET['v3apps']) && $_GET['v3apps'] == 'true'
-	&&	isset($_GET['v3domain']) && $_GET['v3domain'] == 'ec2-50-17-32-244.compute-1.amazonaws.com'
-	) {
+	if (isset($_COOKIE['v3apps']) && ($_SERVER['SERVER_NAME'] == 'apps.bevomedia.com')) {
 		$bevoversion = 3;
 	//v2
 	} else {
