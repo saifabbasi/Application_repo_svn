@@ -79,7 +79,7 @@ ul.soapnumlist { list-style:none; margin:0 0 15px; padding:0; }
 .soapyell p.soapyell-centermark { background-position:10px center !important; }
 
 	/*icons*/
-.icon.icon_paymentcc { width:74px; height:22px; background:url(img_new/icon_paymentcc.png) no-repeat; }
+.icon.icon_paymentcc { width:113px; height:22px; background:url(img_new/icon_paymentcc.png) no-repeat; }
 .icon.icon_working_48 { width:48px; height:48px; background:url(img_new/icon_working_48.gif) no-repeat; }
 
 	/*text buttons*/
