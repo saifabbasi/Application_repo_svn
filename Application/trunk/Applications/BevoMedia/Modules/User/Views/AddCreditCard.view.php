@@ -42,7 +42,13 @@
 		}
 	?>
 	
-	<p>Verifying your account gives you access to the entire Bevo Interface. With a verified account, users can track keyword and campaign performance with exact revenue and expense data. Verified Bevo Users can auto-sync all of their Network Stats, access the Premium Research Tools and view and retrieve their specific network offers. Also, users gain optimum use of the analytics and PPC management pages as all stats will sync automatically.</p>
+	<p>Verifying your account gives you access to the entire Bevo Interface. With a verified account, users can track keyword and campaign performance with exact revenue and expense data. Verified Bevo Users can auto-sync all of their Network Stats, access the Premium Research Tools and view and retrieve their specific network offers.
+	<?php if($bevoversion == 3)
+		echo ' Also, users have access premium support using our live chat support.';
+	else	echo ' Also, users gain optimum use of the analytics and PPC management pages as all stats will sync automatically.';
+	?>
+		
+	</p>
 	
 	<p><strong>Verify your account now by filling out the form below:</strong><br />
 	<small><em>Required fields are marked with a (*)</em></small></p>
