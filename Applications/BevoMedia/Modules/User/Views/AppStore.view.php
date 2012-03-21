@@ -21,7 +21,7 @@
 			<h3 class="apptitle">Bevo PPV Spy</h3>
 			<p>PPV Spy is the only research tool for Pay-Per-View ads in existence. By using it, you will get unique insights into what works for your competitors - and what doesn't. It's all at your fingertips and ready to be replicated.</p>
 			
-			<a class="btn btn_appstore_watchvideo" rel="shadowbox;width=900;height=506;" href="http://player.vimeo.com/video/17655071?byline=0&amp;portrait=0&amp;color=ff9933&amp;autoplay=1">Watch Video</a>
+			<a class="btn btn_appstore_watchvideo" rel="shadowbox;width=900;height=506;" href="https://player.vimeo.com/video/17655071?byline=0&amp;portrait=0&amp;color=ff9933&amp;autoplay=1">Watch Video</a>
 			
 			<h3>Features</h3>
 			<ul class="soapchecklist checkwhite">
@@ -261,7 +261,7 @@
 							} else 
 							{
 						?>
-							<a class="btn btn_appstore_launchapp" href="http://<?php echo $_COOKIE['v3domain']; ?>/geotarget/list/" target="_blank">Launch App</a>
+							<a class="btn btn_appstore_launchapp" href="https://<?php echo $_COOKIE['v3domain']; ?>/geotarget/list/" target="_blank">Launch App</a>
 						<?php 	
 							}
 						?>
@@ -339,7 +339,7 @@
 							} else 
 							{
 						?>
-							<a class="btn btn_appstore_launchapp" href="http://<?php echo $_COOKIE['v3domain']; ?>/daytarget/list/" target="_blank">Launch App</a>						
+							<a class="btn btn_appstore_launchapp" href="https://<?php echo $_COOKIE['v3domain']; ?>/daytarget/list/" target="_blank">Launch App</a>						
 						<?php 
 							}
 						?>
