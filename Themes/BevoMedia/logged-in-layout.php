@@ -755,6 +755,9 @@ $(document).ready(function () {
 //]]>
 </script>
 
+<?php 
+	if (!isset($_SERVER['HTTPS'])) {
+?>
 <script type="text/javascript">
 var sc_project=7778761; 
 var sc_invisible=1; 
@@ -762,7 +765,9 @@ var sc_security="ce27f004";
 </script>
 <script type="text/javascript" src="http://www.statcounter.com/counter/counter.js"></script>
 <noscript><div class="statcounter"><a title="tumblr pagecounter" href="http://statcounter.com/tumblr/" target="_blank"><img class="statcounter" src="http://c.statcounter.com/7778761/0/ce27f004/1/" alt="tumblr page counter"></a></div></noscript>
-
+<?php 
+	}
+?>
 <!--[if lt IE 7]><div id="srykthxbai">We're sorry, but your browser is too old for BevoMedia.<br />This application requires a modern browser to run smoothly and safely.<br />Please upgrade your browser.<br />Thank you.</div><![endif]-->
 <script type="text/javascript">
 //<![CDATA[
