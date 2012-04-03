@@ -942,6 +942,7 @@ Class UserController extends ClassComponent
 		
 		if ($UserInfo->username!='')
 		{
+			setcookie('user_id', $_SESSION['User']['ID'], time()+3600*24*31, '/');
 			$Username = $this->db->quote($UserInfo->username);
 			
 			$Sql = "SELECT * FROM phpbb_users WHERE username = {$Username}";
