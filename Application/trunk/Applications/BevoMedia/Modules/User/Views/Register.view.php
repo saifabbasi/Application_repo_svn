@@ -10,7 +10,19 @@
 	<h2>Register a BeVo Media Account</h2>	
 </div>
 
+<div class="clear"></div>
 
+<div style="margin-left: 30px;">
+
+	<b>You can no longer register for the old Bevo Media interface. To create a new account with our new platform, please sign up here: <a href="http://affportal.bevomedia.com/user/register">http://affportal.bevomedia.com/user/register</a></b>
+
+</div>
+
+<br /><br />
+
+<?php 
+/*
+?>
 <div class="clear"></div>
 
 <form method="post" 
@@ -505,3 +517,6 @@ $(document).ready(function(){
 <br/>
 
 </form>
+
+*/
+?>
