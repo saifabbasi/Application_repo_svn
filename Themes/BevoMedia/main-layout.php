@@ -25,6 +25,12 @@ Shadowbox.init({
 
 </head>
 
+<div id='selfHostedUpdateBar'>
+    <span class='info'>
+    	This is the old version of Bevo Media. Please visit our new version at <a href="http://affportal.bevomedia.com">http://affportal.bevomedia.com</a>.
+    </span>
+</div>
+
 <body>
 <div id="wrap">
 <div id="header">
@@ -35,6 +41,7 @@ Shadowbox.init({
 <!-- END EDIT -->
 
 </div>
+
 
 
 <div id="container">

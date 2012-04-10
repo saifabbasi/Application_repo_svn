@@ -211,7 +211,28 @@ abstract class CakeMarketingAbstract Extends NetworksAbstract {
 			$advertiserExtendedTerms = $offer->tags->advertiser_extended_terms;
 			
 			
-//			echo $offerId."\n";
+			$campaignId = (string) $offer->campaign_id;
+			$creativeInfo = 0;
+			if ($campaignId!='')
+			{
+				$domain = parse_url($this->offersUrl);
+				$domain = $domain['host'];
+				$campaignInfoUrl = 'http://'.$domain."/affiliates/api/2/offers.asmx/GetCampaign?affiliate_id={$this->offersAffiliateId}&api_key={$this->offersApiKey}&campaign_id={$campaignId}";
+				
+				$campaignInfoData = file_get_contents($campaignInfoUrl);
+				$campaignInfoXml = simplexml_load_string($campaignInfoData);
+				
+				$creativeId = 0;
+				if ($campaignInfoXml)
+				{
+					if (count($campaignInfoXml->campaign->creatives)>0)
+					{
+						$creativeInfo = $campaignInfoXml->campaign->creatives->creative_info[0]->creative_id;
+					}
+				}
+			} 
+			
+			echo $offerId."<br />\n";
 //			echo $offerName."\n";
 //			echo $offerType."\n";
 			$countries = array();
@@ -233,7 +254,7 @@ abstract class CakeMarketingAbstract Extends NetworksAbstract {
 			$OfferObj->imageUrl = $thumbnailImageUrl;
 			$OfferObj->offerContractId = $offerContract;
 			$OfferObj->cakeStatus = $cakeStatus;
-			
+			$OfferObj->creativeInfo = $creativeInfo;
 			$OfferObj->offerType = 'Lead';
 			if (strstr($payout, '%')) {
 				$OfferObj->offerType = 'Sale';
