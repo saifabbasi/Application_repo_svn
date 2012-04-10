@@ -107,6 +107,13 @@ if(userTimezoneOffset == false)
 <?php */?>
 
 </head>
+
+<div id='selfHostedUpdateBar'>
+    <span class='info'>
+    	You are using an old version of Bevo Media. Please regenerate all of your old tracking links on our new version at <a href="http://affportal.bevomedia.com">http://affportal.bevomedia.com</a>. Our old version will be discontinued starting May 1st, 2012.
+    </span>
+</div>
+
 <body><?php /* ################################################################# BODY */ ?>
 
 	<script type="text/javascript">
