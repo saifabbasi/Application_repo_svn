@@ -302,9 +302,9 @@ if(userTimezoneOffset == false)
 			 
 		    	
 			 <div id="subhead">
-				<a class="btn headlogo" href="https://<?php echo $_COOKIE['v3domain']; ?>/tracker_click/dashboard">BevoMedia Exchange</a>
+				<a class="btn headlogo" href="http://<?php echo $_COOKIE['v3domain']; ?>/tracker_click/dashboard">BevoMedia Exchange</a>
 					
-					<a class="subheadfeat network" href="https://<?php echo $_COOKIE['v3domain']; ?>/affiliate_network/apply-for-network/network/1052">
+					<a class="subheadfeat network" href="http://<?php echo $_COOKIE['v3domain']; ?>/affiliate_network/apply-for-network/network/1052">
 						<span class="part title">
 							<span class="label">
 								<strong>Network</strong><br />of the month
@@ -352,9 +352,9 @@ if(userTimezoneOffset == false)
 				<div id="nav">
 					<div class="navtop"></div>
 					<ul class="parent">
-						<li class="navli nav_networks"><a class="navbtn" href="https://<?php echo $_COOKIE['v3domain']; ?>/affiliate_network/list">Networks</a></li>
-						<li class="navli nav_tracker"><a class="navbtn" href="https://<?php echo $_COOKIE['v3domain']; ?>/tracker_click/cumulative-stats">Tracker</a></li>
-						<li class="navli nav_classroom"><a class="navbtn" href="https://<?php echo $_COOKIE['v3domain']; ?>/classroom_section/list">Classroom</a></li>
+						<li class="navli nav_networks"><a class="navbtn" href="http://<?php echo $_COOKIE['v3domain']; ?>/affiliate_network/list">Networks</a></li>
+						<li class="navli nav_tracker"><a class="navbtn" href="http://<?php echo $_COOKIE['v3domain']; ?>/tracker_click/cumulative-stats">Tracker</a></li>
+						<li class="navli nav_classroom"><a class="navbtn" href="http://<?php echo $_COOKIE['v3domain']; ?>/classroom_section/list">Classroom</a></li>
 						<li class="navli nav_apps active">
 							<a class="navbtn" href="#">Apps</a>
 							<div class="kids">
@@ -378,19 +378,19 @@ if(userTimezoneOffset == false)
 								</ul>
 							</div>
 						</li>
-						<li class="navli nav_tools"><a class="navbtn" href="https://<?php echo $_COOKIE['v3domain']; ?>/tracker_click/delete-stats">Tools</a></li>
+						<li class="navli nav_tools"><a class="navbtn" href="http://<?php echo $_COOKIE['v3domain']; ?>/tracker_click/delete-stats">Tools</a></li>
 						
-						<li class="navli nav_dashboard floatright"><a class="navbtn" href="https://<?php echo $_COOKIE['v3domain']; ?>/tracker_click/dashboard">Dashboard</a></li>
-						<li class="navli nav_help floatright"><a class="navbtn" href="https://<?php echo $_COOKIE['v3domain']; ?>/tutorial_section/list">Help</a></li>
-						<li class="navli nav_account floatright"><a class="navbtn" href="https://<?php echo $_COOKIE['v3domain']; ?>/user/my-profile">My Account</a></li>
+						<li class="navli nav_dashboard floatright"><a class="navbtn" href="http://<?php echo $_COOKIE['v3domain']; ?>/tracker_click/dashboard">Dashboard</a></li>
+						<li class="navli nav_help floatright"><a class="navbtn" href="http://<?php echo $_COOKIE['v3domain']; ?>/tutorial_section/list">Help</a></li>
+						<li class="navli nav_account floatright"><a class="navbtn" href="http://<?php echo $_COOKIE['v3domain']; ?>/user/my-profile">My Account</a></li>
 					</ul>
 				</div><!--close nav-->
 				
 				<div class="sidead left">
-					<a href="https://<?php echo $_COOKIE['v3domain']; ?>/affiliate_network/apply-for-network/network/1080"><img src="https://s3.amazonaws.com/bevomedia-media/public/images/side-banners/left.jpg" alt=""></a>
+					<a href="http://<?php echo $_COOKIE['v3domain']; ?>/affiliate_network/apply-for-network/network/1080"><img src="https://s3.amazonaws.com/bevomedia-media/public/images/side-banners/left.jpg" alt=""></a>
 				</div>
 				<div class="sidead right">
-					<a href="https://<?php echo $_COOKIE['v3domain']; ?>/affiliate_network/apply-for-network/network/1080"><img src="https://s3.amazonaws.com/bevomedia-media/public/images/side-banners/right.jpg" alt=""></a>
+					<a href="http://<?php echo $_COOKIE['v3domain']; ?>/affiliate_network/apply-for-network/network/1080"><img src="https://s3.amazonaws.com/bevomedia-media/public/images/side-banners/right.jpg" alt=""></a>
 				</div>
 				
 				<div id="content" class="content">
@@ -413,16 +413,16 @@ if(userTimezoneOffset == false)
 				<br />
 				
 				<ul class="footlist txtmgray">
-					<li><a href="https://<?php echo $_COOKIE['v3domain']; ?>/affiliate_network/list">Networks</a></li>
-					<li><a href="https://<?php echo $_COOKIE['v3domain']; ?>/tracker_click/cumulative-stats">Tracker</a></li>
-					<li><a href="https://<?php echo $_COOKIE['v3domain']; ?>/offer/offerhub">Offers</a></li>
-					<li><a href="https://<?php echo $_COOKIE['v3domain']; ?>/classroom_section/list">Classroom</a></li>
+					<li><a href="http://<?php echo $_COOKIE['v3domain']; ?>/affiliate_network/list">Networks</a></li>
+					<li><a href="http://<?php echo $_COOKIE['v3domain']; ?>/tracker_click/cumulative-stats">Tracker</a></li>
+					<li><a href="http://<?php echo $_COOKIE['v3domain']; ?>/offer/offerhub">Offers</a></li>
+					<li><a href="http://<?php echo $_COOKIE['v3domain']; ?>/classroom_section/list">Classroom</a></li>
 					<li><a href="#">Apps</a></li>
 					<li><a href="#">Tools</a></li>
 				</ul>
 				
 				<ul class="footlist txtmgray">
-					<li><a href="https://<?php echo $_COOKIE['v3domain']; ?>/tracker_click/dashboard">Dashboard</a></li>
+					<li><a href="http://<?php echo $_COOKIE['v3domain']; ?>/tracker_click/dashboard">Dashboard</a></li>
 					<li><a href="#">Help</a></li>
 					<li><a href="#">My Bevo Account</a></li>
 				</ul>
