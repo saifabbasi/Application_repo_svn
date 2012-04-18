@@ -1831,6 +1831,26 @@ Public Function MyProducts()
 		die;
 	}
 	
+	public function jsonVerifyUnverifyUser()
+	{ 
+		$jsonData = urldecode($_POST['data']);
+		$data = (array)json_decode($jsonData); 
+		
+		$userId = (int) $data['userId'];
+		$verify = (bool) $data['verify'];
+
+		if ($verify) {
+			$sql = "UPDATE bevomedia_user SET vaultID = 1, vaultLast4Digits = 1234 WHERE id = {$userId} ";
+			$this->db->exec($sql);
+		} else {
+			$sql = "UPDATE bevomedia_user SET vaultID = 0, vaultLast4Digits = 0 WHERE id = {$userId} ";
+			$this->db->exec($sql);
+		}
+		
+		
+		die;
+	}
+	
 	public function jsonInsertNicheTopOffer()
 	{ 
 		$nichesMapper = array(
