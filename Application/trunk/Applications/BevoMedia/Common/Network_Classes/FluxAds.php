@@ -1,9 +1,9 @@
 <?php 
 
-require_once('DirectTrack.Abstract.php');
+require_once('CakeMarketing.Abstract.php');
 
 /**
- * FluxAds.php
+ * Convert2Media.php
  *
  * @category   RCS Framework 
  * @package    Modules
@@ -12,33 +12,45 @@ require_once('DirectTrack.Abstract.php');
  * @author RCS
  * @version 0.1.2
  */
-class FluxAds Extends DirectTrackAbstract {
+class FluxAds Extends CakeMarketingAbstract {
 	/**
 	 * @access protected
 	 * @var string $apiUrl
 	 */
-	protected $apiUrl = 'http://123.fluxads.com/api/soap_affiliate.php';
+	protected $apiUrl = 'http://my.fluxads.com/affiliates/api/1/reports.asmx/Clicks';
 	
 	/**
 	 * @access protected
-	 * @var string $offersUsername
+	 * @var string $apiUrlConversions
 	 */
-	protected $offersUsername = 'CD11827';
+	protected $apiUrlConversions = 'http://my.fluxads.com/affiliates/api/1/reports.asmx/Conversions';
 	
 	/**
 	 * @access protected
-	 * @var string $offersPassword
+	 * @var string $offersUrl
 	 */
-	protected $offersPassword = 'yoyoyo1025';
+	protected $offersUrl = 'http://my.fluxads.com/affiliates/api/1/offers.asmx/OfferFeed';
 	
 	/**
 	 * @access protected
-	 * @var string $apiClient
+	 * @var string $loginUrl
 	 */
-	protected $apiClient = 'flux';
+	protected $loginUrl = 'http://my.fluxads.com/login.php';
 	
 	/**
-	 * FluxAds class constructor.
+	 * @access protected
+	 * @var string $offersAffiliateId
+	 */
+	protected $offersAffiliateId = '11827';
+	
+	/**
+	 * @access protected
+	 * @var string $offersApiKey
+	 */
+	protected $offersApiKey = 'VCZOtS4uSqqDgiajccYZA';
+	
+	/**
+	 * Convert2Media class constructor.
 	 *
 	 */
 	Public Function __construct()
