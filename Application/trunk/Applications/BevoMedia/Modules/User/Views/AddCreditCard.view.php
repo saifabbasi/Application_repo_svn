@@ -383,7 +383,7 @@ for ($i=date('Y'); $i<=(date('Y')+10); $i++)
 	
 	$('#Country').change(function() {
 
-		if ( ($(this).val()=='US') || ($(this).val()=='CA') || ($(this).val()=='AU') )
+		if ( ($(this).val()=='US') || ($(this).val()=='CA') || ($(this).val()=='AU') || ($(this).val()=='IN') )
 		{
 			$('#State option').remove();
 

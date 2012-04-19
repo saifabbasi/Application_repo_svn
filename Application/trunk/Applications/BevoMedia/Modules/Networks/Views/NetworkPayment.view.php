@@ -263,7 +263,7 @@
 		
 		$('#Country').change(function() {
 
-			if ($(this).val()=='US' || $(this).val()=='CA')
+			if (($(this).val()=='US') || ($(this).val()=='CA') || ($(this).val()=='AU') || ($(this).val()=='IN'))
 			{
 				$('#State option').remove();
 
