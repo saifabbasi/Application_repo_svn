@@ -35,7 +35,7 @@ class ClickWinks Extends DirectTrackAbstract {
 	 * @access protected
 	 * @var string $apiClient
 	 */
-	protected $apiClient = 'integraclick';
+	protected $apiClient = 'clickwinks';
 	
 	/**
 	 * ClickBooth class constructor.
