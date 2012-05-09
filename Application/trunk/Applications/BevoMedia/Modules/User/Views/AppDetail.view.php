@@ -65,10 +65,12 @@
 				<a class="tbtn trans" href="/BevoMedia/User/AppStore.html">&#x25C0; back to all apps</a>
 				<h2><?php echo $currentAppData['appName']; ?></h2>
 			</div>
+			
+			<div class="box yell message hide"></div>
 		
 			<p>On this page, you can buy or launch this app. <?php
 				if(in_array($currentID, $userApps)) {
-					echo 'If you have already signed up with '.$currentAppData['appName'].' or bought it, <a href="#"><strong>integrate it with Bevo now</strong></a> and it will appear on your "My Apps" page.'; 
+					echo 'If you have already signed up with '.$currentAppData['appName'].' or bought it, <a class="j_appadd j_addonly" href="#">integrate it with Bevo now</a> and it will appear on your "My Apps" page.'; 
 				} else {
 					echo $currentAppData['appName'].' is currently integrated with your Bevo Media account. To remove it, click the remove button. Please note that any subscriptions or paid plans that you may have subscribed to from within the app will not be canceled when you remove the app from your Bevo Media account.';
 				} ?>
@@ -113,7 +115,7 @@
 					<div class="clear"></div>
 				</div><!--close box-->
 				<div class="box teal noshadow butt">
-					<a class="chkbtn txtteal <?php echo (in_array($currentID, $userApps) ? 'checked' : ''); ?>" href="#" title="Integrate this app with Bevo for quick access">
+					<a id="appadd" class="chkbtn txtteal j_appadd<?php echo (in_array($currentID, $userApps) ? ' checked' : ''); ?>" data-id="<?php echo $currentID; ?>" data-launch="<?php echo $currentAppData['launchURL'] ?>" data-signup="<?php echo $currentAppData['signupURL'] ?>" href="#" title="Integrate this app with Bevo for quick access">
 						<span class="check">&#x2714;</span>
 						<span class="txtunchecked">ADD TO MY APPS</span>
 						<span class="txtchecked">INTEGRATED <span class="small">(remove)</span></span>
@@ -160,3 +162,61 @@
 	<div class="clear"></div>
 	
 </div><!--close pagecontent-->
+
+<script type="text/javascript">
+//integrate app with bevo
+$('.j_appadd').live('click', function() {
+	var	action = $('#appadd').hasClass('checked') ? 'remove' : 'add',
+		id = $('#appadd').attr('data-id'),
+		proceed = false;
+		
+	if($(this).hasClass('j_addonly') && action == 'remove') {
+		$('.message').html('<p><?php echo $currentAppData['appName']; ?> is already integrated with your Bevo Media account! To remove it, use the button below the "Launch" option.</p>').slideDown(200).delay(5000).slideUp(200);
+		
+	} else {
+		
+		if(action == 'remove') {
+			var proceed = confirm("Are you sure you want to remove this app from your Bevo Media account? Doing this will only remove the app from your \"My Apps\" page. It will NOT cancel any subscriptions or accounts you may have with the app itself. Please refer to the app if you want to cancel a subscription.\n\nProceed if you want to remove this app from your Bevo account (you'll still be able to access it from the app store anytime).");
+		} else {
+			proceed = true;	
+		}
+		
+		if(proceed) {
+		
+			/*	AJAX function not developed yet - all it needs to do is call appChangeMyApp(action) on success.
+				you should be able to just fill in the correct php response script url and uncomment the function.
+				remove the following line when implementing ajax*/
+				
+			appChangeMyApp(action);
+			
+			/*
+			$.ajax({
+				type: 'GET',
+				url: php-response-script.php?id='+id+'&action='+action,
+				success: function(r) {
+					appChangeMyApp(action);
+				},
+				error: function(r) {
+					$('.message').html('<p>Something went wrong! The app could not be integrated with your Bevo Media account. Please refresh the page and try again.</p>').slideDown(200);
+				}
+			});	
+			*/
+		}//endif proceed
+	}//endif addonly
+	
+	return false;
+});//j_appadd
+
+function appChangeMyApp(action) {
+	if(action == 'add') {
+		$('#appadd').addClass('checked');
+		$('#apps .topfeat .box.top .floatright a.tbtn.doubleright').removeClass('dgreen').addClass('teal').attr('href', $('#appadd').attr('data-launch')).html('launch');
+		$('.message').html('<p><?php echo $currentAppData['appName']; ?> has been added to your "My Apps" page!</p>').slideDown(200).delay(5000).slideUp(200);
+	} else {
+		$('#appadd').removeClass('checked');
+		$('#apps .topfeat .box.top .floatright a.tbtn.doubleright').removeClass('teal').addClass('dgreen').attr('href', $('#appadd').attr('data-signup')).html('sign up');
+		$('.message').html('<p><?php echo $currentAppData['appName']; ?> has been removed your "My Apps" page!<br />You may still have an open account or a running subscription with the app itself. Please refer to the app itself if you\'d like to cancel that as well.</p>').slideDown(200);
+	}
+}//appChangeMyApp()
+
+</script>

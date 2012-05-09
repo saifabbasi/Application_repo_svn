@@ -70,7 +70,10 @@ h2.icon_apps_big { padding:3px 0 3px 46px; color:#7A95BA; background:url(img/ico
 	.topfeat .box.butt li { padding:3px 10px; line-height:.9em; display:inline-block; white-space:nowrap; }
 
 
-.colmain ul.details { margin:0 0 0 15px; }
+.colmain ul.details { margin:0 0 0 15px; list-style-type:square; }
+.colmain ul.details li { padding:0 0 10px; margin:0 0 10px; border-bottom:1px dashed #ccc; } 
+.colmain .box.message { margin:0 0 15px; }
+.colmain .box.message p { margin:0; line-height:1.2em; font-size:1em; }
 
 .colmain .appwrap { margin:0 -10px 0 0; }
 .colmain .appwrap .box.app { width:203px; height:75px; margin:0 15px 15px 0; text-decoration:none !important; display:block; float:left; position:relative; }
@@ -109,6 +112,8 @@ h2.icon_apps_big { padding:3px 0 3px 46px; color:#7A95BA; background:url(img/ico
 			
 		.app.more a:hover span { color:#29abe2 !important; }
 		.app.more a:hover span.small { text-decoration:underline; }
+
+
 
 
 
