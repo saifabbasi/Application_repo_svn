@@ -45,18 +45,22 @@
 	  * builds HTML for the side navigation menu of app categories
 	  * @param $appCategories array the array of categories
 	  * @param $featuredApp bool id of the featured app of the week
+	  * @param $currentCat str the catURL key in the $appCategories array, optional. highlights the current category if set
 	  * @return string HTML of menu ul 
 	  */
-	function renderAppCatMenu($appCategories=false, $featuredApp=false) {
+	function renderAppCatMenu($appCategories=false, $featuredApp=false, $currentCat=false) {
 		$out = '<ul>'
-			.'<li><a class="txtblack" href="/BevoMedia/User/AppCategory.html?category=my">My Apps</a></li>'
+			.'<li><a class="txtblack'
+				.($currentCat && $currentCat == 'my' ? ' active' : '')
+				.'" href="/BevoMedia/User/AppCategory.html?category=my">My Apps</a></li>'
 			.'<li><a class="txtred" href="/BevoMedia/User/AppDetail.html?id='.$featuredApp.'">App of the Week</a></li>';
 				
 			if($appCategories && is_array($appCategories) && !empty($appCategories)) {
 				for($i=0; $i<=count($appCategories)-1; $i++) {
-					$out .= '<li><a'
-						.($i==0 ? ' class="txtred"' : '')
-						.' href="/BevoMedia/User/AppCategory.html?category='.$appCategories[$i]['catURL'].'">'.$appCategories[$i]['catName'].'</a></li>';
+					$out .= '<li><a class="'
+						.($i==0 ? 'txtred ' : '')
+						.($currentCat && $currentCat == $appCategories[$i]['catURL'] ? 'active' : '')
+						.'" href="/BevoMedia/User/AppCategory.html?category='.$appCategories[$i]['catURL'].'">'.$appCategories[$i]['catName'].'</a></li>';
 				}
 			}
 		$out .= '</ul>';
