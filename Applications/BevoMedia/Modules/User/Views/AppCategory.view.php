@@ -60,6 +60,8 @@
 		<h2 class="icon_apps_big">Bevo Apps</h2>
 		<p>Explore some of the industry's best tools, right at your fingertips!</p>
 		
+		<a class="tbtn lblue" href="/BevoMedia/User/AppStore.html">&#x25C0; all apps</a>
+		
 		<h4><span>Categories</span></h4>
 		<?php echo renderAppCatMenu($appCategories, $featuredApp, $currentCat); ?>
 	
