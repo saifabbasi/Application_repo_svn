@@ -79,7 +79,6 @@ if(userTimezoneOffset == false)
 <link type="text/css" rel="stylesheet" href="/JS/charts/demopage.css" />
 <!-- ENDOF New Chart System -->
 
-
 <link href="/Themes/BevoMedia/style.css" rel="stylesheet" type="text/css" />
 <link href="/Themes/BevoMedia/ui.daterangepicker.css" rel="stylesheet" type="text/css" />
 <link href="/Themes/BevoMedia/jquery-ui-1.7.1.custom.css" rel="stylesheet" type="text/css" />
@@ -87,6 +86,7 @@ if(userTimezoneOffset == false)
 <link href="/Themes/BevoMedia/soapystyle.css" rel="stylesheet" type="text/css" />
 <link href="/Themes/BevoMedia/soapy_newcontent.css" rel="stylesheet" type="text/css" />
 <link href="/Themes/BevoMedia/global.css" rel="stylesheet" type="text/css" />
+
 
 <?php /*?>
 <script src="/Themes/BevoMedia/jquery.js" type="text/javascript"></script>
@@ -109,7 +109,9 @@ if(userTimezoneOffset == false)
 <?php */?>
 
 
-<link rel="stylesheet" href="/Themes/BevoMedia/apps-layout/apps_global.css" type="text/css" />
+<link rel="stylesheet" href="/Themes/BevoMedia/apps-layout/layout.css" type="text/css" />
+<link rel="stylesheet" href="/Themes/BevoMedia/apps-layout/global.css" type="text/css" />
+
 
 </head>
 <body><?php /* ################################################################# BODY */ ?>
