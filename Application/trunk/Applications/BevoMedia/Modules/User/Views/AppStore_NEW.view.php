@@ -18,8 +18,7 @@
 		?>
 	</ul>
 </div>
-<?php //echo $this->PageDesc->ShowDesc($this->PageHelper, false); //no toggling
-?>
+
 
 
 
@@ -30,7 +29,6 @@
 		<p>Explore some of the industry's best tools, right at your fingertips!</p>
 		
 		<h4><span>Categories</span></h4>
-		
 		<?php echo renderAppCatMenu($appCategories, $featuredApp); ?>
 	
 	</div><!--close sidebar-->
