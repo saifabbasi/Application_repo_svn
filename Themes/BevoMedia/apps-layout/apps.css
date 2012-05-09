@@ -30,6 +30,10 @@ h2.icon_apps_big { padding:3px 0 3px 46px; color:#7A95BA; background:url(img/ico
 
 
 /*main*/
+.colmain .box.apptopnav { margin:0 0 15px; }
+.colmain .box.apptopnav a.tbtn { position:relative; top:-6px; }
+.colmain .box.apptopnav h2 { margin:0 0 0 5px; display:inline; color:#7A95BA; }
+
 .colmain .topfeat { margin:0 0 30px; }
 .colmain .topfeat .box.top { border-bottom:none;
 	-moz-border-radius-bottomleft:0; -webkit-border-bottom-left-radius:0; border-bottom-left-radius:0;
@@ -103,6 +107,7 @@ h2.icon_apps_big { padding:3px 0 3px 46px; color:#7A95BA; background:url(img/ico
 			
 		.app.more a:hover span { color:#29abe2 !important; }
 		.app.more a:hover span.small { text-decoration:underline; }
+
 
 
 

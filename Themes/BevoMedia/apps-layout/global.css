@@ -80,7 +80,7 @@ input.btn { border:none; font-size:0px; line-height:0px; cursor:pointer; }
         .tbtn.midsize { padding:8px 15px; font-size:1em }
         .tbtn.bold { font-weight:bold; }
         
-        .tbtn.trans { background:transparent; border:none; }
+        .tbtn.trans { background:transparent; border:none !important; -moz-box-shadow:none; -webkit-box-shadow:none; box-shadow:none; }
         p .tbtn.trans { margin:0; }
         
         .hastbtnspan { text-decoration:none !important; }
