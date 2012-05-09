@@ -31,19 +31,7 @@
 		
 		<h4><span>Categories</span></h4>
 		
-		<ul>
-			<li><a class="txtblack" href="/BevoMedia/User/AppCategory.html?category=my">My Apps</a></li>
-			<li><a class="txtred" href="/BevoMedia/User/AppDetail.html?id=">App of the Week</a></li>
-			<?php
-				if($appCategories && is_array($appCategories) && !empty($appCategories)) {
-					for($i=0; $i<=count($appCategories)-1; $i++) {
-						echo 	'<li><a'
-							.($i==0 ? ' class="txtred"' : '')
-							.' href="/BevoMedia/User/AppCategory.html?category='.$appCategories[$i]['catURL'].'">'.$appCategories[$i]['catName'].'</a></li>';
-					}
-				}
-			?>
-		</ul>
+		<?php echo renderAppCatMenu($appCategories, $featuredApp); ?>
 	
 	</div><!--close sidebar-->
 	<div class="colmain">
