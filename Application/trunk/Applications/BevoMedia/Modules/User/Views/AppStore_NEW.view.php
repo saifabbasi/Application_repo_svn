@@ -52,12 +52,6 @@
 					<div class="clear"></div>
 				</div><!--close box-->
 				<div class="box teal noshadow butt">
-					<a class="chkbtn txtteal" href="#" title="Integrate your app's account with Bevo for quick access">
-						<span class="check">&#x2714;</span>
-						<span class="txtunchecked">ADD TO MY APPS</span>
-						<span class="txtchecked">INTEGRATED <span class="small">(remove)</span></span>
-					</a>
-				
 					<?php 
 						if($apps[$featuredApp]['descTitle']) {
 							echo '<h3>'.$apps[$featuredApp]['descTitle'].'</h3>';
