@@ -33,6 +33,7 @@ body { font-family:Helvetica, Arial, sans-serif; color:#333; font-size:75%; back
 	
 	.tbtn:focus { top:1px; }
 	.tbtn.trans { color:#fff; background:transparent; border:none !important; -moz-box-shadow:none; -webkit-box-shadow:none; box-shadow:none; }
+	.tbtn.big { padding:6px 60px; margin:0; font-size:1.2em; font-weight:bold; letter-spacing:-.05em; }
 	
 	.tbtn.blue { color:#fff; text-shadow:#0071bc -1px -1px 0; 
 		background:#5E8CC2;
@@ -117,6 +118,7 @@ body { font-family:Helvetica, Arial, sans-serif; color:#333; font-size:75%; back
 
 /*page*/
 #appbar { width:100%; border-bottom:1px solid #000; position:fixed;
+	-moz-box-shadow:#3B4A5D 0 0 10px; -webkit-box-shadow:#3B4A5D 0 0 10px; box-shadow:#3B4A5D 0 0 10px;
 	background:#3B4A5D;
 	background-image: -webkit-gradient(linear, 0% 0%, 100% 100%, from(#7A95BA), to(#3B4A5D));
 	background-image: -webkit-linear-gradient(top, #7A95BA, #3B4A5D);
@@ -128,7 +130,9 @@ body { font-family:Helvetica, Arial, sans-serif; color:#333; font-size:75%; back
 	
 	#appbar .inner { padding:8px 8px 5px; }
 
-#appframe { width:100%; height:100%; border-top:1px solid #fff; }
+#appframe { width:100%; height:100%; }
+
+.message { width:100%; position:fixed; top:43px; background:#FFFFC9; border-bottom:1px solid #F7931E; display:none;  }
 
 /*appbar*/
 #appbar a.logo { width:69px; height:32px; margin:-5px 10px 0 0; overflow:hidden; display:block; float:left; }
@@ -149,6 +153,19 @@ body { font-family:Helvetica, Arial, sans-serif; color:#333; font-size:75%; back
         #appbar .middle img { margin:2px 0 0; float:left; }
         #appbar .middle h3 { margin:1px 0 0 5px; float:left; color:#7A95BA; font-weight:bold; font-size:1em; }
         #appbar .middle .chkbtn { float:right; }
+
+/*message*/
+.message p { padding:7px 100px; text-align:center; font-size:1em; line-height:1.1em; }
+
+/*appframe*/
+#appframe iframe { padding-top:42px; }
+
+#appframe .noframe { width:400px; padding:20px; position:relative; top:170px; left:50%; margin-left:-220px; 
+	border:1px solid #999; -moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px;
+}
+.noframe h2 { margin:0 0 15px; font-size:2.5em; color:#7A95BA; }
+.noframe p { margin:0 0 15px; color:#3B4A5D; }
+
 
 
 

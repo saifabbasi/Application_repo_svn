@@ -56,7 +56,7 @@
 		<?php if($error) : ?>
 		
 			<h2>Ooops!</h2>
-			<p>It looks like this is not a valid app! If this link worked before, the app may have been removed from the Bevo Media Exchange. Use the menu on the left to select a category, or <a class="tbtn trans" href="/BevoMedia/User/AppStore.html">click here</a> to view all apps.</p>
+			<p>It looks like this is not a valid app! If this link has worked before, the app may have been removed from the Bevo Media Exchange. Use the menu on the left to select a category, or <a class="tbtn trans" href="/BevoMedia/User/AppStore.html">click here</a> to view all apps.</p>
 		
 		<?php else : //if we have an app
 		?>
