@@ -140,8 +140,8 @@
 			'ID' => '1',
 			'appName' => 'MixRank',
 			'price' => '12.50/mo', //empty if free. never use $
-			'signupURL' => '#',
-			'launchURL' => '#',
+			'signupURL' => 'http://affportal.bevomedia.com',
+			'launchURL' => 'http://affportal.bevomedia.com',
 			'logoURL' => '/Themes/BevoMedia/apps-layout/img/applogos/mixrank.png', //on Bevo's server
 			'descTitle' => 'Uncover any advertiser\'s ads and traffic sources',
 			'descText' => 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor. .invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',
