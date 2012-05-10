@@ -2,10 +2,11 @@
 	##########TEMP include dummy db
 	include_once dirname(__FILE__).'/_APPS_DUMMY_DB.php';
 	
-	
-	/* GET app id */
 	$currentID = '';
 	$error = true;
+	$backURL = '/BevoMedia/User/AppStore.html';
+	
+	/* GET app id */
 	if(isset($_GET['id']) && $_GET['id'] != '' && is_numeric($_GET['id'])) {
 	
 		$currentID = trim($_GET['id']);
@@ -14,31 +15,71 @@
 		foreach($apps as $app) {
 			if($currentID == $app['ID']) {
 				$currentAppData = $app;
+				$backURL = '/BevoMedia/User/AppDetail.html?id='.$currentID;
 				$error = false;
 				break;
 			}
 		}
 			
-	}//endif GET
+	}//endif get app id
+	
+	if(!$error) {
+		/*GET action*/
+		if(isset($_GET['l'])) { //launch
+			$frameURL = $currentAppData['launchURL'];
+			
+		} elseif(isset($_GET['s'])) {//signup
+			$frameURL = $currentAppData['signupURL'];
+		
+		} else { //else launch
+			$frameURL = $currentAppData['launchURL'];
+		}
+	}//endif get action
 ?>
-<link rel="stylesheet" href="/Themes/BevoMedia/apps-layout/apps.css" type="text/css" />
+<link rel="stylesheet" href="/Themes/BevoMedia/apps-layout/apps_iframe.css" type="text/css" />
 
-<div id="pagemenu">
-	<ul>
-		<li><a class="active" href="<?= Zend_Registry::get('System/BaseURL') ?>BevoMedia/User/AppStore.html">App Store<span></span></a></li>
-		<?php	//if user is subscribed to any paid app, show link
-			if(	$this->User->IsSubscribed(User::PRODUCT_PPVSPY_MONTHLY)
-			||	$this->User->IsSubscribed(User::PRODUCT_PPVSPY_YEARLY)
-			||	$this->User->IsSubscribed(User::PRODUCT_FREE_PPVSPY)
-			||	$this->User->IsSubscribed(User::PRODUCT_FREE_SELF_HOSTED)
-			||	$this->User->IsSubscribed(User::PRODUCT_FREE_PPC)
-			)
-				echo '<li><a href="/BevoMedia/User/MyProducts.html">Manage My Subscriptions</a></li>';
-		?>
-	</ul>
-</div>
+<div id="appbar">
+	<div class="inner">
+		<div class="floatleft">
+			<a class="logo" href="<?php echo $backURL; ?>" title="Back to Bevo"><img src="https://s3.amazonaws.com/bevomedia-media/public/images/header/btn_headlogo.png" alt="" /></a>
+			<a class="tbtn lblue" href="<?php echo $backURL; ?>">&#x25C0; to appstore</a>
+		</div>
+		
+		<?php if(!$error) { ?>
+			<a class="tbtn trans floatright" href="<?php echo $frameURL; ?>" target="_blank">break out of frame &#x25E5;</a>
+			<div class="middle">
+				<img src="/Themes/BevoMedia/apps-layout/img/icon_apps_teal.png" alt="" />
+				<h3><?php echo $currentAppData['appName']; ?></h3>
+				<a id="appadd" class="chkbtn wide slim trans txtteal j_appadd<?php /*echo (in_array($currentID, $userApps) ? ' checked' : '');*/ ?>" data-id="<?php echo $currentID; ?>" href="#" title="Integrate this app with Bevo for quick access">
+					<span class="check">&#x2714;</span>
+					<span class="txtunchecked">ADD TO MY APPS</span>
+					<span class="txtchecked">INTEGRATED <span class="small">(remove)</span></span>
+				</a>
+				<div class="clear"></div>
+			</div>
+			
+			
+			
+		<?php } ?>
+		
+		<div class="clear"></div>
+	</div><!--close inner-->
+</div><!--close appbar-->
+<div id="appframe">
+	<?php if(!$error) { ?>
+		<iframe src="http://affportal.bevomedia.com<?php /*echo $frameURL;*/ ?>" width="100%" height="100%" frameborder="0" scrolling="auto">test</iframe>
+	<?php } else { ?>
+		
+		<div class="noframe">
+			<h2>Ooops!</h2>
+			<p>It looks like this is not a valid app! If this link worked before, the app may have been removed from the Bevo Media Exchange.</p>
+			<a class="tbtn blue big" href="/BevoMedia/User/AppStore.html">to the appstore</a></p>
+		</div>
+		
+	<?php } ?>
+</div><!--close appframe-->
 
-
+#########################
 <div id="apps">
 	<div class="sidebar">
 
@@ -96,17 +137,17 @@
 						
 						//if integrated
 						if(in_array($currentID, $userApps)) { ?>
-							<a class="tbtn big teal bold doubleright j_appframe" href="/BevoMedia/User/App.html?id=<?php echo $currentID; ?>&l">launch</a>
+							<a class="tbtn big teal bold doubleright j_appframe" href="/BevoMedia/User/App.html?id=################################<?php echo $currentAppData['launchURL'] ?>">launch</a>
 							
 						<?php } else { 
 							
 							//if free
 							if($currentAppData['price'] == '') { ?>								
-								<a class="tbtn big dgreen bold doubleright j_appframe" href="/BevoMedia/User/App.html?id=<?php echo $currentID; ?>&s">sign up now</a>
+								<a class="tbtn big dgreen bold doubleright j_appframe" href="<?php echo $currentAppData['signupURL']; ?>">sign up now</a>
 							<?php } 
 							//if paid
 							else { ?>
-								<a class="tbtn big dgreen bold doubleright j_appframe" href="/BevoMedia/User/App.html?id=<?php echo $currentID; ?>&s">buy now</a>
+								<a class="tbtn big dgreen bold doubleright j_appframe" href="<?php echo $currentAppData['signupURL']; ?>">buy now</a>
 							<?php } ?>
 							
 						<?php }//endif integrated 
@@ -115,7 +156,7 @@
 					<div class="clear"></div>
 				</div><!--close box-->
 				<div class="box teal noshadow butt">
-					<a id="appadd" class="chkbtn txtteal j_appadd<?php echo (in_array($currentID, $userApps) ? ' checked' : ''); ?>" data-id="<?php echo $currentID; ?>" data-launch="/BevoMedia/User/App.html?id=<?php echo $currentID; ?>&l" data-signup="/BevoMedia/User/App.html?id=<?php echo $currentID; ?>&s" href="#" title="Integrate this app with Bevo for quick access">
+					<a id="appadd" class="chkbtn txtteal j_appadd<?php echo (in_array($currentID, $userApps) ? ' checked' : ''); ?>" data-id="<?php echo $currentID; ?>" data-launch="<?php echo $currentAppData['launchURL'] ?>" data-signup="<?php echo $currentAppData['signupURL'] ?>" href="#" title="Integrate this app with Bevo for quick access">
 						<span class="check">&#x2714;</span>
 						<span class="txtunchecked">ADD TO MY APPS</span>
 						<span class="txtchecked">INTEGRATED <span class="small">(remove)</span></span>
