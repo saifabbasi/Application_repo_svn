@@ -253,6 +253,12 @@ input.btn { border:none; font-size:0px; line-height:0px; cursor:pointer; }
 		.chkbtn:hover .txtchecked .small { color:#ED1C24; }
 		.chkbtn.checked .txtchecked { display:block; }
 		
+	 /*wide*/
+        .chkbtn.wide { width:140px; overflow:hidden; }
+        .chkbtn.wide .check { margin:0 5px 0 0; float:left; }
+        .chkbtn.wide .txtunchecked { margin:4px 0 0; float:left; }
+        .chkbtn.wide .txtchecked { margin:4px 0 0; float:left; }
+		
 	
 	/*chkbtn colors*/
 	.chkbtn.txtteal { border-color:#3B4A5D; }

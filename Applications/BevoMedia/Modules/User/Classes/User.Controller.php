@@ -1962,6 +1962,11 @@ Public Function MyProducts()
 		die('end jsonInsertUser');
 	}
 	
+	Public Function App()
+	{
+		Zend_Registry::set('Instance/LayoutType', 'blank-layout');
+	}
+	
 }
 
 ?>
