@@ -1,6 +1,26 @@
 <?php 
 	##########TEMP include dummy db
-	include_once dirname(__FILE__).'/_APPS_DUMMY_DB.php';
+//	include_once dirname(__FILE__).'/_APPS_DUMMY_DB.php';
+	
+	global $db;
+	$db = $this->db;
+	
+	function getAppOfTheWeek()
+	{
+		global $db;
+		$productId = $db->fetchOne("SELECT value FROM bevomedia_settings WHERE name = 'APP_OF_THE_WEEK' ");
+		
+		return $db->fetchRow("SELECT * FROM bevomedia_products WHERE (ID = ?)", $productId);
+	}
+	
+	$appOfTheWeek = getAppOfTheWeek();
+	
+	function isProductIntegrated($productId)
+	{
+		global $db;
+		$productId = intval($productId);
+		return ($db->fetchOne("SELECT id FROM bevomedia_integerated_user_products WHERE userId = ? AND productId = ?", array($_SESSION['User']['ID'], $productId))!=null);
+	}
 ?>
 <link rel="stylesheet" href="/Themes/BevoMedia/apps-layout/apps.css" type="text/css" />
 
@@ -29,45 +49,68 @@
 		<p>Explore some of the industry's best tools, right at your fingertips!</p>
 		
 		<h4><span>Categories</span></h4>
-		<?php echo renderAppCatMenu($appCategories, $featuredApp); ?>
-	
+		
+		<ul>
+			<li><a href="/BevoMedia/User/AppCategory.html?category=my" class="txtblack">My Apps</a></li>
+			<li><a class="txtred" href="/BevoMedia/User/AppDetail.html?id=<?php echo $appOfTheWeek->ID; ?>">App of the Week</a></li>
+		<?php 
+			$sql = "SELECT
+						*
+					FROM
+						bevomedia_product_categories
+					ORDER BY
+						position
+					";
+			$rows = $this->db->fetchAll($sql);
+			
+			foreach ($rows as $row) {
+				$class = "";
+				if ($row->name=='Featured Apps') {
+					$class = "txtred";
+				}
+		?>
+			<li><a class="<?php echo $class;?>" href="/BevoMedia/User/AppCategory.html?category=<?php echo $row->id; ?>"><?php echo $row->name; ?></a></li>
+		<?php 
+			}
+		?>
+		</ul>
+			
 	</div><!--close sidebar-->
 	<div class="colmain">
 	
 		<?php	/*featured app*/ 
-			if($featuredApp) :		
+			if($appOfTheWeek!=null)
+			{		
 		?>
 	
 			<div class="topfeat">
 				<div class="box slteal noshadow top">
 					<div class="floatleft">
 						<div class="icon_appofweek"></div>
-						<a href="/BevoMedia/User/AppDetail.html?id=<?php echo $featuredApp; ?>"><img class="applogo" src="<?php echo $apps[$featuredApp]['logoURL']; ?>" alt="" /></a>
+						<a href="/BevoMedia/User/AppDetail.html?id=<?php echo $appOfTheWeek->ID; ?>"><img class="applogo" src="/Themes/BevoMedia/apps-layout/img/applogos/<?php echo $appOfTheWeek->ID; ?>.png" alt="" /></a>
 						<div class="clear"></div>
 					</div>
 					
 					<div class="floatright">
-						<a class="tbtn big teal" href="/BevoMedia/User/AppDetail.html?id=<?php echo $featuredApp; ?>">view app</a>
+						<a class="tbtn big teal" href="/BevoMedia/User/AppDetail.html?id=<?php echo $appOfTheWeek->ID; ?>">view app</a>
 					</div>
 					<div class="clear"></div>
 				</div><!--close box-->
 				<div class="box teal noshadow butt">
 					<?php 
-						if($apps[$featuredApp]['descTitle']) {
-							echo '<h3>'.$apps[$featuredApp]['descTitle'].'</h3>';
+						if ($appOfTheWeek->DescriptionTitle!='')
+						{
+							echo '<h3>'.$appOfTheWeek->DescriptionTitle.'</h3>';
 						}
 						
-						if($apps[$featuredApp]['descText']) {
-							echo '<p>'.$apps[$featuredApp]['descText'].'</p>';
+						if($appOfTheWeek->DescriptionText!='') {
+							echo '<p>'.$appOfTheWeek->DescriptionText.'</p>';
 						}
 						
-						if($apps[$featuredApp]['descList'] && !empty($apps[$featuredApp]['descList'])) {
-							echo '<ul class="txtyell">';
-							foreach($apps[$featuredApp]['descList'] as $li) {
-								echo '<li>&#x25B6; '.$li.'</li>';
-							}
-							echo '</ul>';
+						if ($appOfTheWeek->DescriptionListText!='') {
+							echo $appOfTheWeek->DescriptionListText;
 						}
+						
 					?>
 					<div class="clear"></div>
 					
@@ -75,149 +118,161 @@
 			</div><!--close topfeat-->
 			
 		<?php
-			endif; //featured app
+			}; //featured app
 		?>
 		
 		
 		<?php 
-			/*my apps*/
-			if($userApps && is_array($userApps) && !empty($userApps)) :
+			$sql = "SELECT
+						bevomedia_products.*
+					FROM
+						bevomedia_integerated_user_products,
+						bevomedia_products
+					WHERE
+						(bevomedia_products.ID = bevomedia_integerated_user_products.productId) AND
+						(bevomedia_integerated_user_products.userId = ?)
+					";
+			$userProducts = $this->db->fetchAll($sql, $_SESSION['User']['ID']);
+			
+			if (count($userProducts)>0)
+			{
+				echo '<h4 class="txtblack"><span>my apps</span></h4>';
+				echo '<div class="appwrap">';
+				
+				foreach ($userProducts as $userProduct)
+				{
+		?>
+						<a class="box slblue hover app" href="/BevoMedia/User/AppDetail.html?id=<?php echo $userProduct->ID; ?>">
+							<img src="/Themes/BevoMedia/apps-layout/img/applogos/<?php echo $userProduct->ID; ?>.png" alt="" />
+							<span class="desc">
+								<span class="h3"><?php echo $userProduct->ProductName; ?></span>
+								<span class="p">
+								<?php
+									$productDescription = $userProduct->DescriptionTitle;
+									if (strlen($productDescription)>50) $productDescription = substr($productDescription, 0, 50).'...';  
+									echo $productDescription; 
+								?>
+								</span>
+			
+							</span>
+							<span class="butt">
+								<span class="ismy">&#x2714; my apps</span>
+								
+								<?php 
+									if ($userProduct->Price==0) {
+								?>
+								<strong class="txtdgreen">&#x2714; free</strong>
+								<?php 
+									}
+								?>
+			
+							</span>
+						</a>
+		<?php 
+				}
+				
+				echo '<div class="clear"></div>';
+				echo '</div><!--close appwrap-->';
+			}
+			
 		?>
 			
-			<h4 class="txtblack"><span>my apps</span></h4>
-			<div class="appwrap">
+		
+		
+		<?php 
+			$sql = "SELECT * FROM bevomedia_product_categories ORDER BY position";
+			$categories = $this->db->fetchAll($sql);
 			
-				<?php foreach($userApps as $id) {
-					if(array_key_exists($id, $apps) && !empty($apps[$id])) {
-						echo renderAppThumb($apps[$id], $userApps);		
+			foreach ($categories as $category)
+			{
+				$totalCategoryProducts = $this->db->fetchOne("SELECT COUNT(*) FROM bevomedia_products_to_categories WHERE (bevomedia_products_to_categories.categoryId = ?)", $category->id); 
+				
+				$sql = "SELECT
+								bevomedia_products.*
+							FROM
+								bevomedia_products,
+								bevomedia_products_to_categories
+							WHERE
+								(bevomedia_products_to_categories.productId = bevomedia_products.ID) AND
+								(bevomedia_products_to_categories.categoryId = ?)
+							ORDER BY
+									bevomedia_products.ProductName
+							LIMIT 5
+							";
+				$products = $this->db->fetchAll($sql, $category->id);
+				
+				if (count($products)>0)
+				{
+					if ($category->name=='Featured Apps') {
+						echo "<h4 class='txtred'><span>{$category->name}</span></h4>";
+					} else {
+						echo "<h4><span>{$category->name}</span></h4>";
 					}
-				} ?>
-			
-				<div class="clear"></div>
-			</div><!--close appwrap-->
-				
-		<?php	
-			endif; //my apps
-		?>
-		
-		<?php 
-			/*categories*/
-			if($appCategories && is_array($appCategories) && !empty($appCategories)) {
-				
-				for($i=0; $i<=count($appCategories)-1; $i++) {
 					
-					if(is_array($appCategories[$i]['appIDs']) && !empty($appCategories[$i]['appIDs'])) {
-						echo '<h4'
-							.($i==0 ? ' class="txtred"' : '')
-							.'><span>'.$appCategories[$i]['catName'].'</span></h4>';
-							
-						echo '<div class="appwrap">';
-							$thumbcount = 1;
-							foreach($appCategories[$i]['appIDs'] as $id) {
-								echo renderAppThumb($apps[$id], $userApps);
-								$thumbcount++;
-								
-								//show max 5 on this page
-								if($thumbcount == 6) { ?>
-									<div class="box app more">
-										<a href="/BevoMedia/User/AppCategory.html?category=<?php echo $appCategories[$i]['catURL']; ?>">
-											<span class="big"><?php echo count($appCategories[$i]['appIDs']); ?></span>
-											<span class="right">
-												<span class="top">apps total</span>
-												<span class="small">&#x25B6; view all</span>
-											</span>
-										</a>
-									</div>
-								<?php break;
-								}//endif thumbcount
-								
-							}//endforeach
-						
-						echo '<div class="clear"></div>'
-							.'</div>';
-					}//if cat has apps
-				}//for
-			}//if categories
+					echo "<div class='appwrap'>";
+					
+					foreach ($products as $key => $product)
+					{
 		?>
-
-	<?php /*
-		<h4 class="txtblack"><span>my apps</span></h4>
-		<div class="appwrap">
-	
-			<?php	for($i=1; $i<=4; $i++) {
-					echo $app;
-				}
-			?>
+						<a class="box slblue hover app" href="/BevoMedia/User/AppDetail.html?id=<?php echo $product->ID; ?>">
+							<img src="/Themes/BevoMedia/apps-layout/img/applogos/<?php echo $product->ID; ?>.png" alt="" />
+							<span class="desc">
+								<span class="h3"><?php echo $product->ProductName; ?></span>
+								<span class="p">
+								<?php
+									$productDescription = $product->DescriptionTitle;
+									if (strlen($productDescription)>50) $productDescription = substr($productDescription, 0, 50).'...';  
+									echo $productDescription; 
+								?>
+								</span>
 			
-		<div class="clear"></div>
-		</div><!--close appwrap-->
-	
-		<h4 class="txtred"><span>featured apps</span></h4>
-		<div class="appwrap">
-	
-			<?php	for($i=1; $i<=3; $i++) {
-					echo $app;
-				}
-			?>
+							</span>
+							<span class="butt">
+								<?php 
+									if (isProductIntegrated($product->ID))
+									{
+								?>
+								<span class="ismy">&#x2714; my apps</span>
+								<?php 
+									}
+								?>
+								
+								<?php 
+									if ($product->Price==0) {
+								?>
+								<strong class="txtdgreen">&#x2714; free</strong>
+								<?php 
+									}
+								?>
 			
-		<div class="clear"></div>
-		</div><!--close appwrap-->
+							</span>
+						</a>
+		<?php 
+					}
+					
+					if ($totalCategoryProducts>5) {
+		?>
+						<div class="box app more">
+							<a href="/BevoMedia/User/AppCategory.html?category=<?php echo $category->id; ?>">
+								<span class="big"><?php echo $totalCategoryProducts; ?></span>
+								<span class="right">
+									<span class="top">apps total</span>
+									<span class="small">&#x25B6; view all</span>
+								</span>
+							</a>
+						</div>		
+		<?php 
+					}
+					
+					echo '<div class="clear"></div>';
+					echo "</div>";
+				}
+			}
+		?>
 		
 		
-		<h4><span>campaign management</span></h4>	
-		<div class="appwrap">
-			<?php
-				for($i=1; $i<=5; $i++) {
-					echo $app;
-				}
-			?>
-			
-			<div class="box app more">
-				<a href="#">
-					<span class="big">24</span>
-					<span class="right">
-						<span class="top">apps total</span>
-						<span class="small">&#x25B6; view all</span>
-					</span>
-				</a>
-			</div>
-			
-			<div class="clear"></div>		
-		</div><!--close appwrap-->
-		
-		<h4><span>education</span></h4>	
-		<div class="appwrap">
-			<?php
-				for($i=1; $i<=3; $i++) {
-					echo $app;
-				}
-			?>
-			<div class="clear"></div>
-		</div><!--close appwrap-->
-		*/ ?>
 	
 	</div><!--close main-->
 	<div class="clear"></div>
 	
 </div><!--close pagecontent-->
-
-<?php /*
-<script type="text/javascript">
-$(document).ready(function() {
-	$('a.j_add2cart').click(function() {
-		var a = document.createElement('a');
-		a.href = $(this).attr('rel')+'?ajax=true';
-		a.rel = 'shadowbox;width=640;height=480;player=iframe';
-		Shadowbox.open(a);
-		return false;
-	});
-	$('a#PerfConn').click(function() {
-		var a = document.createElement('a');
-		a.href = $(this).attr('rel')+'?ajax=true';
-		a.rel = 'shadowbox;width=400;height=460;player=iframe';
-		Shadowbox.open(a);
-		return false;
-	});
-});
-</script>
-*/ ?>

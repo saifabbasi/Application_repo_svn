@@ -1,25 +1,71 @@
 <?php 
 	##########TEMP include dummy db
-	include_once dirname(__FILE__).'/_APPS_DUMMY_DB.php';
+//	include_once dirname(__FILE__).'/_APPS_DUMMY_DB.php';
+	
+	$productId = $_GET['id'];
+	$productInfo = $this->db->fetchRow("SELECT * FROM bevomedia_products WHERE ID = ?", $productId);
+	
 	
 	
 	/* GET app id */
-	$currentID = '';
-	$error = true;
-	if(isset($_GET['id']) && $_GET['id'] != '' && is_numeric($_GET['id'])) {
+//	$currentID = '';
+//	$error = true;
+//	if(isset($_GET['id']) && $_GET['id'] != '' && is_numeric($_GET['id'])) {
+//	
+//		$currentID = trim($_GET['id']);
+//		
+//		//check if it's a valid id
+//		foreach($apps as $app) {
+//			if($currentID == $app['ID']) {
+//				$currentAppData = $app;
+//				$error = false;
+//				break;
+//			}
+//		}
+//			
+//	}//endif GET
+
 	
-		$currentID = trim($_GET['id']);
+	global $db;
+	$db = $this->db;
+	
+	
+	function isProductIntegrated($productId)
+	{
+		global $db;
+		$productId = intval($productId);
+		return ($db->fetchOne("SELECT id FROM bevomedia_integerated_user_products WHERE userId = ? AND productId = ?", array($_SESSION['User']['ID'], $productId))!=null);
+	}
+	
+	function integrateProduct($productId)
+	{
+		global $db;
 		
-		//check if it's a valid id
-		foreach($apps as $app) {
-			if($currentID == $app['ID']) {
-				$currentAppData = $app;
-				$error = false;
-				break;
-			}
+		$productId = intval($productId);
+		
+		if (!isProductIntegrated($productId))
+		{
+			$sql = "INSERT INTO bevomedia_integerated_user_products (userId, productId) VALUES ({$_SESSION['User']['ID']}, {$productId}); ";
+			$db->exec($sql);
 		}
-			
-	}//endif GET
+	}
+	
+	function unintegrateProduct($productId)
+	{
+		global $db;
+		$productId = intval($productId);
+		$db->exec("DELETE FROM bevomedia_integerated_user_products WHERE (userId = {$_SESSION['User']['ID']}) AND (productId = {$productId}) ");
+	}
+	
+	function getAppOfTheWeek()
+	{
+		global $db;
+		$productId = $db->fetchOne("SELECT value FROM bevomedia_settings WHERE name = 'APP_OF_THE_WEEK' ");
+		
+		return $db->fetchRow("SELECT * FROM bevomedia_products WHERE (ID = ?)", $productId);
+	}
+	
+	$appOfTheWeek = getAppOfTheWeek();
 ?>
 <link rel="stylesheet" href="/Themes/BevoMedia/apps-layout/apps.css" type="text/css" />
 
@@ -48,12 +94,37 @@
 		<a class="tbtn lblue" href="/BevoMedia/User/AppStore.html">&#x25C0; all apps</a>
 		
 		<h4><span>Categories</span></h4>
-		<?php echo renderAppCatMenu($appCategories, $featuredApp); ?>
+		
+		<ul>
+			<li><a href="/BevoMedia/User/AppCategory.html?category=my" class="txtblack">My Apps</a></li>
+			<li><a class="txtred" href="/BevoMedia/User/AppDetail.html?id=<?php echo $appOfTheWeek->ID; ?>">App of the Week</a></li>
+		<?php 
+			$sql = "SELECT
+						*
+					FROM
+						bevomedia_product_categories
+					ORDER BY
+						position
+					";
+			$rows = $this->db->fetchAll($sql);
+			
+			foreach ($rows as $row) {
+				$class = "";
+				if ($row->name=='Featured Apps') {
+					$class = "txtred";
+				}
+		?>
+			<li><a class="<?php echo $class;?>" href="/BevoMedia/User/AppCategory.html?category=<?php echo $row->id; ?>"><?php echo $row->name; ?></a></li>
+		<?php 
+			}
+		?>
+		</ul>
+	
 	
 	</div><!--close sidebar-->
 	<div class="colmain">
 	
-		<?php if($error) : ?>
+		<?php if($productInfo==null) : ?>
 		
 			<h2>Ooops!</h2>
 			<p>It looks like this is not a valid app! If this link has worked before, the app may have been removed from the Bevo Media Exchange. Use the menu on the left to select a category, or <a class="tbtn trans" href="/BevoMedia/User/AppStore.html">click here</a> to view all apps.</p>
@@ -63,94 +134,137 @@
 	
 			<div class="box slblue apptopnav">
 				<a class="tbtn trans" href="/BevoMedia/User/AppStore.html">&#x25C0; back to all apps</a>
-				<h2><?php echo $currentAppData['appName']; ?></h2>
+				<h2><?php echo $productInfo->ProductName; ?></h2>
 			</div>
 			
 			<div class="box yell message hide"></div>
 		
-			<p>On this page, you can buy or launch this app. <?php
-				if(in_array($currentID, $userApps)) {
-					echo 'If you have already signed up with '.$currentAppData['appName'].' or bought it, <a class="j_appadd j_addonly" href="#">integrate it with Bevo now</a> and it will appear on your "My Apps" page.'; 
-				} else {
-					echo $currentAppData['appName'].' is currently integrated with your Bevo Media account. To remove it, click the remove button. Please note that any subscriptions or paid plans that you may have subscribed to from within the app will not be canceled when you remove the app from your Bevo Media account.';
-				} ?>
+			<p>On this page, you can buy or launch this app. 
+			
+			<?php 
+				if (isProductIntegrated($productInfo->ID))
+				{
+					echo 'If you have already signed up with '.$productInfo->ProductName.' or bought it, <a class="j_appadd j_addonly" href="#">integrate it with Bevo now</a> and it will appear on your "My Apps" page.';
+				} else 
+				{
+					echo $productInfo->ProductName.' is currently integrated with your Bevo Media account. To remove it, click the remove button. Please note that any subscriptions or paid plans that you may have subscribed to from within the app will not be canceled when you remove the app from your Bevo Media account.';					
+				}
+			?>
 			</p>
 			
 			<div class="topfeat">
 				<div class="box slteal noshadow top">
 					<div class="floatleft">
-						<?php echo ($featuredApp == $currentID ? '<div class="icon_appofweek"></div>' : ''); ?>
-						<img class="applogo" src="<?php echo $currentAppData['logoURL']; ?>" alt="" />
+						<?php echo ($appOfTheWeek->ID == $productInfo->ID ? '<div class="icon_appofweek"></div>' : ''); ?>
+						<img class="applogo" src="/Themes/BevoMedia/apps-layout/img/applogos/<?php echo $productInfo->ID; ?>.png" alt="" />
 						<div class="clear"></div>
 					</div>
 					
 					<div class="floatright">
 						<?php 	//if free
-						if($currentAppData['price'] == '') { ?>
+							if($productInfo->Price == 0) 
+							{
+						?>
 							<span class="tbtn big doubleleft bordered"><strong class="txtdgreen">&#x2714; free</strong></span>
-						<?php } else { ?>
+						<?php
+							} else 
+							{
+						?>
 							<span class="tbtn big doubleleft bordered">
-								<img src="https://s3.amazonaws.com/bevomedia-media/public/images/header/formicon_dollar.png" alt="" /><?php echo $currentAppData['price']; ?>
+								<img src="https://s3.amazonaws.com/bevomedia-media/public/images/header/formicon_dollar.png" alt="" />
+								<?php
+									$price = number_format($productInfo->Price, 2);
+									$termLength = $productInfo->TermLength;
+									
+									if ($termLength==30) {
+										$price = $price.'/mo';
+									}
+									
+									echo $price;
+								?>
 							</span>								
-						<?php }
+						<?php 
+							}
 						
+							$isProductPPVSpy = ($productInfo->ProductName=='PPVSpy');
+							$isUserSubscribedToPPVSpy = ( $this->User->IsSubscribed(User::PRODUCT_PPVSPY_MONTHLY) || $this->User->IsSubscribed(User::PRODUCT_PPVSPY_YEARLY) || $this->User->IsSubscribed(User::PRODUCT_FREE_PPVSPY) );
+							 
+							
 						//if integrated
-						if(in_array($currentID, $userApps)) { ?>
-							<a class="tbtn big teal bold doubleright j_appframe" href="/BevoMedia/User/App.html?id=<?php echo $currentID; ?>&l">launch</a>
+							if (isProductIntegrated($productInfo->ID) && !$isProductPPVSpy) 
+							{ 
+						?>
+							<a class="tbtn big teal bold doubleright j_appframe" href="/BevoMedia/User/App.html?id=<?php echo $productInfo->ID; ?>&l">launch</a>
 							
-						<?php } else { 
+						<?php
+							} else 
+							if (!$isProductPPVSpy)
+							{
+								//if free
+								if($productInfo->Price == 0) 
+								{
+						?>								
+								<a class="tbtn big dgreen bold doubleright j_appframe" href="/BevoMedia/User/App.html?id=<?php echo $productInfo->ID; ?>&s">sign up now</a>
+						<?php 
+								} else //if paid 
+								{
+						?>
+								<a class="tbtn big dgreen bold doubleright j_appframe" href="/BevoMedia/User/App.html?id=<?php echo $productInfo->ID; ?>&s">buy now</a>
+						<?php 
+								} 
+						?>
 							
-							//if free
-							if($currentAppData['price'] == '') { ?>								
-								<a class="tbtn big dgreen bold doubleright j_appframe" href="/BevoMedia/User/App.html?id=<?php echo $currentID; ?>&s">sign up now</a>
-							<?php } 
-							//if paid
-							else { ?>
-								<a class="tbtn big dgreen bold doubleright j_appframe" href="/BevoMedia/User/App.html?id=<?php echo $currentID; ?>&s">buy now</a>
-							<?php } ?>
-							
-						<?php }//endif integrated 
+						<?php 
+							} else //endif integrated
+							if ($isProductPPVSpy)
+							{
+								if ($isUserSubscribedToPPVSpy)
+								{
+						?>
+								<a class="tbtn big teal bold doubleright j_appframe" href="/BevoMedia/User/App.html?id=<?php echo $productInfo->ID; ?>&l">launch</a>
+						<?php 
+								} else 
+								{
+						?>
+								<a class="tbtn big dgreen bold doubleright j_appframe j_add2cart" href="/BevoMedia/Publisher/VerifyPPVSpyConfirm.html">buy now</a>
+						<?php 
+								}
+							} 
 						?>
 					</div>
 					<div class="clear"></div>
 				</div><!--close box-->
 				<div class="box teal noshadow butt">
-					<a id="appadd" class="chkbtn txtteal j_appadd<?php echo (in_array($currentID, $userApps) ? ' checked' : ''); ?>" data-id="<?php echo $currentID; ?>" data-launch="/BevoMedia/User/App.html?id=<?php echo $currentID; ?>&l" data-signup="/BevoMedia/User/App.html?id=<?php echo $currentID; ?>&s" href="#" title="Integrate this app with Bevo for quick access">
+					<a id="appadd" class="chkbtn txtteal j_appadd<?php echo (isProductIntegrated($productInfo->ID) ? ' checked' : ''); ?>" data-id="<?php echo $productInfo->ID; ?>" data-launch="/BevoMedia/User/App.html?id=<?php echo $productInfo->ID; ?>&l" data-signup="/BevoMedia/User/App.html?id=<?php echo $productInfo->ID; ?>&s" href="#" title="Integrate this app with Bevo for quick access">
 						<span class="check">&#x2714;</span>
 						<span class="txtunchecked">ADD TO MY APPS</span>
 						<span class="txtchecked">INTEGRATED <span class="small">(remove)</span></span>
 					</a>
 				
 					<?php 
-						if($currentAppData['descTitle']) {
-							echo '<h3>'.$currentAppData['descTitle'].'</h3>';
+						if ($productInfo->DescriptionTitle!='')
+						{
+							echo '<h3>'.$productInfo->DescriptionTitle.'</h3>';
 						}
 						
-						if($currentAppData['descText']) {
-							echo '<p>'.$currentAppData['descText'].'</p>';
+						if($productInfo->DescriptionText!='') {
+							echo '<p>'.$productInfo->DescriptionText.'</p>';
 						}
 						
-						if($currentAppData['descList'] && !empty($currentAppData['descList'])) {
-							echo '<ul class="txtyell">';
-							foreach($currentAppData['descList'] as $li) {
-								echo '<li>&#x25B6; '.$li.'</li>';
-							}
-							echo '</ul>';
+						if ($productInfo->DescriptionListText!='') {
+							echo $productInfo->DescriptionListText;
 						}
+						
 					?>
 					<div class="clear"></div>
 					
 				</div><!--close box-->			
 			</div><!--close topfeat-->
 			
-			<?php if(!empty($currentAppData['descDetail'])) { ?>
-				<h4><span>about <?php echo $currentAppData['appName']; ?></span></h4>
+			<?php if(!empty($productInfo->DescriptionDetail)) { ?>
+				<h4><span>about <?php echo $productInfo->ProductName; ?></span></h4>
 				
-				<ul class="details">
-					<?php foreach($currentAppData['descDetail'] as $li) { 
-						echo '<li>'.$li.'</li>';	
-					} ?>
-				</ul>
+				<?php echo $productInfo->DescriptionDetail; ?>
 				
 			<?php }//if descdetail
 			?>
@@ -171,7 +285,7 @@ $('.j_appadd').live('click', function() {
 		proceed = false;
 		
 	if($(this).hasClass('j_addonly') && action == 'remove') {
-		$('.message').html('<p><?php echo $currentAppData['appName']; ?> is already integrated with your Bevo Media account! To remove it, use the button below the "Launch" option.</p>').slideDown(200).delay(5000).slideUp(200);
+		$('.message').html('<p><?php echo $productInfo->ProductName; ?> is already integrated with your Bevo Media account! To remove it, use the button below the "Launch" option.</p>').slideDown(200).delay(5000).slideUp(200);
 		
 	} else {
 		
@@ -182,40 +296,38 @@ $('.j_appadd').live('click', function() {
 		}
 		
 		if(proceed) {
-		
-			/*	AJAX function not developed yet - all it needs to do is call appChangeMyApp(action) on success.
-				you should be able to just fill in the correct php response script url and uncomment the function.
-				remove the following line when implementing ajax*/
-				
-			appChangeMyApp(action);
+
+			$.get('/BevoMedia/User/MyAppsAction.html?id='+$(this).data('id')+'&action='+action, function(data) {
+
+				appChangeMyApp(action);
+
+			});
 			
-			/*
-			$.ajax({
-				type: 'GET',
-				url: php-response-script.php?id='+id+'&action='+action,
-				success: function(r) {
-					appChangeMyApp(action);
-				},
-				error: function(r) {
-					$('.message').html('<p>Something went wrong! The app could not be integrated with your Bevo Media account. Please refresh the page and try again.</p>').slideDown(200);
-				}
-			});	
-			*/
 		}//endif proceed
 	}//endif addonly
 	
 	return false;
 });//j_appadd
 
+$(document).ready(function() {
+	$('a.j_add2cart').click(function() {
+		var a = document.createElement('a');
+		a.href = $(this).attr('href')+'?ajax=true';
+		a.rel = 'shadowbox;width=640;height=480;player=iframe';
+		Shadowbox.open(a);
+		return false;
+	});
+});
+
 function appChangeMyApp(action) {
 	if(action == 'add') {
 		$('#appadd').addClass('checked');
 		$('#apps .topfeat .box.top .floatright a.tbtn.doubleright').removeClass('dgreen').addClass('teal').attr('href', $('#appadd').attr('data-launch')).html('launch');
-		$('.message').html('<p><?php echo $currentAppData['appName']; ?> has been added to your "My Apps" page!</p>').slideDown(200).delay(5000).slideUp(200);
+		$('.message').html('<p><?php echo $productInfo->ProductName; ?> has been added to your "My Apps" page!</p>').slideDown(200).delay(5000).slideUp(200);
 	} else {
 		$('#appadd').removeClass('checked');
 		$('#apps .topfeat .box.top .floatright a.tbtn.doubleright').removeClass('teal').addClass('dgreen').attr('href', $('#appadd').attr('data-signup')).html('sign up');
-		$('.message').html('<p><?php echo $currentAppData['appName']; ?> has been removed your "My Apps" page!<br />You may still have an open account or a running subscription with the app itself. Please refer to the app itself if you\'d like to cancel that as well.</p>').slideDown(200);
+		$('.message').html('<p><?php echo $productInfo->ProductName; ?> has been removed your "My Apps" page!<br />You may still have an open account or a running subscription with the app itself. Please refer to the app itself if you\'d like to cancel that as well.</p>').slideDown(200);
 	}
 }//appChangeMyApp()
 

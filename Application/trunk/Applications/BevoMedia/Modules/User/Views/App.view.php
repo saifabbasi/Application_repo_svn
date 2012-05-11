@@ -1,41 +1,39 @@
 <?php 
 	##########TEMP include dummy db
-	include_once dirname(__FILE__).'/_APPS_DUMMY_DB.php';
+//	include_once dirname(__FILE__).'/_APPS_DUMMY_DB.php';
 	
-	$currentID = '';
-	$error = true;
 	$backURL = '/BevoMedia/User/AppStore.html';
 	
-	/* GET app id */
-	if(isset($_GET['id']) && $_GET['id'] != '' && is_numeric($_GET['id'])) {
+	$productId = $_GET['id'];
+	$productInfo = $this->db->fetchRow("SELECT * FROM bevomedia_products WHERE ID = ?", $productId);
 	
-		$currentID = trim($_GET['id']);
-		
-		//check if it's a valid id
-		foreach($apps as $app) {
-			if($currentID == $app['ID']) {
-				$currentAppData = $app;
-				$backURL = '/BevoMedia/User/AppDetail.html?id='.$currentID;
-				$error = false;
-				break;
-			}
-		}
-			
-	}//endif get app id
+	 
 	
-	if(!$error) {
+	if ($productInfo!=null) {
 		/*GET action*/
 		if(isset($_GET['l'])) { //launch
-			$frameURL = $currentAppData['launchURL'];
+			$frameURL = $productInfo->LaunchURL;
 			
 		} elseif(isset($_GET['s'])) {//signup
-			$frameURL = $currentAppData['signupURL'];
+			$frameURL = $productInfo->SignupURL;
 		
 		} else { //else launch
-			$frameURL = $currentAppData['launchURL'];
+			$frameURL = $productInfo->LaunchURL;
 		}
+		
+		$backURL = '/BevoMedia/User/AppDetail.html?id='.$productInfo->ID;
 	}//endif get action
 	
+	global $db;
+	$db = $this->db;
+	
+	
+	function isProductIntegrated($productId)
+	{
+		global $db;
+		$productId = intval($productId);
+		return ($db->fetchOne("SELECT id FROM bevomedia_integerated_user_products WHERE userId = ? AND productId = ?", array($_SESSION['User']['ID'], $productId))!=null);
+	}
 ?>
 <link rel="stylesheet" href="/Themes/BevoMedia/apps-layout/apps_iframe.css" type="text/css" />
 
@@ -46,13 +44,13 @@
 			<a class="tbtn lblue" href="<?php echo $backURL; ?>">&#x25C0; to appstore</a>
 		</div>
 		
-		<?php if(!$error) { ?>
+		<?php if($productInfo!=null) { ?>
 			<a class="tbtn trans floatright" href="<?php echo $frameURL; ?>" target="_blank">break out of frame &#x25E5;</a>
 			
 			<div class="middle">
 				<img src="/Themes/BevoMedia/apps-layout/img/icon_apps_teal.png" alt="" />
-				<h3><?php echo $currentAppData['appName']; ?></h3>
-				<a id="appadd" class="chkbtn wide slim trans txtteal j_appadd<?php echo (in_array($currentID, $userApps) ? ' checked' : ''); ?>" data-id="<?php echo $currentID; ?>" href="#" title="Integrate this app with Bevo for quick access">
+				<h3><?php echo $productInfo->ProductName; ?></h3>
+				<a id="appadd" class="chkbtn wide slim trans txtteal j_appadd <?php echo (isProductIntegrated($productInfo->ID) ? ' checked' : ''); ?>" data-id="<?php echo $productInfo->ID; ?>" href="#" title="Integrate this app with Bevo for quick access">
 					<span class="check">&#x2714;</span>
 					<span class="txtunchecked">ADD TO MY APPS</span>
 					<span class="txtchecked">INTEGRATED <span class="small">(remove)</span></span>
@@ -69,7 +67,7 @@
 <div class="message"></div>
 
 <div id="appframe">
-	<?php if(!$error) { ?>
+	<?php if($productInfo!=null) { ?>
 		<iframe src="<?php echo $frameURL; ?>" width="100%" height="100%" frameborder="0" scrolling="auto">test</iframe>
 	<?php } else { ?>
 		
@@ -98,24 +96,14 @@ $('.j_appadd').live('click', function() {
 	
 	if(proceed) {
 	
-		/*	AJAX function not developed yet - all it needs to do is call appChangeMyApp(action) on success.
-			you should be able to just fill in the correct php response script url and uncomment the function.
-			remove the following line when implementing ajax*/
-			
-		appChangeMyApp(action);
 		
-		/*
-		$.ajax({
-			type: 'GET',
-			url: php-response-script.php?id='+id+'&action='+action,
-			success: function(r) {
+			$.get('/BevoMedia/User/MyAppsAction.html?id='+$(this).data('id')+'&action='+action, function(data) {
+
 				appChangeMyApp(action);
-			},
-			error: function(r) {
-				$('.message').html('<p>Something went wrong! The app could not be integrated with your Bevo Media account. Please refresh the page and try again.</p>').slideDown(200);
-			}
-		});	
-		*/
+
+			});
+
+			
 	}//endif proceed
 	
 	return false;
@@ -124,10 +112,10 @@ $('.j_appadd').live('click', function() {
 function appChangeMyApp(action) {
 	if(action == 'add') {
 		$('#appadd').addClass('checked');
-		$('.message').html('<p><?php echo $currentAppData['appName']; ?> has been added to your "My Apps" page!</p>').slideDown(200).delay(5000).slideUp(200);
+		$('.message').html('<p><?php echo $productInfo->ProductName; ?> has been added to your "My Apps" page!</p>').slideDown(200).delay(5000).slideUp(200);
 	} else {
 		$('#appadd').removeClass('checked');
-		$('.message').html('<p><?php echo $currentAppData['appName']; ?> has been removed your "My Apps" page!<br />You may still have an open account or a running subscription with the app itself. Please refer to the app itself if you\'d like to cancel that as well.</p>').slideDown(200).delay(5000).slideUp(200);
+		$('.message').html('<p><?php echo $productInfo->ProductName; ?> has been removed your "My Apps" page!<br />You may still have an open account or a running subscription with the app itself. Please refer to the app itself if you\'d like to cancel that as well.</p>').slideDown(200).delay(5000).slideUp(200);
 	}
 }//appChangeMyApp()
 
