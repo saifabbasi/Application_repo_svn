@@ -15,7 +15,7 @@
 	.colmain h4.txtblack span { background-image:url(img/icon_apps_black.png); }
 	.colmain h4.txtred span { background-image:url(img/icon_apps_red.png); }
 	
-.icon_appofweek { width:54px; height:44px; background:url(img/icon_appofweek.png) no-repeat; }
+.icon_appofweek { width:173px; height:53px; background:url(img/icon_appofweek.png) no-repeat; }
 
 
 /*sidebar*/
@@ -35,20 +35,34 @@ h2.icon_apps_big { padding:3px 0 3px 46px; color:#7A95BA; background:url(img/ico
 .colmain .box.apptopnav h2 { margin:0 0 0 5px; display:inline; color:#7A95BA; }
 
 .colmain .topfeat { margin:0 0 30px; }
-.colmain .topfeat .box.top { border-bottom:none;
+.colmain .topfeat .box.top { border:1px solid#7A95BA; border-bottom:none; position:relative;
 	-moz-border-radius-bottomleft:0; -webkit-border-bottom-left-radius:0; border-bottom-left-radius:0;
 	-moz-border-radius-bottomright:0; -webkit-border-bottom-right-radius:0; border-bottom-right-radius:0;
 }
-.colmain .topfeat .box.butt { padding:30px; text-align:center;
+.colmain .topfeat .box.butt { min-height:115px; padding:20px 30px 20px 200px;
 	-moz-border-radius-topleft:0; -webkit-border-top-left-radius:0; border-top-left-radius:0;
 	-moz-border-radius-topright:0; -webkit-border-top-right-radius:0; border-top-right-radius:0;
 }
-	.topfeat .box.top .floatleft .icon_appofweek { margin:0 15px 0 0; float:left; }
-	.topfeat .box.top .floatleft img.applogo { max-height:50px; margin:0 15px 0 0; float:left; }
-	.topfeat .box.top .floatleft a.tbtn { padding:7px 10px; display:block; float:left; margin:9px 0 0; }
 
-	.topfeat .box.top .floatright { margin:14px 0 0; }
-	.topfeat .box.top .floatright .tbtn.doubleleft { padding:6px 12px 6px 16px; cursor:default; 
+	.topfeat .box.top .pic { width:180px; position:absolute; top:0; left:-1px; }
+	.topfeat .box.top .pic .applogo { width:180px; height:180px; display:block; background:#fff; overflow:hidden; position:relative;z-index:500;
+		border:1px solid #000; border-top:none; border-left:none;
+		-moz-box-shadow:#000 1px 1px 2px; -webkit-box-shadow:#000 1px 1px 2px; box-shadow:#3B4A5D 1px 1px 3px;
+		-moz-border-radius-bottomright:6px; -webkit-border-bottom-right-radius:6px; border-bottom-right-radius:6px;
+		-moz-border-radius-topleft:5px; -webkit-border-top-left-radius:5px; border-top-left-radius:5px;
+	}
+	
+	.topfeat .box.top .pic .applogo img { filter:alpha(opacity=85) -moz-opacity:.85; opacity:.85; }
+	.topfeat .box.top .pic .applogo:hover img { filter:alpha(opacity=100) -moz-opacity:1; opacity:1; }
+	
+	.topfeat .box.top .pic div.applogo img { filter:alpha(opacity=100) -moz-opacity:1; opacity:1; }
+	
+	.topfeat .box.top .pic .icon_appofweek { margin:-22px 0 0 -7px; position:relative; z-index:505; }
+
+        .topfeat .box.top h2 { width:260px; margin:6px 0 10px 188px; color:#3B4A5D; float:left; }
+   
+	.topfeat .box.top .floatright { margin:11px 0 0; }
+	.topfeat .box.top .floatright .tbtn.doubleleft { padding:8px 7px 6px 11px; cursor:default; 
 		 background:#fff;
 		background-image: -webkit-gradient(linear, 0% 0%, 100% 100%, from(#f2f2f2), to(#fff));
 		background-image: -webkit-linear-gradient(top, #f2f2f2, #fff);
@@ -61,13 +75,16 @@ h2.icon_apps_big { padding:3px 0 3px 46px; color:#7A95BA; background:url(img/ico
         .topfeat .box.top .floatright .tbtn.doubleleft span.txtmgray { padding:0 0 0 2px; font-size:.9em; }
         
         .topfeat .box.top .floatright .tbtn.doubleright { padding:6px 25px; }
-        
+
+        .topfeat .box.butt .txt { width:478px; margin:0 0 0 20px; float:left; }
+
 	
-	.topfeat .box.butt .chkbtn { margin:-20px -20px 30px 30px; float:right; }
-	.topfeat .box.butt h3 { color:#fff; font-weight:bold; }
-	.topfeat .box.butt p { color:#fff; line-height:1.2em; }
-	.topfeat .box.butt ul { list-style:none; font-size:1.2em; font-weight:bold; }
-	.topfeat .box.butt li { padding:3px 10px; line-height:.9em; display:inline-block; white-space:nowrap; }
+	.topfeat .box.butt .chkbtn { margin:-10px -20px 30px 30px; float:right; }
+	.topfeat .box.butt h3 { color:#fff; font-weight:bold; line-height:.9em; }
+	.topfeat .box.butt p { color:#CFD9E6; line-height:1.2em; }
+	.topfeat .box.butt ul { list-style:none; font-size:1.2em; color:#ECEFF5; }
+	.topfeat .box.butt li { padding:0 0 5px; margin:0 0 5px; line-height:.9em; }
+        .topfeat .box.butt li:last-child { padding:0; margin:0; }
 
 
 .colmain ul.details { margin:0 0 0 15px; list-style-type:square; }
@@ -76,30 +93,33 @@ h2.icon_apps_big { padding:3px 0 3px 46px; color:#7A95BA; background:url(img/ico
 .colmain .box.message p { margin:0; line-height:1.2em; font-size:1em; }
 
 .colmain .appwrap { margin:0 -10px 0 0; }
-.colmain .appwrap .box.app { width:203px; height:75px; margin:0 15px 15px 0; text-decoration:none !important; display:block; float:left; position:relative; }
+.colmain .appwrap .box.app { width:203px; height:75px; margin:0 15px 15px 0; text-decoration:none !important; display:block; float:left; position:relative; overflow:hidden; filter:alpha(opacity=90) -moz-opacity:.90; opacity:.90; }
 
-	.appwrap .app img { max-width:90px; max-height:90px; position:absolute; top:15px; left:10px; }
+      	.appwrap .box.app:hover { filter:alpha(opacity=100) -moz-opacity:1; opacity:1; }
+
+	.appwrap .app img { height:100px; position:absolute; top:0; left:0; border-right:1px solid #3B4A5D; }
+
 	.appwrap .app span { display:block; }
 	
 	.appwrap .app .desc { width:110px; height:53px; overflow:hidden; position:absolute; top:5px; right:5px; }
 	.appwrap .app .butt { width:115px; height:30px; overflow:hidden; position:absolute; bottom:-1px; right:-1px; }
 	
-		.app .desc .h3 { margin:0 0 2px; color:#7A95BA; font-size:1em; line-height:.9em; }
-		.app .desc .p { margin:0; color:#999; line-height:1em; font-size:.9em; line-height:.9em; }
+		.app .desc .h3 { margin:3px 0 6px; color:#fff; font-size:1em; line-height:.9em; }
+		.app .desc .p { margin:0; color:#CFD9E6; line-height:1em; font-size:.9em; line-height:.9em; }
 		
-		.app .butt .ismy { padding:7px; float:right; border:1px solid #ccc; border-right:none; border-bottom:none;
-			font-size:.9em; color:#8CC63F; text-transform:uppercase;
+		.app .butt .ismy { padding:7px; float:right; border:1px solid #2C3846; border-right:none; border-bottom:none;
+			font-size:.9em; color:#BADD8C; text-transform:uppercase;
 			-moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px;
-			background:#f2f2f2;
-			background-image: -webkit-gradient(linear, 0% 0%, 100% 100%, from(#fff), to(#f2f2f2));
-			background-image: -webkit-linear-gradient(top, #fff, #f2f2f2);
-			background-image:    -moz-linear-gradient(top, #fff, #f2f2f2);
-			background-image:     -ms-linear-gradient(top, #fff, #f2f2f2);
-			background-image:      -o-linear-gradient(top, #fff, #f2f2f2); 
-			background-image:         linear-gradient(top, #fff, #f2f2f2); 
+			background:#2C3846;
+			background-image: -webkit-gradient(linear, 0% 0%, 100% 100%, from(#3B4A5D), to(#2C3846));
+			background-image: -webkit-linear-gradient(top, #3B4A5D, #2C3846);
+			background-image:    -moz-linear-gradient(top, #3B4A5D, #2C3846);
+			background-image:     -ms-linear-gradient(top, #3B4A5D, #2C3846);
+			background-image:      -o-linear-gradient(top, #3B4A5D, #2C3846); 
+			background-image:         linear-gradient(top, #3B4A5D, #2C3846); 
 		}
 		
-		.app .butt .txtdgreen { margin:6px 4px 0 0; display:block; }
+		.app .butt .txtlgreen { margin:4px 0 0 0; display:block; }
 		
 		.app.more { -moz-box-shadow:none; -webkit-box-shadow:none; box-shadow:none; }
 		.app.more a { margin:21px 0 0 50px; display:block; overflow:hidden; text-decoration:none; }
@@ -112,6 +132,10 @@ h2.icon_apps_big { padding:3px 0 3px 46px; color:#7A95BA; background:url(img/ico
 			
 		.app.more a:hover span { color:#29abe2 !important; }
 		.app.more a:hover span.small { text-decoration:underline; }
+
+
+
+
 
 
 

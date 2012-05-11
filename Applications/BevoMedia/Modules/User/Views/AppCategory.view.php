@@ -101,7 +101,7 @@
 				<h2><?php echo $categoryInfo->name; ?></h2>
 			</div>
 		
-			<?php if($currentCat == 'my') { ?>
+			<?php if($categoryInfo->name == 'My Apps') { ?>
 				<p>These are the apps that you've integrated with your Bevo Media account. To launch an app, click on it to go to the app's Detail page, and use the Launch button. From that page, you can also remove the app from this list. If you are currently subscribing to a paid app or are on a payment plan for an app, and you'd like to cancel your subscription, please refer to the app itself. Removing an app from "My Apps" will not cancel any existing subscriptions.</p>
 			<?php } else { ?>
 				<p>You're viewing all apps in the <?php echo $categoryInfo->name; ?> category. Click on an app to view its detail page, from where you may launch it, buy it (if it's a paid app), or add it to your "My Apps" page.</p>
@@ -135,8 +135,8 @@
 							foreach ($userProducts as $userProduct)
 							{
 					?>
-							<a class="box slblue hover app" href="/BevoMedia/User/AppDetail.html?id=<?php echo $userProduct->ID; ?>">
-								<img src="/Themes/BevoMedia/apps-layout/img/applogos/<?php echo $userProduct->ID; ?>.png" alt="" />
+							<a class="box teal hover app" href="/BevoMedia/User/AppDetail.html?id=<?php echo $userProduct->ID; ?>">
+								<img src="/Themes/BevoMedia/apps-layout/img/applogos/<?php echo $userProduct->ID; ?>.jpg" alt="" />
 								<span class="desc">
 									<span class="h3"><?php echo $userProduct->ProductName; ?></span>
 									<span class="p">
@@ -154,7 +154,7 @@
 									<?php 
 										if ($userProduct->Price==0) {
 									?>
-									<strong class="txtdgreen">&#x2714; free</strong>
+									<strong class="txtlgreen">&#x2714; free</strong>
 									<?php 
 										}
 									?>
@@ -176,7 +176,8 @@
 					<?php 
 						}
 					
-				} else {//normal category
+				/*normal category*/		
+				} else {
 				?>
 				
 				<?php 
@@ -197,15 +198,15 @@
 					<h4<?php echo ($categoryInfo->name == 'Featured Apps' ? ' class="txtred"' : ''); ?>><span><?php echo $categoryInfo->name; ?></span></h4>
 				
 					<?php if(count($products)>0) { ?>
-							
+						
 						<div class="appwrap">
 						
 							<?php 
 								foreach ($products as $product)
 								{
 							?>
-								<a class="box slblue hover app" href="/BevoMedia/User/AppDetail.html?id=<?php echo $product->ID; ?>">
-									<img src="/Themes/BevoMedia/apps-layout/img/applogos/<?php echo $product->ID; ?>.png" alt="" />
+								<a class="box teal hover app" href="/BevoMedia/User/AppDetail.html?id=<?php echo $product->ID; ?>">
+									<img src="/Themes/BevoMedia/apps-layout/img/applogos/<?php echo $product->ID; ?>.jpg" alt="" />
 									<span class="desc">
 										<span class="h3"><?php echo $product->ProductName; ?></span>
 										<span class="p"></span>
@@ -224,7 +225,7 @@
 										<?php 
 											if ($product->Price==0) {
 										?>
-										<strong class="txtdgreen">&#x2714; free</strong>
+										<strong class="txtlgreen">&#x2714; free</strong>
 										<?php 
 											}
 										?>
@@ -235,11 +236,7 @@
 								}
 							?>
 						
-							<?php foreach($currentCatData['appIDs'] as $id) {
-								if(array_key_exists($id, $apps) && !empty($apps[$id])) {
-									echo renderAppThumb($apps[$id], $userApps);		
-								}
-							} ?>
+							
 						
 							<div class="clear"></div>
 						</div><!--close appwrap-->

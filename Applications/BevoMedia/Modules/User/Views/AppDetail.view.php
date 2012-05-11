@@ -154,11 +154,13 @@
 			
 			<div class="topfeat">
 				<div class="box slteal noshadow top">
-					<div class="floatleft">
+				
+					<div class="pic">
+						<div class="applogo"><img src="/Themes/BevoMedia/apps-layout/img/applogos/<?php echo $productInfo->ID; ?>.jpg" alt="" /></div>
 						<?php echo ($appOfTheWeek->ID == $productInfo->ID ? '<div class="icon_appofweek"></div>' : ''); ?>
-						<img class="applogo" src="/Themes/BevoMedia/apps-layout/img/applogos/<?php echo $productInfo->ID; ?>.png" alt="" />
-						<div class="clear"></div>
 					</div>
+				
+					<h2><?php echo $productInfo->ProductName; ?></h2>				
 					
 					<div class="floatright">
 						<?php 	//if free
@@ -235,6 +237,8 @@
 					<div class="clear"></div>
 				</div><!--close box-->
 				<div class="box teal noshadow butt">
+				
+										
 					<a id="appadd" class="chkbtn txtteal j_appadd<?php echo (isProductIntegrated($productInfo->ID) ? ' checked' : ''); ?>" data-id="<?php echo $productInfo->ID; ?>" data-launch="/BevoMedia/User/App.html?id=<?php echo $productInfo->ID; ?>&l" data-signup="/BevoMedia/User/App.html?id=<?php echo $productInfo->ID; ?>&s" href="#" title="Integrate this app with Bevo for quick access">
 						<span class="check">&#x2714;</span>
 						<span class="txtunchecked">ADD TO MY APPS</span>
@@ -257,6 +261,7 @@
 						
 					?>
 					<div class="clear"></div>
+					
 					
 				</div><!--close box-->			
 			</div><!--close topfeat-->

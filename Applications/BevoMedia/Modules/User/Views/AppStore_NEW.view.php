@@ -1,6 +1,4 @@
 <?php 
-	##########TEMP include dummy db
-//	include_once dirname(__FILE__).'/_APPS_DUMMY_DB.php';
 	
 	global $db;
 	$db = $this->db;
@@ -81,16 +79,17 @@
 		<?php	/*featured app*/ 
 			if($appOfTheWeek!=null)
 			{		
+				
 		?>
 	
 			<div class="topfeat">
 				<div class="box slteal noshadow top">
-					<div class="floatleft">
+					<div class="pic">
+						<a class="applogo" href="/BevoMedia/User/AppDetail.html?id=<?php echo $appOfTheWeek->ID; ?>"><img src="/Themes/BevoMedia/apps-layout/img/applogos/<?php echo $appOfTheWeek->ID; ?>.jpg" alt="" /></a>
 						<div class="icon_appofweek"></div>
-						<a href="/BevoMedia/User/AppDetail.html?id=<?php echo $appOfTheWeek->ID; ?>"><img class="applogo" src="/Themes/BevoMedia/apps-layout/img/applogos/<?php echo $appOfTheWeek->ID; ?>.png" alt="" /></a>
-						<div class="clear"></div>
 					</div>
-					
+				
+					<h2><?php echo $appOfTheWeek->ProductName; ?></h2>
 					<div class="floatright">
 						<a class="tbtn big teal" href="/BevoMedia/User/AppDetail.html?id=<?php echo $appOfTheWeek->ID; ?>">view app</a>
 					</div>
@@ -112,8 +111,7 @@
 						}
 						
 					?>
-					<div class="clear"></div>
-					
+					<div class="clear"></div>					
 				</div><!--close box-->			
 			</div><!--close topfeat-->
 			
@@ -142,8 +140,8 @@
 				foreach ($userProducts as $userProduct)
 				{
 		?>
-						<a class="box slblue hover app" href="/BevoMedia/User/AppDetail.html?id=<?php echo $userProduct->ID; ?>">
-							<img src="/Themes/BevoMedia/apps-layout/img/applogos/<?php echo $userProduct->ID; ?>.png" alt="" />
+						<a class="box teal hover app" href="/BevoMedia/User/AppDetail.html?id=<?php echo $userProduct->ID; ?>">
+							<img src="/Themes/BevoMedia/apps-layout/img/applogos/<?php echo $userProduct->ID; ?>.jpg" alt="" />
 							<span class="desc">
 								<span class="h3"><?php echo $userProduct->ProductName; ?></span>
 								<span class="p">
@@ -161,7 +159,7 @@
 								<?php 
 									if ($userProduct->Price==0) {
 								?>
-								<strong class="txtdgreen">&#x2714; free</strong>
+								<strong class="txtlgreen">&#x2714; free</strong>
 								<?php 
 									}
 								?>
@@ -203,6 +201,7 @@
 				
 				if (count($products)>0)
 				{
+					
 					if ($category->name=='Featured Apps') {
 						echo "<h4 class='txtred'><span>{$category->name}</span></h4>";
 					} else {
@@ -214,8 +213,8 @@
 					foreach ($products as $key => $product)
 					{
 		?>
-						<a class="box slblue hover app" href="/BevoMedia/User/AppDetail.html?id=<?php echo $product->ID; ?>">
-							<img src="/Themes/BevoMedia/apps-layout/img/applogos/<?php echo $product->ID; ?>.png" alt="" />
+						<a class="box teal hover app" href="/BevoMedia/User/AppDetail.html?id=<?php echo $product->ID; ?>">
+							<img src="/Themes/BevoMedia/apps-layout/img/applogos/<?php echo $product->ID; ?>.jpg" alt="" />
 							<span class="desc">
 								<span class="h3"><?php echo $product->ProductName; ?></span>
 								<span class="p">
@@ -240,7 +239,7 @@
 								<?php 
 									if ($product->Price==0) {
 								?>
-								<strong class="txtdgreen">&#x2714; free</strong>
+								<strong class="txtlgreen">&#x2714; free</strong>
 								<?php 
 									}
 								?>
