@@ -1,40 +1,44 @@
 <?php 
 	##########TEMP include dummy db
-	include_once dirname(__FILE__).'/_APPS_DUMMY_DB.php';
+//	include_once dirname(__FILE__).'/_APPS_DUMMY_DB.php';
+	
+	global $db;
+	$db = $this->db;
+	
+	function getAppOfTheWeek()
+	{
+		global $db;
+		$productId = $db->fetchOne("SELECT value FROM bevomedia_settings WHERE name = 'APP_OF_THE_WEEK' ");
+		
+		return $db->fetchRow("SELECT * FROM bevomedia_products WHERE (ID = ?)", $productId);
+	}
+	
+	$appOfTheWeek = getAppOfTheWeek();
+	
+	function isProductIntegrated($productId)
+	{
+		global $db;
+		$productId = intval($productId);
+		return ($db->fetchOne("SELECT id FROM bevomedia_integerated_user_products WHERE userId = ? AND productId = ?", array($_SESSION['User']['ID'], $productId))!=null);
+	}
 	
 	
-	/* GET app category */
-	$currentCat = '';
-	if(isset($_GET['category']) && $_GET['category'] != '') {
+	if (!isset($_GET['category'])) {
+		header('Location: /BevoMedia/User/AppStore.html');
+		die;
+	}
 	
-		$currentCat = str_replace(array('\'','"'), '', strip_tags(trim($_GET['category'])));
-		
-		//check if it's a valid category
-		if($currentCat == 'my') {
-		
-			$currentCatData = array(
-				'catURL' => 'my',
-				'catName' => 'My Apps',
-				'appIDs' => $userApps
-			);
-		
-		} else {
-			
-			$error = true;
-			foreach($appCategories as $cat) {
-				if($currentCat == $cat['catURL']) {
-					$currentCatData = $cat;
-					$error = false;
-					break;
-				}
-			}
-			
-			if($error) {
-				header('Location: /BevoMedia/User/AppStore.html');
-			}
-		}
-		
-	}//endif GET
+	$categoryId = $_GET['category'];
+	
+	if ($categoryId=='my')
+	{
+		$categoryInfo = new stdClass();
+		$categoryInfo->id = 0;
+		$categoryInfo->name = 'My Apps';
+	} else 
+	{
+		$categoryInfo = $this->db->fetchRow("SELECT * FROM bevomedia_product_categories WHERE id = ? ", $categoryId);
+	}
 ?>
 <link rel="stylesheet" href="/Themes/BevoMedia/apps-layout/apps.css" type="text/css" />
 
@@ -63,67 +67,173 @@
 		<a class="tbtn lblue" href="/BevoMedia/User/AppStore.html">&#x25C0; all apps</a>
 		
 		<h4><span>Categories</span></h4>
-		<?php echo renderAppCatMenu($appCategories, $featuredApp, $currentCat); ?>
-	
+		<ul>
+			<li><a href="/BevoMedia/User/AppCategory.html?category=my" class="txtblack">My Apps</a></li>
+			<li><a class="txtred" href="/BevoMedia/User/AppDetail.html?id=<?php echo $appOfTheWeek->ID; ?>">App of the Week</a></li>
+		<?php 
+			$sql = "SELECT
+						*
+					FROM
+						bevomedia_product_categories
+					ORDER BY
+						position
+					";
+			$rows = $this->db->fetchAll($sql);
+			
+			foreach ($rows as $row) {
+				$class = "";
+				if ($row->name=='Featured Apps') {
+					$class = "txtred";
+				}
+		?>
+			<li><a class="<?php echo $class;?>" href="/BevoMedia/User/AppCategory.html?category=<?php echo $row->id; ?>"><?php echo $row->name; ?></a></li>
+		<?php 
+			}
+		?>
+		</ul>
+			
 	</div><!--close sidebar-->
 	<div class="colmain">
 	
-		<?php if(!$currentCat || $currentCat == '') : ?>
-		
-			<h2>Ooops!</h2>
-			<p>It looks like you haven't selected a category! Use the menu on the left to select a category, or <a class="tbtn trans" href="/BevoMedia/User/AppStore.html">click here</a> to view all apps.</p>
-		
-		<?php else : //if we have a currentCat
-		?>
 	
 			<div class="box slblue apptopnav">
 				<a class="tbtn trans" href="/BevoMedia/User/AppStore.html">&#x25C0; back to all apps</a>
-				<h2><?php echo $currentCatData['catName']; ?></h2>
+				<h2><?php echo $categoryInfo->name; ?></h2>
 			</div>
 		
 			<?php if($currentCat == 'my') { ?>
 				<p>These are the apps that you've integrated with your Bevo Media account. To launch an app, click on it to go to the app's Detail page, and use the Launch button. From that page, you can also remove the app from this list. If you are currently subscribing to a paid app or are on a payment plan for an app, and you'd like to cancel your subscription, please refer to the app itself. Removing an app from "My Apps" will not cancel any existing subscriptions.</p>
 			<?php } else { ?>
-				<p>You're viewing all apps in the <?php echo $currentCatData['catName']; ?> category. Click on an app to view its detail page, from where you may launch it, buy it (if it's a paid app), or add it to your "My Apps" page.</p>
+				<p>You're viewing all apps in the <?php echo $categoryInfo->name; ?> category. Click on an app to view its detail page, from where you may launch it, buy it (if it's a paid app), or add it to your "My Apps" page.</p>
 			<?php } ?>
 		
 		
 			<?php 
 				/*my apps*/
-				if($currentCat == 'my') { ?>
+				if($categoryInfo->name == 'My Apps') { ?>
 					
 					<h4 class="txtblack"><span>my apps</span></h4>
 					
-					<?php if($userApps && is_array($userApps) && !empty($userApps)) { ?>
-				
-						<div class="appwrap">
+					<?php 
+						$sql = "SELECT
+									bevomedia_products.*
+								FROM
+									bevomedia_integerated_user_products,
+									bevomedia_products
+								WHERE
+									(bevomedia_products.ID = bevomedia_integerated_user_products.productId) AND
+									(bevomedia_integerated_user_products.userId = ?)
+								ORDER BY
+									bevomedia_products.ProductName
+								";
+						$userProducts = $this->db->fetchAll($sql, $_SESSION['User']['ID']);
 						
-							<?php foreach($userApps as $id) {
-								if(array_key_exists($id, $apps) && !empty($apps[$id])) {
-									echo renderAppThumb($apps[$id], $userApps);		
-								}
-							} ?>
-						
-							<div class="clear"></div>
-						</div><!--close appwrap-->
-						
-					<?php } else { ?>
+						if (count($userProducts)>0)
+						{
+							echo '<div class="appwrap">';
 							
+							foreach ($userProducts as $userProduct)
+							{
+					?>
+							<a class="box slblue hover app" href="/BevoMedia/User/AppDetail.html?id=<?php echo $userProduct->ID; ?>">
+								<img src="/Themes/BevoMedia/apps-layout/img/applogos/<?php echo $userProduct->ID; ?>.png" alt="" />
+								<span class="desc">
+									<span class="h3"><?php echo $userProduct->ProductName; ?></span>
+									<span class="p">
+									<?php
+										$productDescription = $userProduct->DescriptionTitle;
+										if (strlen($productDescription)>50) $productDescription = substr($productDescription, 0, 50).'...';  
+										echo $productDescription; 
+									?>
+									</span>
+				
+								</span>
+								<span class="butt">
+									<span class="ismy">&#x2714; my apps</span>
+									
+									<?php 
+										if ($userProduct->Price==0) {
+									?>
+									<strong class="txtdgreen">&#x2714; free</strong>
+									<?php 
+										}
+									?>
+				
+								</span>
+							</a>
+					<?php 	
+							}
+							
+							echo '<div class="clear"></div>';
+							echo '</div><!--close appwrap-->';
+						} else
+						{
+					?>
 						<h3>No apps integrated with Bevo yet!</h3>
 						<p>You don't have any apps that you've integrated with your Bevo Media account yet. To integrate an app, click the "Add to my apps" button on the app's detail page. Once you've integrated an app, it will appear on this page.</p>
 						
 						<a class="tbtn big lblue" href="/BevoMedia/User/AppStore.html">go to all apps</a>
-						
-					<?php }//if no apps
+					<?php 
+						}
 					
 				} else {//normal category
 				?>
 				
-					<h4<?php echo ($currentCat == 'featured' ? ' class="txtred"' : ''); ?>><span><?php echo $currentCatData['catName']; ?></span></h4>
+				<?php 
+					$sql = "SELECT
+								bevomedia_products.*
+							FROM
+								bevomedia_products,
+								bevomedia_products_to_categories
+							WHERE
+								(bevomedia_products_to_categories.productId = bevomedia_products.ID) AND
+								(bevomedia_products_to_categories.categoryId = ?)
+							ORDER BY
+									bevomedia_products.ProductName
+							";
+					$products = $this->db->fetchAll($sql, $categoryId);
+				?>
 				
-					<?php if(!empty($currentCatData['appIDs'])) { ?>
+					<h4<?php echo ($categoryInfo->name == 'Featured Apps' ? ' class="txtred"' : ''); ?>><span><?php echo $categoryInfo->name; ?></span></h4>
+				
+					<?php if(count($products)>0) { ?>
 							
 						<div class="appwrap">
+						
+							<?php 
+								foreach ($products as $product)
+								{
+							?>
+								<a class="box slblue hover app" href="/BevoMedia/User/AppDetail.html?id=<?php echo $product->ID; ?>">
+									<img src="/Themes/BevoMedia/apps-layout/img/applogos/<?php echo $product->ID; ?>.png" alt="" />
+									<span class="desc">
+										<span class="h3"><?php echo $product->ProductName; ?></span>
+										<span class="p"></span>
+					
+									</span>
+									<span class="butt">
+										<?php 
+											if (isProductIntegrated($product->ID))
+											{
+										?>
+										<span class="ismy">&#x2714; my apps</span>
+										<?php 
+											}
+										?>
+										
+										<?php 
+											if ($product->Price==0) {
+										?>
+										<strong class="txtdgreen">&#x2714; free</strong>
+										<?php 
+											}
+										?>
+					
+									</span>
+								</a>
+							<?php 	
+								}
+							?>
 						
 							<?php foreach($currentCatData['appIDs'] as $id) {
 								if(array_key_exists($id, $apps) && !empty($apps[$id])) {
@@ -147,7 +257,6 @@
 				
 				<?php }//endif my apps or normal category
 			
-		endif; //currentCat
 		?>
 	
 	</div><!--close main-->

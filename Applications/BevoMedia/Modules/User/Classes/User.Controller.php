@@ -1967,6 +1967,30 @@ Public Function MyProducts()
 		Zend_Registry::set('Instance/LayoutType', 'blank-layout');
 	}
 	
+	Public Function MyAppsAction()
+	{
+		$action = $_GET['action'];
+		$productId = intval($_GET['id']);
+		
+		if ($action=='add')
+		{
+			$productIntegrated = ($this->db->fetchOne("SELECT id FROM bevomedia_integerated_user_products WHERE userId = ? AND productId = ?", array($_SESSION['User']['ID'], $productId))!=null);
+			if (!$productIntegrated)
+			{
+				$sql = "INSERT INTO bevomedia_integerated_user_products (userId, productId) VALUES ({$_SESSION['User']['ID']}, {$productId}); ";
+				$this->db->exec($sql);
+			}
+		} else
+		{
+			$this->db->exec("DELETE FROM bevomedia_integerated_user_products WHERE (userId = {$_SESSION['User']['ID']}) AND (productId = {$productId}) ");
+		}
+		
+		ob_clean();
+		ob_end_clean();
+		echo json_encode(array('success' => true));
+		die;
+	}
+	
 }
 
 ?>
