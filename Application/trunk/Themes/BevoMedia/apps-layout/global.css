@@ -432,13 +432,13 @@ label { cursor:pointer; }
 	
 	/*slteal*/
 	.box.slteal { border:1px solid #AFBFD6;
-		background:#AFBFD6;
-		background-image: -webkit-gradient(linear, 0% 0%, 100% 100%, from(#F6FBFF), to(#CFD9E6));
-		background-image: -webkit-linear-gradient(top, #F6FBFF, #F6FBFF, #CFD9E6);
-		background-image:    -moz-linear-gradient(top, #F6FBFF, #F6FBFF, #CFD9E6);
-		background-image:     -ms-linear-gradient(top, #F6FBFF, #F6FBFF, #CFD9E6);
-		background-image:      -o-linear-gradient(top, #F6FBFF, #F6FBFF, #CFD9E6); 
-		background-image:         linear-gradient(top, #F6FBFF, #F6FBFF, #CFD9E6);
+		background:#DFE5EF;
+		background-image: -webkit-gradient(linear, 0% 0%, 100% 100%, from(#ECEFF5), to(#DFE5EF));
+		background-image: -webkit-linear-gradient(top, #ECEFF5, #DFE5EF);
+		background-image:    -moz-linear-gradient(top, #ECEFF5, #DFE5EF);
+		background-image:     -ms-linear-gradient(top, #ECEFF5, #DFE5EF);
+		background-image:      -o-linear-gradient(top, #ECEFF5, #DFE5EF); 
+		background-image:         linear-gradient(top, #ECEFF5, #DFE5EF);
 	}
 	
 	
