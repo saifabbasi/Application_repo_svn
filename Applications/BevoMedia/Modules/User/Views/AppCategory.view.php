@@ -209,7 +209,13 @@
 									<img src="/Themes/BevoMedia/apps-layout/img/applogos/<?php echo $product->ID; ?>.jpg" alt="" />
 									<span class="desc">
 										<span class="h3"><?php echo $product->ProductName; ?></span>
-										<span class="p"></span>
+										<span class="p">
+										<?php
+											$productDescription = $product->DescriptionTitle;
+											if (strlen($productDescription)>50) $productDescription = substr($productDescription, 0, 50).'...';  
+											echo $productDescription; 
+										?>
+										</span>
 					
 									</span>
 									<span class="butt">
