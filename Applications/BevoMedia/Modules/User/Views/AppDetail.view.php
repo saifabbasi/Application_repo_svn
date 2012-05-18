@@ -142,7 +142,7 @@
 			<p>On this page, you can buy or launch this app. 
 			
 			<?php 
-				if (isProductIntegrated($productInfo->ID))
+				if (!isProductIntegrated($productInfo->ID))
 				{
 					echo 'If you have already signed up with '.$productInfo->ProductName.' or bought it, <a class="j_appadd j_addonly" href="#">integrate it with Bevo now</a> and it will appear on your "My Apps" page.';
 				} else 
@@ -193,6 +193,12 @@
 							 
 							
 						//if integrated
+							if ( ($productInfo->SignupURL=='') && ($productInfo->LaunchURL=='') )
+							{
+						?>
+							<a class="tbtn big teal bold doubleright j_appframe" href="/BevoMedia/User/App.html?id=<?php echo $productInfo->ID; ?>&l">launch</a>
+						<?php 
+							} else
 							if (isProductIntegrated($productInfo->ID) && !$isProductPPVSpy) 
 							{ 
 						?>
