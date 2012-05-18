@@ -330,11 +330,11 @@ if(userTimezoneOffset == false)
 						</span>
 					</a>
 					
-					<a class="subheadfeat" href="#">
+					<a class="subheadfeat" href="/BevoMedia/User/AppDetail.html?id=25">
 						<span class="part title">
 							<span class="bg"></span>
 							<span class="label">
-								<strong>App</strong><br />of the month
+								<strong>App</strong><br />of the week
 							</span>
 						</span>
 						<img src="https://s3.amazonaws.com/bevomedia-media/public/images/best-for-month/appliation-of-the-month.png" alt="" />
