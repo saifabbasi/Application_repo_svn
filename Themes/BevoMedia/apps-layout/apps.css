@@ -82,7 +82,7 @@ h2.icon_apps_big { padding:3px 0 3px 46px; color:#7A95BA; background:url(img/ico
 	.topfeat .box.butt .chkbtn { margin:-10px -20px 30px 30px; float:right; }
 	.topfeat .box.butt h3 { color:#fff; font-weight:bold; line-height:.9em; }
 	.topfeat .box.butt p { color:#CFD9E6; line-height:1.2em; }
-	.topfeat .box.butt ul { list-style:none; font-size:1.2em; color:#ECEFF5; }
+	.topfeat .box.butt ul { margin:0 0 0 15px; list-style:square; font-size:1.2em; color:#ECEFF5; }
 	.topfeat .box.butt li { padding:0 0 5px; margin:0 0 5px; line-height:.9em; }
         .topfeat .box.butt li:last-child { padding:0; margin:0; }
 
@@ -132,14 +132,6 @@ h2.icon_apps_big { padding:3px 0 3px 46px; color:#7A95BA; background:url(img/ico
 			
 		.app.more a:hover span { color:#29abe2 !important; }
 		.app.more a:hover span.small { text-decoration:underline; }
-
-
-
-
-
-
-
-
 
 
 
