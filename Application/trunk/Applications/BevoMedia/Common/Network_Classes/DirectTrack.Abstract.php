@@ -224,6 +224,20 @@ abstract class DirectTrackAbstract Extends NetworksAbstract {
 			'category' => ''
 		);
 		
+		try {
+		$client = new SoapClient($this->apiUrl);
+		$results = $client->__soapCall('campaignInfo', $args);
+		}
+		catch (Exception $e) {
+			print_r($e);
+		}
+		
+		if ($results!==false) {
+			return htmlspecialchars_decode($results);
+		} 
+		
+		return false;
+		
 		$results = $this->DoSoapRequest('campaignInfo', $args);
 		if($results !== false)
 		{
