@@ -194,7 +194,7 @@
 								(bevomedia_products_to_categories.productId = bevomedia_products.ID) AND
 								(bevomedia_products_to_categories.categoryId = ?)
 							ORDER BY
-									bevomedia_products.ProductName
+									bevomedia_products_to_categories.position
 							LIMIT 5
 							";
 				$products = $this->db->fetchAll($sql, $category->id);
