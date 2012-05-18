@@ -144,7 +144,7 @@
 			<?php 
 				if (!isProductIntegrated($productInfo->ID))
 				{
-					echo 'If you have already signed up with '.$productInfo->ProductName.' or bought it, <a class="j_appadd j_addonly" href="#">integrate it with Bevo now</a> and it will appear on your "My Apps" page.';
+					echo 'If you have already signed up with '.$productInfo->ProductName.' or bought it, <a class="j_appadd j_addonly" action="add" data-id="'.$productInfo->ID.'" href="#">integrate it with Bevo now</a> and it will appear on your "My Apps" page.';
 				} else 
 				{
 					echo $productInfo->ProductName.' is currently integrated with your Bevo Media account. To remove it, click the remove button. Please note that any subscriptions or paid plans that you may have subscribed to from within the app will not be canceled when you remove the app from your Bevo Media account.';					
@@ -294,7 +294,12 @@ $('.j_appadd').live('click', function() {
 	var	action = $('#appadd').hasClass('checked') ? 'remove' : 'add',
 		id = $('#appadd').attr('data-id'),
 		proceed = false;
-		
+
+	var actionLink = $(this).attr('action');
+	if (typeof actionLink !== 'undefined' && actionLink !== false) {
+		action = $(this).attr('action');
+	}
+		console.info(action);
 	if($(this).hasClass('j_addonly') && action == 'remove') {
 		$('.message').html('<p><?php echo $productInfo->ProductName; ?> is already integrated with your Bevo Media account! To remove it, use the button below the "Launch" option.</p>').slideDown(200).delay(5000).slideUp(200);
 		
