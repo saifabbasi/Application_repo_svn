@@ -12,7 +12,7 @@ body { font-family:Helvetica, Arial, sans-serif; color:#333; font-size:75%; back
 #body { background:transparent; }
 #wrap { width:980px; margin:0 auto; position:relative;}
 #header { width:980px; height:auto; position:relative; background:transparent; }
-#container { width:980px; min-height:700px; padding:0; margin:0; background:#fff; position:relative; -moz-box-shadow:#999 0 0 4px; -webkit-box-shadow:#999 0 0 4px; box-shadow:#999 0 0 4px; border-radius: 10px; -webkit-border-radius: 10px; }
+#container { width:980px; min-height:730px; padding:0; margin:0; background:#fff; position:relative; -moz-box-shadow:#999 0 0 4px; -webkit-box-shadow:#999 0 0 4px; box-shadow:#999 0 0 4px; border-radius: 10px; -webkit-border-radius: 10px; }
 #footer { width:980px; position:relative; }
 
 /*hide old markup*/

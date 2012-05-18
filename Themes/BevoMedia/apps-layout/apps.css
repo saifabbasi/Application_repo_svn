@@ -101,7 +101,7 @@ h2.icon_apps_big { padding:3px 0 3px 46px; color:#7A95BA; background:url(img/ico
 
 	.appwrap .app span { display:block; }
 	
-	.appwrap .app .desc { width:110px; height:53px; overflow:hidden; position:absolute; top:5px; right:5px; }
+	.appwrap .app .desc { width:110px; height:62px; overflow:hidden; position:absolute; top:5px; right:5px; }
 	.appwrap .app .butt { width:115px; height:30px; overflow:hidden; position:absolute; bottom:-1px; right:-1px; }
 	
 		.app .desc .h3 { margin:3px 0 6px; color:#fff; font-size:1em; line-height:.9em; }
