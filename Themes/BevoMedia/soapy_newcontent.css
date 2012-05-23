@@ -589,7 +589,7 @@ h2.imagetitle.interested { width:147px; height:22px; background:url(img/imagetit
 				#ppvp_nav_numbers .divcontent a.active { color:#fff; border-color:#7A95BA; background:#7A95BA; pointer-events:none; cursor:default; }		
 	
 	/*ppvspy content*/
-#ppvspy_content { padding-top:60px; position:relative; z-index:499; }
+#ppvspy_content { width:960px; padding-top:60px; margin-left:-7px; position:relative; z-index:499; }
 	
 		/*items general*/
 	#ppvspy_content .ppvs_item.invisible { display:none; }
