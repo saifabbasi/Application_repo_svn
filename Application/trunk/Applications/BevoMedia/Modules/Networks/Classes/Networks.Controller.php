@@ -53,6 +53,7 @@ Class NetworksController extends ClassComponent
 		unset($_SESSION['OneTerm']);
 		unset($_SESSION['Custom416']);
 		unset($_SESSION['Custom350']);
+		unset($_SESSION['Custom1000']);
 		
 		$Sql = 'SELECT
 					*
@@ -80,6 +81,7 @@ Class NetworksController extends ClassComponent
 		unset($_SESSION['Custom416']);
 		unset($_SESSION['Custom320']);
 		unset($_SESSION['Custom350']);
+		unset($_SESSION['Custom1000']);
 		
 		$Sql = 'SELECT
 					*
@@ -132,6 +134,7 @@ Class NetworksController extends ClassComponent
 		unset($_SESSION['Custom416']);
 		unset($_SESSION['Custom320']);
 		unset($_SESSION['Custom350']);
+		unset($_SESSION['Custom1000']);
 		$_SESSION['OneTerm'] = true;
 		$_SESSION['Custom300'] = true;
 		
@@ -162,6 +165,7 @@ Class NetworksController extends ClassComponent
 		unset($_SESSION['Custom416']);
 		unset($_SESSION['Custom300']);
 		unset($_SESSION['Custom350']);
+		unset($_SESSION['Custom1000']);
 		$_SESSION['OneTerm'] = true;
 		$_SESSION['Custom320'] = true;
 		
@@ -192,6 +196,7 @@ Class NetworksController extends ClassComponent
 		unset($_SESSION['Custom416']);
 		unset($_SESSION['Custom300']);
 		unset($_SESSION['Custom320']);
+		unset($_SESSION['Custom1000']);
 		$_SESSION['OneTerm'] = true;
 		$_SESSION['Custom350'] = true;
 		
@@ -223,8 +228,41 @@ Class NetworksController extends ClassComponent
 		unset($_SESSION['Custom300']);
 		unset($_SESSION['Custom320']);
 		unset($_SESSION['Custom350']);
+		unset($_SESSION['Custom1000']);
 		$_SESSION['OneTerm'] = true;
 		$_SESSION['Custom395'] = true;
+		
+		
+		$Sql = 'SELECT
+					*
+				FROM
+					bevomedia_adwords_countries
+				ORDER BY
+					(code <> "US"), country
+				';
+		$this->Countries = $this->db->fetchAll($Sql);
+		
+		$Sql = 'SELECT
+					*
+				FROM
+					bevomedia_state
+				ORDER BY
+					name
+				';
+		$this->States = $this->db->fetchAll($Sql);
+	}
+	
+	Public Function SignUp1000()
+	{
+		unset($_SESSION['LowPrices']);
+		unset($_SESSION['LowPrices']);
+		unset($_SESSION['Custom416']);
+		unset($_SESSION['Custom300']);
+		unset($_SESSION['Custom320']);
+		unset($_SESSION['Custom350']);
+		unset($_SESSION['Custom1000']);
+		$_SESSION['OneTerm'] = true;
+		$_SESSION['Custom1000'] = true;
 		
 		
 		$Sql = 'SELECT
@@ -356,6 +394,10 @@ Class NetworksController extends ClassComponent
 		if (isset($_SESSION['Custom350']))
 		{
 			$AddTerms = " AND (ID = 16) ";			
+		} else
+		if (isset($_SESSION['Custom1000']))
+		{
+			$AddTerms = " AND (ID = 17) ";			
 		} else
 		if (isset($_SESSION['OneTerm']) && ($_SESSION['OneTerm']==true)) 
 		{
