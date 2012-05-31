@@ -1,48 +1,49 @@
 <?php 
 
-require_once('DirectTrack.Abstract.php');
+require_once('HasOffers.Abstract.php');
 
 /**
- * ClickBooth.php
+ * ClickWinks.php
  *
  * @category   RCS Framework 
  * @package    Modules
  * @subpackage Bevomedia
- * @copyright  Copyright (c) 2009 RCS
+ * @copyright  Copyright (c) 2010 RCS
  * @author RCS
- * @version 0.1.2
+ * @version 0.0.1
  */
-class ClickWinks Extends DirectTrackAbstract {
+class ClickWinks Extends HasOffersAbstract {
 	/**
 	 * @access protected
 	 * @var string $apiUrl
 	 */
-	protected $apiUrl = 'http://network.clickwinks.com/api/soap_affiliate.php?wsdl';
+	protected $offersApiKey = 'AFFmnecn7436SZg6MIydJlMMhD21Vg';
 	
 	/**
 	 * @access protected
-	 * @var string $offersUsername
+	 * @var string $statsApiUrl
 	 */
-	protected $offersUsername = 'CD10144';
+	protected $statsApiUrl = 'http://partners.clickwinks.com/stats/stats.json';
 	
 	/**
 	 * @access protected
-	 * @var string $offersPassword
+	 * @var string $conversionsApiUrl
 	 */
-	protected $offersPassword = 'bevo1025';
+	protected $conversionsApiUrl = 'http://partners.clickwinks.com/stats/lead_report.json';
 	
 	/**
 	 * @access protected
-	 * @var string $apiClient
+	 * @var string $offersApiUrl
 	 */
-	protected $apiClient = 'clickwinks';
+	protected $offersApiUrl = 'http://partners.clickwinks.com/offers/offers.json';
+	
 	
 	/**
-	 * ClickBooth class constructor.
+	 * EWA class constructor.
 	 *
 	 */
 	Public Function __construct()
 	{
-
+		
 	}
 }
