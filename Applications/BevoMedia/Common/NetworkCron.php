@@ -87,6 +87,7 @@ $networks[] = networkArray('eMediaTraffic', 1084, 'HasOffers');
 $networks[] = networkArray('AffiliatiNetwork', 1085, 'CakeMarketing');
 $networks[] = networkArray('ClickWinks', 1086, 'DirectTrack');
 $networks[] = networkArray('Sterkly', 1087, 'CakeMarketing');
+$networks[] = networkArray('ClickRover', 1088, 'HasOffers');
 
 foreach($networks as $network)
 {
