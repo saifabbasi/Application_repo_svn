@@ -315,6 +315,10 @@ $('.j_appadd').live('click', function() {
 
 			$.get('/BevoMedia/User/MyAppsAction.html?id='+$(this).data('id')+'&action='+action, function(data) {
 
+				if ($(this).data('id')=='13') {
+					window.location.reload();
+				}
+				
 				appChangeMyApp(action);
 
 			});
