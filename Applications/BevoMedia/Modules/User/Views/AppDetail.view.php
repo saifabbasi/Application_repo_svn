@@ -193,7 +193,7 @@
 							 
 							
 						//if integrated
-							if ( ($productInfo->SignupURL=='') && ($productInfo->LaunchURL!='') )
+							if ( ($productInfo->SignupURL=='') && ($productInfo->LaunchURL!='') && !$isProductPPVSpy )
 							{
 						?>
 							<a class="tbtn big teal bold doubleright j_appframe" href="/BevoMedia/User/App.html?id=<?php echo $productInfo->ID; ?>&l">launch</a>
