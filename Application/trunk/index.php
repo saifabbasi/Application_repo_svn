@@ -1,4 +1,8 @@
 <?php
+	if (stristr($_SERVER['REQUEST_URI'], '/mixrank')) {
+		header('Location: https://mixrank.com/register/annual?coupon=bevowebinar-annual');
+		die;
+	}
 	error_reporting(E_ALL);
 	ini_set('display_errors', '1');
 	ini_set('max_execution_time', '360');
