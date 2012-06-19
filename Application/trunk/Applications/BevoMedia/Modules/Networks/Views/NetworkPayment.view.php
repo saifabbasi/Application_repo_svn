@@ -287,7 +287,7 @@
 			{
 				$('#State option').remove();
 				
-				$('#State').append("<option value='-1'>N/A</option>");
+				$('#State').append("<option value='NA'>N/A</option>");
 			}
 			
 		});
