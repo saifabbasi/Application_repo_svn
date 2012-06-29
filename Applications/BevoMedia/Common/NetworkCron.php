@@ -95,6 +95,7 @@ $networks[] = networkArray('AdMobix', 1092, 'AdCommunal');
 $networks[] = networkArray('AdIndian', 1093, 'AdCommunal');
 $networks[] = networkArray('AdCanadian', 1094, 'AdCommunal');
 $networks[] = networkArray('Jexo', 1095, 'LinkTrust');
+$networks[] = networkArray('MediaForce', 1096, 'HasOffers');
 foreach($networks as $network)
 {
     try {
