@@ -1,9 +1,9 @@
 <?php 
 
-require_once('DirectTrack.Abstract.php');
+require_once('CakeMarketing.Abstract.php');
 
 /**
- * ClickBooth.php
+ * ClickBooth
  *
  * @category   RCS Framework 
  * @package    Modules
@@ -12,33 +12,45 @@ require_once('DirectTrack.Abstract.php');
  * @author RCS
  * @version 0.1.2
  */
-class ClickBooth Extends DirectTrackAbstract {
+class ClickBooth Extends CakeMarketingAbstract {
 	/**
 	 * @access protected
 	 * @var string $apiUrl
 	 */
-	protected $apiUrl = 'http://publishers.clickbooth.com/api/soap_affiliate.php?wsdl';
+	protected $apiUrl = 'http://affiliates.clickbooth.com/affiliates/api/1/reports.asmx/Clicks';
 	
 	/**
 	 * @access protected
-	 * @var string $offersUsername
+	 * @var string $apiUrlConversions
 	 */
-	protected $offersUsername = 'CD79014';
+	protected $apiUrlConversions = 'http://affiliates.clickbooth.com/affiliates/api/1/reports.asmx/Conversions';
 	
 	/**
 	 * @access protected
-	 * @var string $offersPassword
+	 * @var string $offersUrl
 	 */
-	protected $offersPassword = 'yoyoyo1025';
+	protected $offersUrl = 'http://affiliates.clickbooth.com/affiliates/api/1/offers.asmx/OfferFeed';
 	
 	/**
 	 * @access protected
-	 * @var string $apiClient
+	 * @var string $loginUrl
 	 */
-	protected $apiClient = 'integraclick';
+	protected $loginUrl = 'http://affiliate.c2mclicks.com/login.php';
 	
 	/**
-	 * ClickBooth class constructor.
+	 * @access protected
+	 * @var string $offersAffiliateId
+	 */
+	protected $offersAffiliateId = '79014';
+	
+	/**
+	 * @access protected
+	 * @var string $offersApiKey
+	 */
+	protected $offersApiKey = '7Q7pAgrzCpWDgiajccYZA';
+	
+	/**
+	 * Convert2Media class constructor.
 	 *
 	 */
 	Public Function __construct()
