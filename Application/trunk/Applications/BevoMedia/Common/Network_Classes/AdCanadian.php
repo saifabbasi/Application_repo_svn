@@ -37,7 +37,7 @@ class AdCanadian Extends AdCommunalAbstract {
 	 * @access protected
 	 * @var string $offersApiKey
 	 */
-	protected $offersApiKey = 'b2d289e59008bd9350fd5dcd1bd131cc';
+	protected $offersApiKey = '5858ea228cc2edf88721699b2c8638e5';
 	
 	/**
 	 * Convert2Media class constructor.
