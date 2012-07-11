@@ -138,8 +138,15 @@ abstract class AdCommunalAbstract Extends NetworksAbstract {
 			return;
 		}
 		
+		$items = null;
+  		if (isset($xml->adcommunal)) {
+   			$items = $xml->adcommunal->offers->offer;
+  		} else
+  		if (isset($xml->adcanadian)) {
+   			$items = $xml->adcanadian->offers->offer;
+  		}
 		
-		foreach ($xml->adcommunal->offers->offer as $offer)
+		foreach ($items as $offer)
 		{
 			
 			$offerId = $offer->offerid;
