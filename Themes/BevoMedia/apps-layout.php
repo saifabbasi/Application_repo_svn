@@ -315,7 +315,7 @@ if(userTimezoneOffset == false)
 						<img src="https://s3.amazonaws.com/bevomedia-media/public/images/best-for-month/network-of-the-month.png" alt="" />
 					</a>
 					
-					<a class="subheadfeat" href="https://offers.bevomedia.com/Offer.html?id=65645" target="_blank">
+					<a class="subheadfeat" href="https://affportal.bevomedia.com/affiliate_network/apply-for-network/network/1096" target="_blank">
 						<span class="part title">
 							<span class="bg"></span>
 							<span class="label">
@@ -323,10 +323,10 @@ if(userTimezoneOffset == false)
 							</span>
 						</span>
 						<span class="part noborder">
-							<span class="data oneline">$58 <span class="txtsmall">/sale</span></span>
+							<span class="data oneline">$7.00 <span class="txtsmall">/sale</span></span>
 						</span>
 						<span class="part">
-							<span class="data txtsmall">60 Minute Payday<br />(1 page form)</span>
+							<span class="data txtsmall">Insurance.Comparisons.org<br />(Long Form)</span>
 						</span>
 					</a>
 					
