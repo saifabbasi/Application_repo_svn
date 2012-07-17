@@ -323,7 +323,7 @@ if(userTimezoneOffset == false)
 							</span>
 						</span>
 						<span class="part noborder">
-							<span class="data oneline">$7.00 <span class="txtsmall">/sale</span></span>
+							<span class="data oneline">$7.00<span class="txtsmall">/sale</span></span>
 						</span>
 						<span class="part">
 							<span class="data txtsmall">Insurance.Comparisons.org<br />(Long Form)</span>
