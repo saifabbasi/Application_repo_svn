@@ -330,7 +330,7 @@ if(userTimezoneOffset == false)
 						</span>
 					</a>
 					
-					<a class="subheadfeat" href="/BevoMedia/User/AppDetail.html?id=25">
+					<a class="subheadfeat" href="/BevoMedia/User/AppDetail.html?id=46">
 						<span class="part title">
 							<span class="bg"></span>
 							<span class="label">
