@@ -99,6 +99,7 @@ $networks[] = networkArray('MediaForce', 1096, 'HasOffers');
 $networks[] = networkArray('Leadnomics', 1097, 'HasOffers');
 $networks[] = networkArray('InAds', 1098, 'LinkTrust');
 $networks[] = networkArray('ClickDealer', 1099, 'HasOffers');
+$networks[] = networkArray('RevenueStreet', 1100, 'RevenueStreet');
 
 foreach($networks as $network)
 {
