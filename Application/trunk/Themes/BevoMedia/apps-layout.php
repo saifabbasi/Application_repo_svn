@@ -392,7 +392,7 @@ if(userTimezoneOffset == false)
 					<a href="http://<?php echo $_COOKIE['v3domain']; ?>/affiliate_network/apply-for-network/network/1063"><img src="https://s3.amazonaws.com/bevomedia-media/public/images/side-banners/left.jpg" alt=""></a>
 				</div>
 				<div class="sidead right">
-					<a href="http://<?php echo $_COOKIE['v3domain']; ?>/affiliate_network/apply-for-network/network/1052"><img src="https://s3.amazonaws.com/bevomedia-media/public/images/side-banners/right.jpg" alt=""></a>
+					<a href="http://<?php echo $_COOKIE['v3domain']; ?>/affiliate_network/apply-for-network/network/1099"><img src="https://s3.amazonaws.com/bevomedia-media/public/images/side-banners/right.jpg" alt=""></a>
 				</div>
 				
 				<div id="content" class="content">
