@@ -1763,7 +1763,7 @@ Public Function MyProducts()
 					bevomedia_product_adwatcher
 				WHERE
 					(bevomedia_product_adwatcher.UserID = ?)		
-				";echo $this->User->id;
+				";
 		$Row = $this->db->fetchRow($Sql, array($this->User->id));
 		if (!isset($Row->ID)) {
 			die;
