@@ -71,7 +71,7 @@
 <div class="lpop lpop_pay">
 	<div class="lpop_title">
 		<h2>Bevo AdWatcher</h2>
-		<p>Get full access to Bevo AdWatcher for only $200 /month or a $699 one-time payment!</p>
+		<p>Get full access to Bevo AdWatcher for only $150 /month or a $400 one-time payment!</p>
 	</div>
 	
 	<div class="lpop_content">
@@ -84,11 +84,11 @@
 					<p>You'll get immediate access to the app after cleared payment.</p>
 				</div>				
 				<div class="price">
-					<h3 id="payoption_price">$699 one-time</h3>
+					<h3 id="payoption_price">$400 one-time</h3>
 					<div class="lpop_payoptions lpop_payoptions_ppvspy">
 						<p>Select Payment Option:</p>
-						<a class="btn j_payoption btn_lpop_payoption_monthone_monthly" href="#" rel="200" title="Click to switch to the monthly payment plan">Monthly Payment Plan</a>
-						<a class="btn j_payoption btn_lpop_payoption_monthone_onetime active" href="#" rel="699" title="Click to make a one-time payment">One-Time Payment</a>
+						<a class="btn j_payoption btn_lpop_payoption_monthone_monthly" href="#" rel="150" title="Click to switch to the monthly payment plan">Monthly Payment Plan</a>
+						<a class="btn j_payoption btn_lpop_payoption_monthone_onetime active" href="#" rel="400" title="Click to make a one-time payment">One-Time Payment</a>
 					</div>
 				</div>			
 				<div class="clear"></div>
@@ -241,12 +241,12 @@ $(document).ready(function() {
 	//switch payment option
 	$('a.j_payoption').live('click', function() {
 
-		if ($(this).attr('rel')==200) {
-			$('#payoption_price').html('$200 /month');
+		if ($(this).attr('rel')==150) {
+			$('#payoption_price').html('$150 /month');
 			$('.btn_lpop_paynow').attr('href', '/BevoMedia/User/PayAdWatcherMonthly.html');
 			$('#CancelMonthly').css('display', '');
 		} else {
-			$('#payoption_price').html('$699 one-time');
+			$('#payoption_price').html('$400 one-time');
 			$('.btn_lpop_paynow').attr('href', '/BevoMedia/User/PayAdWatcherYearly.html');
 			$('#CancelMonthly').css('display', 'none');
 		}
