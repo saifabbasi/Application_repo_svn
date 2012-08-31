@@ -78,6 +78,8 @@
 			||	$this->User->IsSubscribed(User::PRODUCT_FREE_PPVSPY)
 			||	$this->User->IsSubscribed(User::PRODUCT_FREE_SELF_HOSTED)
 			||	$this->User->IsSubscribed(User::PRODUCT_FREE_PPC)
+			||	$this->User->IsSubscribed(User::PRODUCT_ADWATCHER_MONTHLY)
+			||	$this->User->IsSubscribed(User::PRODUCT_ADWATCHER_YEARLY)
 			)
 				echo '<li><a href="/BevoMedia/User/MyProducts.html">Manage My Subscriptions</a></li>';
 		?>
@@ -187,26 +189,29 @@
 							</span>								
 						<?php 
 							}
+							echo '<pre>';
 						
 							$isProductPPVSpy = ($productInfo->ProductName=='PPVSpy');
+							$isProductAdWatcher = ($productInfo->ProductName=='AdWatcher');
 							$isUserSubscribedToPPVSpy = ( $this->User->IsSubscribed(User::PRODUCT_PPVSPY_MONTHLY) || $this->User->IsSubscribed(User::PRODUCT_PPVSPY_YEARLY) || $this->User->IsSubscribed(User::PRODUCT_FREE_PPVSPY) );
+							$isUserSubscribedToAdWatcher = ( $this->User->IsSubscribed(User::PRODUCT_ADWATCHER_MONTHLY) || $this->User->IsSubscribed(User::PRODUCT_ADWATCHER_YEARLY) );
 							 
 							
 						//if integrated
-							if ( ($productInfo->SignupURL=='') && ($productInfo->LaunchURL!='') && !$isProductPPVSpy )
+							if ( ($productInfo->SignupURL=='') && ($productInfo->LaunchURL!='') && !$isProductPPVSpy && !$isProductAdWatcher )
 							{
 						?>
 							<a class="tbtn big teal bold doubleright j_appframe" href="/BevoMedia/User/App.html?id=<?php echo $productInfo->ID; ?>&l">launch</a>
 						<?php 
 							} else
-							if (isProductIntegrated($productInfo->ID) && !$isProductPPVSpy) 
+							if (isProductIntegrated($productInfo->ID) && !$isProductPPVSpy && !$isProductAdWatcher) 
 							{ 
 						?>
 							<a class="tbtn big teal bold doubleright j_appframe" href="/BevoMedia/User/App.html?id=<?php echo $productInfo->ID; ?>&l">launch</a>
 							
 						<?php
 							} else 
-							if (!$isProductPPVSpy)
+							if (!$isProductPPVSpy && !$isProductAdWatcher)
 							{
 								//if free
 								if($productInfo->Price == 0) 
@@ -235,6 +240,20 @@
 								{
 						?>
 								<a class="tbtn big dgreen bold doubleright j_appframe j_add2cart" href="/BevoMedia/Publisher/VerifyPPVSpyConfirm.html">buy now</a>
+						<?php 
+								}
+							} else //endif ppvspy
+							if ($isProductAdWatcher)
+							{ 
+								if ($isUserSubscribedToAdWatcher)
+								{
+						?>
+								<a class="tbtn big teal bold doubleright j_appframe" href="/BevoMedia/User/App.html?id=<?php echo $productInfo->ID; ?>&l">launch</a>
+						<?php 
+								} else 
+								{
+						?>
+								<a class="tbtn big dgreen bold doubleright j_appframe j_add2cart" href="/BevoMedia/Publisher/VerifyAdWatcherConfirm.html">buy now</a>
 						<?php 
 								}
 							} 

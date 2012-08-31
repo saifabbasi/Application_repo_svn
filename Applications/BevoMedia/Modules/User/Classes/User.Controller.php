@@ -92,7 +92,8 @@ Class UserController extends ClassComponent
 //		  die;
 //		}
 		
-		if (isset($_GET['v3apps']) && ($_SERVER['SERVER_NAME']=='apps.bevomedia.com')) { 
+//		if (isset($_GET['v3apps']) && ($_SERVER['SERVER_NAME']=='apps.bevomedia.com')) {
+			if (isset($_GET['v3apps']) && ($_SERVER['SERVER_NAME']=='bevomedia')) { 
 			setcookie('v3apps', true, time()+3600*24*365, '/');
 			setcookie('v3domain', $_GET['domain'], time()+3600*24*365, '/');
 			Zend_Registry::set('Instance/LayoutType', 'apps-layout');
@@ -1381,9 +1382,10 @@ Class UserController extends ClassComponent
 				
 				$this->db->insert('bevomedia_user_payments', $Array);
 				
+				$key = trim(file_get_contents('http://www.commissionradar.com/site/register?email='.$this->User->email));
 				$Array = array (
 								'UserID'		=> $this->User->id,
-								'Registered'	=> 0,
+								'Key'	=> $key,
 								);
 				$this->db->insert('bevomedia_product_adwatcher', $Array);
 
@@ -1437,9 +1439,10 @@ Class UserController extends ClassComponent
 				
 				$this->db->insert('bevomedia_user_payments', $Array);
 
+				$key = trim(file_get_contents('http://www.commissionradar.com/site/register?email='.$this->User->email));
 				$Array = array (
 								'UserID'		=> $this->User->id,
-								'Registered'	=> 0,
+								'Key'	=> $key,
 								);
 				$this->db->insert('bevomedia_product_adwatcher', $Array);
 				
@@ -1448,7 +1451,7 @@ Class UserController extends ClassComponent
 				break;
 			default:
 				
-				$Body = "Research payment for user \"{$UserID}\" has failed.<br /><br />
+				$Body = "AdWatcher payment for user \"{$UserID}\" has failed.<br /><br />
 		    			 Error: {$Result['responsetext']}<br /><br />
 		    			 Amount:  \${$Product->Price}		    	
 	    				";
@@ -1760,29 +1763,16 @@ Public Function MyProducts()
 					bevomedia_product_adwatcher
 				WHERE
 					(bevomedia_product_adwatcher.UserID = ?)		
-				";
+				";echo $this->User->id;
 		$Row = $this->db->fetchRow($Sql, array($this->User->id));
 		if (!isset($Row->ID)) {
-			header('Location: /');
 			die;
 		}
 		
-		if ($Row->Registered==0) 
-		{
-			$Array = array('Registered' => 1);
-			$this->db->update('bevomedia_product_adwatcher', $Array, 'ID = '.$Row->ID);
-			
-			header('Location: http://www.example.com/register?email='.$Row->email);
-			die;
-		} else
-		{
-			$password = strrev($Row->email);
-			$hash = md5($password);
-
-			header('Location: http://www.example.com/login?u='.$Row->email.'&p='.$password);
-			die;
-		}
 		
+		$password = $Row->Key;
+		
+		header('Location: http://www.commissionradar.com/site/login?u='.$this->User->email.'&p='.$password);
 		die;
 	}
 	
