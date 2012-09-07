@@ -17,7 +17,7 @@ class CashMyLinks Extends HasOffersAbstract {
 	 * @access protected
 	 * @var string $apiUrl
 	 */
-	protected $offersApiKey = 'AFFOaAJ4OZUkviND3JcUis9gRh9Xud';
+	protected $offersApiKey = 'AFF7WpCUNyCGEOYcbwqtWFCbNcAHJ8';
 	
 	/**
 	 * @access protected
