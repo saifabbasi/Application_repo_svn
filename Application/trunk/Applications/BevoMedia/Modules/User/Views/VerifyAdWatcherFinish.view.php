@@ -65,7 +65,7 @@ li, div { font-family: Arial; font-size: 13px; }
 Thank you for your payment.
 
 
-Click <a href="/BevoMedia/User/OpenAdWatcher.html" target="_blank">here</a> to start using the AdWatcher tool.
+Click <a href="/BevoMedia/User/App.html?id=18&l" target="_blank">here</a> to start using the AdWatcher tool.
 
 <br /><br />
 

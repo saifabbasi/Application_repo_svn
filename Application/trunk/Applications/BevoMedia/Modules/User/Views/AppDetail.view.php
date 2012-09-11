@@ -189,7 +189,7 @@
 							</span>								
 						<?php 
 							}
-							echo '<pre>';
+							
 						
 							$isProductPPVSpy = ($productInfo->ProductName=='PPVSpy');
 							$isProductAdWatcher = ($productInfo->ProductName=='AdWatcher');
@@ -335,7 +335,7 @@ $('.j_appadd').live('click', function() {
 			var appId = $(this).data('id'); 
 			$.get('/BevoMedia/User/MyAppsAction.html?id='+$(this).data('id')+'&action='+action, function(data) {
 
-				if (appId=='13') {
+				if ((appId=='13') || (appId=='18')) {
 					window.location.reload();
 				}
 				

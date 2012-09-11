@@ -1687,6 +1687,37 @@ Public Function MyProducts()
 			
 		}
 		
+		if (isset($_GET['UpgradeAdWatcherID']))
+		{
+		$Sql = "SELECT
+						bevomedia_user_payments.ID,
+						bevomedia_user_payments.Date,
+						DATE_ADD(bevomedia_user_payments.Date, interval bevomedia_products.TermLength day) as `TermEnds` 
+					FROM	
+						bevomedia_user_payments,
+						bevomedia_products
+					WHERE
+						(bevomedia_products.ID = bevomedia_user_payments.ProductID) AND 
+						(bevomedia_user_payments.ID = ?) AND
+						(bevomedia_user_payments.UserID = ?)			
+					";
+			$Check = $this->db->fetchRow($Sql, array($_GET['UpgradeAdWatcherID'], $this->User->id));
+			if (isset($Check->ID)) {				
+				$Product = $this->User->GetProduct(User::PRODUCT_ADWATCHER_YEARLY);			
+				$Array = array (
+							'UserID' => $this->User->id,
+							'ProductID' => $Product->ID,
+							'Price'	=> $Product->Price,
+							'Date' => $Check->TermEnds,
+							'Paid' => 0
+							);			
+				$this->db->insert('bevomedia_user_payments', $Array);	
+				
+				header('Location: /BevoMedia/User/MyProducts.html');
+				die;
+			}
+		}
+		
 		$Sql = "SELECT
 					bevomedia_user_payments.ID,
 					ProductName,

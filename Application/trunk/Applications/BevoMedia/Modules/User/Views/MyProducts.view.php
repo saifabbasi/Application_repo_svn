@@ -77,7 +77,7 @@
 			<td>$<?php echo number_format($Product->Price, 2)?></td>
 			<td>
 			<?php 
-				if (stristr($Product->ProductName, 'ppvspy')) {
+				if ( (stristr($Product->ProductName, 'ppvspy')) || (stristr($Product->ProductName, 'adwatcher')) ) {
 			?>
 				
 				<?php 
@@ -87,7 +87,7 @@
 						if ($Product->Cancelled==1) {
 							echo "Subscription cancelled.";
 						} else {
-							if ($Product->ProductName!=User::PRODUCT_PPVSPY_YEARLY) {
+							if (($Product->ProductName!=User::PRODUCT_PPVSPY_YEARLY) && ($Product->ProductName!=User::PRODUCT_ADWATCHER_YEARLY)) {
 				?>					
 					<a href="/BevoMedia/User/MyProducts.html?ID=<?php echo $Product->ID?>" onclick="return confirm('Are you sure you want to stop your subscription?'); ">Cancel feature</a>
 				<?php 
@@ -101,12 +101,25 @@
 				
 				
 				<?php 
-					if ( ($Product->TermLength==30) && !$this->User->IsSubscribed(User::PRODUCT_PPVSPY_YEARLY) ) {
+					if ( ($Product->TermLength==30) && !$this->User->IsSubscribed(User::PRODUCT_PPVSPY_YEARLY) &&
+						(stristr($Product->ProductName, 'ppvspy'))
+					) {
 				?>				
 				<a href="/BevoMedia/User/MyProducts.html?UpgradeID=<?php echo $Product->ID?>" onclick="return confirm('Are you sure you want to change your subscription to lifetime?'); ">Upgrade to lifetime for $999</a>
 				<?php 
 					}
 				?>
+				
+				<?php 
+					if ( ($Product->TermLength==30) && !$this->User->IsSubscribed(User::PRODUCT_ADWATCHER_YEARLY) &&
+						(stristr($Product->ProductName, 'adwatcher'))
+					) {
+				?>				
+				<a href="/BevoMedia/User/MyProducts.html?UpgradeAdWatcherID=<?php echo $Product->ID?>" onclick="return confirm('Are you sure you want to change your subscription to lifetime?'); ">Upgrade to lifetime for $399</a>
+				<?php 
+					}
+				?>
+				
 			<?php 
 				} else {
 			?>
