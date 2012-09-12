@@ -1,3 +1,10 @@
+<?php 
+	if ($this->User->vaultID<=0)
+	{
+		header('Location: /BevoMedia/Publisher/Verify.html?ajax=true');
+		die;
+	}
+?>
 <script language="javascript" src="/Themes/BevoMedia/jquery.js"></script>
 <script language="javascript" src="/Themes/BevoMedia/jquery_tooltip.js"></script>
 
