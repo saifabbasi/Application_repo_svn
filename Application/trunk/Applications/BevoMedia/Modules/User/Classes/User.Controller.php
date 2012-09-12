@@ -1803,7 +1803,7 @@ Public Function MyProducts()
 		
 		$password = $Row->Key;
 		
-		header('Location: http://www.commissionradar.com/site/login?u='.$this->User->email.'&p='.$password);
+		header('Location: https://www.commissionradar.com/site/login?u='.$this->User->email.'&p='.$password);
 		die;
 	}
 	
