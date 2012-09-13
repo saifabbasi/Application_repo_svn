@@ -77,8 +77,8 @@
 
 <div class="lpop lpop_pay">
 	<div class="lpop_title">
-		<h2>Bevo AdWatcher</h2>
-		<p>Get full access to Bevo AdWatcher for only $150 /month or a $399 one-time payment!</p>
+		<h2>Bevo AdScout</h2>
+		<p>Get full access to Bevo AdScout for only $150 /month or a $399 one-time payment!</p>
 	</div>
 	
 	<div class="lpop_content">
@@ -87,7 +87,7 @@
 		<div class="lpop_cart">
 			<div class="lpop_cartbox">
 				<div class="product">
-					<h3>Bevo AdWatcher</h3>
+					<h3>Bevo AdScout</h3>
 					<p>You'll get immediate access to the app after cleared payment.</p>
 				</div>				
 				<div class="price">

@@ -175,6 +175,21 @@
 							{
 						?>
 							<span class="tbtn big doubleleft bordered">
+							<?php 
+								if ($productInfo->ProductName=='AdWatcher')
+								{
+							?>
+								<img src="https://s3.amazonaws.com/bevomedia-media/public/images/header/formicon_dollar.png" alt="">150.- /mo OR &nbsp;&nbsp;<img src="https://s3.amazonaws.com/bevomedia-media/public/images/header/formicon_dollar.png" alt="">399.-</span>
+							<?php 
+								} else 
+								if ($productInfo->ProductName=='PPVSpy')
+								{
+							?>
+								<img src="https://s3.amazonaws.com/bevomedia-media/public/images/header/formicon_dollar.png" alt="">385.- /mo OR &nbsp;&nbsp;<img src="https://s3.amazonaws.com/bevomedia-media/public/images/header/formicon_dollar.png" alt="">999.-</span>
+							<?php 
+								} else
+								{
+							?>
 								<img src="https://s3.amazonaws.com/bevomedia-media/public/images/header/formicon_dollar.png" alt="" />
 								<?php
 									$price = number_format($productInfo->Price, 2);
@@ -186,6 +201,9 @@
 									
 									echo $price;
 								?>
+							<?php 
+								}
+							?>
 							</span>								
 						<?php 
 							}
