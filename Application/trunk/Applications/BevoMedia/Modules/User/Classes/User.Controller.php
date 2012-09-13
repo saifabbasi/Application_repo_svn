@@ -81,7 +81,7 @@ Class UserController extends ClassComponent
 			if(!in_array($page, $noLoginNeeded))
 			{
 				$_SESSION['loginLocation'] = $_SERVER['REQUEST_URI'];
-				header('Location: /BevoMedia/Index/');
+				header('Location: http://affportal.bevomedia.com');
 				die;
 			}
 		}
