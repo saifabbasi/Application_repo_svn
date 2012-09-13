@@ -176,7 +176,7 @@
 						?>
 							<span class="tbtn big doubleleft bordered">
 							<?php 
-								if ($productInfo->ProductName=='AdWatcher')
+								if ($productInfo->ProductName=='AdScout')
 								{
 							?>
 								<img src="https://s3.amazonaws.com/bevomedia-media/public/images/header/formicon_dollar.png" alt="">150.- /mo OR &nbsp;&nbsp;<img src="https://s3.amazonaws.com/bevomedia-media/public/images/header/formicon_dollar.png" alt="">399.-</span>
@@ -210,7 +210,7 @@
 							
 						
 							$isProductPPVSpy = ($productInfo->ProductName=='PPVSpy');
-							$isProductAdWatcher = ($productInfo->ProductName=='AdWatcher');
+							$isProductAdWatcher = ($productInfo->ProductName=='AdScout');
 							$isUserSubscribedToPPVSpy = ( $this->User->IsSubscribed(User::PRODUCT_PPVSPY_MONTHLY) || $this->User->IsSubscribed(User::PRODUCT_PPVSPY_YEARLY) || $this->User->IsSubscribed(User::PRODUCT_FREE_PPVSPY) );
 							$isUserSubscribedToAdWatcher = ( $this->User->IsSubscribed(User::PRODUCT_ADWATCHER_MONTHLY) || $this->User->IsSubscribed(User::PRODUCT_ADWATCHER_YEARLY) );
 							 
