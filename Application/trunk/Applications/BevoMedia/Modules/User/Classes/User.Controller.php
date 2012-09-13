@@ -92,8 +92,8 @@ Class UserController extends ClassComponent
 //		  die;
 //		}
 		
-//		if (isset($_GET['v3apps']) && ($_SERVER['SERVER_NAME']=='apps.bevomedia.com')) {
-			if (isset($_GET['v3apps']) && ($_SERVER['SERVER_NAME']=='bevomedia')) { 
+		if (isset($_GET['v3apps']) && ($_SERVER['SERVER_NAME']=='apps.bevomedia.com')) {
+			//if (isset($_GET['v3apps']) && ($_SERVER['SERVER_NAME']=='bevomedia')) { 
 			setcookie('v3apps', true, time()+3600*24*365, '/');
 			setcookie('v3domain', $_GET['domain'], time()+3600*24*365, '/');
 			Zend_Registry::set('Instance/LayoutType', 'apps-layout');
