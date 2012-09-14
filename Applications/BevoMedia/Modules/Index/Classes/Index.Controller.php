@@ -149,6 +149,27 @@ Class IndexController extends ClassComponent
 			$this->Location = $this->PageHelper->URLDecode($_GET['goto']);
 		}
 	}
+	
+	public function AdScoutReport()
+	{
+		$db = Zend_Registry::get('Instance/DatabaseObj');
+		
+		$sql = "SELECT
+					bevomedia_user.email,
+					bevomedia_user_payments.Price,
+					bevomedia_user_payments.Deleted
+				FROM
+					bevomedia_user_payments,
+					bevomedia_user
+				WHERE
+					(bevomedia_user_payments.UserID = bevomedia_user.id) AND
+					((bevomedia_user_payments.ProductID = 17) || (bevomedia_user_payments.ProductID = 18)) AND
+					(bevomedia_user_payments.Paid = 1)
+				ORDER BY
+					bevomedia_user_payments.ID
+				";
+		$this->Payments = $db->fetchAll($sql);
+	}
 }
 
 ?>
