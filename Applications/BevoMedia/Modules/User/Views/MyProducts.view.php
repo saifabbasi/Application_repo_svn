@@ -77,7 +77,7 @@
 			<td>$<?php echo number_format($Product->Price, 2)?></td>
 			<td>
 			<?php 
-				if ( (stristr($Product->ProductName, 'ppvspy')) || (stristr($Product->ProductName, 'adwatcher')) ) {
+				if ( (stristr($Product->ProductName, 'ppvspy')) || (stristr($Product->ProductName, 'adscout')) ) {
 			?>
 				
 				<?php 
@@ -112,7 +112,7 @@
 				
 				<?php 
 					if ( ($Product->TermLength==30) && !$this->User->IsSubscribed(User::PRODUCT_ADWATCHER_YEARLY) &&
-						(stristr($Product->ProductName, 'adwatcher'))
+						(stristr($Product->ProductName, 'adscout'))
 					) {
 				?>				
 				<a href="/BevoMedia/User/MyProducts.html?UpgradeAdWatcherID=<?php echo $Product->ID?>" onclick="return confirm('Are you sure you want to change your subscription to lifetime?'); ">Upgrade to lifetime for $399</a>
