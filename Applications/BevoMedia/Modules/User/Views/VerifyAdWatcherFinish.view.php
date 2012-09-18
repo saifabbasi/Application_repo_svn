@@ -1,3 +1,38 @@
+<?php 
+	global $db;
+	$db = $this->db;
+	
+	function isProductIntegrated($productId)
+	{
+		global $db;
+		$productId = intval($productId);
+		return ($db->fetchOne("SELECT id FROM bevomedia_integerated_user_products WHERE userId = ? AND productId = ?", array($_SESSION['User']['ID'], $productId))!=null);
+	}
+	
+	function integrateProduct($productId)
+	{
+		global $db;
+		
+		$productId = intval($productId);
+		
+		if (!isProductIntegrated($productId))
+		{
+			$sql = "INSERT INTO bevomedia_integerated_user_products (userId, productId) VALUES ({$_SESSION['User']['ID']}, {$productId}); ";
+			$db->exec($sql);
+		}
+	}
+	
+	if (isset($_GET['integrate']))
+	{
+		if (isset($_GET['monthly']))
+		{
+			integrateProduct(17);
+		} else
+		{
+			integrateProduct(18);
+		}
+	}
+?>
 <div class="wrap">
 <script language="javascript" src="/Themes/BevoMedia/jquery.js"></script>
 <script language="javascript" src="/Themes/BevoMedia/jquery_tooltip.js"></script>
@@ -88,6 +123,16 @@ You can cancel, or upgrade your subscription anytime by going to the My Products
 	}
 ?>
 
+<br /><br />
+
+<?php 
+	if (!isProductIntegrated(17) && !isProductIntegrated(18))
+	{
+?>
+	Click <a href="/BevoMedia/User/VerifyAdWatcherFinish.html?ajax=true<?php echo isset($_GET['monthly'])?'&monthly=1':''; ?>&integrate=true">here</a> to add AdScout to you apps.
+<?php 
+	}
+?>
 </div>
 
 
