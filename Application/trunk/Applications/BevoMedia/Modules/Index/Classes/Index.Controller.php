@@ -155,20 +155,100 @@ Class IndexController extends ClassComponent
 		$db = Zend_Registry::get('Instance/DatabaseObj');
 		
 		$sql = "SELECT
-					bevomedia_user.email,
-					bevomedia_user_payments.Price,
-					bevomedia_user_payments.Deleted
+					COUNT(bevomedia_user_payments.ID) as `TotalSales`,
+					SUM(bevomedia_user_payments.Price) as `TotalRevenue`
 				FROM
 					bevomedia_user_payments,
 					bevomedia_user
 				WHERE
 					(bevomedia_user_payments.UserID = bevomedia_user.id) AND
 					((bevomedia_user_payments.ProductID = 17) || (bevomedia_user_payments.ProductID = 18)) AND
-					(bevomedia_user_payments.Paid = 1)
+					(bevomedia_user_payments.Paid = 1) AND
+					(bevomedia_user_payments.Deleted = 0)
+				";
+		$totals = $db->fetchRow($sql);
+		$this->TotalSales = (int) $totals->TotalSales;
+		$this->TotalRevenue = number_format($totals->TotalRevenue, 2);
+		
+		$date = date('Y-m-d');
+		$sql = "SELECT
+					COUNT(bevomedia_user_payments.ID) as `TotalSales`,
+					SUM(bevomedia_user_payments.Price) as `TotalRevenue`
+				FROM
+					bevomedia_user_payments,
+					bevomedia_user
+				WHERE
+					(bevomedia_user_payments.UserID = bevomedia_user.id) AND
+					((bevomedia_user_payments.ProductID = 17) || (bevomedia_user_payments.ProductID = 18)) AND
+					(bevomedia_user_payments.Paid = 1) AND
+					(bevomedia_user_payments.Date BETWEEN '{$date} 00:00:00' AND '{$date} 23:59:59') AND
+					(bevomedia_user_payments.Deleted = 0)
+				";
+		$totals = $db->fetchRow($sql);
+		$this->TodaySales = (int) $totals->TodaySales;
+		$this->TodayRevenue = number_format($totals->TodayRevenue, 2);
+		
+		
+		
+		$sql = "SELECT
+					bevomedia_user.email,
+					bevomedia_user_payments.UserID,
+					SUM(bevomedia_user_payments.Price) as `Price`
+				FROM
+					bevomedia_user_payments,
+					bevomedia_user
+				WHERE
+					(bevomedia_user_payments.UserID = bevomedia_user.id) AND
+					((bevomedia_user_payments.ProductID = 17) || (bevomedia_user_payments.ProductID = 18)) AND
+					(bevomedia_user_payments.Paid = 1) AND
+					(bevomedia_user_payments.Deleted = 0)
+				GROUP BY
+					bevomedia_user.id
 				ORDER BY
 					bevomedia_user_payments.ID
 				";
 		$this->Payments = $db->fetchAll($sql);
+		
+		foreach ($this->Payments as $key => $payment)
+		{
+			$sql = "SELECT
+						SUM(bevomedia_user_payments.Price) as `TotalRevenue`
+					FROM
+						bevomedia_user_payments,
+						bevomedia_user
+					WHERE
+						(bevomedia_user_payments.UserID = bevomedia_user.id) AND
+						((bevomedia_user_payments.ProductID = 17) || (bevomedia_user_payments.ProductID = 18) || (bevomedia_user_payments.ProductID = 2)) AND
+						(bevomedia_user_payments.Paid = 1) AND
+						(bevomedia_user_payments.Deleted = 0) AND
+						(bevomedia_user_payments.UserID = {$payment->UserID})
+				";
+			
+			$TotalRevenue = $db->fetchOne($sql);
+			$this->Payments[$key]->TotalRevenue += $TotalRevenue;
+
+			
+			$fromDate = date('Y-m-1');
+			$toDate = date('Y-m-31');
+			$sql = "SELECT
+						SUM(bevomedia_user_payments.Price) as `TotalRevenue`
+					FROM
+						bevomedia_user_payments,
+						bevomedia_user
+					WHERE
+						(bevomedia_user_payments.UserID = bevomedia_user.id) AND
+						((bevomedia_user_payments.ProductID = 17) || (bevomedia_user_payments.ProductID = 18) || (bevomedia_user_payments.ProductID = 2)) AND
+						(bevomedia_user_payments.Paid = 1) AND
+						(bevomedia_user_payments.Deleted = 0) AND
+						(bevomedia_user_payments.UserID = {$payment->UserID}) AND
+						(bevomedia_user_payments.Date BETWEEN '{$fromDate} 00:00:00' AND '{$toDate} 23:59:59') 
+				";
+			
+			$TotalMonthRevenue = $db->fetchOne($sql);
+			$this->Payments[$key]->TotalMonthRevenue += $TotalMonthRevenue; 
+			
+			
+		}
 	}
 }
 
