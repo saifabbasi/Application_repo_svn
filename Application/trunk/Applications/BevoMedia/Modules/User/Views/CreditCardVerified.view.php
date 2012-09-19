@@ -16,3 +16,10 @@
 		<br />
 			
 	</div>
+	
+	
+	<script type="text/javascript">
+	
+		setTimeout('window.location = "/BevoMedia/User/AppDetail.html?id=18";', 3000);
+	
+	</script>
