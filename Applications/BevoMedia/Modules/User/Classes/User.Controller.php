@@ -1115,6 +1115,7 @@ Class UserController extends ClassComponent
 		    	}
 		    	
 		    	if ($isAdScout) {
+		    		$this->User->vaultID = $result['customer_vault_id'];
 		    		$adscoutPlan = $_POST['adscoutPlan'];
 		    		if ($adscoutPlan==1) {
 		    			$this->PayAdWatcherMonthly(true);
