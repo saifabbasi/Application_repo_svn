@@ -1054,7 +1054,7 @@ Class UserController extends ClassComponent
 	Public Function AddCreditCardProcess()
 	{
 		$isAdScout = isset($_POST['adscout']);
-		echo $isAdScout;die;
+		
 		$Product = $this->User->GetProduct(User::PRODUCT_SERVER_CHARGE);
 		
 		/* @var $vault nmiCustomerVault */ 
@@ -1122,6 +1122,8 @@ Class UserController extends ClassComponent
 		    		} else {
 		    			$this->PayAdWatcherYearly(true);
 		    		}
+		    		
+		    		die;
 		    	}
 		    	
 		    	header('Location: /BevoMedia/User/CreditCardVerified.html');
@@ -1400,7 +1402,8 @@ Class UserController extends ClassComponent
 		$Vault->charge($Price);
 		$Result = $Vault->execute();
 		
-		
+		echo '<pre>';
+		print_r($Result);
 		
 		switch($Result['response'])
 		{
