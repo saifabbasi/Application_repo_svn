@@ -1122,6 +1122,9 @@ Class UserController extends ClassComponent
 		    		} else {
 		    			$this->PayAdWatcherYearly(true);
 		    		}
+		    		
+		    		header('Location: /BevoMedia/User/CreditCardVerified.html?adscout=1');
+		    		die;
 		    	}
 		    	
 		    	header('Location: /BevoMedia/User/CreditCardVerified.html');
