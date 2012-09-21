@@ -1054,7 +1054,7 @@ Class UserController extends ClassComponent
 	Public Function AddCreditCardProcess()
 	{
 		$isAdScout = isset($_POST['adscout']);
-		
+		echo $isAdScout;die;
 		$Product = $this->User->GetProduct(User::PRODUCT_SERVER_CHARGE);
 		
 		/* @var $vault nmiCustomerVault */ 
