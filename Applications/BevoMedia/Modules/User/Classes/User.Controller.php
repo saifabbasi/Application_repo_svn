@@ -1024,8 +1024,37 @@ Class UserController extends ClassComponent
 		$this->States = $this->db->fetchAll($Sql);
 	}
 	
+	Public Function AddCreditCardAdScout()
+	{
+		if (!isset($_SERVER['HTTPS']) && ($_SERVER['SERVER_NAME']!='bevomedia')) {
+			header('Location: https://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
+			die;
+		}
+	
+		$Sql = 'SELECT
+					*
+				FROM
+					bevomedia_adwords_countries
+				ORDER BY
+					(code <> "US"), country
+				';
+		$this->Countries = $this->db->fetchAll($Sql);
+
+
+		$Sql = 'SELECT
+					*
+				FROM
+					bevomedia_state
+				ORDER BY
+					name
+				';
+		$this->States = $this->db->fetchAll($Sql);
+	}
+	
 	Public Function AddCreditCardProcess()
 	{
+		$isAdScout = isset($_POST['adscout']);
+		
 		$Product = $this->User->GetProduct(User::PRODUCT_SERVER_CHARGE);
 		
 		/* @var $vault nmiCustomerVault */ 
@@ -1085,6 +1114,14 @@ Class UserController extends ClassComponent
 					mail('error@bevomedia.com', 'V3 verify error', $Body, $Headers);
 		    	}
 		    	
+		    	if ($isAdScout) {
+		    		$adscoutPlan = $_POST['adscoutPlan'];
+		    		if ($adscoutPlan==1) {
+		    			$this->PayAdWatcherMonthly(true);
+		    		} else {
+		    			$this->PayAdWatcherYearly(true);
+		    		}
+		    	}
 		    	
 		    	header('Location: /BevoMedia/User/CreditCardVerified.html');
 		    	die;
@@ -1352,7 +1389,7 @@ Class UserController extends ClassComponent
 		}
 	}
 	
-	Public Function PayAdWatcherYearly()
+	Public Function PayAdWatcherYearly($billOnly = false)
 	{
 		$Product = $this->User->GetProduct(User::PRODUCT_ADWATCHER_YEARLY);
 		$Price = $Product->Price;
@@ -1389,6 +1426,11 @@ Class UserController extends ClassComponent
 								);
 				$this->db->insert('bevomedia_product_adwatcher', $Array);
 
+				if ($billOnly)
+				{
+					return true;
+				}
+				
 				header('Location: /BevoMedia/User/VerifyAdWatcherFinish.html?ajax=true');
 				die;
 				break;
@@ -1404,6 +1446,11 @@ Class UserController extends ClassComponent
 				 
 	//			mail('ryan@bevomedia.com', 'Recurring User Payment Failed', $Body, $Headers);
 	
+				if ($billOnly)
+				{
+					return false;
+				}
+				
 				header('Location: /BevoMedia/Publisher/VerifyAdWatcherConfirm.html?ajax=true&Error='.$Result['responsetext']);
 				die;
 				
@@ -1411,7 +1458,7 @@ Class UserController extends ClassComponent
 		}
 	}
 	
-	Public Function PayAdWatcherMonthly()
+	Public Function PayAdWatcherMonthly($billOnly = false)
 	{
 		$Product = $this->User->GetProduct(User::PRODUCT_ADWATCHER_MONTHLY);
 		
@@ -1446,6 +1493,11 @@ Class UserController extends ClassComponent
 								);
 				$this->db->insert('bevomedia_product_adwatcher', $Array);
 				
+				if ($billOnly)
+				{
+					return true;
+				}
+				
 				header('Location: /BevoMedia/User/VerifyAdWatcherFinish.html?ajax=true&monthly=1');
 				die;
 				break;
@@ -1461,6 +1513,11 @@ Class UserController extends ClassComponent
 				 
 	//			mail('ryan@bevomedia.com', 'Recurring User Payment Failed', $Body, $Headers);
 	
+				if ($billOnly)
+				{
+					return false;
+				}
+				
 				header('Location: /BevoMedia/Publisher/VerifyAdWatcherConfirm.html?ajax=true&Error='.$Result['responsetext']);
 				die;
 				

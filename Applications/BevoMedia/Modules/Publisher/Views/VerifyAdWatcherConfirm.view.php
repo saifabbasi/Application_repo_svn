@@ -116,7 +116,7 @@
 					<p>1. AGREEMENT</p>
 					<p>These Website Terms of Service (the "Agreement") constitute a legally binding agreement by and between
 Vemba, a software company which develops and owns AdScout software (hereinafter collectively, "AdScout")
-and you or your company (in either case, "You" or "Your") concerning Your use of AdScout’s software,
+and you or your company (in either case, "You" or "Your") concerning Your use of AdScout's software,
 distributed by BeVo Media, having website located at www.bevomedia.com (the "Website") and the services
 available through the Website (the "Services"). By using the Website and Services, You represent and warrant
 that You have read and understood, and agree to be bound by, this Agreement and the privacy policy found on
@@ -127,7 +127,7 @@ USING THE SERVICES.</p>
 					
 					<p>2. PRIVACY POLICY</p>
 					<p>By using the Website, You consent to the collection and use of certain information about You, as specified in
-the Privacy Policy. AdScout encourages users of the Website to frequently check AdScout’s Privacy Policy for
+the Privacy Policy. AdScout encourages users of the Website to frequently check AdScout's Privacy Policy for
 changes.</p>
 					
 					<p>3. CHANGES TO AGREEMENT AND PRIVACY POLICY</p>
@@ -351,13 +351,13 @@ FURTHER EXPRESSLY SUBMIT TO EXTRATERRITORIAL SERVICE OF PROCESS.</p>
 					<p>14. TERMINATION</p>
 					<p>Either party may terminate this Agreement and its rights hereunder at any time, for any or no reason at all, by
 providing to the other party notice of its intention to do so. This Agreement shall automatically terminate in the
-event that You breach any of this Agreement’s representations, warranties or covenants. Such termination shall
+event that You breach any of this Agreement's representations, warranties or covenants. Such termination shall
 be automatic, and shall not require any action by AdScout. Upon termination, all rights and obligations created
 by this Agreement will terminate, except that Sections 1, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15 and 16 will survive
 any termination of this Agreement. For clarification, termination of this Agreement will not relieve You of Your
-obligation to pay any fees owed AdScout. If AdScout, in AdScout’s discretion, takes legal action against You in
+obligation to pay any fees owed AdScout. If AdScout, in AdScout's discretion, takes legal action against You in
 connection with any actual or suspected breach of this Agreement, AdScout will be entitled to recover from You
-as part of such legal action, and You agree to pay, AdScout’s reasonable costs and attorneys’ fees incurred as a
+as part of such legal action, and You agree to pay, AdScout's reasonable costs and attorneys' fees incurred as a
 result of such legal action. The AdScout Parties will have no legal obligation or other liability to You or to any
 third party arising out of or relating to any termination of this Agreement.</p>
 					
@@ -376,7 +376,7 @@ email to Ryan@bevomedia.com. Notice to BeVo Media will be deemed effective upon 
 and Services. This Agreement may only be modified by a written amendment signed by an authorized executive
 of AdScout or by the unilateral amendment of this Agreement by AdScout and by the posting by AdScout of
 such amended version. If any part of this Agreement is held invalid or unenforceable, that part will be construed
-to reflect the parties’ original intent, and the remaining portions will remain in full force and effect. A waiver by
+to reflect the parties' original intent, and the remaining portions will remain in full force and effect. A waiver by
 either party of any term or condition of this Agreement or any breach thereof, in any one instance, will not waive
 such term or condition or any subsequent breach thereof. This Agreement and all of Your rights and obligations
 hereunder will not be assignable or transferable by You without the prior written consent of AdScout. AdScout
@@ -385,8 +385,8 @@ Agreement without Your consent or notice to You. This Agreement will be binding 
 benefit of the parties, their successors and permitted assigns. You and AdScout are independent contractors,
 and no agency, partnership, joint venture or employee-employer relationship is intended or created by this
 Agreement. You acknowledge and agree that any actual or threatened breach of this Agreement or infringement
-of proprietary or other third party rights by You would cause irreparable injury to AdScout and AdScout’s
-licensors and suppliers, and would therefore entitle AdScout or AdScout’s licensors or suppliers, as the case may
+of proprietary or other third party rights by You would cause irreparable injury to AdScout and AdScout's
+licensors and suppliers, and would therefore entitle AdScout or AdScout's licensors or suppliers, as the case may
 be, to injunctive relief. The headings in this Agreement are for the purpose of convenience only and shall not
 limit, enlarge, or affect any of the covenants, terms, conditions or provisions of this Agreement.</p>
 	
