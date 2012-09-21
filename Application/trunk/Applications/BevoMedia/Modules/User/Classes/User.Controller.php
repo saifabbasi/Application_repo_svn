@@ -1122,8 +1122,6 @@ Class UserController extends ClassComponent
 		    		} else {
 		    			$this->PayAdWatcherYearly(true);
 		    		}
-		    		
-		    		die;
 		    	}
 		    	
 		    	header('Location: /BevoMedia/User/CreditCardVerified.html');
@@ -1132,6 +1130,12 @@ Class UserController extends ClassComponent
 		    default:
 		    	$_SESSION['AddCreditCardInfo'] = $_POST;
 		    	$this->User->setVaultID(0);
+		    	
+		    	if ($isAdScout) {
+		    		header('Location: /BevoMedia/User/AddCreditCardAdScout.html?Error='.$result['responsetext']);
+		    		die;
+		    	}
+		    	
 		    	header('Location: /BevoMedia/User/AddCreditCard.html?Error='.$result['responsetext']);
 		    	die;
 		}				
@@ -1402,8 +1406,6 @@ Class UserController extends ClassComponent
 		$Vault->charge($Price);
 		$Result = $Vault->execute();
 		
-		echo '<pre>';
-		print_r($Result);
 		
 		switch($Result['response'])
 		{
