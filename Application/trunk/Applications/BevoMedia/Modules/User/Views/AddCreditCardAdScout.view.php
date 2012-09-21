@@ -22,7 +22,7 @@
 
 <div class="pagecontent" id="addcc">
 <div class="left">
-	<h2>Bevo Account Verification</h2>
+	<h2>Bevo Account Verification and AdScout Purchase</h2>
 	
 	<?php 
 		if (isset($_GET['notifyNotPaying'])) {
@@ -44,13 +44,13 @@
 	
 	<p>Verifying your account gives you access to the entire Bevo Interface. With a verified account, users can track keyword and campaign performance with exact revenue and expense data. Verified Bevo Users can auto-sync all of their Network Stats, access the Premium Research Tools and view and retrieve their specific network offers.
 	<?php if($bevoversion == 3)
-		echo ' Also, users have access premium support using our live chat support.';
+		echo ' Also, users have access premium support using our live chat support. Users will be able to select AdScout plan below.';
 	else	echo ' Also, users gain optimum use of the analytics and PPC management pages as all stats will sync automatically.';
 	?>
 		
 	</p>
 	
-	<p><strong>Verify your account now by filling out the form below:</strong><br />
+	<p><strong>Verify your account now and purchase AdScout by filling out the form below:</strong><br />
 	<small><em>Required fields are marked with a (*)</em></small></p>
 
 <?php 
@@ -222,7 +222,7 @@ for ($i=date('Y'); $i<=(date('Y')+10); $i++)
 			
 			<div class="box tos">
 				
-				<h2>WEBSITE TERMS OF SERVICE</h2>
+				<h2>Bevo Verified Membership Terms Of Service</h2>
 				<p>1. AGREEMENT</p>
 				<p>These Website Terms of Service (the "Agreement") constitute a legally binding agreement by and between BeVo Media (hereinafter, "BeVo Media") and you or your company (in either case, "You" or "Your") concerning Your use of BeVo Media's website located at www.bevomedia.com(the "Website") and the services available through the Website (the "Services").  By using the Website and Services, You represent and warrant that You have read and understood, and agree to be bound by, this Agreement and BeVo Media's Privacy Policy (the "Privacy Policy"), which is incorporated herein by reference and made part of this Agreement.  IF YOU DO NOT UNDERSTAND THIS AGREEMENT, OR DO NOT AGREE TO BE BOUND BY IT OR THE PRIVACY POLICY, YOU MUST IMMEDIATELY LEAVE THE WEBSITE AND CEASE USING THE SERVICES.</p>
 				
@@ -293,7 +293,7 @@ for ($i=date('Y'); $i<=(date('Y')+10); $i++)
 			
 			
 			<div class="box tos">
-				<h2>WEBSITE TERMS OF SERVICE</h2>
+				<h2>AdScout Terms Of Service</h2>
 					
 					<p>1. AGREEMENT</p>
 					<p>These Website Terms of Service (the "Agreement") constitute a legally binding agreement by and between
@@ -580,7 +580,7 @@ limit, enlarge, or affect any of the covenants, terms, conditions or provisions 
 			
 			<label for="TOSAccept" class="forformcheck">
 				<input type="checkbox" class="formcheck" name="TOSAccept" id="TOSAccept" value="" />
-				<small>I accept the Terms of Service</small>
+				<small>I accept the Terms of Service Of Bevo Verified Membership And AdScout.</small>
 			</label>
 			
 			<input class="formsubmit addcc_clicktoverify" id="AddCCSubmit" type="submit" name="Submit" value="Click to verify" />
