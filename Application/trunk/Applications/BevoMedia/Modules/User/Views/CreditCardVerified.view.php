@@ -12,7 +12,16 @@
 	
 	<div class="content" align="center">
 		
-		Your credit card has been successfully verified. You may continue to use BevoMedia.
+		<?php 
+			if (isset($_GET['adscout']))
+			{
+				echo 'Your credit card has been successfully verified and purchased AdScout. You are now being redirected to the AdScout Interface.';
+			} else 
+			{
+				echo 'Your credit card has been successfully verified. You may continue to use BevoMedia.';
+			}
+		?>
+		
 		<br />
 			
 	</div>
