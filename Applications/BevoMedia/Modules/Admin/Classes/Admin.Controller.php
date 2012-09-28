@@ -1052,6 +1052,17 @@
 			if (isset($_GET['Subscribe']))
 			{
 				$this->User->Subscribe($_GET['ProductName']);
+				
+				if (stristr($_GET['ProductName'], 'adscout'))
+				{
+					$key = trim(file_get_contents('http://www.commissionradar.com/site/register?email='.$this->User->email));
+					$Array = array (
+								'UserID'		=> $this->User->id,
+								'Key'	=> $key,
+								);
+					$this->db->insert('bevomedia_product_adwatcher', $Array);
+				}
+				
 				header('Location: /BevoMedia/Admin/ViewPublisher.html?id='.$_GET['id']);
 				die;
 			}
