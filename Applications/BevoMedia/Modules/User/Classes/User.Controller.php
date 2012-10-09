@@ -2038,6 +2038,8 @@ Public Function MyProducts()
 		$postData['EULAAccepted'] = '1';
 		$postData['registerFormSubmit'] = 'Submit Query';
 		
+		$postData['role'] = $data->role;
+		
 //		echo "postData:<br />\n";
 //		print_r($postData);
 		
