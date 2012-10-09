@@ -525,6 +525,9 @@ Class User {
 	 */
 	Public Function Insert($Data)
 	{
+		$role = $Data['role'];
+		unset($Data['role']);
+			
 		$Insert = array();
 		$Insert['Email'] = $Data['Email'];
 		$Insert['Password'] = $Data['Password'];
@@ -533,8 +536,13 @@ Class User {
 		/* @var $MCAPI MCAPI */
 		$MCAPI = new MCAPI(); 
 		
-		$result = $MCAPI->listSubscribe('7650380bc2', $Insert['Email'], array('FNAME' => $Data['FirstName'], 'LNAME' => $Data['LastName']), 'html', false);
-		
+		if ($role=='Advertiser')
+		{
+			$result = $MCAPI->listSubscribe('51889dcb56', $Insert['Email'], array('FNAME' => $Data['FirstName'], 'LNAME' => $Data['LastName']), 'html', false);
+		} else 
+		{
+			$result = $MCAPI->listSubscribe('7650380bc2', $Insert['Email'], array('FNAME' => $Data['FirstName'], 'LNAME' => $Data['LastName']), 'html', false);
+		}
 		
 //New Rev Model - No free API Calls
 //		$Sql = "SELECT value FROM bevomedia_settings WHERE name = 'Basic_API_Units'";
