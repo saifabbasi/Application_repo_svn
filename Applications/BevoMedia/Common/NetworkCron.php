@@ -102,6 +102,8 @@ $networks[] = networkArray('ClickDealer', 1099, 'HasOffers');
 $networks[] = networkArray('RevenueStreet', 1100, 'RevenueStreet');
 $networks[] = networkArray('CashMyLinks', 1101, 'HasOffers');
 $networks[] = networkArray('CPADNA', 1102, 'CPADNA');
+$networks[] = networkArray('WowTrack', 1103, 'HasOffers');
+
 
 foreach($networks as $network)
 {
