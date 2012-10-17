@@ -1428,7 +1428,7 @@ Class UserController extends ClassComponent
 				
 				$this->db->insert('bevomedia_user_payments', $Array);
 				
-				$key = trim(file_get_contents('http://www.commissionradar.com/site/register?email='.$this->User->email));
+				$key = trim(file_get_contents('http://www.commissionradar.com/site/register?email='.$this->User->email.'&version=1'));
 				$Array = array (
 								'UserID'		=> $this->User->id,
 								'Key'	=> $key,
