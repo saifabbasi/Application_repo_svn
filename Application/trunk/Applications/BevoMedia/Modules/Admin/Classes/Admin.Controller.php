@@ -1055,7 +1055,7 @@
 				
 				if (stristr($_GET['ProductName'], 'adscout'))
 				{
-					$key = trim(file_get_contents('http://www.commissionradar.com/site/register?email='.$this->User->email));
+					$key = trim(file_get_contents('http://www.commissionradar.com/site/register?email='.$this->User->email.'&version=1'));
 					$Array = array (
 								'UserID'		=> $this->User->id,
 								'Key'	=> $key,
