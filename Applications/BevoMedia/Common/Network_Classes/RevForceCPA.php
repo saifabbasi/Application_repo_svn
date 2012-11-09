@@ -12,7 +12,7 @@ require_once('HasOffers.Abstract.php');
  * @author RCS
  * @version 0.0.1
  */
-class WowTrack Extends HasOffersAbstract {
+class RevForceCPA Extends HasOffersAbstract {
 	/**
 	 * @access protected
 	 * @var string $apiUrl
