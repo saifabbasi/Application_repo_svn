@@ -104,6 +104,7 @@ $networks[] = networkArray('CashMyLinks', 1101, 'HasOffers');
 $networks[] = networkArray('CPADNA', 1102, 'CPADNA');
 $networks[] = networkArray('WowTrack', 1103, 'HasOffers');
 $networks[] = networkArray('RevForceCPA', 1104, 'HasOffers');
+$networks[] = networkArray('PrecisionLeadsMedia', 1105, 'HasOffers');
 
 
 foreach($networks as $network)
