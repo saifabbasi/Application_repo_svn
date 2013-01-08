@@ -1,7 +1,9 @@
 <?php 
-	if ($this->User->vaultID<=0)
+	if (!$this->User->isVerified)
 	{
-		header('Location: /BevoMedia/Publisher/Verify.html?ajax=true');
+		echo '<script type="text/javascript">';
+		echo 'parent.window.location = "https://affportal.bevomedia.com/user/add-credit-card";';
+		echo '</script>';
 		die;
 	}
 ?>
@@ -408,7 +410,7 @@ limit, enlarge, or affect any of the covenants, terms, conditions or provisions 
 <script type="text/javascript">
 $(document).ready(function() {
 	$('#VerifyLink').click(function() {
-		parent.window.location = '/BevoMedia/User/CreditCard.html';
+		parent.window.location = 'https://affportal.bevomedia.com/user/add-credit-card';
 		return false;
 	});
 

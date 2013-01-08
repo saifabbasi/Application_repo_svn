@@ -16,7 +16,7 @@
 		</ul>
 		
 		<ul class="floatright">
-			<li><a title='Verfiy My Account' href='<?= Zend_Registry::get('System/BaseURL') ?>BevoMedia/User/AddCreditCard.html'><strong>Verify Account Now</strong><span></span></a></li>
+			<li><a title='Verfiy My Account' href='https://affportal.bevomedia.com/user/add-credit-card'><strong>Verify Account Now</strong><span></span></a></li>
 		</ul>
 	</div>
 	<?php echo $this->PageDesc->ShowDesc($this->PageHelper, false); //2nd param to hide toggle btn, as there is nothing else on this page

@@ -214,7 +214,7 @@
 						),
 					'verify' => array('Verified',$path.'/VerifiedHelp.html',array(
 							array('What does it mean to be verified',$path.'/VerifiedHelp.html#Meaning'),
-							array('How Do I get a verified account', '/BevoMedia/User/AddCreditCard.html'),
+							array('How Do I get a verified account', 'https://affportal.bevomedia.com/user/add-credit-card'),
 							array('How do I cancel my verified account',$path.'/VerifiedHelp.html#Cancel'),	
 							)
 						),

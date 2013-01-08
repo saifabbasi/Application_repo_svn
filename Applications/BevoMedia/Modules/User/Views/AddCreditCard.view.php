@@ -1,4 +1,8 @@
-<?php 
+<?php
+
+header('Location: https://affportal.bevomedia.com/user/add-credit-card');
+die;
+
 	//if v3
 	if (isset($_COOKIE['v3apps']) && ($_SERVER['SERVER_NAME'] == 'apps.bevomedia.com')) {
 		$bevoversion = 3;
@@ -12,7 +16,7 @@
 	?>
 		<ul>
 			<li><a title='Change your Bevo Profile' href='/BevoMedia/User/ChangeProfile.html'>My Profile<span></span></a></li>
-			<li><a class="active" href="<?= Zend_Registry::get('System/BaseURL') ?>BevoMedia/User/AddCreditCard.html'">My Payment Options<span></span></a></li>
+			<li><a class="active" href="https://affportal.bevomedia.com/user/add-credit-card'">My Payment Options<span></span></a></li>
 			<li><a title='View PPC Accounts' href='<?= Zend_Registry::get('System/BaseURL') ?>BevoMedia/Publisher/Index.html#PPC'>My PPC Accounts<span></span></a></li>
 			<li><a rel="shadowbox;width=320;height=200;player=iframe" title='Change Bevo Password' href='ChangePassword.html'>My Password<span></span></a></li>
 			<li><a rel="shadowbox;width=480;height=250;player=iframe" title='Cancel Bevo Account' href='CancelAccount.html'>Cancel Account<span></span></a></li>

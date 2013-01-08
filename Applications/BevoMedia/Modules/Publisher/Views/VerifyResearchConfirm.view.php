@@ -1,3 +1,12 @@
+<?php 
+	if (!$this->User->apiIsUserVerified())
+	{
+		echo '<script type="text/javascript">';
+		echo 'parent.window.location = "https://affportal.bevomedia.com/user/add-credit-card";';
+		echo '</script>';
+		die;
+	}
+?>
 <script language="javascript" src="/Themes/BevoMedia/jquery.js"></script>
 <script language="javascript" src="/Themes/BevoMedia/jquery_tooltip.js"></script>
 

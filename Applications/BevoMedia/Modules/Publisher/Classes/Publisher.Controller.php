@@ -59,7 +59,7 @@
 			{
 				if ( ($user->vaultID==0) )
 				{
-					header('Location: /BevoMedia/User/AddCreditCard.html');
+					header('Location: https://affportal.bevomedia.com/user/add-credit-card');
 					die;
 				}
 			}
