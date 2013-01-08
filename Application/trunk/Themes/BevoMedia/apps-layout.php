@@ -9,11 +9,6 @@
 	$soap_topdrop_status = soap_topdrop_status();
 	
 	
-//	if ( ($this->User->getVaultID()==0) && (Zend_Registry::get('Instance/Function')!='AddCreditCard') )
-//	{
-//		header('Location: /BevoMedia/User/AddCreditCard.html');
-//		die;
-//	}
 	*/		
 	
 ?>
@@ -229,7 +224,7 @@ if(userTimezoneOffset == false)
 						<div class="data"><?php echo $statsObject->conversionRate; ?>%</div>
 					</div>
 					
-				<?php if($this->User->getVaultID() > 0) : ?>
+				<?php if($this->User->isVerified) : ?>
 				
 					<div class="part">
 						<div class="label">Last Update</div>
@@ -362,18 +357,18 @@ if(userTimezoneOffset == false)
 							<div class="kids">
 								<ul class="kidgroup">
 									<li class="<?php echo (strstr($_SERVER['REQUEST_URI'], 'AppStore.html'))?'active':'' ?>"><a href="/BevoMedia/User/AppStore.html">App Store</a></li>
-									<li class="<?php echo (strstr($_SERVER['REQUEST_URI'], 'MyProducts.html'))?'active':'' ?>"><a href="/BevoMedia/User/MyProducts.html">Manage My Apps</a></li>
+									<li class="<?php echo (strstr($_SERVER['REQUEST_URI'], 'MyProducts.html'))?'active':'' ?>"><a href="https://affportal.bevomedia.com/user/subscriptions/">Manage My Apps</a></li>
 								<?php 
-									if($this->User->vaultID > 0) 
+									if($this->User->isVerified) 
 									{
 								?>
-									<li class="<?php echo (strstr($_SERVER['REQUEST_URI'], 'Invoice.html'))?'active':'' ?>"><a href="/BevoMedia/User/Invoice.html">Billing</a></li>
-									<li class="<?php echo (strstr($_SERVER['REQUEST_URI'], 'CreditCard.html'))?'active':'' ?>"><a href="/BevoMedia/User/CreditCard.html">My Payment Options</a></li>
+									<li class="<?php echo (strstr($_SERVER['REQUEST_URI'], 'Invoice.html'))?'active':'' ?>"><a href="http://affportal.bevomedia.com/user/invoices/">Billing</a></li>
+									<li class="<?php echo (strstr($_SERVER['REQUEST_URI'], 'CreditCard.html'))?'active':'' ?>"><a href="http://affportal.bevomedia.com/user/user-payment-options/">My Payment Options</a></li>
 								<?php 
 									} else
 									{
 								?>
-									<li><a class="<?php echo (strstr($_SERVER['REQUEST_URI'], 'AddCreditCard.html'))?'active':'' ?>" title='Verfiy My Account' href='/BevoMedia/User/AddCreditCard.html'><strong>Verify Account Now</strong><span></span></a></li>
+									<li><a class="<?php echo (strstr($_SERVER['REQUEST_URI'], 'AddCreditCard.html'))?'active':'' ?>" title='Verfiy My Account' href='https://affportal.bevomedia.com/user/add-credit-card'><strong>Verify Account Now</strong><span></span></a></li>
 								<?php 
 									}
 								?>

@@ -73,7 +73,7 @@ Class PPVToolsController extends ClassComponent
 		
 		if ( ($user->vaultID==0) && (!$user->IsSubscribed(User::PRODUCT_FREE_RESEARCH)) )
 		{
-			header('Location: /BevoMedia/User/AddCreditCard.html');
+			header('Location: https://affportal.bevomedia.com/user/add-credit-card');
 			die;
 		}
 		

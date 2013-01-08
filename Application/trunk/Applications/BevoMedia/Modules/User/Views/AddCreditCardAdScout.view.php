@@ -1,4 +1,8 @@
 <?php 
+
+header('Location: https://affportal.bevomedia.com/user/add-credit-card');
+die;
+
 	//if v3
 	if (isset($_COOKIE['v3apps']) && ($_SERVER['SERVER_NAME'] == 'apps.bevomedia.com')) {
 		$bevoversion = 3;

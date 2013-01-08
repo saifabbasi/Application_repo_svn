@@ -23,6 +23,8 @@ Class User {
 	 */
 	Protected $_db = false;
 	
+	public $isVerified = false;
+	
 	/**
 	 * @var Integer $id
 	 */
@@ -432,6 +434,9 @@ Class User {
 		$this->apiCalls = $this->_db->fetchOne($sql);
 		if($this->apiCalls < 0)
 		  $this->apiCalls = 0;
+		  
+		$this->isVerified = $this->apiIsUserVerified();
+		  
 		return $this;
 	}
 	
@@ -1438,6 +1443,26 @@ END;
 	
 	Public Function IsSubscribed($ProductName)
 	{
+		$v3ProductName = '';
+		
+		if ( ($ProductName==User::PRODUCT_PPVSPY_MONTHLY) || ($ProductName==User::PRODUCT_PPVSPY_YEARLY) || ($ProductName==User::PRODUCT_FREE_PPVSPY) )
+		{
+			$v3ProductName = 'PPVSpy';
+		} else
+		if ( ($ProductName==User::PRODUCT_ADWATCHER_MONTHLY) || ($ProductName==User::PRODUCT_ADWATCHER_YEARLY) )
+		{
+			$v3ProductName = 'AdScout';
+		}
+		
+		$url = 'http://affportal.bevomedia.com/user/api-is-product-bought/apiKey/'.$this->apiKey.'/productName/'.$v3ProductName;
+		$data = file_get_contents($url);
+		
+		$result = json_decode($data);
+		return ($result->bought==true);
+		
+		
+		
+		
 		$Sql = "SELECT
 					MAX(bevomedia_user_payments.Date) AS `Date`
 				FROM
@@ -1764,6 +1789,16 @@ END;
 					name
 				";
 		return $this->_db->fetchAll($Sql, $this->id);
+	}
+	
+	
+	public function apiIsUserVerified()
+	{
+		$url = 'http://affportal.bevomedia.com/user/api-is-user-verified/apiKey/'.$this->apiKey;
+		$data = file_get_contents($url);
+		
+		$result = json_decode($data);
+		return ($result->verified==true);
 	}
 	
 }

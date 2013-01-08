@@ -92,7 +92,7 @@ Class UserController extends ClassComponent
 //		  die;
 //		}
 		
-		if (isset($_GET['v3apps']) && ($_SERVER['SERVER_NAME']=='apps.bevomedia.com')) {
+		if (isset($_GET['v3apps']) /*&& ($_SERVER['SERVER_NAME']=='apps.bevomedia.com')*/) {
 			//if (isset($_GET['v3apps']) && ($_SERVER['SERVER_NAME']=='bevomedia')) { 
 			setcookie('v3apps', true, time()+3600*24*365, '/');
 			setcookie('v3domain', $_GET['domain'], time()+3600*24*365, '/');
@@ -765,7 +765,7 @@ Class UserController extends ClassComponent
 		 	 (($this->User->vaultID!=0) && !$this->User->IsSubscribed(User::PRODUCT_SELF_HOSTED_YEARLY_CHARGE))
 	   		)
 		{
-			header('Location: /BevoMedia/User/AddCreditCard.html');
+			header('Location: https://affportal.bevomedia.com/user/add-credit-card');
 			die;
 		}
 		
@@ -999,6 +999,9 @@ Class UserController extends ClassComponent
 	
 	Public Function AddCreditCard()
 	{
+		header('Location: https://affportal.bevomedia.com/user/add-credit-card');
+		die;
+		
 		if (!isset($_SERVER['HTTPS']) && ($_SERVER['SERVER_NAME']!='bevomedia')) {
 			header('Location: https://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
 			die;
@@ -1026,6 +1029,8 @@ Class UserController extends ClassComponent
 	
 	Public Function AddCreditCardAdScout()
 	{
+		header('Location: https://affportal.bevomedia.com/user/add-credit-card/adscout/true');
+		die;
 		if (!isset($_SERVER['HTTPS']) && ($_SERVER['SERVER_NAME']!='bevomedia')) {
 			header('Location: https://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
 			die;
@@ -1053,6 +1058,7 @@ Class UserController extends ClassComponent
 	
 	Public Function AddCreditCardProcess()
 	{
+		die('Deprecated');
 		$isAdScout = isset($_POST['adscout']);
 		
 		$Product = $this->User->GetProduct(User::PRODUCT_SERVER_CHARGE);
@@ -1146,6 +1152,7 @@ Class UserController extends ClassComponent
 	
 	Public Function DeleteCreditCard()
 	{
+		die('Deprecated');
 		if ($this->User->vaultID==0) {
 			header('Location: /BevoMedia/User/CreditCard.html');
 	    	die;
@@ -1297,6 +1304,22 @@ Class UserController extends ClassComponent
 	
 	Public Function PayPPVSpyYearly()
 	{
+		$purchasePlan = 'PPVSpy One Time';
+		$url = 'http://affportal.bevomedia.com/user/api-charge-for-product/apiKey/'.$this->User->apiKey.'/productPurchasePlan/'.$purchasePlan;
+		
+		$data = file_get_contents($url);
+		$result = json_decode($data);
+		
+		if ($result->charged==true)
+		{
+			header('Location: /BevoMedia/User/VerifyPPVSpyFinish.html?ajax=true');
+			die;
+		}
+		
+		header('Location: /BevoMedia/Publisher/VerifyPPVSpyConfirm.html?ajax=true&Error=Error occurred trying to bill your credit card. Please try again.');
+		die;
+		
+		
 		$Product = $this->User->GetProduct(User::PRODUCT_PPVSPY_YEARLY);
 		$Price = $this->User->GetPPVSpyOneTimePrice();
 		
@@ -1350,6 +1373,22 @@ Class UserController extends ClassComponent
 	
 	Public Function PayPPVSpyMonthly()
 	{
+		$purchasePlan = 'PPVSpy Monthly';
+		$url = 'http://affportal.bevomedia.com/user/api-charge-for-product/apiKey/'.$this->User->apiKey.'/productPurchasePlan/'.$purchasePlan;
+		
+		$data = file_get_contents($url);
+		$result = json_decode($data);
+		
+		if ($result->charged==true)
+		{
+			header('Location: /BevoMedia/User/VerifyPPVSpyFinish.html?ajax=true&monthly=1');
+			die;
+		}
+		
+		header('Location: /BevoMedia/Publisher/VerifyPPVSpyConfirm.html?ajax=true&Error=Error occurred trying to bill your credit card. Please try again.');
+		die;
+		
+		
 		$Product = $this->User->GetProduct(User::PRODUCT_PPVSPY_MONTHLY);
 		
 		$Vault = new nmiCustomerVault();
@@ -1401,6 +1440,41 @@ Class UserController extends ClassComponent
 	
 	Public Function PayAdWatcherYearly($billOnly = false)
 	{
+		$purchasePlan = 'AdScout One Time';
+		$url = 'http://affportal.bevomedia.com/user/api-charge-for-product/apiKey/'.$this->User->apiKey.'/productPurchasePlan/'.$purchasePlan;
+		
+		$data = file_get_contents($url);
+		$result = json_decode($data);
+		
+		if ($result->charged==true)
+		{
+			$key = trim(file_get_contents('http://www.commissionradar.com/site/register?email='.$this->User->email));
+			$Array = array (
+							'UserID'		=> $this->User->id,
+							'Key'	=> $key,
+							);
+			$this->db->insert('bevomedia_product_adwatcher', $Array);
+			
+			if ($billOnly)
+			{
+				return true;
+			}
+			
+			header('Location: /BevoMedia/User/VerifyAdWatcherFinish.html?ajax=true&monthly=1');
+			die;
+		}
+		
+		if ($billOnly)
+		{
+			return false;
+		}
+		
+		header('Location: /BevoMedia/Publisher/VerifyAdWatcherConfirm.html?ajax=true&Error=Error occurred trying to bill your credit card. Please try again.');
+		die;
+		
+		
+		
+		
 		$Product = $this->User->GetProduct(User::PRODUCT_ADWATCHER_YEARLY);
 		$Price = $Product->Price;
 		
@@ -1469,7 +1543,40 @@ Class UserController extends ClassComponent
 	
 	Public Function PayAdWatcherMonthly($billOnly = false)
 	{
-		$Product = $this->User->GetProduct(User::PRODUCT_ADWATCHER_MONTHLY);
+//		$Product = $this->User->GetProduct(User::PRODUCT_ADWATCHER_MONTHLY);
+		
+		$purchasePlan = 'AdScout Monthly';
+		$url = 'http://affportal.bevomedia.com/user/api-charge-for-product/apiKey/'.$this->User->apiKey.'/productPurchasePlan/'.$purchasePlan;
+		
+		$data = file_get_contents($url);
+		$result = json_decode($data);
+		
+		if ($result->charged==true)
+		{
+			$key = trim(file_get_contents('http://www.commissionradar.com/site/register?email='.$this->User->email));
+			$Array = array (
+							'UserID'		=> $this->User->id,
+							'Key'	=> $key,
+							);
+			$this->db->insert('bevomedia_product_adwatcher', $Array);
+			
+			if ($billOnly)
+			{
+				return true;
+			}
+			
+			header('Location: /BevoMedia/User/VerifyAdWatcherFinish.html?ajax=true&monthly=1');
+			die;
+		}
+		
+		if ($billOnly)
+		{
+			return false;
+		}
+		
+		header('Location: /BevoMedia/Publisher/VerifyAdWatcherConfirm.html?ajax=true&Error=Error occurred trying to bill your credit card. Please try again.');
+		die;
+		
 		
 		$Vault = new nmiCustomerVault();
 		$Vault->setCustomerVaultId($this->User->vaultID);
