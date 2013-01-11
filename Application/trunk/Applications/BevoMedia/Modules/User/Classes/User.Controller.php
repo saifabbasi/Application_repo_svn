@@ -1448,7 +1448,7 @@ Class UserController extends ClassComponent
 		
 		if ($result->charged==true)
 		{
-			$key = trim(file_get_contents('http://www.commissionradar.com/site/register?email='.$this->User->email));
+			$key = trim(file_get_contents('http://adsearch.vemba.com/site/register?email='.$this->User->email));
 			$Array = array (
 							'UserID'		=> $this->User->id,
 							'Key'	=> $key,
@@ -1502,7 +1502,7 @@ Class UserController extends ClassComponent
 				
 				$this->db->insert('bevomedia_user_payments', $Array);
 				
-				$key = trim(file_get_contents('http://www.commissionradar.com/site/register?email='.$this->User->email.'&version=1'));
+				$key = trim(file_get_contents('http://adsearch.vemba.com/site/register?email='.$this->User->email.'&version=1'));
 				$Array = array (
 								'UserID'		=> $this->User->id,
 								'Key'	=> $key,
@@ -1553,7 +1553,7 @@ Class UserController extends ClassComponent
 		
 		if ($result->charged==true)
 		{
-			$key = trim(file_get_contents('http://www.commissionradar.com/site/register?email='.$this->User->email));
+			$key = trim(file_get_contents('http://adsearch.vemba.com/site/register?email='.$this->User->email));
 			$Array = array (
 							'UserID'		=> $this->User->id,
 							'Key'	=> $key,
@@ -1602,7 +1602,7 @@ Class UserController extends ClassComponent
 				
 				$this->db->insert('bevomedia_user_payments', $Array);
 
-				$key = trim(file_get_contents('http://www.commissionradar.com/site/register?email='.$this->User->email));
+				$key = trim(file_get_contents('http://adsearch.vemba.com/site/register?email='.$this->User->email));
 				$Array = array (
 								'UserID'		=> $this->User->id,
 								'Key'	=> $key,
@@ -1976,7 +1976,7 @@ Public Function MyProducts()
 		
 		$password = $Row->Key;
 		
-		header('Location: https://www.commissionradar.com/site/login?u='.$this->User->email.'&p='.$password);
+		header('Location: https://adsearch.vemba.com/site/login?u='.$this->User->email.'&p='.$password);
 		die;
 	}
 	
