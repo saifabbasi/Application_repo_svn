@@ -1305,7 +1305,7 @@ Class UserController extends ClassComponent
 	Public Function PayPPVSpyYearly()
 	{
 		$purchasePlan = 'PPVSpy One Time';
-		$url = 'http://affportal.bevomedia.com/user/api-charge-for-product/apiKey/'.$this->User->apiKey.'/productPurchasePlan/'.$purchasePlan;
+		$url = 'http://affportal.bevomedia.com/user/api-charge-for-product/apiKey/'.$this->User->apiKey.'/productPurchasePlan/'.urlencode($purchasePlan);
 		
 		$data = file_get_contents($url);
 		$result = json_decode($data);
@@ -1374,7 +1374,7 @@ Class UserController extends ClassComponent
 	Public Function PayPPVSpyMonthly()
 	{
 		$purchasePlan = 'PPVSpy Monthly';
-		$url = 'http://affportal.bevomedia.com/user/api-charge-for-product/apiKey/'.$this->User->apiKey.'/productPurchasePlan/'.$purchasePlan;
+		$url = 'http://affportal.bevomedia.com/user/api-charge-for-product/apiKey/'.$this->User->apiKey.'/productPurchasePlan/'.urlencode($purchasePlan);
 		
 		$data = file_get_contents($url);
 		$result = json_decode($data);
@@ -1546,7 +1546,7 @@ Class UserController extends ClassComponent
 //		$Product = $this->User->GetProduct(User::PRODUCT_ADWATCHER_MONTHLY);
 		
 		$purchasePlan = 'AdScout Monthly';
-		$url = 'http://affportal.bevomedia.com/user/api-charge-for-product/apiKey/'.$this->User->apiKey.'/productPurchasePlan/'.$purchasePlan;
+		$url = 'http://affportal.bevomedia.com/user/api-charge-for-product/apiKey/'.$this->User->apiKey.'/productPurchasePlan/'.urlencode($purchasePlan);
 		
 		$data = file_get_contents($url);
 		$result = json_decode($data);
