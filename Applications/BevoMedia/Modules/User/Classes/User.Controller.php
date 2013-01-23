@@ -1441,7 +1441,7 @@ Class UserController extends ClassComponent
 	Public Function PayAdWatcherYearly($billOnly = false)
 	{
 		$purchasePlan = 'AdScout One Time';
-		$url = 'http://affportal.bevomedia.com/user/api-charge-for-product/apiKey/'.$this->User->apiKey.'/productPurchasePlan/'.$purchasePlan;
+		$url = 'http://affportal.bevomedia.com/user/api-charge-for-product/apiKey/'.$this->User->apiKey.'/productPurchasePlan/'.urlencode($purchasePlan);
 		
 		$data = file_get_contents($url);
 		$result = json_decode($data);
