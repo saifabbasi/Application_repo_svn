@@ -1469,7 +1469,7 @@ Class UserController extends ClassComponent
 			return false;
 		}
 		
-		header('Location: /BevoMedia/Publisher/VerifyAdWatcherConfirm.html?ajax=true&Error=Error occurred trying to bill your credit card. Please try again.');
+		header('Location: /BevoMedia/Publisher/VerifyAdWatcherConfirm.html?ajax=true&Error=Error occurred trying to bill your credit card. Please try again.&message='.$result->error);
 		die;
 		
 		
