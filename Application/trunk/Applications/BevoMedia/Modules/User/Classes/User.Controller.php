@@ -1440,6 +1440,7 @@ Class UserController extends ClassComponent
 	
 	Public Function PayAdWatcherYearly($billOnly = false)
 	{
+		die;
 		$purchasePlan = 'AdScout One Time';
 		$url = 'http://affportal.bevomedia.com/user/api-charge-for-product/apiKey/'.$this->User->apiKey.'/productPurchasePlan/'.urlencode($purchasePlan);
 		
@@ -1448,7 +1449,7 @@ Class UserController extends ClassComponent
 		
 		if ($result->charged==true)
 		{
-			$key = trim(file_get_contents('http://adsearch.vemba.com/site/register?email='.$this->User->email));
+			$key = trim(file_get_contents('http://adsearch.vemba.com/site/register?email='.$this->User->email.'&version=1'));
 			$Array = array (
 							'UserID'		=> $this->User->id,
 							'Key'	=> $key,
@@ -1545,7 +1546,7 @@ Class UserController extends ClassComponent
 	{
 //		$Product = $this->User->GetProduct(User::PRODUCT_ADWATCHER_MONTHLY);
 		
-		$purchasePlan = 'AdScout Monthly';
+		$purchasePlan = 'AdScout Monthly 197';
 		$url = 'http://affportal.bevomedia.com/user/api-charge-for-product/apiKey/'.$this->User->apiKey.'/productPurchasePlan/'.urlencode($purchasePlan);
 		
 		$data = file_get_contents($url);
@@ -1553,7 +1554,7 @@ Class UserController extends ClassComponent
 		
 		if ($result->charged==true)
 		{
-			$key = trim(file_get_contents('http://adsearch.vemba.com/site/register?email='.$this->User->email));
+			$key = trim(file_get_contents('http://adsearch.vemba.com/site/register?email='.$this->User->email.'&version=1'));
 			$Array = array (
 							'UserID'		=> $this->User->id,
 							'Key'	=> $key,
@@ -1602,7 +1603,7 @@ Class UserController extends ClassComponent
 				
 				$this->db->insert('bevomedia_user_payments', $Array);
 
-				$key = trim(file_get_contents('http://adsearch.vemba.com/site/register?email='.$this->User->email));
+				$key = trim(file_get_contents('http://adsearch.vemba.com/site/register?email='.$this->User->email.'&version=1'));
 				$Array = array (
 								'UserID'		=> $this->User->id,
 								'Key'	=> $key,

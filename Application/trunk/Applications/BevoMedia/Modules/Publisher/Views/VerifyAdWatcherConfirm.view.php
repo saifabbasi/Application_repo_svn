@@ -80,7 +80,7 @@
 <div class="lpop lpop_pay">
 	<div class="lpop_title">
 		<h2>Bevo AdScout</h2>
-		<p>Get full access to Bevo AdScout for only $150 /month or a $399 one-time payment!</p>
+		<p>Get full access to Bevo AdScout for only $197 /month!</p>
 	</div>
 	
 	<div class="lpop_content">
@@ -93,17 +93,16 @@
 					<p>You'll get immediate access to the app after cleared payment.</p>
 				</div>				
 				<div class="price">
-					<h3 id="payoption_price">$399 one-time</h3>
-					<div class="lpop_payoptions lpop_payoptions_ppvspy">
+					<h3 id="payoption_price">$197 /month</h3>
+					<div class="lpop_payoptions lpop_payoptions_ppvspy" style="width: 180px">
 						<p>Select Payment Option:</p>
-						<a class="btn j_payoption btn_lpop_payoption_monthone_monthly" href="#" rel="150" title="Click to switch to the monthly payment plan">Monthly Payment Plan</a>
-						<a class="btn j_payoption btn_lpop_payoption_monthone_onetime active" href="#" rel="399" title="Click to make a one-time payment">One-Time Payment</a>
+						<a class="btn j_payoption btn_lpop_payoption_monthone_monthly active" href="#" rel="197" title="Click to switch to the monthly payment plan">Monthly Payment Plan</a>
 					</div>
 				</div>			
 				<div class="clear"></div>
 			</div>
 			<div class="lpop_cartbox lpop_securicons">
-				<a class="btn btn_lpop_paynow" href="/BevoMedia/User/PayAdWatcherYearly.html">Pay Now</a>
+				<a class="btn btn_lpop_paynow" href="/BevoMedia/User/PayAdWatcherMonthly.html">Pay Now</a>
 				<div class="clear"></div>
 			</div>
 			<div class="lpop_cartbox">
@@ -172,22 +171,13 @@ within the Account information section or Click Here: http://beta.bevomedia.com/
 					
 					<p>
 						By registering with the Website, You expressly authorize AdScout to charge you the then-current, one-time,
-upfront membership fee (the "Membership Fee") of $399, or the monthly recurring membership fee of $150 (at
+upfront membership fee (the "Membership Fee") monthly recurring membership fee of $197 (at
 your election). In addition to the Membership Fee, You must be a verified BeVo Media member as described on
 the website, www.bevomedia.com.	
 					</p>
 					
-					<p><u>Refund Policy if $399 Membership Fee is elected:</u></p>
-					
-					<p>
-						Membership Fees may be refunded within thirty (30) days of initial purchase, less bank/merchant fees. If the
-refund is requested within seven (7) days of initial purchase, a full refund will be granted. If a refund is requested
-between eight (8) and thirty (30) days of initial purchase, a partial refund will be granted pro rata by dividing the
-number of days since initial purchase by 30. No refund will be provided after 30 days if the up-front, $399 option
-was chosen.
-					</p>
-					
-					<p><u>Refund Policy if $150 Monthly Recurring Membership Fee is elected:</u></p>
+							
+					<p><u>Refund Policy if $197 Monthly Recurring Membership Fee is elected:</u></p>
 					
 					<p>
 						Membership Fees may be refunded within thirty (30) days of initial purchase, less bank/merchant fees. If the
@@ -202,8 +192,8 @@ been made.
 						If You request a refund after the first month, a partial refund will be granted ONLY FOR YOUR LATEST
 MONTHLY PAYMENT, pro rata by dividing the number of days since the subsequent monthly payment by
 
-30. For example, if You chose the recurring membership fee of $150, and request a refund on the 15th day of the
-second month, Your total refund would be 50% of $150, or $75.
+30. For example, if You chose the recurring membership fee of $197, and request a refund on the 15th day of the
+second month, Your total refund would be 50% of $197, or $98.5.
 					</p>
 					
 					<p>
@@ -398,9 +388,9 @@ limit, enlarge, or affect any of the covenants, terms, conditions or provisions 
 			<div class="lpop_cartbox last">
 				<p>You agree to the terms of service by clicking the PayNow button.</p>
 				<br />
-				<p id="CancelMonthly" style="display: none; color: #f00; font-weight: bold;">You can cancel or upgrade your subscription anytime by going<br /> to the My Products section in your Account Information Section</p>
+				<p id="CancelMonthly" style="display: ; color: #f00; font-weight: bold;">You can cancel or upgrade your subscription anytime by going<br /> to the My Products section in your Account Information Section</p>
 				
-				<a class="btn btn_lpop_paynow" href="/BevoMedia/User/PayAdWatcherYearly.html">Pay Now</a>
+				<a class="btn btn_lpop_paynow" href="/BevoMedia/User/PayAdWatcherMonthly.html">Pay Now</a>
 				<div class="clear"></div>
 			</div>
 		</div><!--close lpop_cart-->
@@ -417,14 +407,12 @@ $(document).ready(function() {
 	//switch payment option
 	$('a.j_payoption').live('click', function() {
 
-		if ($(this).attr('rel')==150) {
-			$('#payoption_price').html('$150 /month');
+		if ($(this).attr('rel')==197) {
+			$('#payoption_price').html('$197 /month');
 			$('.btn_lpop_paynow').attr('href', '/BevoMedia/User/PayAdWatcherMonthly.html');
 			$('#CancelMonthly').css('display', '');
 		} else {
-			$('#payoption_price').html('$399 one-time');
-			$('.btn_lpop_paynow').attr('href', '/BevoMedia/User/PayAdWatcherYearly.html');
-			$('#CancelMonthly').css('display', 'none');
+			
 		}
 		
 		$('a.j_payoption').removeClass('active');
