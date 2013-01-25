@@ -179,7 +179,7 @@
 								if ($productInfo->ProductName=='AdScout')
 								{
 							?>
-								<img src="https://s3.amazonaws.com/bevomedia-media/public/images/header/formicon_dollar.png" alt="">150.- /mo OR &nbsp;&nbsp;<img src="https://s3.amazonaws.com/bevomedia-media/public/images/header/formicon_dollar.png" alt="">399.-</span>
+								<img src="https://s3.amazonaws.com/bevomedia-media/public/images/header/formicon_dollar.png" alt="">197.- /mo</span>
 							<?php 
 								} else 
 								if ($productInfo->ProductName=='PPVSpy')
