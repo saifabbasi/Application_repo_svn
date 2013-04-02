@@ -384,7 +384,7 @@ if(userTimezoneOffset == false)
 				</div><!--close nav-->
 				
 				<div class="sidead left">
-					<a target="_blank" href="http://www.arvixe.com/?utm_campaign=Interface&utm_medium=banner&utm_source=bevomedia.com"><img src="https://s3.amazonaws.com/bevomedia-media/public/images/side-banners/left.jpg?v=1" alt=""></a>
+					<a target="_blank" href="https://www.arvixe.com/?utm_campaign=Dashboard&utm_medium=banner&utm_source=bevomedia.com"><img src="https://s3.amazonaws.com/bevomedia-media/public/images/side-banners/left.jpg?v=1" alt=""></a>
 				</div>
 				<div class="sidead right">
 					<a href="http://<?php echo $_COOKIE['v3domain']; ?>/affiliate_network/apply-for-network/network/1063"><img src="https://s3.amazonaws.com/bevomedia-media/public/images/side-banners/right.jpg" alt=""></a>
