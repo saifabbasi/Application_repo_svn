@@ -57,7 +57,7 @@
 			
 			if (Zend_Registry::get('Instance/Function')=='OvernightAffiliate') 
 			{
-				if ( ($user->vaultID==0) )
+				if ( (!$user->apiIsUserVerified()) )
 				{
 					header('Location: https://affportal.bevomedia.com/user/add-credit-card');
 					die;
