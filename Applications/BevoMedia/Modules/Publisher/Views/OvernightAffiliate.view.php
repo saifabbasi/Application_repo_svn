@@ -191,7 +191,7 @@ ob_start();
 				
 				<p>
 					<a target="_blank" href="http://www.nichetrends.net/">Hot Niches</a>
-					<a target="_blank" href="http://www.youtube.com/watch?v=NDoQjDLcd5o">http://www.youtube.com/watch?v=NDoQjDLcd5o</a>
+					<a target="_blank" href="https://www.youtube.com/watch?v=NDoQjDLcd5o">https://www.youtube.com/watch?v=NDoQjDLcd5o</a>
 				</p>
 			</td>
 		</tr>
@@ -281,10 +281,10 @@ ob_start();
 				<b>Supporting Links:</b>
 					<br />
 					
-					<a target="_blank" href="http://www.youtube.com/watch?v=J2CxvbLZpmY">Generating Keyword List for SEO</a>
+					<a target="_blank" href="https://www.youtube.com/watch?v=J2CxvbLZpmY">Generating Keyword List for SEO</a>
 					<br />
 					
-					<a target="_blank" href="http://adwords.google.com/support/aw/bin/answer.py?hl=en&answer=16928">Adwords on building keyword List</a>
+					<a target="_blank" href="https://adwords.google.com/support/aw/bin/answer.py?hl=en&answer=16928">Adwords on building keyword List</a>
 					<br />
 					
 					<a target="_blank" href="https://adwords.google.com/o/Targeting/Explorer?__u=1000000000&__c=1000000000&ideaRequestType=KEYWORD_IDEAS#search.none">Google keyword tool</a>
@@ -415,19 +415,19 @@ ob_start();
 				<a target="_blank" href="http://adwords.google.com/support/aw/bin/answer.py?hl=en&answer=10215">Quality Score defined by Google</a>
 				<br />
 				
-				<a target="_blank" href="http://www.youtube.com/watch?v=qwuUe5kq_O8">Video by Google about quality score on youtube</a>
+				<a target="_blank" href="https://www.youtube.com/watch?v=qwuUe5kq_O8">Video by Google about quality score on youtube</a>
 				<br />
 				
-				<a target="_blank" href="http://www.redflymarketing.com/blog/10-ways-to-increase-your-adwords-quality-score-a-mini-case-study/">10 ways to increase quality score by redflymarketing.com</a>
+				<a target="_blank" href="https://www.redflymarketing.com/blog/10-ways-to-increase-your-adwords-quality-score-a-mini-case-study/">10 ways to increase quality score by redflymarketing.com</a>
 				<br />
 				
-				<a target="_blank" href="http://www.mikes-marketing-tools.com/marketing-tips/keyword-densities.html">Definition of keyword density</a>
+				<a target="_blank" href="https://www.mikes-marketing-tools.com/marketing-tips/keyword-densities.html">Definition of keyword density</a>
 				<br />
 				
-				<a target="_blank" href="http://www.redflymarketing.com/adwords-tutorials/adwords-advanced-techniques/how-to-improve-your-click-through-rate-ctr/">Why CTR is important</a>
+				<a target="_blank" href="https://www.redflymarketing.com/adwords-tutorials/adwords-advanced-techniques/how-to-improve-your-click-through-rate-ctr/">Why CTR is important</a>
 				<br />
 				
-				<a target="_blank" href="http://adwords.google.com/support/aw/bin/answer.py?hl=en&answer=43273">Ad Variation Defined by Google</a>
+				<a target="_blank" href="https://adwords.google.com/support/aw/bin/answer.py?hl=en&answer=43273">Ad Variation Defined by Google</a>
 				<br />
 				
 			</td>
@@ -455,7 +455,7 @@ ob_start();
 		</tr>
 		<tr>
 			<td>
-				<a target="_blank" href="http://www.youtube.com/watch?v=4A227Cr_Iwc&feature=related">Facebook Ads by Facebook</a>
+				<a target="_blank" href="https://www.youtube.com/watch?v=4A227Cr_Iwc&feature=related">Facebook Ads by Facebook</a>
 				<br />
 				
 				<a target="_blank" href="http://www.jonathanvolk.com/facebook-ads/how-to-start-your-facebook-advertising-campaign.html">How to start you facebook ad campaign</a>
@@ -464,7 +464,7 @@ ob_start();
 				<a target="_blank" href="http://subliminalpixels.com/facebook/how-to-set-up-and-track-facebook-ads/">Facebook Ads 101</a>
 				<br />
 				
-				<a target="_blank" href="http://www.youtube.com/watch?v=MDPPoRJlmSU">Facebook Affiliate Marketing</a>
+				<a target="_blank" href="https://www.youtube.com/watch?v=MDPPoRJlmSU">Facebook Affiliate Marketing</a>
 				<br />
 				
 				<a target="_blank" href="http://paidworkhome.com/affiliate-marketing-on-facebook.htm">Facebook Advertising</a>
@@ -598,10 +598,10 @@ ob_start();
 				<a target="_blank" href="http://htmldog.com/guides/htmlbeginner/">HTML for beginners</a>
 				<br />
 				
-				<a target="_blank" href="http://www.youtube.com/watch?v=GwQMnpUsj8I">HTML and CSS for beginners/how to make your own website</a>
+				<a target="_blank" href="https://www.youtube.com/watch?v=GwQMnpUsj8I">HTML and CSS for beginners/how to make your own website</a>
 				<br />
 				
-				<a target="_blank" href="http://www.youtube.com/watch?v=Q6rRLw5ggOg">Dreamweaver tutorial</a>
+				<a target="_blank" href="https://www.youtube.com/watch?v=Q6rRLw5ggOg">Dreamweaver tutorial</a>
 				<br />
 			</td>
 		</tr>
@@ -655,10 +655,10 @@ HTML for beginners
 http://htmldog.com/guides/htmlbeginner/
 
 HTML and CSS for beginners/how to make your own website
-http://www.youtube.com/watch?v=GwQMnpUsj8I
+https://www.youtube.com/watch?v=GwQMnpUsj8I
 
 Dreamweaver tutorial:
-http://www.youtube.com/watch?v=Q6rRLw5ggOg
+https://www.youtube.com/watch?v=Q6rRLw5ggOg
 
 	</p>
 <?php
