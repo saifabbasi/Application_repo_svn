@@ -71,7 +71,8 @@ Class PPVToolsController extends ClassComponent
 			Zend_Registry::set('Instance/LayoutType', 'logged-in-layout');
 		}
 		
-		if ( ($user->vaultID==0) && (!$user->IsSubscribed(User::PRODUCT_FREE_RESEARCH)) )
+		
+		if ( (!$user->apiIsUserVerified()) && (!$user->IsSubscribed(User::PRODUCT_FREE_RESEARCH)) )
 		{
 			header('Location: https://affportal.bevomedia.com/user/add-credit-card');
 			die;
