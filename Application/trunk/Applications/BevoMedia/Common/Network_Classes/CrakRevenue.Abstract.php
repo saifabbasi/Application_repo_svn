@@ -436,7 +436,7 @@ abstract class CrakRevenueAbstract Extends NetworksAbstract {
  	 */
 	public function getOffers()
 	{
-//		$this->offersLogin();
+		$this->offersLogin();
 		
 		$Offset = 0;
 		$FirstOffset = 0;
@@ -447,8 +447,8 @@ abstract class CrakRevenueAbstract Extends NetworksAbstract {
 		while ($Offset<1) {
 			
 			$FirstOffset = $Offset;
-//			$Page = $this->loadOfferPage(&$Offset);
-$Page = file_get_contents('C:/Users/Mitrik/Desktop/SSSS/aaaa.html');
+			$Page = $this->loadOfferPage(&$Offset);
+
 			
 			
 			$HTML = str_get_html($Page);
