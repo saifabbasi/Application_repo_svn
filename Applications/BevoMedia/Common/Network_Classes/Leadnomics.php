@@ -12,7 +12,7 @@ require_once('HasOffers.Abstract.php');
  * @author RCS
  * @version 0.0.1
  */
-class Leadnomics Extends HasOffersAbstract {
+class Leadnomics Extends NetworksAbstract {
 	/**
 	 * @access protected
 	 * @var string $apiUrl
@@ -45,5 +45,19 @@ class Leadnomics Extends HasOffersAbstract {
 	Public Function __construct()
 	{
 		$this->networkId = 1097;
+	}
+	
+	/**
+	 * Retrieve offers.
+ 	 */
+	public function getOffers()
+	{
+		
+		return true;
+	}
+	
+	Public Function getStats($Date = '')
+	{
+		return true;
 	}
 }
