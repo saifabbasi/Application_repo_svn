@@ -1,9 +1,9 @@
 <?php 
 
-require_once('NeverBlue.Abstract.php');
+require_once('CakeMarketing.Abstract.php');
 
 /**
- * NeverBlue.php
+ * Convert2Media.php
  *
  * @category   RCS Framework 
  * @package    Modules
@@ -12,27 +12,45 @@ require_once('NeverBlue.Abstract.php');
  * @author RCS
  * @version 0.1.2
  */
-class NeverBlue Extends NeverBlueAbstract {
+class NeverBlue Extends CakeMarketingAbstract {
 	/**
 	 * @access protected
 	 * @var string $apiUrl
 	 */
-	protected $apiUrl = '';
+	protected $apiUrl = 'http://network.neverblue.com/affiliates/api/1/reports.asmx/Clicks';
 	
 	/**
 	 * @access protected
-	 * @var string $offersUsername
+	 * @var string $apiUrlConversions
 	 */
-	protected $offersUsername = 'ryan@bevomedia.com';
+	protected $apiUrlConversions = 'http://network.neverblue.com/affiliates/api/1/reports.asmx/Conversions';
 	
 	/**
 	 * @access protected
-	 * @var string $offersPassword
+	 * @var string $offersUrl
 	 */
-	protected $offersPassword = 'yoyoyo1025';
+	protected $offersUrl = 'http://network.neverblue.com/affiliates/api/1/offers.asmx/OfferFeed';
 	
 	/**
-	 * NeverBlue class constructor.
+	 * @access protected
+	 * @var string $loginUrl
+	 */
+	protected $loginUrl = 'http://network.neverblue.com/login.php';
+	
+	/**
+	 * @access protected
+	 * @var string $offersAffiliateId
+	 */
+	protected $offersAffiliateId = '9660';
+	
+	/**
+	 * @access protected
+	 * @var string $offersApiKey
+	 */
+	protected $offersApiKey = 'maxoH9Sx6Dw';
+	
+	/**
+	 * Convert2Media class constructor.
 	 *
 	 */
 	Public Function __construct()
