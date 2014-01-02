@@ -240,7 +240,7 @@ if (!defined('AVOID_AUTOLOGIN'))
 	{
 		if (intval($_COOKIE['user_id'])==0)
 		{
-			header('Location: /BevoMedia/Index/Login.html');
+			header('Location: http://affportal.bevomedia.com/user/login');
 			die;	
 		}
 		$sql = "SELECT email FROM bevomedia_user WHERE id = ".intval($_COOKIE['user_id']);
