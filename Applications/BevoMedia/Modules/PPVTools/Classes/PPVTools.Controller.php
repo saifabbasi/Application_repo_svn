@@ -98,7 +98,7 @@ Class PPVToolsController extends ClassComponent
 		}
 		
 		if (isset($_COOKIE['v3apps'])) {
-			Zend_Registry::set('Instance/LayoutType', 'apps-layout');
+			Zend_Registry::set('Instance/LayoutType', 'apps-layout-v2');
 		}
 	}
 	
