@@ -91,10 +91,6 @@ abstract class HasOffersV3Abstract Extends NetworksAbstract {
     	
 		$Offers = json_decode($data);
 		$Offers = $Offers->response->data;
-
-		echo '<pre>';
-		print_r($Offers);
-		die;
 		
 		
 		$Output = new OfferEnvelope();
