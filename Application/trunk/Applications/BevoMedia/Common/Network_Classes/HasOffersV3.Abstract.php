@@ -84,7 +84,7 @@ abstract class HasOffersV3Abstract Extends NetworksAbstract {
 			,'api_key' => 'NET9oDOhrKKm3sS3ABXDjZIMz801C5'
 		);
 		
-		$url = $this->_apiOffersUrl.http_build_query( $params );
+		$url = $this->offersApiUrl.http_build_query( $params );
  
 		$data = file_get_contents($url);
 		
