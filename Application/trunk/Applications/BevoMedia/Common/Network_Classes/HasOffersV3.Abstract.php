@@ -101,15 +101,15 @@ abstract class HasOffersV3Abstract Extends NetworksAbstract {
 		foreach($Offers as $Offer)
 		{
 			$OfferObj = new Offer();
-			$OfferObj->offerId = $Offer->id;
-			$OfferObj->name = $Offer->name;
-			$OfferObj->description = $Offer->description;
+			$OfferObj->offerId = $Offer->Offer->id;
+			$OfferObj->name = $Offer->Offer->name;
+			$OfferObj->description = $Offer->Offer->description;
 //			$OfferObj->expireDate = $Offer->expiration_date;
 //			$OfferObj->countries = explode(', ', $Offer->countries);
 //			$OfferObj->category = explode(', ', $Offer->categories);
-			$OfferObj->payout = $Offer->default_payout;
-			$OfferObj->type = $Offer->payout_type;
-			$OfferObj->previewUrl = $Offer->offer_url;
+			$OfferObj->payout = $Offer->Offer->default_payout;
+			$OfferObj->type = $Offer->Offer->payout_type;
+			$OfferObj->previewUrl = $Offer->Offer->offer_url;
 			
 //			$OfferObj->offerType = 'Lead';
 //			if (strstr($Offer->payout, '%')) {
