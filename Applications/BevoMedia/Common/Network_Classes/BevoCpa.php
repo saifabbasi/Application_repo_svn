@@ -1,6 +1,6 @@
 <?php 
 
-require_once('HasOffers.Abstract.php');
+require_once('HasOffersV3.Abstract.php');
 
 /**
  * CPAStaxx.php
