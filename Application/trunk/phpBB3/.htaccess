@@ -1,3 +1,4 @@
+deny from all
 #
 # Uncomment the statement below if you want to make use of
 # HTTP authentication and it does not already work.
