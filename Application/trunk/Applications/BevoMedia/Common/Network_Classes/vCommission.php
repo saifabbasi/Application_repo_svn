@@ -17,7 +17,7 @@ class BevoCpa Extends HasOffersV3Abstract {
 	 * @access protected
 	 * @var string $apiUrl
 	 */
-	protected $offersApiKey = 'NET9oDOhrKKm3sS3ABXDjZIMz801C5';
+	protected $offersApiKey = '57999cdcf8dbdab766847e38ccdca921074d6966e9a8883eaadfa2a93f0c387b';
 	
 	/**
 	 * @access protected
@@ -35,14 +35,14 @@ class BevoCpa Extends HasOffersV3Abstract {
 	 * @access protected
 	 * @var string $offersApiUrl
 	 */
-	protected $offersApiUrl = 'http://bevo.api.hasoffers.com/Api?';
-	
+	protected $offersApiUrl = 'http://vcommission.api.hasoffers.com/Api?';
+
 	/**
 	 * @access protected
 	 * @var string $networkId
 	 */
-	protected $networkId = 'bevo';
-
+	protected $networkId = 'vcm';
+	
 	
 	/**
 	 * EWA class constructor.
@@ -50,6 +50,6 @@ class BevoCpa Extends HasOffersV3Abstract {
 	 */
 	Public Function __construct()
 	{
-		$this->networkId = 1109;
+		$this->networkId = 1110;
 	}
 }
