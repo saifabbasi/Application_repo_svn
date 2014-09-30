@@ -40,6 +40,12 @@ abstract class HasOffersV3Abstract Extends NetworksAbstract {
 	 * @var string $offersApiUrl
 	 */
 	protected $offersApiUrl = '';
+	
+	/**
+	 * @access protected
+	 * @var string $networkId
+	 */
+	protected $networkId = '';
 
 	
 	/**
@@ -70,18 +76,16 @@ abstract class HasOffersV3Abstract Extends NetworksAbstract {
 	 * Retrieve offers.
  	 */
 	public function getOffers()
-	{
-		$this->offersApiUrl = 'http://bevo.api.hasoffers.com/Api?';
- 
+	{ 
 		$params = array(
 			'Format' => 'json'
 			,'Target' => 'Offer'
 			,'Method' => 'findAll'
 			,'Service' => 'HasOffers'
 			,'Version' => 2
-			,'NetworkId' => 'bevo'
-			,'NetworkToken' => 'NET9oDOhrKKm3sS3ABXDjZIMz801C5'
-			,'api_key' => 'NET9oDOhrKKm3sS3ABXDjZIMz801C5'
+			,'NetworkId' => $this->networkId
+			,'NetworkToken' => $this->offersApiKey
+			,'api_key' => $this->offersApiKey
 		);
 		
 		$url = $this->offersApiUrl.http_build_query( $params );
