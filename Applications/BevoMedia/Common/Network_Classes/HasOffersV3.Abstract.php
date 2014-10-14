@@ -77,25 +77,44 @@ abstract class HasOffersV3Abstract Extends NetworksAbstract {
  	 */
 	public function getOffers()
 	{ 
-		$params = array(
-			'Format' => 'json'
-			,'Target' => 'Offer'
-			,'Method' => 'findAll'
-			,'Service' => 'HasOffers'
-			,'Version' => 2
-			,'NetworkId' => $this->networkId
-			,'NetworkToken' => $this->offersApiKey
-			,'api_key' => $this->offersApiKey
-		);
 		
-		$url = $this->offersApiUrl.http_build_query( $params );
- 
-		$data = file_get_contents($url);
+		if ($this->networkId=='bevo') {
+			$params = array(
+				'Format' => 'json'
+				,'Target' => 'Offer'
+				,'Method' => 'findAll'
+				,'Service' => 'HasOffers'
+				,'Version' => 2
+				,'NetworkId' => $this->networkId
+				,'NetworkToken' => $this->offersApiKey
+				,'api_key' => $this->offersApiKey
+			);
+			
+			$url = $this->offersApiUrl.http_build_query( $params );
+	 
+			$data = file_get_contents($url);
+			
+	    	
+			$Offers = json_decode($data);
+			$Offers = $Offers->response->data;
+		} else {
 		
-    	
-		$Offers = json_decode($data);
-		$Offers = $Offers->response->data;
+			$params = array(
+					'NetworkId' => $this->networkId
+					,'api_key' => $this->offersApiKey
+			);
 		
+			$this->offersApiUrl = rtrim($this->offersApiUrl, '&');
+			$url = $this->offersApiUrl.'&'.http_build_query( $params );
+			
+			
+			$data = file_get_contents($url);
+				
+			
+			$offers = json_decode($data);
+			$offers = $offers->response->data;
+			
+		}
 		
 		$Output = new OfferEnvelope();
 		foreach($Offers as $Offer)

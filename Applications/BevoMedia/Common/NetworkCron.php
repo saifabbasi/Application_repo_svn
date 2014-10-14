@@ -108,6 +108,7 @@ $networks[] = networkArray('PrecisionLeadsMedia', 1105, 'HasOffers');
 $networks[] = networkArray('CrakRevenue', 1107, 'CrakRevenue');
 $networks[] = networkArray('CashedOutMedia', 1108, 'CakeMarketing');
 $networks[] = networkArray('BevoCpa', 1109, 'HasOffersV3');
+$networks[] = networkArray('vCommission', 1110, 'HasOffersV3');
 
 foreach($networks as $network)
 {

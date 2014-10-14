@@ -12,7 +12,7 @@ require_once('HasOffersV3.Abstract.php');
  * @author RCS
  * @version 0.0.1
  */
-class BevoCpa Extends HasOffersV3Abstract {
+class vCommission Extends HasOffersV3Abstract {
 	/**
 	 * @access protected
 	 * @var string $apiUrl
@@ -35,7 +35,7 @@ class BevoCpa Extends HasOffersV3Abstract {
 	 * @access protected
 	 * @var string $offersApiUrl
 	 */
-	protected $offersApiUrl = 'http://vcommission.api.hasoffers.com/Api?';
+	protected $offersApiUrl = 'http://api.hasoffers.com/v3/Affiliate_Offer.json?Method=findAll';
 
 	/**
 	 * @access protected
