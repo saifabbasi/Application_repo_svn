@@ -50,6 +50,6 @@ class vCommission Extends HasOffersV3Abstract {
 	 */
 	Public Function __construct()
 	{
-		$this->networkId = 1110;
+//		$this->networkId = 'vcm';
 	}
 }
