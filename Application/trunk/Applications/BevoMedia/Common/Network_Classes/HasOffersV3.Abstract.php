@@ -111,8 +111,8 @@ abstract class HasOffersV3Abstract Extends NetworksAbstract {
 			$data = file_get_contents($url);
 				
 			
-			$offers = json_decode($data);
-			$offers = $offers->response->data;
+			$Offers = json_decode($data);
+			$Offers = $Offers->response->data;
 			
 		}
 		
