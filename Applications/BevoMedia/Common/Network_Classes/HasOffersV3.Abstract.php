@@ -77,21 +77,19 @@ abstract class HasOffersV3Abstract Extends NetworksAbstract {
  	 */
 	public function getOffers()
 	{ 
-		
-		if ($this->networkId=='bevo') {
+		if ($this->networkId==1109) {
 			$params = array(
 				'Format' => 'json'
 				,'Target' => 'Offer'
 				,'Method' => 'findAll'
 				,'Service' => 'HasOffers'
 				,'Version' => 2
-				,'NetworkId' => $this->networkId
+				,'NetworkId' => 'bevo'
 				,'NetworkToken' => $this->offersApiKey
 				,'api_key' => $this->offersApiKey
 			);
-			
+
 			$url = $this->offersApiUrl.http_build_query( $params );
-	 
 			$data = file_get_contents($url);
 			
 	    	
@@ -103,7 +101,7 @@ abstract class HasOffersV3Abstract Extends NetworksAbstract {
 					'NetworkId' => $this->networkId
 					,'api_key' => $this->offersApiKey
 			);
-		
+
 			$this->offersApiUrl = rtrim($this->offersApiUrl, '&');
 			$url = $this->offersApiUrl.'&'.http_build_query( $params );
 			
